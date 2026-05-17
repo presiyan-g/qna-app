@@ -1,0 +1,19 @@
+{
+  "name": "qna-app",
+  "version": "1.0.0",
+  "description": "QnA app: Next.js + React + Expo",
+  "license": "ISC",
+  "author": "Presiyan Georgiev",
+  "private": true,
+  "type": "commonjs",
+  "main": "index.js",
+  "workspaces": [
+    "qna-web",
+    "qna-mobile"
+  ],
+  "scripts": {
+    "build": "node scripts/run-workspaces.mjs build",
+    "dev": "node scripts/run-workspaces.mjs dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
