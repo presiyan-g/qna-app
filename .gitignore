@@ -30,3 +30,6 @@ Thumbs.db
 
 # Local repository conversion backup
 .git-backups/
+
+# Superpowers brainstorming session artifacts (mockups, transient state)
+.superpowers/
