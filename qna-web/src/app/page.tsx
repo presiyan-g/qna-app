@@ -4,6 +4,7 @@ import { FeaturedCommunities } from "./_components/landing/FeaturedCommunities";
 import { HowItWorks } from "./_components/landing/HowItWorks";
 import { ForCreators } from "./_components/landing/ForCreators";
 import { CtaBand } from "./_components/landing/CtaBand";
+import { Footer } from "./_components/landing/Footer";
 
 export default function LandingPage() {
   return (
@@ -14,9 +15,7 @@ export default function LandingPage() {
       <HowItWorks />
       <ForCreators />
       <CtaBand />
-      <section className="border-t border-line px-6 py-8 text-center text-xs uppercase tracking-widest text-muted">
-        [footer placeholder]
-      </section>
+      <Footer />
     </main>
   );
 }
