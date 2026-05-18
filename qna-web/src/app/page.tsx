@@ -3,6 +3,7 @@ import { Hero } from "./_components/landing/Hero";
 import { FeaturedCommunities } from "./_components/landing/FeaturedCommunities";
 import { HowItWorks } from "./_components/landing/HowItWorks";
 import { ForCreators } from "./_components/landing/ForCreators";
+import { CtaBand } from "./_components/landing/CtaBand";
 
 export default function LandingPage() {
   return (
@@ -12,9 +13,7 @@ export default function LandingPage() {
       <FeaturedCommunities />
       <HowItWorks />
       <ForCreators />
-      <section className="px-6 py-16 text-center text-xs uppercase tracking-widest text-muted">
-        [final CTA placeholder]
-      </section>
+      <CtaBand />
       <section className="border-t border-line px-6 py-8 text-center text-xs uppercase tracking-widest text-muted">
         [footer placeholder]
       </section>
