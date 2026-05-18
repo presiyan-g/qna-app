@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { MobileMenu } from "./MobileMenu";
 
 const NAV_LINKS = [
@@ -9,9 +10,9 @@ export function Nav() {
   return (
     <header className="relative border-b border-line bg-paper">
       <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-5 md:px-12">
-        <a href="/" className="text-[19px] font-extrabold tracking-tight text-primary">
+        <Link href="/" className="text-[19px] font-extrabold tracking-tight text-primary">
           Quorum
-        </a>
+        </Link>
 
         <nav className="hidden md:flex md:gap-7 text-sm font-medium text-muted">
           {NAV_LINKS.map((l) => (
