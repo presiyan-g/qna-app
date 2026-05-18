@@ -1,17 +1,25 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import Link from 'next/link';
+import { useState } from 'react';
+import { logoutAction } from '@/app/actions/auth';
 
-type Link = { href: string; label: string };
+type NavLink = { href: string; label: string };
 
-export function MobileMenu({ links }: { links: Link[] }) {
+export function MobileMenu({
+  links,
+  username,
+}: {
+  links: NavLink[];
+  username: string | null;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="md:hidden">
       <button
         type="button"
-        aria-label={open ? "Close menu" : "Open menu"}
+        aria-label={open ? 'Close menu' : 'Open menu'}
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
         className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink"
@@ -50,18 +58,36 @@ export function MobileMenu({ links }: { links: Link[] }) {
             ))}
           </ul>
           <div className="mt-4 flex flex-col gap-2 border-t border-line pt-4">
-            <a
-              href="#sign-in"
-              className="rounded-full px-4 py-2.5 text-center text-sm font-semibold text-ink"
-            >
-              Sign in
-            </a>
-            <a
-              href="#join"
-              className="rounded-full bg-primary px-4 py-2.5 text-center text-sm font-semibold text-paper"
-            >
-              Join free
-            </a>
+            {username ? (
+              <>
+                <span className="rounded-full bg-primary-soft px-4 py-2.5 text-center text-sm font-semibold text-primary">
+                  @{username}
+                </span>
+                <form action={logoutAction}>
+                  <button
+                    type="submit"
+                    className="w-full rounded-full border border-line px-4 py-2.5 text-center text-sm font-semibold text-ink"
+                  >
+                    Sign out
+                  </button>
+                </form>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="rounded-full px-4 py-2.5 text-center text-sm font-semibold text-ink"
+                >
+                  Sign in
+                </Link>
+                <Link
+                  href="/register"
+                  className="rounded-full bg-primary px-4 py-2.5 text-center text-sm font-semibold text-paper"
+                >
+                  Join free
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}
