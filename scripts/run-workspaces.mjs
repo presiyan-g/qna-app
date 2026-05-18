@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 
 const script = process.argv[2];
 
@@ -30,10 +30,23 @@ function stopChildren() {
   shuttingDown = true;
 
   for (const child of children.values()) {
-    if (!child.killed) {
-      child.kill("SIGTERM");
-    }
+    stopChild(child);
   }
+}
+
+function stopChild(child) {
+  if (child.killed) {
+    return;
+  }
+
+  if (process.platform === "win32") {
+    spawnSync("taskkill", ["/pid", String(child.pid), "/T", "/F"], {
+      stdio: "ignore",
+    });
+    return;
+  }
+
+  child.kill("SIGTERM");
 }
 
 const runnableWorkspaces = workspaces.filter((workspace) =>
@@ -46,10 +59,10 @@ if (runnableWorkspaces.length === 0) {
 }
 
 for (const workspace of runnableWorkspaces) {
-  const child = spawn(`npm --workspaces=false run ${script}`, {
+  const command = process.platform === "win32" ? "npm.cmd" : "npm";
+  const child = spawn(command, ["--workspaces=false", "run", script], {
     cwd: resolve(workspace),
     stdio: "inherit",
-    shell: true,
   });
 
   children.set(workspace, child);
