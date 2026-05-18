@@ -1,12 +1,11 @@
 import { Nav } from "./_components/landing/Nav";
+import { Hero } from "./_components/landing/Hero";
 
 export default function LandingPage() {
   return (
     <main className="flex flex-col flex-1 bg-paper text-ink">
       <Nav />
-      <section className="px-6 py-16 text-center text-xs uppercase tracking-widest text-muted">
-        [hero placeholder]
-      </section>
+      <Hero />
       <section className="px-6 py-16 text-center text-xs uppercase tracking-widest text-muted">
         [featured communities placeholder]
       </section>
