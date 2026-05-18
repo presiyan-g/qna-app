@@ -13,6 +13,7 @@ export {
   getSession,
   setSessionCookie,
   clearSessionCookie,
+  SESSION_COOKIE_NAME,
 } from './session';
 
 export {

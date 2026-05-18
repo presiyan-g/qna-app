@@ -1,0 +1,75 @@
+import Link from 'next/link';
+import type { CommunityWithMembership } from '@/services/communities';
+import { joinCommunityAction } from '@/app/actions/communities';
+
+export function CommunityListCard({
+  community,
+  signedIn,
+}: {
+  community: CommunityWithMembership;
+  signedIn: boolean;
+}) {
+  const joinAction = joinCommunityAction.bind(null, community.slug);
+
+  return (
+    <article className="flex min-h-[220px] flex-col justify-between rounded-lg border border-line bg-card p-5">
+      <div>
+        <header className="flex items-start justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-soft text-sm font-bold text-primary">
+              {community.emoji || community.name.slice(0, 2).toUpperCase()}
+            </div>
+            <div>
+              <Link
+                href={`/communities/${community.slug}`}
+                className="text-[17px] font-bold leading-tight hover:underline"
+              >
+                {community.name}
+              </Link>
+              <p className="mt-1 text-[11px] uppercase tracking-wider text-muted">
+                {community.memberCount.toLocaleString('en-US')} members
+              </p>
+            </div>
+          </div>
+          <span className="rounded-full bg-primary-soft px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+            {community.cadence}
+          </span>
+        </header>
+
+        <p className="mt-4 text-sm leading-6 text-muted">
+          {community.description || 'A recurring challenge community.'}
+        </p>
+      </div>
+
+      <footer className="mt-5 flex items-center gap-2">
+        <Link
+          href={`/communities/${community.slug}`}
+          className="rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink hover:bg-primary-soft"
+        >
+          View
+        </Link>
+        {community.currentUserRole ? (
+          <span className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-paper">
+            {community.currentUserRole === 'creator' ? 'Creator' : 'Joined'}
+          </span>
+        ) : signedIn ? (
+          <form action={joinAction}>
+            <button
+              type="submit"
+              className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-paper"
+            >
+              Join
+            </button>
+          </form>
+        ) : (
+          <Link
+            href="/login"
+            className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-paper"
+          >
+            Sign in to join
+          </Link>
+        )}
+      </footer>
+    </article>
+  );
+}

@@ -4,8 +4,8 @@ import { MobileMenu } from './MobileMenu';
 import { UserMenu } from './UserMenu';
 
 const NAV_LINKS = [
-  { href: '#discover', label: 'Discover' },
-  { href: '#for-creators', label: 'For creators' },
+  { href: '/communities', label: 'Discover' },
+  { href: '/#for-creators', label: 'For creators' },
 ];
 
 export async function Nav() {
@@ -32,7 +32,15 @@ export async function Nav() {
 
         <div className="hidden md:flex md:items-center md:gap-2.5 text-sm">
           {user ? (
-            <UserMenu username={user.username} />
+            <>
+              <Link
+                href="/communities/new"
+                className="rounded-full bg-primary px-4 py-2.5 font-semibold text-paper"
+              >
+                Create
+              </Link>
+              <UserMenu username={user.username} />
+            </>
           ) : (
             <>
               <Link
