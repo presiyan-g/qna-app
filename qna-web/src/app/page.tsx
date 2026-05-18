@@ -1,6 +1,7 @@
 import { Nav } from "./_components/landing/Nav";
 import { Hero } from "./_components/landing/Hero";
 import { FeaturedCommunities } from "./_components/landing/FeaturedCommunities";
+import { HowItWorks } from "./_components/landing/HowItWorks";
 
 export default function LandingPage() {
   return (
@@ -8,9 +9,7 @@ export default function LandingPage() {
       <Nav />
       <Hero />
       <FeaturedCommunities />
-      <section className="bg-primary-soft px-6 py-8 text-center text-xs uppercase tracking-widest text-muted">
-        [how it works placeholder]
-      </section>
+      <HowItWorks />
       <section className="px-6 py-16 text-center text-xs uppercase tracking-widest text-muted">
         [for creators placeholder]
       </section>
