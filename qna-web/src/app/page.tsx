@@ -1,9 +1,9 @@
+import { Nav } from "./_components/landing/Nav";
+
 export default function LandingPage() {
   return (
     <main className="flex flex-col flex-1 bg-paper text-ink">
-      <section className="border-b border-line px-6 py-4 text-xs uppercase tracking-widest text-muted">
-        [nav placeholder]
-      </section>
+      <Nav />
       <section className="px-6 py-16 text-center text-xs uppercase tracking-widest text-muted">
         [hero placeholder]
       </section>
