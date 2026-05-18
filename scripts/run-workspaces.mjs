@@ -1,5 +1,5 @@
-import { readFileSync } from "node:fs";
-import { join, resolve } from "node:path";
+import { existsSync, readFileSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 import { spawn, spawnSync } from "node:child_process";
 
 const script = process.argv[2];
@@ -49,6 +49,27 @@ function stopChild(child) {
   child.kill("SIGTERM");
 }
 
+function getNpmCommand() {
+  if (process.platform !== "win32") {
+    return { command: "npm", args: [] };
+  }
+
+  const bundledNpmCli = join(
+    dirname(process.execPath),
+    "node_modules",
+    "npm",
+    "bin",
+    "npm-cli.js",
+  );
+  const npmCli = process.env.npm_execpath ?? bundledNpmCli;
+
+  if (existsSync(npmCli)) {
+    return { command: process.execPath, args: [npmCli] };
+  }
+
+  return { command: "cmd.exe", args: ["/d", "/s", "/c", "npm"] };
+}
+
 const runnableWorkspaces = workspaces.filter((workspace) =>
   hasScript(workspace, script),
 );
@@ -59,11 +80,15 @@ if (runnableWorkspaces.length === 0) {
 }
 
 for (const workspace of runnableWorkspaces) {
-  const command = process.platform === "win32" ? "npm.cmd" : "npm";
-  const child = spawn(command, ["--workspaces=false", "run", script], {
-    cwd: resolve(workspace),
-    stdio: "inherit",
-  });
+  const npmCommand = getNpmCommand();
+  const child = spawn(
+    npmCommand.command,
+    [...npmCommand.args, "--workspaces=false", "run", script],
+    {
+      cwd: resolve(workspace),
+      stdio: "inherit",
+    },
+  );
 
   children.set(workspace, child);
 
