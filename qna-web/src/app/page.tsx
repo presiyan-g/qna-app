@@ -2,6 +2,7 @@ import { Nav } from "./_components/landing/Nav";
 import { Hero } from "./_components/landing/Hero";
 import { FeaturedCommunities } from "./_components/landing/FeaturedCommunities";
 import { HowItWorks } from "./_components/landing/HowItWorks";
+import { ForCreators } from "./_components/landing/ForCreators";
 
 export default function LandingPage() {
   return (
@@ -10,9 +11,7 @@ export default function LandingPage() {
       <Hero />
       <FeaturedCommunities />
       <HowItWorks />
-      <section className="px-6 py-16 text-center text-xs uppercase tracking-widest text-muted">
-        [for creators placeholder]
-      </section>
+      <ForCreators />
       <section className="px-6 py-16 text-center text-xs uppercase tracking-widest text-muted">
         [final CTA placeholder]
       </section>
