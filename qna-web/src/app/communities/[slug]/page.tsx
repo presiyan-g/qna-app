@@ -91,7 +91,7 @@ export default async function CommunityPage({ params }: PageProps) {
           </div>
 
           <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_360px]">
-            <QuestionList questions={questions} />
+            <QuestionList questions={questions} slug={community.slug} />
 
             {community.currentUserRole === 'creator' ? (
               <aside className="rounded-lg border border-line bg-card p-5 lg:sticky lg:top-6 lg:self-start">

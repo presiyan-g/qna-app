@@ -1,9 +1,12 @@
+import Link from 'next/link';
 import type { CommunityQuestion } from '@/services/questions';
 
 export function QuestionList({
   questions,
+  slug,
 }: {
   questions: CommunityQuestion[];
+  slug: string;
 }) {
   if (questions.length === 0) {
     return (
@@ -73,6 +76,13 @@ export function QuestionList({
               {question.explanation}
             </p>
           )}
+
+          <Link
+            href={`/communities/${slug}/questions/${question.id}`}
+            className="mt-5 inline-flex rounded-full bg-primary px-4 py-2 text-sm font-bold text-paper"
+          >
+            Open question
+          </Link>
         </article>
       ))}
     </section>
