@@ -5,6 +5,9 @@ import { Footer } from '@/app/_components/landing/Footer';
 import { Nav } from '@/app/_components/landing/Nav';
 import { getSession } from '@/services/auth';
 import { getCommunityBySlug } from '@/services/communities';
+import { listCommunityQuestions } from '@/services/questions';
+import { QuestionComposer } from './_components/QuestionComposer';
+import { QuestionList } from './_components/QuestionList';
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -12,7 +15,10 @@ type PageProps = {
 
 export default async function CommunityPage({ params }: PageProps) {
   const [{ slug }, session] = await Promise.all([params, getSession()]);
-  const community = await getCommunityBySlug(slug, session?.sub ?? null);
+  const [community, questions] = await Promise.all([
+    getCommunityBySlug(slug, session?.sub ?? null),
+    listCommunityQuestions({ slug, userId: session?.sub ?? null }),
+  ]);
   if (!community) notFound();
 
   const joinAction = joinCommunityAction.bind(null, community.slug);
@@ -84,20 +90,48 @@ export default async function CommunityPage({ params }: PageProps) {
             </aside>
           </div>
 
-          <section className="mt-10 rounded-lg border border-line bg-card p-6">
-            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
-              Coming next
-            </p>
-            <h2 className="mt-3 text-2xl font-bold">Community home</h2>
-            <p className="mt-2 text-sm leading-6 text-muted">
-              This first slice creates the community and membership foundation.
-              Scheduled questions, broadcasts, and leaderboards can build on
-              this page next.
-            </p>
-          </section>
+          <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_360px]">
+            <QuestionList questions={questions} />
+
+            {community.currentUserRole === 'creator' ? (
+              <aside className="rounded-lg border border-line bg-card p-5 lg:sticky lg:top-6 lg:self-start">
+                <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
+                  Creator
+                </p>
+                <h2 className="mt-2 text-2xl font-bold">Schedule a question</h2>
+                <p className="mt-2 text-sm leading-6 text-muted">
+                  Times are saved as GMT. The answer window closes 24 hours
+                  after publishing.
+                </p>
+                <div className="mt-5">
+                  <QuestionComposer slug={community.slug} />
+                </div>
+              </aside>
+            ) : (
+              <aside className="rounded-lg border border-line bg-card p-5 lg:self-start">
+                <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
+                  Schedule
+                </p>
+                <h2 className="mt-2 text-2xl font-bold">
+                  {questions[0]
+                    ? getNextQuestionLabel(questions[0].scheduledFor)
+                    : 'Waiting for the first challenge'}
+                </h2>
+                <p className="mt-2 text-sm leading-6 text-muted">
+                  Multiple-choice answering, grading, and discussion unlocks
+                  build on this question schedule.
+                </p>
+              </aside>
+            )}
+          </div>
         </div>
       </section>
       <Footer />
     </main>
   );
+}
+
+function getNextQuestionLabel(value: Date): string {
+  if (value.getTime() <= Date.now()) return 'Question is live';
+  return 'Next question is scheduled';
 }

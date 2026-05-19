@@ -22,6 +22,20 @@
       "when": 1779138371448,
       "tag": "0002_neat_warbird",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1779170401735,
+      "tag": "0003_eager_wild_child",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1779212079074,
+      "tag": "0004_last_iron_lad",
+      "breakpoints": true
     }
   ]
 }
