@@ -2,7 +2,9 @@ export {
   createCommunity,
   getCommunityBySlug,
   joinCommunity,
+  listFeaturedCommunities,
   listCommunities,
+  searchCommunities,
   type CommunityRole,
   type CommunityWithMembership,
 } from './communities';

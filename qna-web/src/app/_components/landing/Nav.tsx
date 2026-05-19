@@ -24,9 +24,9 @@ export async function Nav() {
 
         <nav className="hidden md:flex md:gap-7 text-sm font-medium text-muted">
           {NAV_LINKS.map((l) => (
-            <a key={l.href} href={l.href} className="hover:text-ink">
+            <Link key={l.href} href={l.href} className="hover:text-ink">
               {l.label}
-            </a>
+            </Link>
           ))}
         </nav>
 

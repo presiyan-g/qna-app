@@ -15,6 +15,13 @@
       "when": 1779135414889,
       "tag": "0001_busy_taskmaster",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1779138371448,
+      "tag": "0002_neat_warbird",
+      "breakpoints": true
     }
   ]
 }

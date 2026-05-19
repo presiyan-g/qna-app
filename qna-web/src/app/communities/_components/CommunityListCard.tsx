@@ -36,6 +36,12 @@ export function CommunityListCard({
           </span>
         </header>
 
+        {community.category ? (
+          <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
+            {community.category.name}
+          </p>
+        ) : null}
+
         <p className="mt-4 text-sm leading-6 text-muted">
           {community.description || 'A recurring challenge community.'}
         </p>

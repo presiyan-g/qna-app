@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { HERO_STACK, formatMemberCount } from "./_data/communities";
 
 const STACK_POSITIONS = [
@@ -25,18 +26,18 @@ export function Hero() {
             you&apos;ve taken a swing.
           </p>
           <div className="flex flex-wrap gap-3">
-            <a
-              href="#discover"
+            <Link
+              href="/communities"
               className="rounded-full bg-primary px-[22px] py-[13px] text-sm font-semibold text-paper"
             >
               Browse communities →
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href="/communities/new"
               className="rounded-full border border-line px-[22px] py-[13px] text-sm font-semibold text-ink"
             >
               Start your own
-            </a>
+            </Link>
           </div>
         </div>
 

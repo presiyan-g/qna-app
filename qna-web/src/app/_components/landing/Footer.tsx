@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const COLUMNS: { heading: string; links: string[] }[] = [
   { heading: "Product", links: ["Discover", "How it works", "For creators", "Pricing"] },
   {
@@ -7,6 +9,11 @@ const COLUMNS: { heading: string; links: string[] }[] = [
   { heading: "Company", links: ["About", "Blog", "Contact"] },
   { heading: "Legal", links: ["Privacy", "Terms", "Cookies"] },
 ];
+
+function footerHref(label: string) {
+  if (label === "Discover" || label === "Browse all") return "/communities";
+  return "#";
+}
 
 export function Footer() {
   return (
@@ -29,9 +36,12 @@ export function Footer() {
               <ul className="space-y-2">
                 {col.links.map((link) => (
                   <li key={link}>
-                    <a href="#" className="text-[13px] text-muted hover:text-ink">
+                    <Link
+                      href={footerHref(link)}
+                      className="text-[13px] text-muted hover:text-ink"
+                    >
                       {link}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

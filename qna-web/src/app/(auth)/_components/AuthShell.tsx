@@ -17,9 +17,15 @@ export function AuthShell({
     <div className="w-full max-w-[440px]">
       <Link
         href="/"
-        className="mb-8 block text-center text-[19px] font-extrabold tracking-tight text-primary"
+        className="mb-4 block text-center text-[19px] font-extrabold tracking-tight text-primary"
       >
         Quorum
+      </Link>
+      <Link
+        href="/"
+        className="mb-6 inline-flex items-center text-sm font-semibold text-muted hover:text-ink"
+      >
+        ← Back to home
       </Link>
       <div className="rounded-[14px] border border-line bg-card px-7 py-8 md:px-9 md:py-10">
         <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-primary">

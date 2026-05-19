@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function CtaBand() {
   return (
     <section className="px-6 pb-16 md:px-12">
@@ -15,18 +17,18 @@ export function CtaBand() {
           It takes 30 seconds. Tomorrow there&apos;s another one.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <a
-            href="#discover"
+          <Link
+            href="/communities"
             className="rounded-full bg-accent px-[22px] py-[13px] text-sm font-semibold text-[#2A2A28]"
           >
             Browse communities →
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            href="/communities/new"
             className="rounded-full border border-paper/30 px-[22px] py-[13px] text-sm font-semibold text-paper"
           >
             Start your own
-          </a>
+          </Link>
         </div>
       </div>
     </section>

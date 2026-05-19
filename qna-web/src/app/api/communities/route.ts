@@ -90,6 +90,16 @@ function toCommunityResource(
     cadence: community.cadence,
     status: community.status,
     creatorUserId: community.creatorUserId,
+    category: community.category
+      ? {
+          id: community.category.id,
+          slug: community.category.slug,
+          name: community.category.name,
+          description: community.category.description,
+        }
+      : null,
+    isFeatured: community.isFeatured,
+    featuredRank: community.featuredRank,
     memberCount: community.memberCount,
     currentUserRole: community.currentUserRole,
     createdAt: community.createdAt.toISOString(),

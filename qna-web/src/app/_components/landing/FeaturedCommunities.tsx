@@ -1,7 +1,9 @@
 import { CommunityCard } from "./CommunityCard";
-import { FEATURED_COMMUNITIES } from "./_data/communities";
+import { listFeaturedCommunities } from "@/services/communities";
 
-export function FeaturedCommunities() {
+export async function FeaturedCommunities() {
+  const communities = await listFeaturedCommunities({ limit: 9 });
+
   return (
     <section id="discover" className="px-6 py-16 md:px-12 md:py-20">
       <div className="mx-auto max-w-[1200px]">
@@ -15,11 +17,20 @@ export function FeaturedCommunities() {
           </h2>
         </header>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURED_COMMUNITIES.map((c) => (
-            <CommunityCard key={c.slug} community={c} />
-          ))}
-        </div>
+        {communities.length > 0 ? (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {communities.map((c) => (
+              <CommunityCard key={c.slug} community={c} />
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-lg border border-line bg-card p-8 text-center">
+            <h3 className="text-xl font-bold">No communities yet</h3>
+            <p className="mt-2 text-sm text-muted">
+              Create the first recurring challenge community.
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );

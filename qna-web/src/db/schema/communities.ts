@@ -1,6 +1,8 @@
 import { sql } from 'drizzle-orm';
 import {
+  boolean,
   index,
+  integer,
   pgTable,
   text,
   timestamp,
@@ -8,6 +10,28 @@ import {
   uuid,
 } from 'drizzle-orm/pg-core';
 import { users } from './users';
+
+export const communityCategories = pgTable(
+  'community_categories',
+  {
+    id: uuid('id')
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
+    slug: text('slug').notNull(),
+    name: text('name').notNull(),
+    description: text('description').notNull().default(''),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    uniqueIndex('community_categories_slug_unique').on(table.slug),
+    index('community_categories_name_idx').on(table.name),
+  ],
+);
 
 export const communities = pgTable(
   'communities',
@@ -18,6 +42,9 @@ export const communities = pgTable(
     creatorUserId: uuid('creator_user_id')
       .notNull()
       .references(() => users.id, { onDelete: 'restrict' }),
+    categoryId: uuid('category_id').references(() => communityCategories.id, {
+      onDelete: 'set null',
+    }),
     slug: text('slug').notNull(),
     name: text('name').notNull(),
     description: text('description').notNull().default(''),
@@ -30,6 +57,8 @@ export const communities = pgTable(
       .$type<'active' | 'archived'>()
       .notNull()
       .default('active'),
+    isFeatured: boolean('is_featured').notNull().default(false),
+    featuredRank: integer('featured_rank'),
     createdAt: timestamp('created_at', { withTimezone: true })
       .notNull()
       .defaultNow(),
@@ -40,7 +69,9 @@ export const communities = pgTable(
   (table) => [
     uniqueIndex('communities_slug_unique').on(table.slug),
     index('communities_creator_user_id_idx').on(table.creatorUserId),
+    index('communities_category_id_idx').on(table.categoryId),
     index('communities_created_at_idx').on(table.createdAt),
+    index('communities_featured_idx').on(table.isFeatured, table.featuredRank),
   ],
 );
 
@@ -80,6 +111,8 @@ export const communityMembers = pgTable(
   ],
 );
 
+export type CommunityCategory = typeof communityCategories.$inferSelect;
+export type NewCommunityCategory = typeof communityCategories.$inferInsert;
 export type Community = typeof communities.$inferSelect;
 export type NewCommunity = typeof communities.$inferInsert;
 export type CommunityMember = typeof communityMembers.$inferSelect;

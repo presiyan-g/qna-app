@@ -1,10 +1,12 @@
 import 'server-only';
-import { and, count, desc, eq, inArray } from 'drizzle-orm';
+import { and, asc, count, desc, eq, ilike, inArray } from 'drizzle-orm';
 import { db } from '@/db/client';
 import {
   communities,
+  communityCategories,
   communityMembers,
   type Community,
+  type CommunityCategory,
 } from '@/db/schema/communities';
 import {
   CommunityConflictError,
@@ -15,14 +17,24 @@ import type { CreateCommunityInput } from './validation';
 export type CommunityRole = 'member' | 'creator';
 
 export type CommunityWithMembership = Community & {
+  category: CommunityCategory | null;
   memberCount: number;
   currentUserRole: CommunityRole | null;
+};
+
+type CommunityWithCategoryRow = {
+  community: Community;
+  category: CommunityCategory | null;
 };
 
 type ListCommunitiesOptions = {
   limit?: number;
   offset?: number;
   userId?: string | null;
+};
+
+type SearchCommunitiesOptions = ListCommunitiesOptions & {
+  q?: string | null;
 };
 
 const DEFAULT_LIMIT = 24;
@@ -33,15 +45,66 @@ export async function listCommunities({
   offset = 0,
   userId = null,
 }: ListCommunitiesOptions = {}): Promise<CommunityWithMembership[]> {
+  return searchCommunities({ limit, offset, userId });
+}
+
+export async function searchCommunities({
+  q = null,
+  limit = DEFAULT_LIMIT,
+  offset = 0,
+  userId = null,
+}: SearchCommunitiesOptions = {}): Promise<CommunityWithMembership[]> {
   const safeLimit = Math.min(Math.max(limit, 1), MAX_LIMIT);
   const safeOffset = Math.max(offset, 0);
+  const query = q?.trim();
+  const where = query
+    ? and(
+        eq(communities.status, 'active'),
+        ilike(communities.name, `%${query}%`),
+      )
+    : eq(communities.status, 'active');
+
   const rows = await db
-    .select()
+    .select({
+      community: communities,
+      category: communityCategories,
+    })
     .from(communities)
-    .where(eq(communities.status, 'active'))
+    .leftJoin(
+      communityCategories,
+      eq(communities.categoryId, communityCategories.id),
+    )
+    .where(where)
     .orderBy(desc(communities.createdAt))
     .limit(safeLimit)
     .offset(safeOffset);
+
+  return withMembershipSummaries(rows, userId);
+}
+
+export async function listFeaturedCommunities({
+  limit = 8,
+  userId = null,
+}: {
+  limit?: number;
+  userId?: string | null;
+} = {}): Promise<CommunityWithMembership[]> {
+  const safeLimit = Math.min(Math.max(limit, 1), MAX_LIMIT);
+  const rows = await db
+    .select({
+      community: communities,
+      category: communityCategories,
+    })
+    .from(communities)
+    .leftJoin(
+      communityCategories,
+      eq(communities.categoryId, communityCategories.id),
+    )
+    .where(
+      and(eq(communities.status, 'active'), eq(communities.isFeatured, true)),
+    )
+    .orderBy(asc(communities.featuredRank), desc(communities.createdAt))
+    .limit(safeLimit);
 
   return withMembershipSummaries(rows, userId);
 }
@@ -51,8 +114,15 @@ export async function getCommunityBySlug(
   userId?: string | null,
 ): Promise<CommunityWithMembership | null> {
   const [row] = await db
-    .select()
+    .select({
+      community: communities,
+      category: communityCategories,
+    })
     .from(communities)
+    .leftJoin(
+      communityCategories,
+      eq(communities.categoryId, communityCategories.id),
+    )
     .where(and(eq(communities.slug, slug), eq(communities.status, 'active')))
     .limit(1);
 
@@ -125,10 +195,10 @@ export async function joinCommunity({
 }
 
 async function withMembershipSummaries(
-  rows: Community[],
+  rows: CommunityWithCategoryRow[],
   userId: string | null,
 ): Promise<CommunityWithMembership[]> {
-  const ids = rows.map((row) => row.id);
+  const ids = rows.map((row) => row.community.id);
   if (ids.length === 0) return [];
 
   const countRows = await db
@@ -164,9 +234,10 @@ async function withMembershipSummaries(
   );
 
   return rows.map((row) => ({
-    ...row,
-    memberCount: counts.get(row.id) ?? 0,
-    currentUserRole: roles.get(row.id) ?? null,
+    ...row.community,
+    category: row.category,
+    memberCount: counts.get(row.community.id) ?? 0,
+    currentUserRole: roles.get(row.community.id) ?? null,
   }));
 }
 

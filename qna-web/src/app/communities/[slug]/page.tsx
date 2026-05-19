@@ -35,7 +35,9 @@ export default async function CommunityPage({ params }: PageProps) {
                 {community.emoji || community.name.slice(0, 2).toUpperCase()}
               </div>
               <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
-                {community.cadence} challenge
+                {community.category
+                  ? `${community.category.name} / ${community.cadence} challenge`
+                  : `${community.cadence} challenge`}
               </p>
               <h1 className="text-[38px] font-bold leading-tight md:text-[56px]">
                 {community.name}

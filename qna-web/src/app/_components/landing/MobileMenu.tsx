@@ -51,9 +51,9 @@ export function MobileMenu({
           <ul className="flex flex-col gap-3 text-sm font-medium text-ink">
             {links.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className="block py-1.5">
+                <Link href={l.href} className="block py-1.5">
                   {l.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
