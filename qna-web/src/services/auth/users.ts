@@ -4,6 +4,7 @@ import { db } from '@/db/client';
 import { users, type User } from '@/db/schema/users';
 import { hashPassword } from './passwords';
 import { AuthConflictError } from './errors';
+import { detectUniqueConflict } from './user-conflict';
 import type { RegisterInput } from './validation';
 
 export async function createUser(input: RegisterInput): Promise<User> {
@@ -19,14 +20,8 @@ export async function createUser(input: RegisterInput): Promise<User> {
       .returning();
     return row;
   } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err);
-    const isUnique = /unique/i.test(msg) || /duplicate key/i.test(msg);
-    if (isUnique && /email/i.test(msg)) {
-      throw new AuthConflictError('email');
-    }
-    if (isUnique && /username/i.test(msg)) {
-      throw new AuthConflictError('username');
-    }
+    const conflict = detectUniqueConflict(err);
+    if (conflict) throw new AuthConflictError(conflict);
     throw err;
   }
 }
