@@ -34,6 +34,11 @@ The seed community for launch is **Daily AI Builders** — a community about Cla
 - Comments unlock only after the member submits an answer.
 - v1 supports top-level comments and one level of replies.
 - Comments are soft-deleted, not hard-deleted.
+- Deleted comment rows are preserved so replies stay attached to a coherent tombstone.
+- Closed questions show the comment thread to all community members, even members who missed the question.
+- Posting comments still requires the member to have submitted an answer.
+- Comment authors and the community creator can delete comments; nobody else can delete in v1.
+- v1 does not support comment edits, reactions, mentions, notifications, or deeper nesting.
 
 ### 2.3 Broadcast channel
 

@@ -11,6 +11,7 @@ import {
 import { getSession } from '@/services/auth';
 import { QuestionNotFoundError } from '@/services/questions';
 import { AnswerForm } from './_components/AnswerForm';
+import { CommentThread } from './_components/CommentThread';
 
 type PageProps = {
   params: Promise<{ slug: string; id: string }>;
@@ -94,6 +95,8 @@ export default async function QuestionDetailPage({ params }: PageProps) {
             {!question.result && question.canSeeSolution && (
               <SolutionPanel question={question} />
             )}
+
+            <CommentThread slug={slug} question={question} userId={session.sub} />
           </div>
         </div>
       </section>

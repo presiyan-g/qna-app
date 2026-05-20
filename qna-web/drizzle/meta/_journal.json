@@ -43,6 +43,13 @@
       "when": 1779214547900,
       "tag": "0005_kind_jigsaw",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1779224069593,
+      "tag": "0006_typical_red_shift",
+      "breakpoints": true
     }
   ]
 }
