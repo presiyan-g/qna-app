@@ -59,7 +59,7 @@ export async function listCommunityBroadcasts({
   const community = await getCommunityBySlug(slug, viewerUserId);
   const safeLimit = normalizeBroadcastLimit(limit ? String(limit) : null);
   if (!community) {
-    return { items: [], pagination: { limit: safeLimit, nextCursor: null } };
+    throw new BroadcastNotFoundError();
   }
 
   const decodedCursor = cursor ? decodeBroadcastCursor(cursor) : null;
