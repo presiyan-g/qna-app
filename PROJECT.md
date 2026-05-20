@@ -189,6 +189,14 @@ v1 scoring should stay simple:
 - Late answer after `closes_at`: saved, but `+0 points`
 - One answer per user per question
 
+Leaderboard v1:
+
+- Scores are per community only; there is no global cross-community leaderboard.
+- Public leaderboard reads derive from `answers.points_awarded`.
+- Windows: 7 days, 30 days, all-time.
+- Show the top 10 users by username.
+- Tie-break equal point totals by the earliest `MAX(answered_at)` among point-awarding answers.
+
 Streaks and multipliers can be added later.
 
 ---
