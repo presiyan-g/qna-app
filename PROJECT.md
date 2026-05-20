@@ -45,6 +45,11 @@ The seed community for launch is **Daily AI Builders** — a community about Cla
 - Each community has a creator-only broadcast feed.
 - Creators can post updates, announcements, resources, or winner messages.
 - v1 supports text posts with optional image.
+- Broadcasts v1 use a public community feed at `/communities/[slug]/broadcasts`.
+- Reads are public, including anonymous traffic.
+- Creating, editing, and deleting require a creator membership in that community.
+- Authors can edit their own posts; same-community creators can soft-delete posts for moderation.
+- v1 stores optional external `http` or `https` image URLs; the upload pipeline is deferred.
 - Interactive buttons are planned for later, not required for MVP.
 
 ---
@@ -241,7 +246,7 @@ Each community has a broadcast feed that stores all past creator posts.
 
 Members can browse previous announcements, resources, winner posts, and community updates.
 
-Broadcast posts are not deleted by default. If removal is needed, use soft-delete or hidden status.
+Broadcast history is cursor-paginated. Broadcast posts are not deleted by default. If removal is needed, use soft-delete; soft-deleted posts are hidden from public reads but preserved in the database.
 
 ---
 
