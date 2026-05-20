@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useActionState, useEffect, useRef, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import {
@@ -150,9 +151,16 @@ function CommentItem({
     >
       <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="text-sm font-bold text-ink">
-            {isDeleted ? '[deleted]' : comment.author?.username}
-          </p>
+          {isDeleted || !comment.author ? (
+            <p className="text-sm font-bold text-ink">[deleted]</p>
+          ) : (
+            <Link
+              href={`/users/${comment.author.username}`}
+              className="text-sm font-bold text-ink hover:text-primary hover:underline"
+            >
+              {comment.author.username}
+            </Link>
+          )}
           <p className="text-[12px] text-muted">{formatTimestamp(comment.createdAt)}</p>
         </div>
         {comment.canDelete && (

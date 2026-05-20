@@ -109,7 +109,12 @@ function LeaderboardRow({ entry }: { entry: LeaderboardEntry }) {
     <div className="grid grid-cols-[48px_1fr_auto] items-center gap-4 p-4 sm:grid-cols-[64px_1fr_140px_180px] sm:p-5">
       <div className="text-2xl font-bold text-primary">#{entry.rank}</div>
       <div>
-        <p className="text-base font-bold text-ink">{entry.username}</p>
+        <Link
+          href={`/users/${entry.username}`}
+          className="text-base font-bold text-ink hover:text-primary hover:underline"
+        >
+          {entry.username}
+        </Link>
         <p className="text-xs text-muted sm:hidden">
           Last scored {formatGmtDate(entry.lastScoringAnswerAt)}
         </p>

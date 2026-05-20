@@ -65,7 +65,12 @@ function BroadcastCard({
     <article className="rounded-lg border border-line bg-card p-5">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="text-sm font-bold text-ink">{post.author.username}</p>
+          <Link
+            href={`/users/${post.author.username}`}
+            className="text-sm font-bold text-ink hover:text-primary hover:underline"
+          >
+            {post.author.username}
+          </Link>
           <p className="mt-1 text-[12px] text-muted">
             {formatTimestamp(post.publishedAt)}
           </p>

@@ -60,9 +60,12 @@ export function MobileMenu({
           <div className="mt-4 flex flex-col gap-2 border-t border-line pt-4">
             {username ? (
               <>
-                <span className="rounded-full bg-primary-soft px-4 py-2.5 text-center text-sm font-semibold text-primary">
+                <Link
+                  href={`/users/${username}`}
+                  className="rounded-full bg-primary-soft px-4 py-2.5 text-center text-sm font-semibold text-primary"
+                >
                   @{username}
-                </span>
+                </Link>
                 <Link
                   href="/dashboard"
                   className="rounded-full border border-line px-4 py-2.5 text-center text-sm font-semibold text-ink"

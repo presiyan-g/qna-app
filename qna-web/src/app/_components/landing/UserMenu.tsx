@@ -10,9 +10,12 @@ export function UserMenu({ username }: { username: string }) {
       >
         Dashboard
       </Link>
-      <span className="rounded-full bg-primary-soft px-3 py-1.5 text-[13px] font-semibold text-primary">
+      <Link
+        href={`/users/${username}`}
+        className="rounded-full bg-primary-soft px-3 py-1.5 text-[13px] font-semibold text-primary hover:brightness-95"
+      >
         @{username}
-      </span>
+      </Link>
       <form action={logoutAction}>
         <button
           type="submit"

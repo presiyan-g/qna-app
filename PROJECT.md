@@ -171,6 +171,15 @@ The creator must review, edit, and approve before publishing. AI should never au
 5. Leaderboard
 6. Profile
 
+Profile v1:
+
+- Public web route: `/users/[username]`.
+- Public REST route for mobile: `GET /api/users/[username]`.
+- Profiles are visible to anonymous visitors.
+- v1 shows username, joined date, total points from `answers.points_awarded`, and active community memberships with role.
+- Profile totals derive from `answers.points_awarded`; there is no denormalized profile score.
+- Profile editing, display names, bios, avatars, activity feeds, and streaks are separate slices.
+
 ---
 
 ## 7. Database model
