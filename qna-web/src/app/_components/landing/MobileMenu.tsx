@@ -63,6 +63,12 @@ export function MobileMenu({
                 <span className="rounded-full bg-primary-soft px-4 py-2.5 text-center text-sm font-semibold text-primary">
                   @{username}
                 </span>
+                <Link
+                  href="/dashboard"
+                  className="rounded-full border border-line px-4 py-2.5 text-center text-sm font-semibold text-ink"
+                >
+                  Dashboard
+                </Link>
                 <form action={logoutAction}>
                   <button
                     type="submit"

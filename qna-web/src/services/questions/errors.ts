@@ -11,3 +11,10 @@ export class QuestionNotFoundError extends Error {
     this.name = 'QuestionNotFoundError';
   }
 }
+
+export class QuestionImmutableError extends Error {
+  constructor() {
+    super('Published questions cannot be changed in this dashboard slice.');
+    this.name = 'QuestionImmutableError';
+  }
+}

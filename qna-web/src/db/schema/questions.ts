@@ -27,9 +27,10 @@ export const questions = pgTable(
     prompt: text('prompt').notNull(),
     explanation: text('explanation').notNull(),
     imageUrl: text('image_url'),
-    scheduledFor: timestamp('scheduled_for', { withTimezone: true }).notNull(),
+    scheduledFor: timestamp('scheduled_for', { withTimezone: true }),
     publishedAt: timestamp('published_at', { withTimezone: true }),
-    closesAt: timestamp('closes_at', { withTimezone: true }).notNull(),
+    closesAt: timestamp('closes_at', { withTimezone: true }),
+    deletedAt: timestamp('deleted_at', { withTimezone: true }),
     timeZone: text('time_zone').notNull().default('GMT'),
     points: integer('points').notNull().default(10),
     createdAt: timestamp('created_at', { withTimezone: true })
@@ -40,10 +41,9 @@ export const questions = pgTable(
       .defaultNow(),
   },
   (table) => [
-    index('questions_community_schedule_idx').on(
-      table.communityId,
-      table.scheduledFor,
-    ),
+    index('questions_active_community_schedule_idx')
+      .on(table.communityId, table.scheduledFor)
+      .where(sql`${table.deletedAt} is null`),
     index('questions_creator_user_id_idx').on(table.creatorUserId),
   ],
 );

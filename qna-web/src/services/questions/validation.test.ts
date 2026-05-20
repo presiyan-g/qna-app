@@ -3,6 +3,8 @@ import test from 'node:test';
 import {
   QuestionsValidationError,
   validateCreateQuestionInput,
+  validateDraftQuestionInput,
+  validateScheduleQuestionInput,
 } from './validation';
 
 test('validates a scheduled GMT multiple-choice question', () => {
@@ -76,4 +78,31 @@ test('rejects schedules more than five minutes in the past', () => {
       err instanceof QuestionsValidationError &&
       err.fieldErrors.scheduledFor === 'Choose a GMT time in the future.',
   );
+});
+
+test('validates a complete draft without a schedule', () => {
+  const draft = validateDraftQuestionInput({
+    prompt: 'Which tool should own database migrations?',
+    explanation: 'Drizzle migrations keep schema history reviewable.',
+    choices: [
+      { label: 'Drizzle', isCorrect: true },
+      { label: 'Ad hoc SQL', isCorrect: false },
+    ],
+  });
+
+  assert.equal(draft.scheduledFor, null);
+  assert.equal(draft.closesAt, null);
+  assert.equal(draft.points, 10);
+  assert.equal(draft.choices.length, 2);
+});
+
+test('validates a future GMT schedule', () => {
+  const schedule = validateScheduleQuestionInput(
+    { scheduledFor: '2026-05-21T12:00' },
+    { now: new Date('2026-05-20T12:00:00.000Z') },
+  );
+
+  assert.equal(schedule.scheduledFor.toISOString(), '2026-05-21T12:00:00.000Z');
+  assert.equal(schedule.closesAt.toISOString(), '2026-05-22T12:00:00.000Z');
+  assert.equal(schedule.publishedAt.toISOString(), '2026-05-21T12:00:00.000Z');
 });

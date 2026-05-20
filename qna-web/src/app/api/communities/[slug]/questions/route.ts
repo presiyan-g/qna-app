@@ -6,7 +6,7 @@ import {
   QuestionPermissionError,
   QuestionsValidationError,
   validateCreateQuestionInput,
-  type CommunityQuestion,
+  type ScheduledCommunityQuestion,
 } from '@/services/questions';
 
 type RouteContext = {
@@ -89,7 +89,7 @@ function toCreateQuestionRaw(body: unknown) {
   };
 }
 
-function toQuestionResource(question: CommunityQuestion) {
+function toQuestionResource(question: ScheduledCommunityQuestion) {
   return {
     id: question.id,
     communityId: question.communityId,

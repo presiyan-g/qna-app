@@ -7,7 +7,6 @@ import { getSession } from '@/services/auth';
 import { getCommunityBySlug } from '@/services/communities';
 import { getLatestCommunityBroadcast } from '@/services/broadcasts';
 import { listCommunityQuestions } from '@/services/questions';
-import { QuestionComposer } from './_components/QuestionComposer';
 import { QuestionList } from './_components/QuestionList';
 
 type PageProps = {
@@ -151,14 +150,17 @@ export default async function CommunityPage({ params }: PageProps) {
                 <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
                   Creator
                 </p>
-                <h2 className="mt-2 text-2xl font-bold">Schedule a question</h2>
+                <h2 className="mt-2 text-2xl font-bold">Manage questions</h2>
                 <p className="mt-2 text-sm leading-6 text-muted">
-                  Times are saved as GMT. The answer window closes 24 hours
-                  after publishing.
+                  Draft, schedule, and edit upcoming questions from the
+                  creator dashboard.
                 </p>
-                <div className="mt-5">
-                  <QuestionComposer slug={community.slug} />
-                </div>
+                <Link
+                  href={`/dashboard/communities/${community.slug}`}
+                  className="mt-5 block rounded-full bg-primary px-4 py-2.5 text-center text-sm font-semibold text-paper"
+                >
+                  Open dashboard
+                </Link>
               </aside>
             ) : (
               <aside className="rounded-lg border border-line bg-card p-5 lg:self-start">

@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import type { CommunityQuestion } from '@/services/questions';
+import type { ScheduledCommunityQuestion } from '@/services/questions';
 
 export function QuestionList({
   questions,
   slug,
 }: {
-  questions: CommunityQuestion[];
+  questions: ScheduledCommunityQuestion[];
   slug: string;
 }) {
   if (questions.length === 0) {
@@ -89,14 +89,14 @@ export function QuestionList({
   );
 }
 
-function getQuestionState(question: CommunityQuestion): string {
+function getQuestionState(question: ScheduledCommunityQuestion): string {
   const now = Date.now();
   if (question.closesAt.getTime() <= now) return 'Closed';
   if (question.scheduledFor.getTime() > now) return 'Scheduled';
   return 'Published';
 }
 
-function canShowExplanation(question: CommunityQuestion): boolean {
+function canShowExplanation(question: ScheduledCommunityQuestion): boolean {
   return (
     Boolean(question.explanation) &&
     question.choices.some((choice) => choice.isCorrect === true)

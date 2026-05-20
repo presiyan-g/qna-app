@@ -1,5 +1,5 @@
 import 'server-only';
-import { and, asc, eq } from 'drizzle-orm';
+import { and, asc, eq, isNotNull, isNull } from 'drizzle-orm';
 import { db } from '@/db/client';
 import { answers, type Answer } from '@/db/schema/answers';
 import { questionChoices, questions } from '@/db/schema/questions';
@@ -57,10 +57,15 @@ export type QuestionDetail = {
 };
 
 type QuestionContext = {
-  question: typeof questions.$inferSelect;
+  question: AnswerableQuestion;
   currentUserRole: CommunityRole;
   choices: (typeof questionChoices.$inferSelect)[];
   existingAnswer: Answer | null;
+};
+
+type AnswerableQuestion = typeof questions.$inferSelect & {
+  scheduledFor: Date;
+  closesAt: Date;
 };
 
 export async function getQuestionDetail({
@@ -152,25 +157,43 @@ async function loadQuestionContext({
   const [question] = await db
     .select()
     .from(questions)
-    .where(and(eq(questions.id, questionId), eq(questions.communityId, community.id)))
+    .where(
+      and(
+        eq(questions.id, questionId),
+        eq(questions.communityId, community.id),
+        isNull(questions.deletedAt),
+        isNotNull(questions.scheduledFor),
+        isNotNull(questions.closesAt),
+      ),
+    )
     .limit(1);
   if (!question) throw new QuestionNotFoundError();
+  const answerableQuestion = toAnswerableQuestion(question);
 
   const [choices, existingAnswer] = await Promise.all([
     db
       .select()
       .from(questionChoices)
-      .where(eq(questionChoices.questionId, question.id))
+      .where(eq(questionChoices.questionId, answerableQuestion.id))
       .orderBy(asc(questionChoices.position)),
-    getExistingAnswer(question.id, userId),
+    getExistingAnswer(answerableQuestion.id, userId),
   ]);
 
   return {
-    question,
+    question: answerableQuestion,
     currentUserRole: community.currentUserRole,
     choices,
     existingAnswer,
   };
+}
+
+function toAnswerableQuestion(
+  question: typeof questions.$inferSelect,
+): AnswerableQuestion {
+  if (!question.scheduledFor || !question.closesAt || question.deletedAt) {
+    throw new QuestionNotFoundError();
+  }
+  return question as AnswerableQuestion;
 }
 
 async function getExistingAnswer(

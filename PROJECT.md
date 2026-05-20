@@ -92,6 +92,14 @@ A user can be a normal platform member globally, but a creator inside one commun
 - Platform admin panel
 - Mobile app for answering questions, viewing communities, leaderboard, and profile
 
+Creator dashboard v1:
+
+- `/dashboard` is the cross-community creator hub.
+- `/dashboard/communities/[slug]` is the per-community question management route.
+- Creators can save draft questions, schedule drafts, edit unpublished questions, and soft-delete unpublished questions.
+- Published questions are view-only in the dashboard.
+- Member management, community settings, analytics, dashboard broadcast management, mobile dashboard UI, and platform admin are separate slices.
+
 ### Nice-to-have for v1
 
 - AI question draft generation

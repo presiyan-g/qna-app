@@ -1,0 +1,332 @@
+'use client';
+
+import { useActionState, useEffect, useMemo, useRef, useState } from 'react';
+import type { ReactNode } from 'react';
+import {
+  createQuestionDraftAction,
+  createScheduledQuestionAction,
+  updateQuestionAction,
+  type DashboardQuestionFormState,
+} from '@/app/actions/questions';
+
+export type QuestionFormChoice = {
+  label: string;
+  imageUrl: string | null;
+  isCorrect: boolean | null;
+};
+
+export type QuestionFormValues = {
+  id: string;
+  prompt: string;
+  explanation: string | null;
+  imageUrl: string | null;
+  scheduledFor: string | null;
+  choices: QuestionFormChoice[];
+};
+
+const INITIAL: DashboardQuestionFormState = { ok: false };
+
+export function QuestionManagementForm({
+  slug,
+  question,
+  onSaved,
+}: {
+  slug: string;
+  question?: QuestionFormValues;
+  onSaved?: () => void;
+}) {
+  return question ? (
+    <EditQuestionForm slug={slug} question={question} onSaved={onSaved} />
+  ) : (
+    <CreateQuestionForm slug={slug} />
+  );
+}
+
+function CreateQuestionForm({ slug }: { slug: string }) {
+  const draftAction = createQuestionDraftAction.bind(null, slug);
+  const scheduledAction = createScheduledQuestionAction.bind(null, slug);
+  const [draftState, draftFormAction, draftPending] = useActionState(
+    draftAction,
+    INITIAL,
+  );
+  const [scheduledState, scheduledFormAction, scheduledPending] =
+    useActionState(scheduledAction, INITIAL);
+  const formRef = useRef<HTMLFormElement>(null);
+  const state = scheduledState.ok || scheduledState.formError || scheduledState.fieldErrors
+    ? scheduledState
+    : draftState;
+
+  useEffect(() => {
+    if (draftState.ok || scheduledState.ok) formRef.current?.reset();
+  }, [draftState.ok, scheduledState.ok]);
+
+  return (
+    <QuestionFields
+      ref={formRef}
+      state={state}
+      choices={emptyChoices()}
+      footer={
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <button
+            type="submit"
+            formAction={draftFormAction}
+            disabled={draftPending || scheduledPending}
+            className="rounded-full border border-line px-5 py-3 text-sm font-bold text-ink disabled:opacity-60"
+          >
+            {draftPending ? 'Saving...' : 'Save draft'}
+          </button>
+          <button
+            type="submit"
+            formAction={scheduledFormAction}
+            disabled={draftPending || scheduledPending}
+            className="rounded-full bg-primary px-5 py-3 text-sm font-bold text-paper disabled:opacity-60"
+          >
+            {scheduledPending ? 'Scheduling...' : 'Schedule question'}
+          </button>
+        </div>
+      }
+    />
+  );
+}
+
+function EditQuestionForm({
+  slug,
+  question,
+  onSaved,
+}: {
+  slug: string;
+  question: QuestionFormValues;
+  onSaved?: () => void;
+}) {
+  const action = updateQuestionAction.bind(null, slug, question.id);
+  const [state, formAction, pending] = useActionState(action, INITIAL);
+
+  useEffect(() => {
+    if (state.ok) onSaved?.();
+  }, [onSaved, state.ok]);
+
+  return (
+    <QuestionFields
+      state={state}
+      action={formAction}
+      prompt={question.prompt}
+      explanation={question.explanation ?? ''}
+      imageUrl={question.imageUrl ?? ''}
+      scheduledFor={question.scheduledFor}
+      choices={question.choices}
+      footer={
+        <button
+          type="submit"
+          disabled={pending}
+          className="rounded-full bg-primary px-5 py-3 text-sm font-bold text-paper disabled:opacity-60"
+        >
+          {pending ? 'Saving...' : 'Save changes'}
+        </button>
+      }
+    />
+  );
+}
+
+const QuestionFields = function QuestionFields({
+  action,
+  state,
+  prompt = '',
+  explanation = '',
+  imageUrl = '',
+  scheduledFor,
+  choices,
+  footer,
+  ref,
+}: {
+  action?: (payload: FormData) => void;
+  state: DashboardQuestionFormState;
+  prompt?: string;
+  explanation?: string;
+  imageUrl?: string;
+  scheduledFor?: string | null;
+  choices: QuestionFormChoice[];
+  footer: ReactNode;
+  ref?: React.Ref<HTMLFormElement>;
+}) {
+  const [choiceRows, setChoiceRows] = useState(() => normalizeChoices(choices));
+  const correctIndex = useMemo(
+    () => Math.max(0, choiceRows.findIndex((choice) => choice.isCorrect)),
+    [choiceRows],
+  );
+
+  return (
+    <form ref={ref} action={action} className="flex flex-col gap-5">
+      {state.ok && (
+        <div className="rounded-md border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-800">
+          Saved.
+        </div>
+      )}
+      {state.formError && (
+        <div
+          role="alert"
+          className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800"
+        >
+          {state.formError}
+        </div>
+      )}
+
+      <FieldError error={state.fieldErrors?.prompt}>
+        <label htmlFor="question-prompt" className="text-[13px] font-semibold">
+          Question
+        </label>
+        <textarea
+          id="question-prompt"
+          name="prompt"
+          rows={4}
+          defaultValue={prompt}
+          aria-invalid={state.fieldErrors?.prompt ? 'true' : undefined}
+          className="resize-none rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+          placeholder="What should members answer?"
+        />
+      </FieldError>
+
+      <FieldError error={state.fieldErrors?.explanation}>
+        <label
+          htmlFor="question-explanation"
+          className="text-[13px] font-semibold"
+        >
+          Explanation
+        </label>
+        <textarea
+          id="question-explanation"
+          name="explanation"
+          rows={4}
+          defaultValue={explanation}
+          aria-invalid={state.fieldErrors?.explanation ? 'true' : undefined}
+          className="resize-none rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+          placeholder="Why is the correct answer correct?"
+        />
+      </FieldError>
+
+      <FieldError error={undefined}>
+        <label htmlFor="question-image-url" className="text-[13px] font-semibold">
+          Image URL
+        </label>
+        <input
+          id="question-image-url"
+          name="imageUrl"
+          type="url"
+          defaultValue={imageUrl}
+          className="rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+          placeholder="https://example.com/image.png"
+        />
+      </FieldError>
+
+      <FieldError error={state.fieldErrors?.scheduledFor}>
+        <label
+          htmlFor="question-scheduled-for"
+          className="text-[13px] font-semibold"
+        >
+          Publish time (GMT)
+        </label>
+        <input
+          id="question-scheduled-for"
+          name="scheduledFor"
+          type="datetime-local"
+          defaultValue={toDatetimeLocalValue(scheduledFor)}
+          aria-invalid={state.fieldErrors?.scheduledFor ? 'true' : undefined}
+          className="rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+        />
+      </FieldError>
+
+      <div className="flex flex-col gap-3">
+        <div className="flex items-center justify-between gap-3">
+          <label className="text-[13px] font-semibold">Choices</label>
+          <button
+            type="button"
+            disabled={choiceRows.length >= 6}
+            onClick={() =>
+              setChoiceRows((rows) => [
+                ...rows,
+                { label: '', imageUrl: null, isCorrect: false },
+              ])
+            }
+            className="text-[12px] font-bold text-primary disabled:text-muted"
+          >
+            Add choice
+          </button>
+        </div>
+        {choiceRows.map((choice, index) => (
+          <div key={index} className="grid grid-cols-[36px_1fr_auto] gap-2">
+            <label className="flex h-11 items-center justify-center rounded-lg border border-line bg-paper">
+              <input
+                type="radio"
+                name="correctChoice"
+                value={index}
+                defaultChecked={index === correctIndex}
+                className="h-4 w-4 accent-primary"
+              />
+            </label>
+            <input
+              name="choiceLabel"
+              type="text"
+              defaultValue={choice.label}
+              placeholder={`Choice ${index + 1}`}
+              className="min-w-0 rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+            />
+            <input
+              name="choiceImageUrl"
+              type="hidden"
+              defaultValue={choice.imageUrl ?? ''}
+            />
+            <button
+              type="button"
+              disabled={choiceRows.length <= 2}
+              onClick={() =>
+                setChoiceRows((rows) => rows.filter((_, rowIndex) => rowIndex !== index))
+              }
+              className="rounded-lg border border-line px-3 text-sm font-bold text-muted disabled:opacity-40"
+            >
+              Remove
+            </button>
+          </div>
+        ))}
+        {state.fieldErrors?.choices && (
+          <p className="text-[12px] text-red-700">
+            {state.fieldErrors.choices}
+          </p>
+        )}
+      </div>
+
+      {footer}
+    </form>
+  );
+};
+
+function FieldError({
+  children,
+  error,
+}: {
+  children: ReactNode;
+  error?: string;
+}) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      {children}
+      {error && <p className="text-[12px] text-red-700">{error}</p>}
+    </div>
+  );
+}
+
+function emptyChoices(): QuestionFormChoice[] {
+  return [
+    { label: '', imageUrl: null, isCorrect: true },
+    { label: '', imageUrl: null, isCorrect: false },
+    { label: '', imageUrl: null, isCorrect: false },
+    { label: '', imageUrl: null, isCorrect: false },
+  ];
+}
+
+function normalizeChoices(choices: QuestionFormChoice[]): QuestionFormChoice[] {
+  return choices.length >= 2 ? choices : emptyChoices();
+}
+
+function toDatetimeLocalValue(value?: string | null): string {
+  if (!value) return '';
+  return value.slice(0, 16);
+}

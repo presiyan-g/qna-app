@@ -16,6 +16,21 @@ export type CreateQuestionInput = {
   choices: CreateQuestionChoiceInput[];
 };
 
+export type DraftQuestionInput = Omit<
+  CreateQuestionInput,
+  'scheduledFor' | 'closesAt'
+> & {
+  scheduledFor: null;
+  closesAt: null;
+};
+
+export type ScheduleQuestionInput = {
+  scheduledFor: Date;
+  publishedAt: Date;
+  closesAt: Date;
+  timeZone: 'GMT';
+};
+
 export class QuestionsValidationError extends Error {
   constructor(public readonly fieldErrors: Record<string, string>) {
     super('Invalid question input');
@@ -46,11 +61,92 @@ export function validateCreateQuestionInput(
 ): CreateQuestionInput {
   const now = options.now ?? new Date();
   const fieldErrors: Record<string, string> = {};
+  const core = validateQuestionCore(raw, fieldErrors);
+  const scheduledFor = parseGmtDateTime(raw.scheduledFor);
+
+  if (!scheduledFor) {
+    fieldErrors.scheduledFor = 'Choose a GMT publish time.';
+  } else if (scheduledFor.getTime() < now.getTime() - PAST_SCHEDULE_GRACE_MS) {
+    fieldErrors.scheduledFor = 'Choose a GMT time in the future.';
+  }
+
+  if (Object.keys(fieldErrors).length > 0 || !scheduledFor) {
+    throw new QuestionsValidationError(fieldErrors);
+  }
+
+  return {
+    ...core,
+    scheduledFor,
+    closesAt: new Date(
+      scheduledFor.getTime() + DEFAULT_ANSWER_WINDOW_HOURS * 60 * 60 * 1000,
+    ),
+    timeZone: 'GMT',
+  };
+}
+
+export function validateDraftQuestionInput(raw: {
+  prompt?: unknown;
+  explanation?: unknown;
+  imageUrl?: unknown;
+  choices?: unknown;
+}): DraftQuestionInput {
+  const fieldErrors: Record<string, string> = {};
+  const core = validateQuestionCore(raw, fieldErrors);
+
+  if (Object.keys(fieldErrors).length > 0) {
+    throw new QuestionsValidationError(fieldErrors);
+  }
+
+  return {
+    ...core,
+    scheduledFor: null,
+    closesAt: null,
+    timeZone: 'GMT',
+    points: DEFAULT_POINTS,
+  };
+}
+
+export function validateScheduleQuestionInput(
+  raw: { scheduledFor?: unknown },
+  options: { now?: Date } = {},
+): ScheduleQuestionInput {
+  const now = options.now ?? new Date();
+  const fieldErrors: Record<string, string> = {};
+  const scheduledFor = parseGmtDateTime(raw.scheduledFor);
+
+  if (!scheduledFor) {
+    fieldErrors.scheduledFor = 'Choose a GMT publish time.';
+  } else if (scheduledFor.getTime() < now.getTime() - PAST_SCHEDULE_GRACE_MS) {
+    fieldErrors.scheduledFor = 'Choose a GMT time in the future.';
+  }
+
+  if (Object.keys(fieldErrors).length > 0 || !scheduledFor) {
+    throw new QuestionsValidationError(fieldErrors);
+  }
+
+  return {
+    scheduledFor,
+    publishedAt: scheduledFor,
+    closesAt: new Date(
+      scheduledFor.getTime() + DEFAULT_ANSWER_WINDOW_HOURS * 60 * 60 * 1000,
+    ),
+    timeZone: 'GMT',
+  };
+}
+
+function validateQuestionCore(
+  raw: {
+    prompt?: unknown;
+    explanation?: unknown;
+    imageUrl?: unknown;
+    choices?: unknown;
+  },
+  fieldErrors: Record<string, string>,
+): Omit<CreateQuestionInput, 'scheduledFor' | 'closesAt' | 'timeZone'> {
   const prompt = typeof raw.prompt === 'string' ? raw.prompt.trim() : '';
   const explanation =
     typeof raw.explanation === 'string' ? raw.explanation.trim() : '';
   const imageUrl = normalizeOptionalString(raw.imageUrl);
-  const scheduledFor = parseGmtDateTime(raw.scheduledFor);
   const rawChoices = Array.isArray(raw.choices) ? raw.choices : [];
   const choices = normalizeChoices(rawChoices);
 
@@ -66,12 +162,6 @@ export function validateCreateQuestionInput(
     fieldErrors.explanation = 'Use 2000 characters or fewer.';
   }
 
-  if (!scheduledFor) {
-    fieldErrors.scheduledFor = 'Choose a GMT publish time.';
-  } else if (scheduledFor.getTime() < now.getTime() - PAST_SCHEDULE_GRACE_MS) {
-    fieldErrors.scheduledFor = 'Choose a GMT time in the future.';
-  }
-
   if (choices.length < 2) {
     fieldErrors.choices = 'Add at least two answer choices.';
   } else if (choices.length > MAX_CHOICES) {
@@ -82,19 +172,10 @@ export function validateCreateQuestionInput(
     fieldErrors.choices = 'Choose exactly one correct answer.';
   }
 
-  if (Object.keys(fieldErrors).length > 0 || !scheduledFor) {
-    throw new QuestionsValidationError(fieldErrors);
-  }
-
   return {
     prompt,
     explanation,
     imageUrl,
-    scheduledFor,
-    closesAt: new Date(
-      scheduledFor.getTime() + DEFAULT_ANSWER_WINDOW_HOURS * 60 * 60 * 1000,
-    ),
-    timeZone: 'GMT',
     points: DEFAULT_POINTS,
     choices,
   };

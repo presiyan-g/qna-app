@@ -1,5 +1,5 @@
 import 'server-only';
-import { and, desc, eq } from 'drizzle-orm';
+import { and, desc, eq, isNotNull, isNull } from 'drizzle-orm';
 import { db } from '@/db/client';
 import { answers } from '@/db/schema/answers';
 import { comments } from '@/db/schema/comments';
@@ -25,10 +25,14 @@ import {
 import { validateCommentBody } from './validation';
 
 type CommentQuestionContext = {
-  question: typeof questions.$inferSelect;
+  question: CommentableQuestion;
   communityRole: CommunityRole | null;
   hasAnswered: boolean;
   isClosed: boolean;
+};
+
+type CommentableQuestion = typeof questions.$inferSelect & {
+  closesAt: Date;
 };
 
 export async function listQuestionComments({
@@ -233,22 +237,41 @@ async function loadCommentQuestionContext({
   const [question] = await db
     .select()
     .from(questions)
-    .where(and(eq(questions.id, questionId), eq(questions.communityId, community.id)))
+    .where(
+      and(
+        eq(questions.id, questionId),
+        eq(questions.communityId, community.id),
+        isNull(questions.deletedAt),
+        isNotNull(questions.closesAt),
+      ),
+    )
     .limit(1);
   if (!question) throw new CommentNotFoundError();
+  const commentableQuestion = toCommentableQuestion(question);
 
   const [answer] = await db
     .select({ id: answers.id })
     .from(answers)
-    .where(and(eq(answers.questionId, question.id), eq(answers.userId, userId)))
+    .where(
+      and(eq(answers.questionId, commentableQuestion.id), eq(answers.userId, userId)),
+    )
     .limit(1);
 
   return {
-    question,
+    question: commentableQuestion,
     communityRole: community.currentUserRole,
     hasAnswered: Boolean(answer),
-    isClosed: question.closesAt.getTime() <= now.getTime(),
+    isClosed: commentableQuestion.closesAt.getTime() <= now.getTime(),
   };
+}
+
+function toCommentableQuestion(
+  question: typeof questions.$inferSelect,
+): CommentableQuestion {
+  if (!question.closesAt || question.deletedAt) {
+    throw new CommentNotFoundError();
+  }
+  return question as CommentableQuestion;
 }
 
 async function validateParentCommentId(
