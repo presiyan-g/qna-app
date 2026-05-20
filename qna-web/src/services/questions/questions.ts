@@ -16,6 +16,8 @@ import {
   type Question,
   type QuestionChoice,
 } from '@/db/schema/questions';
+import { AccountSuspendedError, assertUserCanMutate } from '@/services/admin';
+import { findUserStatusById } from '@/services/auth';
 import { getCommunityBySlug } from '@/services/communities';
 import { QuestionNotFoundError, QuestionPermissionError } from './errors';
 import { assertCanManageQuestion } from './management-policy';
@@ -96,6 +98,8 @@ export async function createQuestion({
   creatorUserId: string;
   input: CreateQuestionInput;
 }): Promise<ScheduledCommunityQuestion> {
+  await assertAccountCanMutate(creatorUserId);
+
   const community = await getCommunityBySlug(slug, creatorUserId);
   if (!community || community.currentUserRole !== 'creator') {
     throw new QuestionPermissionError();
@@ -161,6 +165,8 @@ export async function createQuestionDraft({
   creatorUserId: string;
   input: DraftQuestionInput;
 }): Promise<CommunityQuestion> {
+  await assertAccountCanMutate(creatorUserId);
+
   const community = await getCommunityBySlug(slug, creatorUserId);
   if (!community || community.currentUserRole !== 'creator') {
     throw new QuestionPermissionError();
@@ -206,6 +212,8 @@ export async function updateUnpublishedQuestion({
   input: DraftQuestionInput;
   now?: Date;
 }): Promise<CommunityQuestion> {
+  await assertAccountCanMutate(creatorUserId);
+
   const { question } = await loadQuestionForManagement({
     slug,
     questionId,
@@ -245,6 +253,8 @@ export async function scheduleQuestion({
   input: ScheduleQuestionInput;
   now?: Date;
 }): Promise<CommunityQuestion> {
+  await assertAccountCanMutate(creatorUserId);
+
   const { question } = await loadQuestionForManagement({
     slug,
     questionId,
@@ -279,6 +289,8 @@ export async function softDeleteUnpublishedQuestion({
   creatorUserId: string;
   now?: Date;
 }): Promise<void> {
+  await assertAccountCanMutate(creatorUserId);
+
   const { question } = await loadQuestionForManagement({
     slug,
     questionId,
@@ -391,4 +403,10 @@ function toScheduledQuestion(question: Question): Question & {
     throw new QuestionNotFoundError();
   }
   return question as Question & { scheduledFor: Date; closesAt: Date };
+}
+
+async function assertAccountCanMutate(userId: string): Promise<void> {
+  const status = await findUserStatusById(userId);
+  if (!status) throw new AccountSuspendedError('User account is unavailable.');
+  assertUserCanMutate({ status });
 }

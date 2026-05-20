@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { AccountSuspendedError } from '@/services/admin';
 import { getApiSession } from '@/services/auth/api-session';
 import { CommunityNotFoundError, joinCommunity } from '@/services/communities';
 
@@ -33,6 +34,9 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
   } catch (err) {
     if (err instanceof CommunityNotFoundError) {
       return NextResponse.json({ error: err.message }, { status: 404 });
+    }
+    if (err instanceof AccountSuspendedError) {
+      return NextResponse.json({ error: err.message }, { status: 403 });
     }
     throw err;
   }

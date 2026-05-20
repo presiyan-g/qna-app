@@ -3,6 +3,8 @@ import { and, desc, eq, isNull, lt, or } from 'drizzle-orm';
 import { db } from '@/db/client';
 import { broadcastPosts, type BroadcastPost } from '@/db/schema/broadcasts';
 import { users } from '@/db/schema/users';
+import { AccountSuspendedError, assertUserCanMutate } from '@/services/admin';
+import { findUserStatusById } from '@/services/auth';
 import { getCommunityBySlug, type CommunityRole } from '@/services/communities';
 import {
   decodeBroadcastCursor,
@@ -43,6 +45,7 @@ type BroadcastRow = {
 type BroadcastViewer = {
   userId: string | null;
   communityRole: CommunityRole | null;
+  accountStatus: 'active' | 'suspended' | null;
 };
 
 export async function listCommunityBroadcasts({
@@ -61,6 +64,9 @@ export async function listCommunityBroadcasts({
   if (!community) {
     throw new BroadcastNotFoundError();
   }
+  const viewerStatus = viewerUserId
+    ? await findUserStatusById(viewerUserId)
+    : null;
 
   const decodedCursor = cursor ? decodeBroadcastCursor(cursor) : null;
   const rows = await db
@@ -96,6 +102,7 @@ export async function listCommunityBroadcasts({
       toBroadcastResource(row, {
         userId: viewerUserId,
         communityRole: community.currentUserRole,
+        accountStatus: viewerStatus,
       }),
     ),
     pagination: {
@@ -119,6 +126,9 @@ export async function getLatestCommunityBroadcast({
 }): Promise<BroadcastPostResource | null> {
   const community = await getCommunityBySlug(slug, viewerUserId);
   if (!community) return null;
+  const viewerStatus = viewerUserId
+    ? await findUserStatusById(viewerUserId)
+    : null;
 
   const [row] = await db
     .select({
@@ -140,6 +150,7 @@ export async function getLatestCommunityBroadcast({
     ? toBroadcastResource(row, {
         userId: viewerUserId,
         communityRole: community.currentUserRole,
+        accountStatus: viewerStatus,
       })
     : null;
 }
@@ -155,6 +166,9 @@ export async function getCommunityBroadcast({
 }): Promise<BroadcastPostResource | null> {
   const community = await getCommunityBySlug(slug, viewerUserId);
   if (!community) return null;
+  const viewerStatus = viewerUserId
+    ? await findUserStatusById(viewerUserId)
+    : null;
 
   const row = await getBroadcastRow({
     communityId: community.id,
@@ -166,6 +180,7 @@ export async function getCommunityBroadcast({
     ? toBroadcastResource(row, {
         userId: viewerUserId,
         communityRole: community.currentUserRole,
+        accountStatus: viewerStatus,
       })
     : null;
 }
@@ -183,6 +198,8 @@ export async function createBroadcastPost({
   imageUrl?: unknown;
   now?: Date;
 }): Promise<BroadcastPostResource> {
+  await assertAccountCanMutate(userId);
+
   const community = await getCommunityBySlug(slug, userId);
   if (!community) throw new BroadcastNotFoundError();
   if (!canCreateBroadcastPost(community.currentUserRole)) {
@@ -213,6 +230,7 @@ export async function createBroadcastPost({
   return toBroadcastResource(row, {
     userId,
     communityRole: community.currentUserRole,
+    accountStatus: 'active',
   });
 }
 
@@ -231,6 +249,8 @@ export async function updateBroadcastPost({
   imageUrl?: unknown;
   now?: Date;
 }): Promise<BroadcastPostResource> {
+  await assertAccountCanMutate(userId);
+
   const community = await getCommunityBySlug(slug, userId);
   if (!community) throw new BroadcastNotFoundError();
 
@@ -273,6 +293,7 @@ export async function updateBroadcastPost({
   return toBroadcastResource(updated, {
     userId,
     communityRole: community.currentUserRole,
+    accountStatus: 'active',
   });
 }
 
@@ -287,6 +308,8 @@ export async function softDeleteBroadcastPost({
   userId: string;
   now?: Date;
 }): Promise<void> {
+  await assertAccountCanMutate(userId);
+
   const community = await getCommunityBySlug(slug, userId);
   if (!community) throw new BroadcastNotFoundError();
 
@@ -347,6 +370,9 @@ function toBroadcastResource(
   row: BroadcastRow,
   viewer: BroadcastViewer,
 ): BroadcastPostResource {
+  const activeViewerUserId =
+    viewer.accountStatus === 'active' ? viewer.userId : null;
+
   return {
     id: row.post.id,
     communityId: row.post.communityId,
@@ -359,19 +385,25 @@ function toBroadcastResource(
     publishedAt: row.post.publishedAt,
     createdAt: row.post.createdAt,
     updatedAt: row.post.updatedAt,
-    canEdit: viewer.userId
+    canEdit: activeViewerUserId
       ? canEditBroadcastPost({
           authorUserId: row.post.authorUserId,
-          userId: viewer.userId,
+          userId: activeViewerUserId,
           communityRole: viewer.communityRole,
         })
       : false,
-    canDelete: viewer.userId
+    canDelete: activeViewerUserId
       ? canSoftDeleteBroadcastPost({
           authorUserId: row.post.authorUserId,
-          userId: viewer.userId,
+          userId: activeViewerUserId,
           communityRole: viewer.communityRole,
         })
       : false,
   };
+}
+
+async function assertAccountCanMutate(userId: string): Promise<void> {
+  const status = await findUserStatusById(userId);
+  if (!status) throw new AccountSuspendedError('User account is unavailable.');
+  assertUserCanMutate({ status });
 }

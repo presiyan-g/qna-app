@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { AccountSuspendedError } from '@/services/admin';
 import { getApiSession } from '@/services/auth/api-session';
 import {
   CommentNotFoundError,
@@ -73,6 +74,9 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
       return NextResponse.json({ error: err.message }, { status: 404 });
     }
     if (err instanceof CommentPermissionError) {
+      return NextResponse.json({ error: err.message }, { status: 403 });
+    }
+    if (err instanceof AccountSuspendedError) {
       return NextResponse.json({ error: err.message }, { status: 403 });
     }
     if (err instanceof CommentValidationError) {

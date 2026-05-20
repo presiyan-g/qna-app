@@ -6,6 +6,8 @@ import { comments } from '@/db/schema/comments';
 import { communities, communityMembers } from '@/db/schema/communities';
 import { questions } from '@/db/schema/questions';
 import { users } from '@/db/schema/users';
+import { AccountSuspendedError, assertUserCanMutate } from '@/services/admin';
+import { findUserStatusById } from '@/services/auth';
 import { getCommunityBySlug, type CommunityRole } from '@/services/communities';
 import {
   CommentNotFoundError,
@@ -99,6 +101,8 @@ export async function postComment({
   parentCommentId?: unknown;
   now?: Date;
 }): Promise<QuestionComment> {
+  await assertAccountCanMutate(userId);
+
   const context = await loadCommentQuestionContext({
     slug,
     questionId,
@@ -172,6 +176,8 @@ export async function softDeleteComment({
   questionId?: string;
   now?: Date;
 }): Promise<void> {
+  await assertAccountCanMutate(userId);
+
   const where = and(
     eq(comments.id, commentId),
     questionId ? eq(questions.id, questionId) : undefined,
@@ -312,4 +318,10 @@ function toCommentThreadRow(row: {
     ...row.comment,
     authorUsername: row.authorUsername,
   };
+}
+
+async function assertAccountCanMutate(userId: string): Promise<void> {
+  const status = await findUserStatusById(userId);
+  if (!status) throw new AccountSuspendedError('User account is unavailable.');
+  assertUserCanMutate({ status });
 }

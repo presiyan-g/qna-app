@@ -48,3 +48,14 @@ export async function findUserById(id: string): Promise<User | null> {
     .limit(1);
   return row ?? null;
 }
+
+export async function findUserStatusById(
+  id: string,
+): Promise<'active' | 'suspended' | null> {
+  const [row] = await db
+    .select({ status: users.status })
+    .from(users)
+    .where(eq(users.id, id))
+    .limit(1);
+  return row?.status ?? null;
+}

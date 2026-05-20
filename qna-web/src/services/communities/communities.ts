@@ -1,6 +1,8 @@
 import 'server-only';
 import { and, asc, count, desc, eq, ilike, inArray } from 'drizzle-orm';
 import { db } from '@/db/client';
+import { AccountSuspendedError, assertUserCanMutate } from '@/services/admin';
+import { findUserStatusById } from '@/services/auth';
 import {
   communities,
   communityCategories,
@@ -138,6 +140,8 @@ export async function createCommunity({
   creatorUserId: string;
   input: CreateCommunityInput;
 }): Promise<CommunityWithMembership> {
+  await assertAccountCanMutate(creatorUserId);
+
   try {
     const [community] = await db
       .insert(communities)
@@ -175,6 +179,8 @@ export async function joinCommunity({
   slug: string;
   userId: string;
 }): Promise<CommunityWithMembership> {
+  await assertAccountCanMutate(userId);
+
   const community = await getCommunityBySlug(slug, userId);
   if (!community) throw new CommunityNotFoundError();
 
@@ -244,4 +250,10 @@ async function withMembershipSummaries(
 function isUniqueViolation(err: unknown): boolean {
   const msg = err instanceof Error ? err.message : String(err);
   return /unique|duplicate key/i.test(msg);
+}
+
+async function assertAccountCanMutate(userId: string): Promise<void> {
+  const status = await findUserStatusById(userId);
+  if (!status) throw new AccountSuspendedError('User account is unavailable.');
+  assertUserCanMutate({ status });
 }

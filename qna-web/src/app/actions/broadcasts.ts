@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { AccountSuspendedError } from '@/services/admin';
 import { getSession } from '@/services/auth';
 import {
   BroadcastNotFoundError,
@@ -88,7 +89,8 @@ function toBroadcastFormError(err: unknown): BroadcastFormState {
   }
   if (
     err instanceof BroadcastPermissionError ||
-    err instanceof BroadcastNotFoundError
+    err instanceof BroadcastNotFoundError ||
+    err instanceof AccountSuspendedError
   ) {
     return { ok: false, formError: err.message };
   }

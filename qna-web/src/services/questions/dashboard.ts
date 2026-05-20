@@ -17,6 +17,7 @@ import { db } from '@/db/client';
 import { broadcastPosts } from '@/db/schema/broadcasts';
 import { communities, communityMembers } from '@/db/schema/communities';
 import { questions, type Question } from '@/db/schema/questions';
+import { findUserStatusById } from '@/services/auth';
 import { getCommunityBySlug } from '@/services/communities';
 import { canAccessCreatorDashboard } from './management-policy';
 import { listDashboardQuestions, type CommunityQuestion } from './questions';
@@ -59,6 +60,9 @@ export async function listCreatorCommunitiesDashboard({
   userId: string;
   now?: Date;
 }): Promise<CreatorDashboardCommunity[]> {
+  const status = await findUserStatusById(userId);
+  if (status !== 'active') return [];
+
   const creatorCommunities = await loadActiveCreatorCommunities(userId);
   const communityIds = creatorCommunities.map((community) => community.id);
   const [memberCounts, questionSignals, latestBroadcasts] = await Promise.all([
@@ -92,6 +96,9 @@ export async function getCreatorCommunityDashboard({
   userId: string;
   now?: Date;
 }): Promise<CreatorCommunityDashboard | null> {
+  const status = await findUserStatusById(userId);
+  if (status !== 'active') return null;
+
   const community = await getCommunityBySlug(slug, userId);
   if (!community || !canAccessCreatorDashboard(community.currentUserRole)) {
     return null;

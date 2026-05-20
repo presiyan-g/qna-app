@@ -3,6 +3,8 @@ import { and, asc, eq, isNotNull, isNull } from 'drizzle-orm';
 import { db } from '@/db/client';
 import { answers, type Answer } from '@/db/schema/answers';
 import { questionChoices, questions } from '@/db/schema/questions';
+import { AccountSuspendedError, assertUserCanMutate } from '@/services/admin';
+import { findUserStatusById } from '@/services/auth';
 import { getCommunityBySlug, type CommunityRole } from '@/services/communities';
 import { QuestionNotFoundError } from '@/services/questions';
 import {
@@ -79,8 +81,11 @@ export async function getQuestionDetail({
   userId: string;
   now?: Date;
 }): Promise<QuestionDetail> {
-  const context = await loadQuestionContext({ slug, questionId, userId });
-  return toQuestionDetail(context, now);
+  const [context, status] = await Promise.all([
+    loadQuestionContext({ slug, questionId, userId }),
+    findUserStatusById(userId),
+  ]);
+  return toQuestionDetail(context, now, status === 'suspended');
 }
 
 export async function submitQuestionAnswer({
@@ -96,8 +101,10 @@ export async function submitQuestionAnswer({
   choiceId: unknown;
   now?: Date;
 }): Promise<QuestionDetail> {
+  await assertAccountCanMutate(userId);
+
   const context = await loadQuestionContext({ slug, questionId, userId });
-  if (context.existingAnswer) return toQuestionDetail(context, now);
+  if (context.existingAnswer) return toQuestionDetail(context, now, false);
 
   if (context.question.scheduledFor.getTime() > now.getTime()) {
     throw new AnswerUnavailableError();
@@ -138,7 +145,7 @@ export async function submitQuestionAnswer({
     .returning();
 
   const answer = created ?? (await getExistingAnswer(context.question.id, userId));
-  return toQuestionDetail({ ...context, existingAnswer: answer }, now);
+  return toQuestionDetail({ ...context, existingAnswer: answer }, now, false);
 }
 
 async function loadQuestionContext({
@@ -208,14 +215,18 @@ async function getExistingAnswer(
   return answer ?? null;
 }
 
-function toQuestionDetail(context: QuestionContext, now: Date): QuestionDetail {
+function toQuestionDetail(
+  context: QuestionContext,
+  now: Date,
+  isSuspended: boolean,
+): QuestionDetail {
   const { question, choices, existingAnswer } = context;
   const hasAnswer = Boolean(existingAnswer);
   const isClosed = question.closesAt.getTime() <= now.getTime();
   const isScheduled = question.scheduledFor.getTime() > now.getTime();
   const canSeeSolution =
     context.currentUserRole === 'creator' || hasAnswer || isClosed;
-  const canAnswer = !isScheduled && !hasAnswer;
+  const canAnswer = !isSuspended && !isScheduled && !hasAnswer;
   const resourceChoices = choices.map((choice) =>
     toChoiceResource(choice, canSeeSolution),
   );
@@ -234,6 +245,12 @@ function toQuestionDetail(context: QuestionContext, now: Date): QuestionDetail {
     choices: resourceChoices,
     result,
   };
+}
+
+async function assertAccountCanMutate(userId: string): Promise<void> {
+  const status = await findUserStatusById(userId);
+  if (!status) throw new AccountSuspendedError('User account is unavailable.');
+  assertUserCanMutate({ status });
 }
 
 function toAnswerResult(

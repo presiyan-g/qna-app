@@ -8,6 +8,7 @@ import {
   AnswerValidationError,
   submitQuestionAnswer,
 } from '@/services/answers';
+import { AccountSuspendedError } from '@/services/admin';
 import { getSession } from '@/services/auth';
 import { QuestionNotFoundError } from '@/services/questions';
 
@@ -40,7 +41,8 @@ export async function submitAnswerAction(
     if (
       err instanceof AnswerPermissionError ||
       err instanceof AnswerUnavailableError ||
-      err instanceof QuestionNotFoundError
+      err instanceof QuestionNotFoundError ||
+      err instanceof AccountSuspendedError
     ) {
       return { ok: false, formError: err.message };
     }

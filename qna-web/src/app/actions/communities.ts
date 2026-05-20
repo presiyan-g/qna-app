@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { AccountSuspendedError } from '@/services/admin';
 import { getSession } from '@/services/auth';
 import {
   CommunityConflictError,
@@ -45,6 +46,9 @@ export async function createCommunityAction(
     }
     if (err instanceof CommunityConflictError) {
       return { ok: false, fieldErrors: { name: err.message } };
+    }
+    if (err instanceof AccountSuspendedError) {
+      return { ok: false, formError: err.message };
     }
     throw err;
   }

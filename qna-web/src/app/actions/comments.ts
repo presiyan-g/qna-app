@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { AccountSuspendedError } from '@/services/admin';
 import {
   CommentNotFoundError,
   CommentPermissionError,
@@ -41,7 +42,8 @@ export async function postCommentAction(
     }
     if (
       err instanceof CommentPermissionError ||
-      err instanceof CommentNotFoundError
+      err instanceof CommentNotFoundError ||
+      err instanceof AccountSuspendedError
     ) {
       return { ok: false, formError: err.message };
     }

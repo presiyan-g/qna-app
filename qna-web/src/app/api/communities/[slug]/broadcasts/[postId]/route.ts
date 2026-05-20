@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { AccountSuspendedError } from '@/services/admin';
 import { getApiSession } from '@/services/auth/api-session';
 import {
   BroadcastNotFoundError,
@@ -110,6 +111,9 @@ function toMutationErrorResponse(err: unknown): Response {
     return NextResponse.json({ error: err.message }, { status: 404 });
   }
   if (err instanceof BroadcastPermissionError) {
+    return NextResponse.json({ error: err.message }, { status: 403 });
+  }
+  if (err instanceof AccountSuspendedError) {
     return NextResponse.json({ error: err.message }, { status: 403 });
   }
   if (err instanceof BroadcastValidationError) {

@@ -20,6 +20,7 @@ export {
   createUser,
   findUserByEmail,
   findUserById,
+  findUserStatusById,
 } from './users';
 
 export {

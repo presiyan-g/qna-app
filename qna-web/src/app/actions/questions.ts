@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { AccountSuspendedError } from '@/services/admin';
 import { getSession } from '@/services/auth';
 import {
   createQuestion,
@@ -53,7 +54,10 @@ export async function createQuestionAction(
     if (err instanceof QuestionsValidationError) {
       return { ok: false, fieldErrors: err.fieldErrors };
     }
-    if (err instanceof QuestionPermissionError) {
+    if (
+      err instanceof QuestionPermissionError ||
+      err instanceof AccountSuspendedError
+    ) {
       return { ok: false, formError: err.message };
     }
     throw err;
@@ -216,7 +220,8 @@ function toDashboardQuestionFormError(
   if (
     err instanceof QuestionPermissionError ||
     err instanceof QuestionImmutableError ||
-    err instanceof QuestionNotFoundError
+    err instanceof QuestionNotFoundError ||
+    err instanceof AccountSuspendedError
   ) {
     return { ok: false, formError: err.message };
   }
