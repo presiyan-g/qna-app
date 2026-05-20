@@ -71,6 +71,13 @@
       "when": 1779287709278,
       "tag": "0009_thankful_toro",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1779296868986,
+      "tag": "0010_tricky_iron_fist",
+      "breakpoints": true
     }
   ]
 }

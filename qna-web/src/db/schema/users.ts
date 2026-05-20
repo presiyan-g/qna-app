@@ -1,5 +1,8 @@
-import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { pgEnum, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
+
+export const userRoleEnum = pgEnum('user_role', ['member', 'admin']);
+export const userStatusEnum = pgEnum('user_status', ['active', 'suspended']);
 
 export const users = pgTable('users', {
   id: uuid('id')
@@ -8,14 +11,8 @@ export const users = pgTable('users', {
   email: text('email').notNull().unique(),
   username: text('username').notNull().unique(),
   passwordHash: text('password_hash').notNull(),
-  role: text('role')
-    .$type<'member' | 'admin'>()
-    .notNull()
-    .default('member'),
-  status: text('status')
-    .$type<'active' | 'suspended'>()
-    .notNull()
-    .default('active'),
+  role: userRoleEnum('role').notNull().default('member'),
+  status: userStatusEnum('status').notNull().default('active'),
   createdAt: timestamp('created_at', { withTimezone: true })
     .notNull()
     .defaultNow(),

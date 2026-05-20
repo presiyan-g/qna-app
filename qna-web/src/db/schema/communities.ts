@@ -3,6 +3,7 @@ import {
   boolean,
   index,
   integer,
+  pgEnum,
   pgTable,
   text,
   timestamp,
@@ -10,6 +11,20 @@ import {
   uuid,
 } from 'drizzle-orm/pg-core';
 import { users } from './users';
+
+export const communityCadenceEnum = pgEnum('community_cadence', [
+  'daily',
+  'weekly',
+  'custom',
+]);
+export const communityStatusEnum = pgEnum('community_status', [
+  'active',
+  'archived',
+]);
+export const communityMemberRoleEnum = pgEnum('community_member_role', [
+  'member',
+  'creator',
+]);
 
 export const communityCategories = pgTable(
   'community_categories',
@@ -49,14 +64,8 @@ export const communities = pgTable(
     name: text('name').notNull(),
     description: text('description').notNull().default(''),
     emoji: text('emoji').notNull().default(''),
-    cadence: text('cadence')
-      .$type<'daily' | 'weekly' | 'custom'>()
-      .notNull()
-      .default('daily'),
-    status: text('status')
-      .$type<'active' | 'archived'>()
-      .notNull()
-      .default('active'),
+    cadence: communityCadenceEnum('cadence').notNull().default('daily'),
+    status: communityStatusEnum('status').notNull().default('active'),
     isFeatured: boolean('is_featured').notNull().default(false),
     featuredRank: integer('featured_rank'),
     createdAt: timestamp('created_at', { withTimezone: true })
@@ -87,10 +96,7 @@ export const communityMembers = pgTable(
     userId: uuid('user_id')
       .notNull()
       .references(() => users.id, { onDelete: 'cascade' }),
-    role: text('role')
-      .$type<'member' | 'creator'>()
-      .notNull()
-      .default('member'),
+    role: communityMemberRoleEnum('role').notNull().default('member'),
     joinedAt: timestamp('joined_at', { withTimezone: true })
       .notNull()
       .defaultNow(),
