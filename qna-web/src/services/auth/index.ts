@@ -39,3 +39,8 @@ export {
   AUTHENTICATED_HOME_PATH,
   resolvePostAuthRedirectPath,
 } from './navigation';
+
+export {
+  toUserResource,
+  type UserResource,
+} from './user-resource';
