@@ -4,3 +4,4 @@ export * from './questions';
 export * from './answers';
 export * from './comments';
 export * from './broadcasts';
+export * from './admin';

@@ -12,6 +12,10 @@ export const users = pgTable('users', {
     .$type<'member' | 'admin'>()
     .notNull()
     .default('member'),
+  status: text('status')
+    .$type<'active' | 'suspended'>()
+    .notNull()
+    .default('active'),
   createdAt: timestamp('created_at', { withTimezone: true })
     .notNull()
     .defaultNow(),
