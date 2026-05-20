@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { buildLoginRedirectUrl } from './middleware';
+import { buildLoginRedirectUrl } from './proxy';
 
 describe('buildLoginRedirectUrl', () => {
   it('preserves dashboard path and search in next param', () => {

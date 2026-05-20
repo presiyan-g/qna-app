@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 const SESSION_COOKIE_NAME = 'qna_session';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const token = request.cookies.get(SESSION_COOKIE_NAME)?.value;
   if (token) return NextResponse.next();
   return NextResponse.redirect(buildLoginRedirectUrl(request.nextUrl));

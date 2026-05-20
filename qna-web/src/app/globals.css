@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* Skip transient Next.js build artifacts. .next is in .gitignore (which
+   Tailwind v4 respects by default), but subdirectories like .next/dev/*
+   appear and disappear between watch cycles, racing with Tailwind's
+   scanner and producing ENOENT noise. */
+@source not "../../.next";
+
 @theme inline {
   --color-paper: #FAF6EC;
   --color-card: #FFFFFF;
