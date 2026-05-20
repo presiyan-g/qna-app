@@ -87,6 +87,13 @@ export default async function CommunityPage({ params }: PageProps) {
                   </Link>
                 )}
               </div>
+
+              <Link
+                href={`/communities/${community.slug}/leaderboard?window=all`}
+                className="mt-4 block rounded-full border border-line px-4 py-2.5 text-center text-sm font-semibold text-ink hover:border-primary hover:text-primary"
+              >
+                View leaderboard
+              </Link>
             </aside>
           </div>
 
