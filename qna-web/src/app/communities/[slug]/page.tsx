@@ -5,6 +5,7 @@ import { Footer } from '@/app/_components/landing/Footer';
 import { Nav } from '@/app/_components/landing/Nav';
 import { getSession } from '@/services/auth';
 import { getCommunityBySlug } from '@/services/communities';
+import { getLatestCommunityBroadcast } from '@/services/broadcasts';
 import { listCommunityQuestions } from '@/services/questions';
 import { QuestionComposer } from './_components/QuestionComposer';
 import { QuestionList } from './_components/QuestionList';
@@ -15,9 +16,10 @@ type PageProps = {
 
 export default async function CommunityPage({ params }: PageProps) {
   const [{ slug }, session] = await Promise.all([params, getSession()]);
-  const [community, questions] = await Promise.all([
+  const [community, questions, latestBroadcast] = await Promise.all([
     getCommunityBySlug(slug, session?.sub ?? null),
     listCommunityQuestions({ slug, userId: session?.sub ?? null }),
+    getLatestCommunityBroadcast({ slug, viewerUserId: session?.sub ?? null }),
   ]);
   if (!community) notFound();
 
@@ -94,11 +96,55 @@ export default async function CommunityPage({ params }: PageProps) {
               >
                 View leaderboard
               </Link>
+
+              <Link
+                href={`/communities/${community.slug}/broadcasts`}
+                className="mt-3 block rounded-full border border-line px-4 py-2.5 text-center text-sm font-semibold text-ink hover:border-primary hover:text-primary"
+              >
+                Read broadcasts
+              </Link>
             </aside>
           </div>
 
           <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_360px]">
-            <QuestionList questions={questions} slug={community.slug} />
+            <div className="grid gap-6">
+              {latestBroadcast && (
+                <section className="rounded-lg border border-line bg-card p-5">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
+                        Latest broadcast
+                      </p>
+                      <p className="mt-2 text-sm font-bold text-ink">
+                        {latestBroadcast.author.username}
+                      </p>
+                      <p className="mt-1 text-[12px] text-muted">
+                        {formatBroadcastDate(latestBroadcast.publishedAt)}
+                      </p>
+                    </div>
+                    <Link
+                      href={`/communities/${community.slug}/broadcasts/${latestBroadcast.id}`}
+                      className="text-sm font-bold text-primary hover:underline"
+                    >
+                      Open
+                    </Link>
+                  </div>
+                  <p className="mt-4 line-clamp-3 whitespace-pre-wrap text-sm leading-6 text-muted">
+                    {latestBroadcast.body}
+                  </p>
+                  {latestBroadcast.imageUrl && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={latestBroadcast.imageUrl}
+                      alt=""
+                      className="mt-4 h-36 w-full rounded-lg border border-line object-cover"
+                    />
+                  )}
+                </section>
+              )}
+
+              <QuestionList questions={questions} slug={community.slug} />
+            </div>
 
             {community.currentUserRole === 'creator' ? (
               <aside className="rounded-lg border border-line bg-card p-5 lg:sticky lg:top-6 lg:self-start">
@@ -141,4 +187,16 @@ export default async function CommunityPage({ params }: PageProps) {
 function getNextQuestionLabel(value: Date): string {
   if (value.getTime() <= Date.now()) return 'Question is live';
   return 'Next question is scheduled';
+}
+
+function formatBroadcastDate(value: Date): string {
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZone: 'UTC',
+    timeZoneName: 'short',
+  }).format(value);
 }
