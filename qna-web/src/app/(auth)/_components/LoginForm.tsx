@@ -6,11 +6,17 @@ import { loginAction, type AuthFormState } from '@/app/actions/auth';
 
 const INITIAL: AuthFormState = { ok: false };
 
-export function LoginForm() {
+export function LoginForm({ nextPath }: { nextPath: string }) {
   const [state, formAction, pending] = useActionState(loginAction, INITIAL);
+  const registerHref =
+    nextPath === '/communities'
+      ? '/register'
+      : `/register?next=${encodeURIComponent(nextPath)}`;
 
   return (
     <form action={formAction} className="flex flex-col gap-4">
+      <input type="hidden" name="next" value={nextPath} />
+
       {state.formError && (
         <div
           role="alert"
@@ -45,7 +51,10 @@ export function LoginForm() {
 
       <p className="mt-1 text-center text-[13px] text-muted">
         New here?{' '}
-        <Link href="/register" className="font-semibold text-ink hover:underline">
+        <Link
+          href={registerHref}
+          className="font-semibold text-ink hover:underline"
+        >
           Create an account
         </Link>
         .

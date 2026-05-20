@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { getSession } from '@/services/auth';
+import { getSession, resolvePostAuthRedirectPath } from '@/services/auth';
 import { AuthShell } from '../_components/AuthShell';
 import { RegisterForm } from '../_components/RegisterForm';
 
@@ -7,9 +7,18 @@ export const metadata = {
   title: 'Create your account — Quorum',
 };
 
-export default async function RegisterPage() {
+type RegisterPageProps = {
+  searchParams?: Promise<{
+    next?: string | string[];
+  }>;
+};
+
+export default async function RegisterPage({ searchParams }: RegisterPageProps) {
+  const params = await searchParams;
+  const rawNext = Array.isArray(params?.next) ? params?.next[0] : params?.next;
+  const nextPath = resolvePostAuthRedirectPath(rawNext);
   const session = await getSession();
-  if (session) redirect('/');
+  if (session) redirect(nextPath);
 
   return (
     <AuthShell
@@ -17,7 +26,7 @@ export default async function RegisterPage() {
       titlePlain="Join the"
       titleAccent="conversation."
     >
-      <RegisterForm />
+      <RegisterForm nextPath={nextPath} />
     </AuthShell>
   );
 }

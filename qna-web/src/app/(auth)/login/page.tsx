@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { getSession } from '@/services/auth';
+import { getSession, resolvePostAuthRedirectPath } from '@/services/auth';
 import { AuthShell } from '../_components/AuthShell';
 import { LoginForm } from '../_components/LoginForm';
 
@@ -7,13 +7,22 @@ export const metadata = {
   title: 'Sign in — Quorum',
 };
 
-export default async function LoginPage() {
+type LoginPageProps = {
+  searchParams?: Promise<{
+    next?: string | string[];
+  }>;
+};
+
+export default async function LoginPage({ searchParams }: LoginPageProps) {
+  const params = await searchParams;
+  const rawNext = Array.isArray(params?.next) ? params?.next[0] : params?.next;
+  const nextPath = resolvePostAuthRedirectPath(rawNext);
   const session = await getSession();
-  if (session) redirect('/');
+  if (session) redirect(nextPath);
 
   return (
     <AuthShell eyebrow="Sign in" titlePlain="Welcome" titleAccent="back.">
-      <LoginForm />
+      <LoginForm nextPath={nextPath} />
     </AuthShell>
   );
 }

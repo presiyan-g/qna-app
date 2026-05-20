@@ -34,3 +34,8 @@ export {
   AuthConflictError,
   AuthValidationError,
 } from './errors';
+
+export {
+  AUTHENTICATED_HOME_PATH,
+  resolvePostAuthRedirectPath,
+} from './navigation';

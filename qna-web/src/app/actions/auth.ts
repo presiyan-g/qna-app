@@ -11,6 +11,7 @@ import {
   validateLoginInput,
   validateRegisterInput,
   verifyPassword,
+  resolvePostAuthRedirectPath,
 } from '@/services/auth';
 
 export type AuthFormState = {
@@ -23,6 +24,7 @@ export async function registerAction(
   _prev: AuthFormState,
   formData: FormData,
 ): Promise<AuthFormState> {
+  const redirectPath = resolvePostAuthRedirectPath(formData.get('next'));
   try {
     const input = validateRegisterInput({
       email: formData.get('email'),
@@ -40,13 +42,14 @@ export async function registerAction(
     }
     throw err;
   }
-  redirect('/');
+  redirect(redirectPath);
 }
 
 export async function loginAction(
   _prev: AuthFormState,
   formData: FormData,
 ): Promise<AuthFormState> {
+  const redirectPath = resolvePostAuthRedirectPath(formData.get('next'));
   try {
     const input = validateLoginInput({
       email: formData.get('email'),
@@ -67,7 +70,7 @@ export async function loginAction(
     }
     throw err;
   }
-  redirect('/');
+  redirect(redirectPath);
 }
 
 export async function logoutAction(): Promise<void> {

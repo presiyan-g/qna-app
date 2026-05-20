@@ -6,11 +6,17 @@ import { registerAction, type AuthFormState } from '@/app/actions/auth';
 
 const INITIAL: AuthFormState = { ok: false };
 
-export function RegisterForm() {
+export function RegisterForm({ nextPath }: { nextPath: string }) {
   const [state, formAction, pending] = useActionState(registerAction, INITIAL);
+  const loginHref =
+    nextPath === '/communities'
+      ? '/login'
+      : `/login?next=${encodeURIComponent(nextPath)}`;
 
   return (
     <form action={formAction} className="flex flex-col gap-4">
+      <input type="hidden" name="next" value={nextPath} />
+
       {state.formError && (
         <div
           role="alert"
@@ -54,7 +60,10 @@ export function RegisterForm() {
 
       <p className="mt-1 text-center text-[13px] text-muted">
         Already have an account?{' '}
-        <Link href="/login" className="font-semibold text-ink hover:underline">
+        <Link
+          href={loginHref}
+          className="font-semibold text-ink hover:underline"
+        >
           Sign in
         </Link>
         .
