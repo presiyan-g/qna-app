@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import { deleteBroadcastAction } from '@/app/actions/broadcasts';
-import { tokenizeBroadcastText } from '@/services/broadcasts';
+import { tokenizeBroadcastText } from '@/services/broadcasts/text';
 import { BroadcastComposer } from './BroadcastComposer';
 
 export type SerializedBroadcastPost = {
