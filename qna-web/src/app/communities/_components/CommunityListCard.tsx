@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import type { CommunityWithMembership } from '@/services/communities';
-import { joinCommunityAction } from '@/app/actions/communities';
+import {
+  joinCommunityAction,
+  leaveCommunityAction,
+} from '@/app/actions/communities';
 
 export function CommunityListCard({
   community,
@@ -10,6 +13,7 @@ export function CommunityListCard({
   signedIn: boolean;
 }) {
   const joinAction = joinCommunityAction.bind(null, community.slug);
+  const leaveAction = leaveCommunityAction.bind(null, community.slug);
 
   return (
     <article className="flex min-h-[220px] flex-col justify-between rounded-lg border border-line bg-card p-5">
@@ -32,7 +36,7 @@ export function CommunityListCard({
             </div>
           </div>
           <span className="rounded-full bg-primary-soft px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
-            {community.cadence}
+            {formatLabel(community.cadence)}
           </span>
         </header>
 
@@ -54,10 +58,24 @@ export function CommunityListCard({
         >
           View
         </Link>
-        {community.currentUserRole ? (
+        {community.currentUserRole === 'creator' ? (
           <span className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-paper">
-            {community.currentUserRole === 'creator' ? 'Creator' : 'Joined'}
+            Creator
           </span>
+        ) : community.currentUserRole === 'member' ? (
+          <>
+            <span className="rounded-full bg-primary-soft px-4 py-2 text-sm font-semibold text-primary">
+              Joined
+            </span>
+            <form action={leaveAction}>
+              <button
+                type="submit"
+                className="rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink hover:border-primary hover:text-primary"
+              >
+                Leave
+              </button>
+            </form>
+          </>
         ) : signedIn ? (
           <form action={joinAction}>
             <button
@@ -78,4 +96,8 @@ export function CommunityListCard({
       </footer>
     </article>
   );
+}
+
+function formatLabel(value: string): string {
+  return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
 }

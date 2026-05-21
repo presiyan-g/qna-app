@@ -18,3 +18,10 @@ export class CommunityNotFoundError extends Error {
     this.name = 'CommunityNotFoundError';
   }
 }
+
+export class CommunityMembershipError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'CommunityMembershipError';
+  }
+}

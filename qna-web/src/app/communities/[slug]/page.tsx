@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { joinCommunityAction } from '@/app/actions/communities';
+import {
+  joinCommunityAction,
+  leaveCommunityAction,
+} from '@/app/actions/communities';
 import { Footer } from '@/app/_components/landing/Footer';
 import { Nav } from '@/app/_components/landing/Nav';
 import { getSession } from '@/services/auth';
@@ -23,6 +26,7 @@ export default async function CommunityPage({ params }: PageProps) {
   if (!community) notFound();
 
   const joinAction = joinCommunityAction.bind(null, community.slug);
+  const leaveAction = leaveCommunityAction.bind(null, community.slug);
 
   return (
     <main className="flex flex-1 flex-col bg-paper text-ink">
@@ -43,8 +47,8 @@ export default async function CommunityPage({ params }: PageProps) {
               </div>
               <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
                 {community.category
-                  ? `${community.category.name} / ${community.cadence} challenge`
-                  : `${community.cadence} challenge`}
+                  ? `${community.category.name} / ${formatLabel(community.cadence)} challenge`
+                  : `${formatLabel(community.cadence)} challenge`}
               </p>
               <h1 className="text-[38px] font-bold leading-tight md:text-[56px]">
                 {community.name}
@@ -64,12 +68,24 @@ export default async function CommunityPage({ params }: PageProps) {
               <p className="text-sm text-muted">members</p>
 
               <div className="mt-5">
-                {community.currentUserRole ? (
+                {community.currentUserRole === 'creator' ? (
                   <span className="block rounded-full bg-primary px-4 py-2.5 text-center text-sm font-semibold text-paper">
-                    {community.currentUserRole === 'creator'
-                      ? 'You are the creator'
-                      : 'You joined this community'}
+                    You are the creator
                   </span>
+                ) : community.currentUserRole === 'member' ? (
+                  <div className="grid gap-2">
+                    <span className="block rounded-full bg-primary-soft px-4 py-2.5 text-center text-sm font-semibold text-primary">
+                      Joined
+                    </span>
+                    <form action={leaveAction}>
+                      <button
+                        type="submit"
+                        className="w-full rounded-full border border-line px-4 py-2.5 text-sm font-semibold text-ink hover:border-primary hover:text-primary"
+                      >
+                        Leave community
+                      </button>
+                    </form>
+                  </div>
                 ) : session ? (
                   <form action={joinAction}>
                     <button
@@ -201,4 +217,8 @@ function formatBroadcastDate(value: Date): string {
     timeZone: 'UTC',
     timeZoneName: 'short',
   }).format(value);
+}
+
+function formatLabel(value: string): string {
+  return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
 }

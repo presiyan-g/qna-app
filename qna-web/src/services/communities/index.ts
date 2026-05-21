@@ -2,6 +2,7 @@ export {
   createCommunity,
   getCommunityBySlug,
   joinCommunity,
+  leaveCommunity,
   listFeaturedCommunities,
   listCommunities,
   searchCommunities,
@@ -17,6 +18,7 @@ export {
 
 export {
   CommunityConflictError,
+  CommunityMembershipError,
   CommunityNotFoundError,
   CommunityValidationError,
 } from './errors';

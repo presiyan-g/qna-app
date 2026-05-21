@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { corsOptionsResponse, withCors } from '../_utils/cors';
 import { AccountSuspendedError } from '@/services/admin';
 import { getApiSession } from '@/services/auth/api-session';
 import {
@@ -9,7 +10,12 @@ import {
   validateCreateCommunityInput,
 } from '@/services/communities';
 
+export function OPTIONS(request: NextRequest) {
+  return corsOptionsResponse(request.headers.get('origin'));
+}
+
 export async function GET(request: NextRequest) {
+  const origin = request.headers.get('origin');
   const session = await getApiSession(request);
   const { searchParams } = request.nextUrl;
   const limit = parsePositiveInt(searchParams.get('limit'), 24);
@@ -20,23 +26,33 @@ export async function GET(request: NextRequest) {
     userId: session?.sub ?? null,
   });
 
-  return NextResponse.json({
-    items: communities.map(toCommunityResource),
-    pagination: { limit, offset },
-  });
+  return withCors(
+    NextResponse.json({
+      items: communities.map(toCommunityResource),
+      pagination: { limit, offset },
+    }),
+    origin,
+  );
 }
 
 export async function POST(request: NextRequest) {
+  const origin = request.headers.get('origin');
   const session = await getApiSession(request);
   if (!session) {
-    return NextResponse.json({ error: 'Authentication required.' }, { status: 401 });
+    return withCors(
+      NextResponse.json({ error: 'Authentication required.' }, { status: 401 }),
+      origin,
+    );
   }
 
   let body: unknown;
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: 'Invalid JSON body.' }, { status: 400 });
+    return withCors(
+      NextResponse.json({ error: 'Invalid JSON body.' }, { status: 400 }),
+      origin,
+    );
   }
 
   try {
@@ -45,22 +61,28 @@ export async function POST(request: NextRequest) {
       creatorUserId: session.sub,
       input,
     });
-    return NextResponse.json(toCommunityResource(community), { status: 201 });
+    return withCors(NextResponse.json(toCommunityResource(community), { status: 201 }), origin);
   } catch (err) {
     if (err instanceof CommunityValidationError) {
-      return NextResponse.json(
-        { error: 'Invalid community input.', fieldErrors: err.fieldErrors },
-        { status: 422 },
+      return withCors(
+        NextResponse.json(
+          { error: 'Invalid community input.', fieldErrors: err.fieldErrors },
+          { status: 422 },
+        ),
+        origin,
       );
     }
     if (err instanceof CommunityConflictError) {
-      return NextResponse.json(
-        { error: err.message, fieldErrors: { name: err.message } },
-        { status: 409 },
+      return withCors(
+        NextResponse.json(
+          { error: err.message, fieldErrors: { name: err.message } },
+          { status: 409 },
+        ),
+        origin,
       );
     }
     if (err instanceof AccountSuspendedError) {
-      return NextResponse.json({ error: err.message }, { status: 403 });
+      return withCors(NextResponse.json({ error: err.message }, { status: 403 }), origin);
     }
     throw err;
   }

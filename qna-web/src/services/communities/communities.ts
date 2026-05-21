@@ -12,6 +12,7 @@ import {
 } from '@/db/schema/communities';
 import {
   CommunityConflictError,
+  CommunityMembershipError,
   CommunityNotFoundError,
 } from './errors';
 import type { CreateCommunityInput } from './validation';
@@ -198,6 +199,35 @@ export async function joinCommunity({
   const joined = await getCommunityBySlug(slug, userId);
   if (!joined) throw new CommunityNotFoundError();
   return joined;
+}
+
+export async function leaveCommunity({
+  slug,
+  userId,
+}: {
+  slug: string;
+  userId: string;
+}): Promise<CommunityWithMembership> {
+  const community = await getCommunityBySlug(slug, userId);
+  if (!community) throw new CommunityNotFoundError();
+
+  if (community.currentUserRole === 'creator') {
+    throw new CommunityMembershipError('Community creators cannot leave their own community.');
+  }
+
+  await db
+    .delete(communityMembers)
+    .where(
+      and(
+        eq(communityMembers.communityId, community.id),
+        eq(communityMembers.userId, userId),
+        eq(communityMembers.role, 'member'),
+      ),
+    );
+
+  const left = await getCommunityBySlug(slug, userId);
+  if (!left) throw new CommunityNotFoundError();
+  return left;
 }
 
 async function withMembershipSummaries(

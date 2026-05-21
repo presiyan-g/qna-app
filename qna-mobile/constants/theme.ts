@@ -1,53 +1,56 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
-
+import type { Theme } from '@react-navigation/native';
 import { Platform } from 'react-native';
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+export const palette = {
+  paper: '#FAF6EC',
+  card: '#FFFFFF',
+  line: '#E9E2CE',
+  primary: '#1F4032',
+  primarySoft: '#F4F1E3',
+  ink: '#232220',
+  muted: '#6B6B66',
+  accent: '#D6A12B',
+} as const;
 
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+export const fonts = {
+  sans: Platform.select({
+    ios: 'System',
+    android: 'sans-serif',
+    default: 'system-ui',
+  }),
+  serif: Platform.select({
+    ios: 'Georgia',
+    android: 'serif',
+    default: 'Georgia, serif',
+  }),
+} as const;
+
+export const navigationTheme: Theme = {
+  dark: false,
+  colors: {
+    primary: palette.primary,
+    background: palette.paper,
+    card: palette.paper,
+    text: palette.ink,
+    border: palette.line,
+    notification: palette.accent,
   },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+  fonts: {
+    regular: {
+      fontFamily: fonts.sans,
+      fontWeight: '400',
+    },
+    medium: {
+      fontFamily: fonts.sans,
+      fontWeight: '600',
+    },
+    bold: {
+      fontFamily: fonts.sans,
+      fontWeight: '700',
+    },
+    heavy: {
+      fontFamily: fonts.sans,
+      fontWeight: '800',
+    },
   },
 };
-
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
-  },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
-  },
-  web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-  },
-});

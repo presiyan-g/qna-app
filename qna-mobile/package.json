@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "node ./scripts/expo-local-root.mjs start --clear",
-    "build": "node ./scripts/expo-local-root.mjs export",
+    "build": "node ./scripts/expo-local-root.mjs export --clear",
+    "test": "tsx --test \"services/**/*.test.ts\"",
     "start": "node ./scripts/expo-local-root.mjs start",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "node ./scripts/expo-local-root.mjs start --android",
@@ -24,6 +25,7 @@
     "expo-image": "3.0.11",
     "expo-linking": "8.0.12",
     "expo-router": "6.0.23",
+    "expo-secure-store": "~15.0.8",
     "expo-splash-screen": "31.0.13",
     "expo-status-bar": "3.0.9",
     "expo-symbols": "1.0.8",

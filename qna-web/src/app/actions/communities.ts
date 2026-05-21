@@ -9,6 +9,7 @@ import {
   CommunityValidationError,
   createCommunity,
   joinCommunity,
+  leaveCommunity,
   validateCreateCommunityInput,
 } from '@/services/communities';
 
@@ -62,6 +63,16 @@ export async function joinCommunityAction(slug: string): Promise<void> {
   if (!session) redirect('/login');
 
   await joinCommunity({ slug, userId: session.sub });
+  revalidatePath('/communities');
+  revalidatePath(`/communities/${slug}`);
+  redirect(`/communities/${slug}`);
+}
+
+export async function leaveCommunityAction(slug: string): Promise<void> {
+  const session = await getSession();
+  if (!session) redirect('/login');
+
+  await leaveCommunity({ slug, userId: session.sub });
   revalidatePath('/communities');
   revalidatePath(`/communities/${slug}`);
   redirect(`/communities/${slug}`);
