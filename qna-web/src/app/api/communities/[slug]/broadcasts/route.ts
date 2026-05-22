@@ -1,8 +1,11 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { corsOptionsResponse, withCors } from '../../../_utils/cors';
 import { AccountSuspendedError } from '@/services/admin';
 import { getApiSession } from '@/services/auth/api-session';
 import {
+  BroadcastAuthenticationRequiredError,
   BroadcastCursorError,
+  BroadcastMembershipRequiredError,
   BroadcastNotFoundError,
   BroadcastPermissionError,
   BroadcastValidationError,
@@ -17,36 +20,64 @@ type RouteContext = {
   params: Promise<{ slug: string }>;
 };
 
+export function OPTIONS(request: NextRequest) {
+  return corsOptionsResponse(request.headers.get('origin'));
+}
+
 export async function GET(request: NextRequest, { params }: RouteContext) {
-  const { slug } = await params;
+  const origin = request.headers.get('origin');
+  const [{ slug }, session] = await Promise.all([
+    params,
+    getApiSession(request),
+  ]);
 
   try {
     const page = await listCommunityBroadcasts({
       slug,
       limit: normalizeBroadcastLimit(request.nextUrl.searchParams.get('limit')),
       cursor: request.nextUrl.searchParams.get('cursor'),
+      viewerUserId: session?.sub ?? null,
     });
-    return NextResponse.json(toBroadcastPageResource(page));
+    return withCors(NextResponse.json(toBroadcastPageResource(page)), origin);
   } catch (err) {
+    if (err instanceof BroadcastAuthenticationRequiredError) {
+      return withCors(
+        NextResponse.json({ error: err.message }, { status: 401 }),
+        origin,
+      );
+    }
+    if (err instanceof BroadcastMembershipRequiredError) {
+      return withCors(
+        NextResponse.json({ error: err.message }, { status: 403 }),
+        origin,
+      );
+    }
     if (err instanceof BroadcastCursorError) {
-      return NextResponse.json({ error: err.message }, { status: 400 });
+      return withCors(
+        NextResponse.json({ error: err.message }, { status: 400 }),
+        origin,
+      );
     }
     if (err instanceof BroadcastNotFoundError) {
-      return NextResponse.json({ error: err.message }, { status: 404 });
+      return withCors(
+        NextResponse.json({ error: err.message }, { status: 404 }),
+        origin,
+      );
     }
     throw err;
   }
 }
 
 export async function POST(request: NextRequest, { params }: RouteContext) {
+  const origin = request.headers.get('origin');
   const [{ slug }, session] = await Promise.all([
     params,
     getApiSession(request),
   ]);
   if (!session) {
-    return NextResponse.json(
-      { error: 'Authentication required.' },
-      { status: 401 },
+    return withCors(
+      NextResponse.json({ error: 'Authentication required.' }, { status: 401 }),
+      origin,
     );
   }
 
@@ -54,7 +85,10 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
   try {
     json = await request.json();
   } catch {
-    return NextResponse.json({ error: 'Invalid JSON body.' }, { status: 400 });
+    return withCors(
+      NextResponse.json({ error: 'Invalid JSON body.' }, { status: 400 }),
+      origin,
+    );
   }
 
   try {
@@ -64,9 +98,12 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
       body: toBroadcastBody(json),
       imageUrl: toBroadcastImageUrl(json),
     });
-    return NextResponse.json({ post: toBroadcastResource(post) }, { status: 201 });
+    return withCors(
+      NextResponse.json({ post: toBroadcastResource(post) }, { status: 201 }),
+      origin,
+    );
   } catch (err) {
-    return toMutationErrorResponse(err);
+    return toMutationErrorResponse(err, origin);
   }
 }
 
@@ -102,20 +139,32 @@ function toBroadcastResource(post: BroadcastPostResource) {
   };
 }
 
-function toMutationErrorResponse(err: unknown): Response {
+function toMutationErrorResponse(err: unknown, origin: string | null): Response {
   if (err instanceof BroadcastNotFoundError) {
-    return NextResponse.json({ error: err.message }, { status: 404 });
+    return withCors(
+      NextResponse.json({ error: err.message }, { status: 404 }),
+      origin,
+    );
   }
   if (err instanceof BroadcastPermissionError) {
-    return NextResponse.json({ error: err.message }, { status: 403 });
+    return withCors(
+      NextResponse.json({ error: err.message }, { status: 403 }),
+      origin,
+    );
   }
   if (err instanceof AccountSuspendedError) {
-    return NextResponse.json({ error: err.message }, { status: 403 });
+    return withCors(
+      NextResponse.json({ error: err.message }, { status: 403 }),
+      origin,
+    );
   }
   if (err instanceof BroadcastValidationError) {
-    return NextResponse.json(
-      { error: err.message, fieldErrors: err.fieldErrors },
-      { status: 422 },
+    return withCors(
+      NextResponse.json(
+        { error: err.message, fieldErrors: err.fieldErrors },
+        { status: 422 },
+      ),
+      origin,
     );
   }
   throw err;

@@ -20,3 +20,17 @@ export class BroadcastValidationError extends Error {
     this.name = 'BroadcastValidationError';
   }
 }
+
+export class BroadcastAuthenticationRequiredError extends Error {
+  constructor() {
+    super('Authentication required.');
+    this.name = 'BroadcastAuthenticationRequiredError';
+  }
+}
+
+export class BroadcastMembershipRequiredError extends Error {
+  constructor() {
+    super('Join this community to see broadcasts.');
+    this.name = 'BroadcastMembershipRequiredError';
+  }
+}

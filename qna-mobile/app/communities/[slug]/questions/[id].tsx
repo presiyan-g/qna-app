@@ -25,10 +25,10 @@ import {
 import {
   formatPoints,
   formatQuestionStateLabel,
-  formatRelativeTime,
   getQuestionState,
   type QuestionState,
 } from '@/services/questions/format';
+import { formatRelativeTime } from '@/services/util/time';
 
 export default function QuestionDetailScreen() {
   const { slug, id } = useLocalSearchParams<{ slug?: string; id?: string }>();

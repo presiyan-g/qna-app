@@ -1,7 +1,10 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { corsOptionsResponse, withCors } from '../../../../_utils/cors';
 import { AccountSuspendedError } from '@/services/admin';
 import { getApiSession } from '@/services/auth/api-session';
 import {
+  BroadcastAuthenticationRequiredError,
+  BroadcastMembershipRequiredError,
   BroadcastNotFoundError,
   BroadcastPermissionError,
   BroadcastValidationError,
@@ -15,28 +18,60 @@ type RouteContext = {
   params: Promise<{ slug: string; postId: string }>;
 };
 
-export async function GET(_request: NextRequest, { params }: RouteContext) {
-  const { slug, postId } = await params;
-  const post = await getCommunityBroadcast({ slug, postId });
-  if (!post) {
-    return NextResponse.json(
-      { error: 'Broadcast not found.' },
-      { status: 404 },
-    );
-  }
+export function OPTIONS(request: NextRequest) {
+  return corsOptionsResponse(request.headers.get('origin'));
+}
 
-  return NextResponse.json({ post: toBroadcastResource(post) });
+export async function GET(request: NextRequest, { params }: RouteContext) {
+  const origin = request.headers.get('origin');
+  const [{ slug, postId }, session] = await Promise.all([
+    params,
+    getApiSession(request),
+  ]);
+
+  try {
+    const post = await getCommunityBroadcast({
+      slug,
+      postId,
+      viewerUserId: session?.sub ?? null,
+    });
+    if (!post) {
+      return withCors(
+        NextResponse.json({ error: 'Broadcast not found.' }, { status: 404 }),
+        origin,
+      );
+    }
+    return withCors(
+      NextResponse.json({ post: toBroadcastResource(post) }),
+      origin,
+    );
+  } catch (err) {
+    if (err instanceof BroadcastAuthenticationRequiredError) {
+      return withCors(
+        NextResponse.json({ error: err.message }, { status: 401 }),
+        origin,
+      );
+    }
+    if (err instanceof BroadcastMembershipRequiredError) {
+      return withCors(
+        NextResponse.json({ error: err.message }, { status: 403 }),
+        origin,
+      );
+    }
+    throw err;
+  }
 }
 
 export async function PATCH(request: NextRequest, { params }: RouteContext) {
+  const origin = request.headers.get('origin');
   const [{ slug, postId }, session] = await Promise.all([
     params,
     getApiSession(request),
   ]);
   if (!session) {
-    return NextResponse.json(
-      { error: 'Authentication required.' },
-      { status: 401 },
+    return withCors(
+      NextResponse.json({ error: 'Authentication required.' }, { status: 401 }),
+      origin,
     );
   }
 
@@ -44,7 +79,10 @@ export async function PATCH(request: NextRequest, { params }: RouteContext) {
   try {
     json = await request.json();
   } catch {
-    return NextResponse.json({ error: 'Invalid JSON body.' }, { status: 400 });
+    return withCors(
+      NextResponse.json({ error: 'Invalid JSON body.' }, { status: 400 }),
+      origin,
+    );
   }
 
   try {
@@ -55,29 +93,33 @@ export async function PATCH(request: NextRequest, { params }: RouteContext) {
       body: toBroadcastBody(json),
       imageUrl: toBroadcastImageUrl(json),
     });
-    return NextResponse.json({ post: toBroadcastResource(post) });
+    return withCors(
+      NextResponse.json({ post: toBroadcastResource(post) }),
+      origin,
+    );
   } catch (err) {
-    return toMutationErrorResponse(err);
+    return toMutationErrorResponse(err, origin);
   }
 }
 
 export async function DELETE(request: NextRequest, { params }: RouteContext) {
+  const origin = request.headers.get('origin');
   const [{ slug, postId }, session] = await Promise.all([
     params,
     getApiSession(request),
   ]);
   if (!session) {
-    return NextResponse.json(
-      { error: 'Authentication required.' },
-      { status: 401 },
+    return withCors(
+      NextResponse.json({ error: 'Authentication required.' }, { status: 401 }),
+      origin,
     );
   }
 
   try {
     await softDeleteBroadcastPost({ slug, postId, userId: session.sub });
-    return new NextResponse(null, { status: 204 });
+    return withCors(new NextResponse(null, { status: 204 }), origin);
   } catch (err) {
-    return toMutationErrorResponse(err);
+    return toMutationErrorResponse(err, origin);
   }
 }
 
@@ -106,20 +148,32 @@ function toBroadcastResource(post: BroadcastPostResource) {
   };
 }
 
-function toMutationErrorResponse(err: unknown): Response {
+function toMutationErrorResponse(err: unknown, origin: string | null): Response {
   if (err instanceof BroadcastNotFoundError) {
-    return NextResponse.json({ error: err.message }, { status: 404 });
+    return withCors(
+      NextResponse.json({ error: err.message }, { status: 404 }),
+      origin,
+    );
   }
   if (err instanceof BroadcastPermissionError) {
-    return NextResponse.json({ error: err.message }, { status: 403 });
+    return withCors(
+      NextResponse.json({ error: err.message }, { status: 403 }),
+      origin,
+    );
   }
   if (err instanceof AccountSuspendedError) {
-    return NextResponse.json({ error: err.message }, { status: 403 });
+    return withCors(
+      NextResponse.json({ error: err.message }, { status: 403 }),
+      origin,
+    );
   }
   if (err instanceof BroadcastValidationError) {
-    return NextResponse.json(
-      { error: err.message, fieldErrors: err.fieldErrors },
-      { status: 422 },
+    return withCors(
+      NextResponse.json(
+        { error: err.message, fieldErrors: err.fieldErrors },
+        { status: 422 },
+      ),
+      origin,
     );
   }
   throw err;

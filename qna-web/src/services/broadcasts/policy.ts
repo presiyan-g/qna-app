@@ -27,3 +27,9 @@ export function canSoftDeleteBroadcastPost({
 }): boolean {
   return communityRole === 'creator';
 }
+
+export function canReadBroadcasts(
+  communityRole: CommunityRole | null,
+): boolean {
+  return communityRole === 'member' || communityRole === 'creator';
+}

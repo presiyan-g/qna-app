@@ -1,3 +1,4 @@
+import { Image } from 'expo-image';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useCallback, useMemo, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
@@ -31,10 +32,22 @@ import {
 import {
   formatPoints,
   formatQuestionStateLabel,
-  formatRelativeTime,
   getQuestionState,
   type QuestionState,
 } from '@/services/questions/format';
+import {
+  BroadcastsApiError,
+  createBroadcastsClient,
+  type Broadcast,
+} from '@/services/broadcasts/api';
+import {
+  createLeaderboardClient,
+  LeaderboardApiError,
+  type LeaderboardEntry,
+  type LeaderboardResult,
+  type LeaderboardWindow,
+} from '@/services/leaderboard/api';
+import { formatRelativeTime } from '@/services/util/time';
 
 type DetailTab = 'questions' | 'broadcasts' | 'leaderboard' | 'about';
 
@@ -245,16 +258,18 @@ function TabPanel({ activeTab, community }: { activeTab: DetailTab; community: C
     return <QuestionsTab community={community} />;
   }
 
-  const scaffoldTab = activeTab as Exclude<DetailTab, 'about' | 'questions'>;
-  const copy = {
-    broadcasts: 'Notes from the creator will appear here when there is something new to read.',
-    leaderboard: 'Scores and streaks will show here once members start answering.',
-  } satisfies Record<Exclude<DetailTab, 'about' | 'questions'>, string>;
+  if (activeTab === 'broadcasts') {
+    return <BroadcastsTab community={community} />;
+  }
+
+  if (activeTab === 'leaderboard') {
+    return <LeaderboardTab community={community} />;
+  }
 
   return (
     <View style={styles.panel}>
       <Text style={styles.panelTitle}>{TABS.find((tab) => tab.value === activeTab)?.label}</Text>
-      <Text style={styles.panelBody}>{copy[scaffoldTab]}</Text>
+      <Text style={styles.panelBody}>Coming soon.</Text>
     </View>
   );
 }
@@ -375,6 +390,281 @@ function getQuestionTimeHint(question: QuestionSummary, state: QuestionState): s
     return `Closes ${formatRelativeTime(question.closesAt)}`;
   }
   return `Closed ${formatRelativeTime(question.closesAt)}`;
+}
+
+function BroadcastsTab({ community }: { community: Community }) {
+  const { token } = useAuth();
+  const apiUrl = useRuntimeApiUrl();
+  const broadcastsClient = useMemo(() => createBroadcastsClient({ apiUrl }), [apiUrl]);
+  const [broadcasts, setBroadcasts] = useState<Broadcast[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<BroadcastsApiError | null>(null);
+
+  const loadBroadcasts = useCallback(
+    async (isActive: () => boolean = () => true) => {
+      setLoading(true);
+      setError(null);
+      try {
+        const result = await broadcastsClient.list(community.slug, { limit: 20, token });
+        if (!isActive()) return;
+        setBroadcasts(result.items);
+      } catch (err) {
+        if (!isActive()) return;
+        if (err instanceof BroadcastsApiError) {
+          setError(err);
+        } else {
+          setError(new BroadcastsApiError('Unable to load posts.', 0, 'unknown'));
+        }
+      } finally {
+        if (isActive()) setLoading(false);
+      }
+    },
+    [broadcastsClient, community.slug, token],
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      void loadBroadcasts(() => active);
+
+      return () => {
+        active = false;
+      };
+    }, [loadBroadcasts]),
+  );
+
+  if (loading) {
+    return <StatePanel title="Loading posts..." />;
+  }
+
+  if (error) {
+    if (error.code === 'unauthenticated') {
+      return (
+        <StatePanel title="Sign in to see posts">
+          <Text style={styles.panelBody}>
+            Broadcasts are creator updates shared with members of this community.
+          </Text>
+          <BrandButton
+            href={{ pathname: '/login', params: { returnTo: `/communities/${community.slug}` } }}
+          >
+            Sign in
+          </BrandButton>
+        </StatePanel>
+      );
+    }
+    if (error.code === 'forbidden') {
+      return (
+        <StatePanel title="Join this community to see posts">
+          <Text style={styles.panelBody}>Membership unlocks broadcasts from the creator.</Text>
+        </StatePanel>
+      );
+    }
+    return (
+      <StatePanel title={error.message || 'Unable to load posts.'}>
+        <BrandButton variant="secondary" onPress={() => void loadBroadcasts()}>
+          Retry
+        </BrandButton>
+      </StatePanel>
+    );
+  }
+
+  if (broadcasts.length === 0) {
+    return (
+      <StatePanel title="No posts yet">
+        <Text style={styles.panelBody}>Creators will share updates here.</Text>
+      </StatePanel>
+    );
+  }
+
+  return (
+    <View style={styles.broadcastList}>
+      {broadcasts.map((post) => (
+        <BroadcastCard key={post.id} post={post} />
+      ))}
+    </View>
+  );
+}
+
+function BroadcastCard({ post }: { post: Broadcast }) {
+  return (
+    <View style={styles.broadcastCard}>
+      <View style={styles.broadcastHeader}>
+        <Text style={styles.broadcastAuthor}>@{post.author.username}</Text>
+        <Text style={styles.broadcastTime}>{formatRelativeTime(post.publishedAt)}</Text>
+      </View>
+      <Text style={styles.broadcastBody}>{post.body}</Text>
+      {post.imageUrl ? (
+        <Image
+          source={{ uri: post.imageUrl }}
+          style={styles.broadcastImage}
+          contentFit="cover"
+          transition={150}
+        />
+      ) : null}
+    </View>
+  );
+}
+
+const LEADERBOARD_WINDOWS: { value: LeaderboardWindow; label: string }[] = [
+  { value: '7d', label: '7 days' },
+  { value: '30d', label: '30 days' },
+  { value: 'all', label: 'All-time' },
+];
+
+function LeaderboardTab({ community }: { community: Community }) {
+  const { token } = useAuth();
+  const apiUrl = useRuntimeApiUrl();
+  const leaderboardClient = useMemo(
+    () => createLeaderboardClient({ apiUrl }),
+    [apiUrl],
+  );
+  const [selectedWindow, setSelectedWindow] = useState<LeaderboardWindow>('7d');
+  const [data, setData] = useState<LeaderboardResult | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<LeaderboardApiError | null>(null);
+
+  const loadLeaderboard = useCallback(
+    async (windowValue: LeaderboardWindow, isActive: () => boolean = () => true) => {
+      setLoading(true);
+      setError(null);
+      try {
+        const result = await leaderboardClient.get(community.slug, {
+          window: windowValue,
+          token,
+        });
+        if (!isActive()) return;
+        setData(result);
+      } catch (err) {
+        if (!isActive()) return;
+        if (err instanceof LeaderboardApiError) {
+          setError(err);
+        } else {
+          setError(new LeaderboardApiError('Unable to load leaderboard.', 0, 'unknown'));
+        }
+      } finally {
+        if (isActive()) setLoading(false);
+      }
+    },
+    [community.slug, leaderboardClient, token],
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      void loadLeaderboard(selectedWindow, () => active);
+
+      return () => {
+        active = false;
+      };
+    }, [loadLeaderboard, selectedWindow]),
+  );
+
+  const entries = data?.entries ?? [];
+  const viewerEntry = data?.viewerEntry ?? null;
+  const viewerOutsideTopTen =
+    viewerEntry !== null && !entries.some((row) => row.userId === viewerEntry.userId);
+
+  return (
+    <View style={styles.leaderboardContainer}>
+      <View style={styles.windowSwitcher}>
+        {LEADERBOARD_WINDOWS.map((option) => {
+          const active = option.value === selectedWindow;
+          return (
+            <Pressable
+              key={option.value}
+              accessibilityRole="button"
+              onPress={() => setSelectedWindow(option.value)}
+              style={[
+                styles.windowPill,
+                active ? styles.windowPillActive : styles.windowPillInactive,
+              ]}
+            >
+              <Text
+                style={[
+                  styles.windowPillText,
+                  active ? styles.windowPillTextActive : styles.windowPillTextInactive,
+                ]}
+              >
+                {option.label}
+              </Text>
+            </Pressable>
+          );
+        })}
+      </View>
+
+      {loading ? (
+        <StatePanel title="Loading leaderboard..." />
+      ) : error ? (
+        <StatePanel title={error.message || 'Unable to load leaderboard.'}>
+          <BrandButton variant="secondary" onPress={() => void loadLeaderboard(selectedWindow)}>
+            Retry
+          </BrandButton>
+        </StatePanel>
+      ) : entries.length === 0 ? (
+        <StatePanel title="No scores yet">
+          <Text style={styles.panelBody}>Be the first to answer today&apos;s question.</Text>
+        </StatePanel>
+      ) : (
+        <>
+          <View style={styles.leaderboardList}>
+            {entries.map((entry) => (
+              <LeaderboardRow
+                key={entry.userId}
+                entry={entry}
+                isViewer={viewerEntry?.userId === entry.userId}
+              />
+            ))}
+          </View>
+
+          {viewerOutsideTopTen ? (
+            <View style={styles.viewerFooter}>
+              <Text style={styles.viewerFooterLabel}>YOUR RANK</Text>
+              <LeaderboardRow entry={viewerEntry} isViewer />
+            </View>
+          ) : null}
+        </>
+      )}
+    </View>
+  );
+}
+
+function LeaderboardRow({
+  entry,
+  isViewer,
+}: {
+  entry: LeaderboardEntry;
+  isViewer: boolean;
+}) {
+  const topThree = entry.rank <= 3;
+
+  return (
+    <View
+      style={[
+        styles.leaderboardRow,
+        isViewer ? styles.leaderboardRowViewer : null,
+      ]}
+    >
+      <View
+        style={[
+          styles.rankPill,
+          topThree ? styles.rankPillTop : styles.rankPillRegular,
+        ]}
+      >
+        <Text
+          style={[
+            styles.rankPillText,
+            topThree ? styles.rankPillTextTop : styles.rankPillTextRegular,
+          ]}
+        >
+          {entry.rank}
+        </Text>
+      </View>
+      <Text style={styles.leaderboardUsername} numberOfLines={1}>
+        @{entry.username}
+      </Text>
+      <Text style={styles.leaderboardPoints}>{formatPoints(entry.points)}</Text>
+    </View>
+  );
 }
 
 const stateBadgeStyles: Record<
@@ -587,7 +877,152 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 21,
   },
+  broadcastList: {
+    gap: 12,
+  },
+  broadcastCard: {
+    backgroundColor: palette.card,
+    borderColor: palette.line,
+    borderRadius: 12,
+    borderWidth: 1,
+    gap: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+  },
+  broadcastHeader: {
+    alignItems: 'baseline',
+    flexDirection: 'row',
+    gap: 10,
+    justifyContent: 'space-between',
+  },
+  broadcastAuthor: {
+    color: palette.primary,
+    fontFamily: fonts.sans,
+    fontSize: 14,
+    fontWeight: '800',
+  },
+  broadcastTime: {
+    color: palette.muted,
+    fontFamily: fonts.sans,
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  broadcastBody: {
+    color: palette.ink,
+    fontFamily: fonts.serif,
+    fontSize: 15,
+    lineHeight: 22,
+  },
+  broadcastImage: {
+    aspectRatio: 16 / 9,
+    borderRadius: 10,
+    marginTop: 4,
+    width: '100%',
+  },
   pressed: {
     opacity: 0.72,
+  },
+  leaderboardContainer: {
+    gap: 14,
+  },
+  windowSwitcher: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  windowPill: {
+    borderRadius: 999,
+    borderWidth: 1,
+    flexGrow: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
+  windowPillActive: {
+    backgroundColor: palette.primary,
+    borderColor: palette.primary,
+  },
+  windowPillInactive: {
+    backgroundColor: palette.card,
+    borderColor: palette.line,
+  },
+  windowPillText: {
+    fontFamily: fonts.sans,
+    fontSize: 13,
+    fontWeight: '800',
+    textAlign: 'center',
+  },
+  windowPillTextActive: {
+    color: palette.paper,
+  },
+  windowPillTextInactive: {
+    color: palette.ink,
+  },
+  leaderboardList: {
+    gap: 8,
+  },
+  leaderboardRow: {
+    alignItems: 'center',
+    backgroundColor: palette.card,
+    borderColor: palette.line,
+    borderRadius: 12,
+    borderWidth: 1,
+    flexDirection: 'row',
+    gap: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+  },
+  leaderboardRowViewer: {
+    borderColor: palette.primary,
+    borderWidth: 1.5,
+  },
+  rankPill: {
+    alignItems: 'center',
+    borderRadius: 999,
+    height: 28,
+    justifyContent: 'center',
+    width: 28,
+  },
+  rankPillTop: {
+    backgroundColor: palette.primary,
+  },
+  rankPillRegular: {
+    backgroundColor: palette.paper,
+    borderColor: palette.line,
+    borderWidth: 1,
+  },
+  rankPillText: {
+    fontFamily: fonts.sans,
+    fontSize: 13,
+    fontWeight: '800',
+  },
+  rankPillTextTop: {
+    color: palette.paper,
+  },
+  rankPillTextRegular: {
+    color: palette.ink,
+  },
+  leaderboardUsername: {
+    color: palette.ink,
+    flex: 1,
+    fontFamily: fonts.sans,
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  leaderboardPoints: {
+    color: palette.primary,
+    fontFamily: fonts.sans,
+    fontSize: 14,
+    fontWeight: '800',
+  },
+  viewerFooter: {
+    gap: 6,
+    paddingTop: 6,
+  },
+  viewerFooterLabel: {
+    color: palette.muted,
+    fontFamily: fonts.sans,
+    fontSize: 11,
+    fontWeight: '800',
+    letterSpacing: 0.6,
+    textTransform: 'uppercase',
   },
 });

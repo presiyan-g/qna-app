@@ -5,6 +5,7 @@ import { Nav } from '@/app/_components/landing/Nav';
 import { getSession } from '@/services/auth';
 import { getCommunityBySlug } from '@/services/communities';
 import {
+  canReadBroadcasts,
   listCommunityBroadcasts,
   normalizeBroadcastLimit,
   type BroadcastPostResource,
@@ -31,6 +32,75 @@ export default async function CommunityBroadcastsPage({
   ]);
   const community = await getCommunityBySlug(slug, session?.sub ?? null);
   if (!community) notFound();
+
+  const viewerIsMember = canReadBroadcasts(community.currentUserRole);
+
+  if (!viewerIsMember) {
+    return (
+      <main className="flex flex-1 flex-col bg-paper text-ink">
+        <Nav />
+        <section className="px-6 py-12 md:px-12 md:py-16">
+          <div className="mx-auto max-w-[900px]">
+            <Link
+              href={`/communities/${community.slug}`}
+              className="text-sm font-semibold text-primary hover:underline"
+            >
+              Back to community
+            </Link>
+
+            <div className="mt-8">
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
+                {community.name}
+              </p>
+              <h1 className="mt-2 text-[38px] font-bold leading-tight md:text-[52px]">
+                Broadcasts
+              </h1>
+            </div>
+
+            <section className="mt-8 rounded-lg border border-dashed border-line bg-card p-6">
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
+                Members only
+              </p>
+              <h2 className="mt-2 text-2xl font-bold">
+                {session?.sub
+                  ? 'Join this community to see broadcasts'
+                  : 'Sign in to see broadcasts'}
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-muted">
+                Broadcasts are creator updates shared with members of {community.name}.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                {session?.sub ? (
+                  <Link
+                    href={`/communities/${community.slug}`}
+                    className="rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-paper hover:opacity-90"
+                  >
+                    Join community
+                  </Link>
+                ) : (
+                  <>
+                    <Link
+                      href={`/login?returnTo=/communities/${community.slug}/broadcasts`}
+                      className="rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-paper hover:opacity-90"
+                    >
+                      Sign in
+                    </Link>
+                    <Link
+                      href="/register"
+                      className="rounded-full border border-line px-5 py-2.5 text-sm font-bold text-ink hover:border-primary hover:text-primary"
+                    >
+                      Create account
+                    </Link>
+                  </>
+                )}
+              </div>
+            </section>
+          </div>
+        </section>
+        <Footer />
+      </main>
+    );
+  }
 
   const page = await listCommunityBroadcasts({
     slug,

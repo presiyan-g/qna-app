@@ -3,6 +3,7 @@ import test from 'node:test';
 import {
   canCreateBroadcastPost,
   canEditBroadcastPost,
+  canReadBroadcasts,
   canSoftDeleteBroadcastPost,
 } from './policy';
 
@@ -64,4 +65,10 @@ test('authors and same-community creators can soft-delete broadcast posts', () =
     }),
     false,
   );
+});
+
+test('members and creators can read broadcasts; non-members cannot', () => {
+  assert.equal(canReadBroadcasts('creator'), true);
+  assert.equal(canReadBroadcasts('member'), true);
+  assert.equal(canReadBroadcasts(null), false);
 });

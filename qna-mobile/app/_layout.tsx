@@ -1,9 +1,10 @@
 import { ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import 'react-native-reanimated';
 
+import { HeaderBackButton } from '@/components/HeaderBackButton';
 import { HeaderProfileChip } from '@/components/HeaderProfileChip';
 import { navigationTheme, palette } from '@/constants/theme';
 import { AuthProvider } from '@/services/auth/AuthContext';
@@ -16,6 +17,12 @@ export default function RootLayout() {
           screenOptions={{
             contentStyle: { backgroundColor: palette.paper },
             headerBackTitle: 'Back',
+            ...(Platform.OS === 'web'
+              ? {
+                  headerLeft: () => <HeaderBackButton />,
+                  headerLeftContainerStyle: { paddingLeft: 16 },
+                }
+              : null),
             headerRight: () => <HeaderProfileChip />,
             headerRightContainerStyle: { paddingRight: 16 },
             headerShadowVisible: false,

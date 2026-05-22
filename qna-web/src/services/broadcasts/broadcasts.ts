@@ -11,10 +11,16 @@ import {
   encodeBroadcastCursor,
   normalizeBroadcastLimit,
 } from './cursor';
-import { BroadcastNotFoundError, BroadcastPermissionError } from './errors';
+import {
+  BroadcastAuthenticationRequiredError,
+  BroadcastMembershipRequiredError,
+  BroadcastNotFoundError,
+  BroadcastPermissionError,
+} from './errors';
 import {
   canCreateBroadcastPost,
   canEditBroadcastPost,
+  canReadBroadcasts,
   canSoftDeleteBroadcastPost,
 } from './policy';
 import { validateBroadcastInput } from './validation';
@@ -69,6 +75,10 @@ export async function listCommunityBroadcasts({
   if (!community) {
     throw new BroadcastNotFoundError();
   }
+  assertCanReadBroadcasts({
+    viewerUserId,
+    communityRole: community.currentUserRole,
+  });
   const viewerStatus = viewerUserId
     ? await findUserStatusById(viewerUserId)
     : null;
@@ -185,6 +195,10 @@ export async function getCommunityBroadcast({
 }): Promise<BroadcastPostResource | null> {
   const community = await getCommunityBySlug(slug, viewerUserId);
   if (!community) return null;
+  assertCanReadBroadcasts({
+    viewerUserId,
+    communityRole: community.currentUserRole,
+  });
   const viewerStatus = viewerUserId
     ? await findUserStatusById(viewerUserId)
     : null;
@@ -425,4 +439,19 @@ async function assertAccountCanMutate(userId: string): Promise<void> {
   const status = await findUserStatusById(userId);
   if (!status) throw new AccountSuspendedError('User account is unavailable.');
   assertUserCanMutate({ status });
+}
+
+function assertCanReadBroadcasts({
+  viewerUserId,
+  communityRole,
+}: {
+  viewerUserId: string | null;
+  communityRole: CommunityRole | null;
+}): void {
+  if (!viewerUserId) {
+    throw new BroadcastAuthenticationRequiredError();
+  }
+  if (!canReadBroadcasts(communityRole)) {
+    throw new BroadcastMembershipRequiredError();
+  }
 }
