@@ -9,6 +9,7 @@ import {
   updateQuestionAction,
   type DashboardQuestionFormState,
 } from '@/app/actions/questions';
+import { ImageUploader } from '@/app/_components/ImageUploader';
 
 export type QuestionFormChoice = {
   label: string;
@@ -29,21 +30,23 @@ const INITIAL: DashboardQuestionFormState = { ok: false };
 
 export function QuestionManagementForm({
   slug,
+  communityId,
   question,
   onSaved,
 }: {
   slug: string;
+  communityId: string;
   question?: QuestionFormValues;
   onSaved?: () => void;
 }) {
   return question ? (
-    <EditQuestionForm slug={slug} question={question} onSaved={onSaved} />
+    <EditQuestionForm slug={slug} communityId={communityId} question={question} onSaved={onSaved} />
   ) : (
-    <CreateQuestionForm slug={slug} />
+    <CreateQuestionForm slug={slug} communityId={communityId} />
   );
 }
 
-function CreateQuestionForm({ slug }: { slug: string }) {
+function CreateQuestionForm({ slug, communityId }: { slug: string; communityId: string }) {
   const draftAction = createQuestionDraftAction.bind(null, slug);
   const scheduledAction = createScheduledQuestionAction.bind(null, slug);
   const publishNowAction = publishQuestionNowAction.bind(null, slug);
@@ -69,6 +72,7 @@ function CreateQuestionForm({ slug }: { slug: string }) {
     <QuestionFields
       ref={formRef}
       state={state}
+      communityId={communityId}
       choices={emptyChoices()}
       footer={
         <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-end">
@@ -113,10 +117,12 @@ function pickActiveState(
 
 function EditQuestionForm({
   slug,
+  communityId,
   question,
   onSaved,
 }: {
   slug: string;
+  communityId: string;
   question: QuestionFormValues;
   onSaved?: () => void;
 }) {
@@ -131,6 +137,7 @@ function EditQuestionForm({
     <QuestionFields
       state={state}
       action={formAction}
+      communityId={communityId}
       prompt={question.prompt}
       explanation={question.explanation ?? ''}
       imageUrl={question.imageUrl ?? ''}
@@ -152,6 +159,7 @@ function EditQuestionForm({
 const QuestionFields = function QuestionFields({
   action,
   state,
+  communityId,
   prompt = '',
   explanation = '',
   imageUrl = '',
@@ -162,6 +170,7 @@ const QuestionFields = function QuestionFields({
 }: {
   action?: (payload: FormData) => void;
   state: DashboardQuestionFormState;
+  communityId: string;
   prompt?: string;
   explanation?: string;
   imageUrl?: string;
@@ -225,19 +234,14 @@ const QuestionFields = function QuestionFields({
         />
       </FieldError>
 
-      <FieldError error={undefined}>
-        <label htmlFor="question-image-url" className="text-[13px] font-semibold">
-          Image URL
-        </label>
-        <input
-          id="question-image-url"
-          name="imageUrl"
-          type="url"
-          defaultValue={imageUrl}
-          className="rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-          placeholder="https://example.com/image.png"
-        />
-      </FieldError>
+      <ImageUploader
+        name="imageUrl"
+        scope="question-prompt"
+        communityId={communityId}
+        label="Question image (optional)"
+        initialUrl={imageUrl || null}
+        helpText="JPEG, PNG, or WebP up to 5 MB."
+      />
 
       <FieldError error={state.fieldErrors?.scheduledFor}>
         <div className="flex items-baseline justify-between gap-3">
@@ -279,38 +283,42 @@ const QuestionFields = function QuestionFields({
           </button>
         </div>
         {choiceRows.map((choice, index) => (
-          <div key={index} className="grid grid-cols-[36px_1fr_auto] gap-2">
-            <label className="flex h-11 items-center justify-center rounded-lg border border-line bg-paper">
+          <div key={index} className="flex flex-col gap-2 rounded-lg border border-line bg-paper p-3">
+            <div className="grid grid-cols-[36px_1fr_auto] gap-2">
+              <label className="flex h-11 items-center justify-center rounded-lg border border-line bg-card">
+                <input
+                  type="radio"
+                  name="correctChoice"
+                  value={index}
+                  defaultChecked={index === correctIndex}
+                  className="h-4 w-4 accent-primary"
+                />
+              </label>
               <input
-                type="radio"
-                name="correctChoice"
-                value={index}
-                defaultChecked={index === correctIndex}
-                className="h-4 w-4 accent-primary"
+                name="choiceLabel"
+                type="text"
+                defaultValue={choice.label}
+                placeholder={`Choice ${index + 1}`}
+                className="min-w-0 rounded-lg border border-line bg-card px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
-            </label>
-            <input
-              name="choiceLabel"
-              type="text"
-              defaultValue={choice.label}
-              placeholder={`Choice ${index + 1}`}
-              className="min-w-0 rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-            />
-            <input
+              <button
+                type="button"
+                disabled={choiceRows.length <= 2}
+                onClick={() =>
+                  setChoiceRows((rows) => rows.filter((_, rowIndex) => rowIndex !== index))
+                }
+                className="rounded-lg border border-line px-3 text-sm font-bold text-muted disabled:opacity-40"
+              >
+                Remove
+              </button>
+            </div>
+            <ImageUploader
               name="choiceImageUrl"
-              type="hidden"
-              defaultValue={choice.imageUrl ?? ''}
+              scope="question-choice"
+              communityId={communityId}
+              label={`Choice ${index + 1} image (optional)`}
+              initialUrl={choice.imageUrl ?? null}
             />
-            <button
-              type="button"
-              disabled={choiceRows.length <= 2}
-              onClick={() =>
-                setChoiceRows((rows) => rows.filter((_, rowIndex) => rowIndex !== index))
-              }
-              className="rounded-lg border border-line px-3 text-sm font-bold text-muted disabled:opacity-40"
-            >
-              Remove
-            </button>
           </div>
         ))}
         {state.fieldErrors?.choices && (

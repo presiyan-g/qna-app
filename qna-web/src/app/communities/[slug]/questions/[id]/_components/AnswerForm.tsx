@@ -63,6 +63,14 @@ export function AnswerForm({
             <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-card text-[12px] font-bold text-muted">
               {choice.position}
             </span>
+            {choice.imageUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={choice.imageUrl}
+                alt=""
+                className="h-16 w-16 shrink-0 rounded-md border border-line object-cover"
+              />
+            )}
             <span className="min-w-0 flex-1 leading-6">{choice.label}</span>
           </label>
         ))}

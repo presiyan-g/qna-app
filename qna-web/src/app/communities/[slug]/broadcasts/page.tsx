@@ -149,7 +149,7 @@ export default async function CommunityBroadcastsPage({
               </p>
               <h2 className="mt-2 text-2xl font-bold">Post a broadcast</h2>
               <div className="mt-5">
-                <BroadcastComposer slug={community.slug} />
+                <BroadcastComposer slug={community.slug} communityId={community.id} />
               </div>
             </section>
           )}
@@ -157,6 +157,7 @@ export default async function CommunityBroadcastsPage({
           <section className="mt-8">
             <BroadcastFeed
               slug={community.slug}
+              communityId={community.id}
               posts={page.items.map(serializeBroadcast)}
             />
           </section>

@@ -47,6 +47,15 @@ export default async function CommunityPage({ params }: PageProps) {
             Back to communities
           </Link>
 
+          {community.coverImageUrl && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={community.coverImageUrl}
+              alt=""
+              className="mt-6 h-48 w-full rounded-xl border border-line object-cover md:h-64"
+            />
+          )}
+
           <div className="mt-8 grid gap-6 md:grid-cols-[1fr_280px]">
             <div>
               <div className="mb-5 flex h-14 w-14 items-center justify-center overflow-hidden rounded-lg bg-primary-soft text-lg font-bold text-primary">

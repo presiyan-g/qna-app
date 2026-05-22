@@ -7,6 +7,7 @@ import {
 } from '@/app/actions/communities';
 import type { CommunityCategory } from '@/db/schema/communities';
 import { EmojiPicker } from './EmojiPicker';
+import { ImageUploader } from '@/app/_components/ImageUploader';
 
 const INITIAL: CommunityFormState = { ok: false };
 
@@ -45,6 +46,13 @@ export function CreateCommunityForm({
         label="Description"
         name="description"
         error={state.fieldErrors?.description}
+      />
+      <ImageUploader
+        name="coverImageUrl"
+        scope="community-cover"
+        communityId={null}
+        label="Cover image (optional)"
+        helpText="JPEG, PNG, or WebP up to 5 MB."
       />
       <div className="flex flex-col gap-1.5">
         <label htmlFor="field-categoryId" className="text-[13px] font-semibold">

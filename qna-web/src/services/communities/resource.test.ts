@@ -86,6 +86,7 @@ function community(): Community {
     name: 'Daily Builders',
     description: 'Build daily.',
     emoji: 'DB',
+    coverImageUrl: null,
     cadence: 'daily',
     status: 'active',
     isFeatured: false,

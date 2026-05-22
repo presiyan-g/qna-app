@@ -1,3 +1,4 @@
+import { getR2Config, normalizeStoredImageUrl } from '@/services/uploads';
 import { CommunityValidationError } from './errors';
 
 export type CreateCommunityInput = {
@@ -7,6 +8,7 @@ export type CreateCommunityInput = {
   emoji: string;
   cadence: 'daily' | 'weekly' | 'custom';
   categoryId: string | null;
+  coverImageUrl: string | null;
 };
 
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -20,6 +22,7 @@ export function validateCreateCommunityInput(raw: {
   emoji?: unknown;
   cadence?: unknown;
   categoryId?: unknown;
+  coverImageUrl?: unknown;
 }): CreateCommunityInput {
   const fieldErrors: Record<string, string> = {};
   const name = typeof raw.name === 'string' ? raw.name.trim() : '';
@@ -60,6 +63,16 @@ export function validateCreateCommunityInput(raw: {
     }
   }
 
+  let coverImageUrl: string | null = null;
+  try {
+    coverImageUrl = normalizeStoredImageUrl(
+      raw.coverImageUrl,
+      getR2Config().publicUrl,
+    );
+  } catch {
+    fieldErrors.coverImageUrl = 'Re-upload the cover image.';
+  }
+
   if (Object.keys(fieldErrors).length > 0) {
     throw new CommunityValidationError(fieldErrors);
   }
@@ -71,6 +84,7 @@ export function validateCreateCommunityInput(raw: {
     emoji,
     cadence: cadence as CreateCommunityInput['cadence'],
     categoryId,
+    coverImageUrl,
   };
 }
 

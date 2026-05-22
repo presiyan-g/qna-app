@@ -106,3 +106,85 @@ test('validates a future GMT schedule', () => {
   assert.equal(schedule.closesAt.toISOString(), '2026-05-22T12:00:00.000Z');
   assert.equal(schedule.publishedAt.toISOString(), '2026-05-21T12:00:00.000Z');
 });
+
+test('accepts null/undefined/empty imageUrl without R2 env', () => {
+  const draft = validateDraftQuestionInput({
+    prompt: 'Which tool should own database migrations?',
+    explanation: 'Drizzle migrations keep schema history reviewable.',
+    imageUrl: null,
+    choices: [
+      { label: 'Drizzle', isCorrect: true },
+      { label: 'Ad hoc SQL', isCorrect: false },
+    ],
+  });
+  assert.equal(draft.imageUrl, null);
+
+  const draft2 = validateDraftQuestionInput({
+    prompt: 'Which tool should own database migrations?',
+    explanation: 'Drizzle migrations keep schema history reviewable.',
+    imageUrl: '   ',
+    choices: [
+      { label: 'Drizzle', isCorrect: true },
+      { label: 'Ad hoc SQL', isCorrect: false },
+    ],
+  });
+  assert.equal(draft2.imageUrl, null);
+});
+
+test('only accepts question imageUrl on the configured R2 host', () => {
+  const publicUrl = process.env.R2_PUBLIC_URL;
+  if (!publicUrl) {
+    // Skip in environments without R2 configured; this guards CI from breaking.
+    return;
+  }
+
+  const draft = validateDraftQuestionInput({
+    prompt: 'Which tool should own database migrations?',
+    explanation: 'Drizzle migrations keep schema history reviewable.',
+    imageUrl: `${publicUrl}/communities/c/questions/u/q.png`,
+    choices: [
+      { label: 'Drizzle', isCorrect: true },
+      { label: 'Ad hoc SQL', isCorrect: false },
+    ],
+  });
+  assert.equal(draft.imageUrl, `${publicUrl}/communities/c/questions/u/q.png`);
+
+  assert.throws(
+    () =>
+      validateDraftQuestionInput({
+        prompt: 'Which tool should own database migrations?',
+        explanation: 'Drizzle migrations keep schema history reviewable.',
+        imageUrl: 'https://example.com/image.png',
+        choices: [
+          { label: 'Drizzle', isCorrect: true },
+          { label: 'Ad hoc SQL', isCorrect: false },
+        ],
+      }),
+    (err) =>
+      err instanceof QuestionsValidationError &&
+      err.fieldErrors.imageUrl === 'Re-upload the image.',
+  );
+});
+
+test('only accepts choice imageUrl on the configured R2 host', () => {
+  const publicUrl = process.env.R2_PUBLIC_URL;
+  if (!publicUrl) {
+    // Skip in environments without R2 configured; this guards CI from breaking.
+    return;
+  }
+
+  assert.throws(
+    () =>
+      validateDraftQuestionInput({
+        prompt: 'Which tool should own database migrations?',
+        explanation: 'Drizzle migrations keep schema history reviewable.',
+        choices: [
+          { label: 'Drizzle', isCorrect: true, imageUrl: 'https://evil.com/x.png' },
+          { label: 'Ad hoc SQL', isCorrect: false },
+        ],
+      }),
+    (err) =>
+      err instanceof QuestionsValidationError &&
+      err.fieldErrors.choices === 'Re-upload one of the choice images.',
+  );
+});

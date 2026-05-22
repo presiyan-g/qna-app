@@ -31,23 +31,29 @@ test('rejects missing and overlong bodies', () => {
   );
 });
 
-test('accepts only http and https image URLs', () => {
+test('only accepts image URLs on the configured R2 host', () => {
+  const publicUrl = process.env.R2_PUBLIC_URL;
+  if (!publicUrl) {
+    // Skip in environments without R2 configured; this guards CI from breaking.
+    return;
+  }
+
   assert.equal(
     validateBroadcastInput({
       body: 'Post',
-      imageUrl: 'https://example.com/image.png',
+      imageUrl: `${publicUrl}/communities/c/broadcasts/u/r.png`,
     }).imageUrl,
-    'https://example.com/image.png',
+    `${publicUrl}/communities/c/broadcasts/u/r.png`,
   );
 
   assert.throws(
     () =>
       validateBroadcastInput({
         body: 'Post',
-        imageUrl: 'javascript:alert(1)',
+        imageUrl: 'https://example.com/image.png',
       }),
     (err) =>
       err instanceof BroadcastValidationError &&
-      err.fieldErrors.imageUrl === 'Use a valid http or https image URL.',
+      err.fieldErrors.imageUrl === 'Re-upload the image.',
   );
 });

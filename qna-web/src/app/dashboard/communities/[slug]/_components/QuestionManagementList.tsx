@@ -30,9 +30,11 @@ const TABS: Array<{ key: TabKey; label: string; empty: string }> = [
 
 export function QuestionManagementList({
   slug,
+  communityId,
   questions,
 }: {
   slug: string;
+  communityId: string;
   questions: SerializedManagedQuestion[];
 }) {
   const grouped = useMemo(() => groupQuestions(questions), [questions]);
@@ -87,7 +89,7 @@ export function QuestionManagementList({
       <div className="mt-6 grid gap-4">
         {activeQuestions.length > 0 ? (
           activeQuestions.map((question) => (
-            <QuestionCard key={question.id} slug={slug} question={question} />
+            <QuestionCard key={question.id} slug={slug} communityId={communityId} question={question} />
           ))
         ) : (
           <div className="rounded-2xl border border-dashed border-primary/20 bg-card px-6 py-10 text-center text-sm text-muted">
@@ -111,9 +113,11 @@ function groupQuestions(questions: SerializedManagedQuestion[]) {
 
 function QuestionCard({
   slug,
+  communityId,
   question,
 }: {
   slug: string;
+  communityId: string;
   question: SerializedManagedQuestion;
 }) {
   const [editing, setEditing] = useState(false);
@@ -161,6 +165,7 @@ function QuestionCard({
         <div className="mt-5 rounded-lg border border-line bg-paper p-4">
           <QuestionManagementForm
             slug={slug}
+            communityId={communityId}
             question={question}
             onSaved={() => setEditing(false)}
           />

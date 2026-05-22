@@ -1,3 +1,5 @@
+import { normalizeStoredImageUrl } from '@/services/uploads/url';
+
 export type CreateQuestionChoiceInput = {
   label: string;
   isCorrect: boolean;
@@ -146,9 +148,9 @@ function validateQuestionCore(
   const prompt = typeof raw.prompt === 'string' ? raw.prompt.trim() : '';
   const explanation =
     typeof raw.explanation === 'string' ? raw.explanation.trim() : '';
-  const imageUrl = normalizeOptionalString(raw.imageUrl);
+  const imageUrl = normalizeImageUrlOrFail(raw.imageUrl, fieldErrors, 'imageUrl');
   const rawChoices = Array.isArray(raw.choices) ? raw.choices : [];
-  const choices = normalizeChoices(rawChoices);
+  const choices = normalizeChoices(rawChoices, fieldErrors);
 
   if (!prompt) fieldErrors.prompt = 'Question prompt is required.';
   else if (prompt.length < 10) {
@@ -181,25 +183,43 @@ function validateQuestionCore(
   };
 }
 
-function normalizeChoices(rawChoices: unknown[]): CreateQuestionChoiceInput[] {
+function normalizeChoices(
+  rawChoices: unknown[],
+  fieldErrors: Record<string, string>,
+): CreateQuestionChoiceInput[] {
+  const publicUrl = process.env.R2_PUBLIC_URL ?? '';
   return rawChoices.map((rawChoice, index) => {
-    const choice = rawChoice && typeof rawChoice === 'object'
-      ? (rawChoice as RawChoice)
-      : {};
+    const choice =
+      rawChoice && typeof rawChoice === 'object' ? (rawChoice as RawChoice) : {};
+
+    let imageUrl: string | null = null;
+    try {
+      imageUrl = normalizeStoredImageUrl(choice.imageUrl, publicUrl);
+    } catch {
+      fieldErrors.choices = 'Re-upload one of the choice images.';
+    }
 
     return {
       label: typeof choice.label === 'string' ? choice.label.trim() : '',
       isCorrect: choice.isCorrect === true || choice.isCorrect === 'true',
-      imageUrl: normalizeOptionalString(choice.imageUrl),
+      imageUrl,
       position: index + 1,
     };
   });
 }
 
-function normalizeOptionalString(value: unknown): string | null {
-  if (typeof value !== 'string') return null;
-  const trimmed = value.trim();
-  return trimmed.length > 0 ? trimmed : null;
+function normalizeImageUrlOrFail(
+  value: unknown,
+  fieldErrors: Record<string, string>,
+  fieldKey: string,
+): string | null {
+  const publicUrl = process.env.R2_PUBLIC_URL ?? '';
+  try {
+    return normalizeStoredImageUrl(value, publicUrl);
+  } catch {
+    fieldErrors[fieldKey] = 'Re-upload the image.';
+    return null;
+  }
 }
 
 function parseGmtDateTime(value: unknown): Date | null {

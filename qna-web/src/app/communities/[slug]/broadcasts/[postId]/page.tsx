@@ -47,7 +47,7 @@ export default async function BroadcastDetailPage({ params }: PageProps) {
           </div>
 
           <section className="mt-8">
-            <BroadcastFeed slug={slug} posts={[serializeBroadcast(post)]} />
+            <BroadcastFeed slug={slug} communityId={post.communityId} posts={[serializeBroadcast(post)]} />
           </section>
         </div>
       </section>

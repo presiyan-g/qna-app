@@ -1,9 +1,9 @@
+import { normalizeStoredImageUrl } from '@/services/uploads/url';
 import { BroadcastValidationError } from './errors';
 
 export { BroadcastValidationError } from './errors';
 
 const MAX_BROADCAST_BODY_LENGTH = 4000;
-const MAX_IMAGE_URL_LENGTH = 2048;
 
 export type BroadcastInput = {
   body: string;
@@ -35,24 +35,11 @@ function normalizeOptionalImageUrl(
   value: unknown,
   fieldErrors: Partial<Record<'body' | 'imageUrl', string>>,
 ): string | null {
-  if (typeof value !== 'string') return null;
-  const trimmed = value.trim();
-  if (!trimmed) return null;
-
-  if (trimmed.length > MAX_IMAGE_URL_LENGTH) {
-    fieldErrors.imageUrl = 'Use 2048 characters or fewer.';
-    return null;
-  }
-
+  const publicUrl = process.env.R2_PUBLIC_URL ?? '';
   try {
-    const url = new URL(trimmed);
-    if (url.protocol !== 'http:' && url.protocol !== 'https:') {
-      fieldErrors.imageUrl = 'Use a valid http or https image URL.';
-      return null;
-    }
-    return url.toString();
+    return normalizeStoredImageUrl(value, publicUrl);
   } catch {
-    fieldErrors.imageUrl = 'Use a valid http or https image URL.';
+    fieldErrors.imageUrl = 'Re-upload the image.';
     return null;
   }
 }

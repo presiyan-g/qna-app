@@ -22,10 +22,12 @@ export type SerializedBroadcastPost = {
 
 export function BroadcastFeed({
   slug,
+  communityId,
   posts,
   emptyTitle = 'No broadcasts yet',
 }: {
   slug: string;
+  communityId: string;
   posts: SerializedBroadcastPost[];
   emptyTitle?: string;
 }) {
@@ -46,7 +48,7 @@ export function BroadcastFeed({
   return (
     <div className="grid gap-5">
       {posts.map((post) => (
-        <BroadcastCard key={post.id} slug={slug} post={post} />
+        <BroadcastCard key={post.id} slug={slug} communityId={communityId} post={post} />
       ))}
     </div>
   );
@@ -54,9 +56,11 @@ export function BroadcastFeed({
 
 function BroadcastCard({
   slug,
+  communityId,
   post,
 }: {
   slug: string;
+  communityId: string;
   post: SerializedBroadcastPost;
 }) {
   const [editing, setEditing] = useState(false);
@@ -101,6 +105,7 @@ function BroadcastCard({
         <div className="mt-5 rounded-lg border border-line bg-paper p-4">
           <BroadcastComposer
             slug={slug}
+            communityId={communityId}
             postId={post.id}
             initialBody={post.body}
             initialImageUrl={post.imageUrl}

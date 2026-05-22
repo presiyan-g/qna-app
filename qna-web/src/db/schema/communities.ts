@@ -64,6 +64,7 @@ export const communities = pgTable(
     name: text('name').notNull(),
     description: text('description').notNull().default(''),
     emoji: text('emoji').notNull().default(''),
+    coverImageUrl: text('cover_image_url'),
     cadence: communityCadenceEnum('cadence').notNull().default('daily'),
     status: communityStatusEnum('status').notNull().default('active'),
     isFeatured: boolean('is_featured').notNull().default(false),

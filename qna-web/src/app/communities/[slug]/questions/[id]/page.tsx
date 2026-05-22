@@ -65,6 +65,14 @@ export default async function QuestionDetailPage({ params }: PageProps) {
                 <p>{question.points} points</p>
               </div>
             </div>
+            {question.imageUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={question.imageUrl}
+                alt=""
+                className="mt-6 max-h-[420px] w-full rounded-lg border border-line object-contain"
+              />
+            )}
           </article>
 
           <div className="mt-6 grid gap-6">
@@ -212,9 +220,19 @@ function AnswerSummary({
       <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
         {title}
       </p>
-      <p className="mt-2 text-sm leading-6 text-ink">
-        <span className="font-bold">{choice.position}.</span> {choice.label}
-      </p>
+      <div className="mt-2 flex items-start gap-3">
+        {choice.imageUrl && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={choice.imageUrl}
+            alt=""
+            className="h-14 w-14 shrink-0 rounded-md border border-line object-cover"
+          />
+        )}
+        <p className="text-sm leading-6 text-ink">
+          <span className="font-bold">{choice.position}.</span> {choice.label}
+        </p>
+      </div>
     </div>
   );
 }

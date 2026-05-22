@@ -241,6 +241,7 @@ export async function createCommunity({
         description: input.description,
         emoji: input.emoji,
         cadence: input.cadence,
+        coverImageUrl: input.coverImageUrl,
       })
       .returning();
 

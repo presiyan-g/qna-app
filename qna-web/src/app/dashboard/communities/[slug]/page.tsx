@@ -86,13 +86,14 @@ export default async function CreatorCommunityDashboardPage({
                 right now.
               </p>
               <div className="mt-6">
-                <QuestionManagementForm slug={dashboard.community.slug} />
+                <QuestionManagementForm slug={dashboard.community.slug} communityId={dashboard.community.id} />
               </div>
             </section>
 
             <section aria-label="Existing questions" className="mt-12">
               <QuestionManagementList
                 slug={dashboard.community.slug}
+                communityId={dashboard.community.id}
                 questions={dashboard.questions.map(serializeQuestion)}
               />
             </section>

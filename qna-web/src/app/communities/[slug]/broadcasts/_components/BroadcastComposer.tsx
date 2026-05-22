@@ -7,17 +7,20 @@ import {
   updateBroadcastAction,
   type BroadcastFormState,
 } from '@/app/actions/broadcasts';
+import { ImageUploader } from '@/app/_components/ImageUploader';
 
 const INITIAL_STATE: BroadcastFormState = { ok: false };
 
 export function BroadcastComposer({
   slug,
+  communityId,
   postId,
   initialBody = '',
   initialImageUrl = '',
   onSaved,
 }: {
   slug: string;
+  communityId: string;
   postId?: string;
   initialBody?: string;
   initialImageUrl?: string | null;
@@ -68,24 +71,19 @@ export function BroadcastComposer({
         />
       </FieldError>
 
-      <FieldError error={state.fieldErrors?.imageUrl}>
-        <label
-          htmlFor={postId ? `broadcast-image-${postId}` : 'broadcast-image'}
-        >
-          Image URL
-        </label>
-        <input
-          id={postId ? `broadcast-image-${postId}` : 'broadcast-image'}
+      <div className="grid gap-1.5">
+        <ImageUploader
           name="imageUrl"
-          type="url"
-          maxLength={2048}
-          disabled={pending}
-          defaultValue={initialImageUrl ?? ''}
-          aria-invalid={state.fieldErrors?.imageUrl ? 'true' : undefined}
-          className="rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-65"
-          placeholder="https://example.com/image.png"
+          scope="broadcast"
+          communityId={communityId}
+          label="Image (optional)"
+          initialUrl={initialImageUrl || null}
+          helpText="JPEG, PNG, or WebP up to 5 MB."
         />
-      </FieldError>
+        {state.fieldErrors?.imageUrl && (
+          <p className="text-[12px] text-red-700">{state.fieldErrors.imageUrl}</p>
+        )}
+      </div>
 
       <div className="flex items-center gap-3">
         <button

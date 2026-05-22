@@ -23,7 +23,7 @@ export type QuestionFormState = {
   ok: boolean;
   formError?: string;
   fieldErrors?: Partial<
-    Record<'prompt' | 'explanation' | 'scheduledFor' | 'choices', string>
+    Record<'prompt' | 'explanation' | 'scheduledFor' | 'choices' | 'imageUrl', string>
   >;
 };
 
