@@ -100,6 +100,9 @@ export const communityMembers = pgTable(
     joinedAt: timestamp('joined_at', { withTimezone: true })
       .notNull()
       .defaultNow(),
+    lastSeenBroadcastsAt: timestamp('last_seen_broadcasts_at', {
+      withTimezone: true,
+    }),
     createdAt: timestamp('created_at', { withTimezone: true })
       .notNull()
       .defaultNow(),

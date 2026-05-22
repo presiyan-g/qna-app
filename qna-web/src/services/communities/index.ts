@@ -7,6 +7,7 @@ export {
   listFeaturedCommunities,
   listCommunities,
   listMyCommunities,
+  markBroadcastsSeen,
   searchCommunities,
   type CommunityRole,
   type CommunityWithMembership,

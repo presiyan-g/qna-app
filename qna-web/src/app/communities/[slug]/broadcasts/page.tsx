@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { Footer } from '@/app/_components/landing/Footer';
 import { Nav } from '@/app/_components/landing/Nav';
 import { getSession } from '@/services/auth';
-import { getCommunityBySlug } from '@/services/communities';
+import { getCommunityBySlug, markBroadcastsSeen } from '@/services/communities';
 import {
   canReadBroadcasts,
   listCommunityBroadcasts,
@@ -100,6 +100,10 @@ export default async function CommunityBroadcastsPage({
         <Footer />
       </main>
     );
+  }
+
+  if (session?.sub) {
+    await markBroadcastsSeen({ userId: session.sub, slug });
   }
 
   const page = await listCommunityBroadcasts({

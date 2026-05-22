@@ -4,6 +4,10 @@ import {
   joinCommunityAction,
   leaveCommunityAction,
 } from '@/app/actions/communities';
+import {
+  formatNewBroadcastsLabel,
+  formatNewQuestionsLabel,
+} from './communityCardIndicators';
 
 export function CommunityListCard({
   community,
@@ -14,6 +18,11 @@ export function CommunityListCard({
 }) {
   const joinAction = joinCommunityAction.bind(null, community.slug);
   const leaveAction = leaveCommunityAction.bind(null, community.slug);
+
+  const showIndicators =
+    community.currentUserRole !== null &&
+    (community.unansweredQuestionCount > 0 ||
+      community.newBroadcastCount > 0);
 
   return (
     <article className="flex min-h-[220px] flex-col justify-between rounded-lg border border-line bg-card p-5">
@@ -49,6 +58,35 @@ export function CommunityListCard({
         <p className="mt-4 text-sm leading-6 text-muted">
           {community.description || 'A recurring challenge community.'}
         </p>
+
+        {showIndicators ? (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {community.unansweredQuestionCount > 0 ? (
+              <Link
+                href={`/communities/${community.slug}`}
+                className="inline-flex items-center gap-1.5 rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold text-primary"
+              >
+                <span
+                  className="h-1.5 w-1.5 rounded-full bg-primary"
+                  aria-hidden
+                />
+                {formatNewQuestionsLabel(community.unansweredQuestionCount)}
+              </Link>
+            ) : null}
+            {community.newBroadcastCount > 0 ? (
+              <Link
+                href={`/communities/${community.slug}/broadcasts`}
+                className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1 text-xs font-semibold text-ink hover:border-primary hover:text-primary"
+              >
+                <span
+                  className="h-1.5 w-1.5 rounded-full bg-ink"
+                  aria-hidden
+                />
+                {formatNewBroadcastsLabel(community.newBroadcastCount)}
+              </Link>
+            ) : null}
+          </div>
+        ) : null}
       </div>
 
       <footer className="mt-5 flex items-center gap-2">

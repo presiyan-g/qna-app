@@ -10,6 +10,8 @@ import {
   type Community,
   type CommunityCategory,
 } from '@/db/schema/communities';
+import { answers } from '@/db/schema/answers';
+import { broadcastPosts } from '@/db/schema/broadcasts';
 import { questions } from '@/db/schema/questions';
 import {
   CommunityConflictError,
@@ -32,6 +34,8 @@ export type CommunityWithMembership = Community & {
   memberCount: number;
   liveQuestionCount: number;
   currentUserRole: CommunityRole | null;
+  unansweredQuestionCount: number;
+  newBroadcastCount: number;
 };
 
 type CommunityWithCategoryRow = {
@@ -40,6 +44,8 @@ type CommunityWithCategoryRow = {
   memberCount: number;
   liveQuestionCount: number;
   currentUserRole: CommunityRole | null;
+  unansweredQuestionCount: number;
+  newBroadcastCount: number;
 };
 
 type ListCommunitiesOptions = {
@@ -242,6 +248,7 @@ export async function createCommunity({
       communityId: community.id,
       userId: creatorUserId,
       role: 'creator',
+      lastSeenBroadcastsAt: new Date(),
     });
 
     return buildCreatedCommunityResource({
@@ -274,6 +281,7 @@ export async function joinCommunity({
       communityId: community.id,
       userId,
       role: 'member',
+      lastSeenBroadcastsAt: new Date(),
     })
     .onConflictDoNothing({
       target: [communityMembers.communityId, communityMembers.userId],
@@ -313,6 +321,32 @@ export async function leaveCommunity({
   return markCommunityLeft(community, deleted.length > 0);
 }
 
+export async function markBroadcastsSeen({
+  userId,
+  slug,
+}: {
+  userId: string;
+  slug: string;
+}): Promise<void> {
+  const [row] = await db
+    .select({ id: communities.id })
+    .from(communities)
+    .where(eq(communities.slug, slug))
+    .limit(1);
+
+  if (!row) return;
+
+  await db
+    .update(communityMembers)
+    .set({ lastSeenBroadcastsAt: new Date() })
+    .where(
+      and(
+        eq(communityMembers.communityId, row.id),
+        eq(communityMembers.userId, userId),
+      ),
+    );
+}
+
 function communitySummaryFields(userId: string | null) {
   return {
     memberCount: sql<number>`(
@@ -339,6 +373,43 @@ function communitySummaryFields(userId: string | null) {
           limit 1
         )`
       : sql<CommunityRole | null>`null`,
+    unansweredQuestionCount: userId
+      ? sql<number>`(
+          select count(*)::int
+          from ${questions} q
+          where q.community_id = ${communities.id}
+            and q.deleted_at is null
+            and q.published_at is not null
+            and q.published_at <= now()
+            and q.closes_at is not null
+            and q.closes_at > now()
+            and exists (
+              select 1 from ${communityMembers} cm
+              where cm.community_id = ${communities.id}
+                and cm.user_id = ${userId}
+            )
+            and not exists (
+              select 1 from ${answers} a
+              where a.question_id = q.id
+                and a.user_id = ${userId}
+            )
+        )`
+      : sql<number>`0`,
+    newBroadcastCount: userId
+      ? sql<number>`(
+          select count(*)::int
+          from ${broadcastPosts} b
+          where b.community_id = ${communities.id}
+            and b.deleted_at is null
+            and b.published_at > coalesce(
+              (select last_seen_broadcasts_at
+                 from ${communityMembers}
+                 where community_id = ${communities.id}
+                   and user_id = ${userId}),
+              'epoch'
+            )
+        )`
+      : sql<number>`0`,
   };
 }
 
@@ -351,6 +422,8 @@ function toCommunityWithMembership(
     memberCount: Number(row.memberCount),
     liveQuestionCount: Number(row.liveQuestionCount),
     currentUserRole: row.currentUserRole,
+    unansweredQuestionCount: Number(row.unansweredQuestionCount),
+    newBroadcastCount: Number(row.newBroadcastCount),
   });
 }
 

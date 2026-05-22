@@ -1,5 +1,9 @@
 import Link from 'next/link';
 import type { ScheduledCommunityQuestion } from '@/services/questions';
+import {
+  classifyChoice,
+  type ChoiceClassification,
+} from './questionPreviewChoice';
 
 export function QuestionList({
   questions,
@@ -53,22 +57,31 @@ export function QuestionList({
           </div>
 
           <ol className="mt-4 grid gap-2 sm:grid-cols-2">
-            {question.choices.map((choice) => (
-              <li
-                key={choice.id}
-                className="flex items-center gap-2 rounded-lg border border-line bg-paper px-3 py-2 text-sm"
-              >
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-card text-[12px] font-bold text-muted">
-                  {choice.position}
-                </span>
-                <span className="min-w-0 flex-1">{choice.label}</span>
-                {choice.isCorrect === true && (
-                  <span className="rounded-full bg-green-100 px-2 py-0.5 text-[11px] font-bold text-green-800">
-                    Correct
+            {question.choices.map((choice) => {
+              const classification = classifyChoice({
+                choiceId: choice.id,
+                viewerAnswer: question.viewerAnswer,
+                revealedCorrectChoiceId: question.revealedCorrectChoiceId,
+              });
+              return (
+                <li
+                  key={choice.id}
+                  className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm ${choiceClassName(
+                    classification,
+                  )}`}
+                >
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-card text-[12px] font-bold text-muted">
+                    {choice.position}
                   </span>
-                )}
-              </li>
-            ))}
+                  <span className="min-w-0 flex-1">{choice.label}</span>
+                  {classification === 'correct' ? (
+                    <CheckIcon className="text-emerald-600" />
+                  ) : classification === 'wrong-pick' ? (
+                    <CrossIcon className="text-rose-600" />
+                  ) : null}
+                </li>
+              );
+            })}
           </ol>
 
           {canShowExplanation(question) && (
@@ -86,6 +99,59 @@ export function QuestionList({
         </article>
       ))}
     </section>
+  );
+}
+
+function choiceClassName(state: ChoiceClassification): string {
+  switch (state) {
+    case 'correct':
+      return 'border-emerald-400 bg-emerald-50';
+    case 'wrong-pick':
+      return 'border-rose-400 bg-rose-50';
+    case 'neutral':
+      return 'border-line bg-paper';
+  }
+}
+
+function CheckIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden
+    >
+      <path
+        d="M5 12l4 4L19 6"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function CrossIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden
+    >
+      <path
+        d="M6 6l12 12M18 6L6 18"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
 

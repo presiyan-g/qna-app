@@ -22,7 +22,10 @@ export default async function CommunityPage({ params }: PageProps) {
   if (!community) notFound();
 
   const [questions, latestBroadcast] = await Promise.all([
-    listCommunityQuestionsForCommunity({ community }),
+    listCommunityQuestionsForCommunity({
+      community,
+      viewerUserId: session?.sub ?? null,
+    }),
     getLatestCommunityBroadcastForCommunity({
       community,
       viewerUserId: session?.sub ?? null,

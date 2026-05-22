@@ -1,0 +1,2 @@
+ALTER TABLE "community_members" ADD COLUMN "last_seen_broadcasts_at" timestamp with time zone;--> statement-breakpoint
+UPDATE "community_members" SET "last_seen_broadcasts_at" = "joined_at" WHERE "last_seen_broadcasts_at" IS NULL;

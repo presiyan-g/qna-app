@@ -9,6 +9,8 @@ export type CommunityResourceInput = Community & {
   memberCount: number;
   liveQuestionCount: number;
   currentUserRole: CommunityRole | null;
+  unansweredQuestionCount: number;
+  newBroadcastCount: number;
 };
 
 export function buildCommunityResource({
@@ -17,12 +19,16 @@ export function buildCommunityResource({
   memberCount,
   liveQuestionCount,
   currentUserRole,
+  unansweredQuestionCount,
+  newBroadcastCount,
 }: {
   community: Community;
   category: CommunityCategory | null;
   memberCount: number;
   liveQuestionCount: number;
   currentUserRole: CommunityRole | null;
+  unansweredQuestionCount: number;
+  newBroadcastCount: number;
 }): CommunityWithMembership {
   return {
     ...community,
@@ -30,6 +36,8 @@ export function buildCommunityResource({
     memberCount,
     liveQuestionCount,
     currentUserRole,
+    unansweredQuestionCount,
+    newBroadcastCount,
   };
 }
 
@@ -46,6 +54,8 @@ export function buildCreatedCommunityResource({
     memberCount: 1,
     liveQuestionCount: 0,
     currentUserRole: 'creator',
+    unansweredQuestionCount: 0,
+    newBroadcastCount: 0,
   });
 }
 

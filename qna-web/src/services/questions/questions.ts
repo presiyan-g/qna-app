@@ -10,6 +10,7 @@ import {
   isNull,
 } from 'drizzle-orm';
 import { db } from '@/db/client';
+import { answers } from '@/db/schema/answers';
 import {
   questionChoices,
   questions,
@@ -37,6 +38,11 @@ export type SafeQuestionChoice = Pick<
   isCorrect: boolean | null;
 };
 
+export type ViewerAnswerSummary = {
+  selectedChoiceId: string;
+  isCorrect: boolean;
+};
+
 export type CommunityQuestion = Omit<Question, 'explanation'> & {
   explanation: string | null;
   choices: SafeQuestionChoice[];
@@ -46,6 +52,8 @@ export type CommunityQuestion = Omit<Question, 'explanation'> & {
 export type ScheduledCommunityQuestion = CommunityQuestion & {
   scheduledFor: Date;
   closesAt: Date;
+  viewerAnswer: ViewerAnswerSummary | null;
+  revealedCorrectChoiceId: string | null;
 };
 
 type ListCommunityQuestionsOptions = {
@@ -67,15 +75,22 @@ export async function listCommunityQuestions({
   const community = await getCommunityBySlug(slug, userId);
   if (!community) return [];
 
-  return listCommunityQuestionsForCommunity({ community, limit, offset });
+  return listCommunityQuestionsForCommunity({
+    community,
+    viewerUserId: userId,
+    limit,
+    offset,
+  });
 }
 
 export async function listCommunityQuestionsForCommunity({
   community,
+  viewerUserId = null,
   limit = DEFAULT_LIMIT,
   offset = 0,
 }: {
   community: Pick<CommunityWithMembership, 'id' | 'currentUserRole'>;
+  viewerUserId?: string | null;
   limit?: number;
   offset?: number;
 }): Promise<ScheduledCommunityQuestion[]> {
@@ -99,9 +114,40 @@ export async function listCommunityQuestionsForCommunity({
     .offset(safeOffset);
 
   const scheduledRows = rows.map(toScheduledQuestion);
-  return withChoices(scheduledRows, canSeeCorrectAnswers) as Promise<
-    ScheduledCommunityQuestion[]
-  >;
+  const withChoiceRows = await withChoices(scheduledRows, canSeeCorrectAnswers);
+
+  const baseQuestions: ScheduledCommunityQuestion[] = withChoiceRows.map(
+    (q, i) => ({
+      ...q,
+      scheduledFor: scheduledRows[i].scheduledFor,
+      closesAt: scheduledRows[i].closesAt,
+      viewerAnswer: null,
+      revealedCorrectChoiceId: null,
+    }),
+  );
+
+  const questionIds = baseQuestions.map((q) => q.id);
+  const [correctMap, answerMap] = await Promise.all([
+    fetchCorrectChoiceMap(questionIds),
+    fetchViewerAnswerMap(questionIds, viewerUserId),
+  ]);
+
+  const now = Date.now();
+  const isMember =
+    community.currentUserRole === 'member' ||
+    community.currentUserRole === 'creator';
+  const isCreator = community.currentUserRole === 'creator';
+
+  return baseQuestions.map((q) => {
+    const viewerAnswer = answerMap.get(q.id) ?? null;
+    const closedNow = q.closesAt.getTime() <= now;
+    const isRevealed =
+      isCreator || viewerAnswer !== null || (closedNow && isMember);
+    const revealedCorrectChoiceId = isRevealed
+      ? (correctMap.get(q.id) ?? null)
+      : null;
+    return { ...q, viewerAnswer, revealedCorrectChoiceId };
+  });
 }
 
 export async function createQuestion({
@@ -151,8 +197,15 @@ export async function createQuestion({
     throw err;
   }
 
-  const [question] = await withChoices([toScheduledQuestion(created)], true);
-  return question as ScheduledCommunityQuestion;
+  const scheduled = toScheduledQuestion(created);
+  const [question] = await withChoices([scheduled], true);
+  return {
+    ...question,
+    scheduledFor: scheduled.scheduledFor,
+    closesAt: scheduled.closesAt,
+    viewerAnswer: null,
+    revealedCorrectChoiceId: null,
+  };
 }
 
 export async function listDashboardQuestions({
@@ -363,6 +416,51 @@ async function withChoices(
     choices: choicesByQuestion.get(row.id) ?? [],
     choiceCount: counts.get(row.id) ?? 0,
   }));
+}
+
+async function fetchCorrectChoiceMap(
+  questionIds: string[],
+): Promise<Map<string, string>> {
+  if (questionIds.length === 0) return new Map();
+  const rows = await db
+    .select({
+      id: questionChoices.id,
+      questionId: questionChoices.questionId,
+    })
+    .from(questionChoices)
+    .where(
+      and(
+        inArray(questionChoices.questionId, questionIds),
+        eq(questionChoices.isCorrect, true),
+      ),
+    );
+  return new Map(rows.map((r) => [r.questionId, r.id]));
+}
+
+async function fetchViewerAnswerMap(
+  questionIds: string[],
+  viewerUserId: string | null,
+): Promise<Map<string, ViewerAnswerSummary>> {
+  if (!viewerUserId || questionIds.length === 0) return new Map();
+  const rows = await db
+    .select({
+      questionId: answers.questionId,
+      selectedChoiceId: answers.selectedChoiceId,
+      isCorrect: answers.isCorrect,
+    })
+    .from(answers)
+    .where(
+      and(
+        eq(answers.userId, viewerUserId),
+        inArray(answers.questionId, questionIds),
+      ),
+    );
+  return new Map(
+    rows.map((r) => [
+      r.questionId,
+      { selectedChoiceId: r.selectedChoiceId, isCorrect: r.isCorrect },
+    ]),
+  );
 }
 
 async function loadQuestionForManagement({
