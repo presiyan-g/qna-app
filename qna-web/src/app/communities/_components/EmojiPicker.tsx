@@ -4,12 +4,14 @@ import { useEffect, useId, useRef, useState } from 'react';
 
 type EmojiCategory = {
   name: string;
+  icon: string;
   emojis: string[];
 };
 
 const CATEGORIES: EmojiCategory[] = [
   {
     name: 'Smileys',
+    icon: '😀',
     emojis: [
       '😀','😄','😁','😆','😅','😂','🙂','😉','😊','😇',
       '🥰','😍','🤩','😘','😎','🤓','🧐','🤔','😴','🥳',
@@ -18,6 +20,7 @@ const CATEGORIES: EmojiCategory[] = [
   },
   {
     name: 'Symbols',
+    icon: '⭐',
     emojis: [
       '⭐','🌟','✨','💫','🔥','💯','⚡','🚀','💡','🎯',
       '🏆','🥇','🎖️','🎉','🎊','🎈','❤️','🧡','💛','💚',
@@ -26,6 +29,7 @@ const CATEGORIES: EmojiCategory[] = [
   },
   {
     name: 'Tech',
+    icon: '💻',
     emojis: [
       '💻','🖥️','⌨️','🖱️','📱','📲','🔌','🔋','💾','💿',
       '📡','🛰️','🤖','🧠','🔬','🧪','⚙️','🛠️','🔧','🔩',
@@ -34,6 +38,7 @@ const CATEGORIES: EmojiCategory[] = [
   },
   {
     name: 'Nature',
+    icon: '🌲',
     emojis: [
       '🌲','🌳','🌴','🌵','🌱','🌿','☘️','🍀','🌷','🌸',
       '🌺','🌻','🌼','🌹','🌍','🌎','🌏','🌙','☀️','⛅',
@@ -42,6 +47,7 @@ const CATEGORIES: EmojiCategory[] = [
   },
   {
     name: 'Food',
+    icon: '🍕',
     emojis: [
       '🍕','🍔','🍟','🌭','🥪','🌮','🌯','🥗','🍣','🍜',
       '🍝','🍦','🍩','🍪','🎂','🍰','🍓','🍎','🍌','🍇',
@@ -50,6 +56,7 @@ const CATEGORIES: EmojiCategory[] = [
   },
   {
     name: 'Activities',
+    icon: '⚽',
     emojis: [
       '⚽','🏀','🏈','⚾','🎾','🏐','🏓','🏸','🥊','🥋',
       '🎮','🎲','🎨','🎭','🎬','🎤','🎧','🎼','📚','✏️',
@@ -96,10 +103,18 @@ export function EmojiPicker({
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls={popoverId}
-        aria-label="Choose an emoji"
-        className="flex h-8 w-8 items-center justify-center rounded-md border border-line bg-paper text-base hover:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+        aria-label={value ? 'Change icon' : 'Choose an icon'}
+        className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-md border border-line bg-paper text-base hover:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
       >
-        <span aria-hidden="true">{value || '😀'}</span>
+        {value ? (
+          <span aria-hidden="true" className="truncate text-xs font-bold">
+            {value}
+          </span>
+        ) : (
+          <span aria-hidden="true" className="opacity-60">
+            🚫
+          </span>
+        )}
       </button>
 
       {open && (
@@ -107,12 +122,12 @@ export function EmojiPicker({
           id={popoverId}
           role="dialog"
           aria-label="Emoji picker"
-          className="absolute right-0 top-full z-10 mt-2 w-[280px] rounded-lg border border-line bg-card p-2 shadow-lg"
+          className="absolute right-0 top-full z-10 mt-2 w-[324px] rounded-lg border border-line bg-card p-2 shadow-lg"
         >
           <div
             role="tablist"
             aria-label="Emoji categories"
-            className="flex gap-1 border-b border-line pb-2"
+            className="flex items-center justify-between gap-1 border-b border-line pb-2"
           >
             {CATEGORIES.map((category, index) => (
               <button
@@ -120,14 +135,16 @@ export function EmojiPicker({
                 type="button"
                 role="tab"
                 aria-selected={index === activeCategory}
+                aria-label={category.name}
+                title={category.name}
                 onClick={() => setActiveCategory(index)}
-                className={`flex-1 rounded-md px-2 py-1 text-[11px] font-semibold ${
+                className={`flex h-8 w-8 items-center justify-center rounded-md text-base ${
                   index === activeCategory
-                    ? 'bg-primary-soft text-primary'
-                    : 'text-muted hover:bg-paper'
+                    ? 'bg-primary-soft'
+                    : 'opacity-60 hover:opacity-100'
                 }`}
               >
-                {category.name}
+                <span aria-hidden="true">{category.icon}</span>
               </button>
             ))}
           </div>
@@ -135,7 +152,7 @@ export function EmojiPicker({
           <div
             role="tabpanel"
             aria-label={CATEGORIES[activeCategory].name}
-            className="mt-2 grid max-h-[200px] grid-cols-8 gap-1 overflow-y-auto"
+            className="mt-2 grid grid-cols-8 gap-1"
           >
             {CATEGORIES[activeCategory].emojis.map((emoji) => (
               <button
@@ -151,6 +168,19 @@ export function EmojiPicker({
                 <span aria-hidden="true">{emoji}</span>
               </button>
             ))}
+          </div>
+
+          <div className="mt-2 border-t border-line pt-2">
+            <button
+              type="button"
+              onClick={() => {
+                onChange('');
+                setOpen(false);
+              }}
+              className="w-full rounded-md px-2 py-1 text-[12px] font-semibold text-muted hover:bg-paper hover:text-ink"
+            >
+              No icon
+            </button>
           </div>
         </div>
       )}

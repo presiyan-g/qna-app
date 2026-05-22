@@ -43,8 +43,8 @@ export function validateCreateCommunityInput(raw: {
     fieldErrors.description = 'Use 280 characters or fewer.';
   }
 
-  if (emoji.length > 12) {
-    fieldErrors.emoji = 'Use a short emoji or icon.';
+  if (emoji.length > 4) {
+    fieldErrors.emoji = 'Use a short emoji or icon (up to 4 characters).';
   }
 
   if (!CADENCES.has(cadence)) {

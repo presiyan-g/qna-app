@@ -83,12 +83,13 @@ export function CreateCommunityForm({
               autoComplete="off"
               placeholder="AI"
               value={emoji}
+              maxLength={4}
               onChange={(event) => setEmoji(event.target.value)}
               aria-invalid={state.fieldErrors?.emoji ? 'true' : undefined}
               aria-describedby={
                 state.fieldErrors?.emoji ? 'field-emoji-error' : undefined
               }
-              className="w-full rounded-lg border border-line bg-paper py-2.5 pl-3.5 pr-12 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="w-full overflow-hidden text-ellipsis whitespace-nowrap rounded-lg border border-line bg-paper py-2.5 pl-3.5 pr-12 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             />
             <div className="absolute inset-y-0 right-1.5 flex items-center">
               <EmojiPicker value={emoji} onChange={setEmoji} />

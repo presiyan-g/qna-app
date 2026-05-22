@@ -2,7 +2,10 @@ import Link from 'next/link';
 import { Footer } from '@/app/_components/landing/Footer';
 import { Nav } from '@/app/_components/landing/Nav';
 import { getSession } from '@/services/auth';
-import { searchCommunities } from '@/services/communities';
+import {
+  listCommunityCategories,
+  searchCommunities,
+} from '@/services/communities';
 import { CommunityListCard } from './_components/CommunityListCard';
 
 export const metadata = {
@@ -12,20 +15,34 @@ export const metadata = {
 type CommunitiesPageProps = {
   searchParams?: Promise<{
     q?: string | string[];
+    category?: string | string[];
   }>;
 };
+
+function firstParam(value: string | string[] | undefined): string {
+  const raw = Array.isArray(value) ? value[0] : value;
+  return raw?.trim() ?? '';
+}
 
 export default async function CommunitiesPage({
   searchParams,
 }: CommunitiesPageProps) {
   const params = await searchParams;
-  const rawQuery = Array.isArray(params?.q) ? params?.q[0] : params?.q;
-  const query = rawQuery?.trim() ?? '';
+  const query = firstParam(params?.q);
+  const categorySlug = firstParam(params?.category);
   const session = await getSession();
-  const communities = await searchCommunities({
-    q: query,
-    userId: session?.sub ?? null,
-  });
+  const [categories, communities] = await Promise.all([
+    listCommunityCategories(),
+    searchCommunities({
+      q: query,
+      categorySlug: categorySlug || null,
+      userId: session?.sub ?? null,
+    }),
+  ]);
+  const activeCategory = categorySlug
+    ? categories.find((c) => c.slug === categorySlug) ?? null
+    : null;
+  const hasFilter = Boolean(query || categorySlug);
 
   return (
     <main className="flex flex-1 flex-col bg-paper text-ink">
@@ -53,6 +70,9 @@ export default async function CommunitiesPage({
             <label htmlFor="community-search" className="sr-only">
               Search communities
             </label>
+            <label htmlFor="community-category" className="sr-only">
+              Filter by category
+            </label>
             <div className="flex flex-col gap-3 sm:flex-row">
               <input
                 id="community-search"
@@ -62,13 +82,26 @@ export default async function CommunitiesPage({
                 placeholder="Search by community name"
                 className="min-h-12 flex-1 rounded-lg border border-line bg-card px-4 text-sm text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary"
               />
+              <select
+                id="community-category"
+                name="category"
+                defaultValue={categorySlug}
+                className="min-h-12 rounded-lg border border-line bg-card px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-primary sm:w-56"
+              >
+                <option value="">All categories</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.slug}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
               <button
                 type="submit"
                 className="rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-paper focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
               >
                 Search
               </button>
-              {query ? (
+              {hasFilter ? (
                 <Link
                   href="/communities"
                   className="rounded-lg border border-line px-5 py-3 text-center text-sm font-semibold text-ink focus:outline-none focus:ring-2 focus:ring-primary"
@@ -92,11 +125,13 @@ export default async function CommunitiesPage({
           ) : (
             <div className="rounded-lg border border-line bg-card p-8 text-center">
               <h2 className="text-xl font-bold">
-                {query ? 'No matching communities' : 'No communities yet'}
+                {hasFilter ? 'No matching communities' : 'No communities yet'}
               </h2>
               <p className="mt-2 text-sm text-muted">
-                {query
-                  ? 'Try another search or browse the full community list.'
+                {hasFilter
+                  ? activeCategory
+                    ? `Nothing in ${activeCategory.name} matches that search. Try clearing filters.`
+                    : 'Try another search or browse the full community list.'
                   : 'Create the first one and invite members to join.'}
               </p>
             </div>

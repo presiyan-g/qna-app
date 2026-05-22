@@ -46,7 +46,7 @@ export default async function CommunityPage({ params }: PageProps) {
 
           <div className="mt-8 grid gap-6 md:grid-cols-[1fr_280px]">
             <div>
-              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-lg bg-primary-soft text-lg font-bold text-primary">
+              <div className="mb-5 flex h-14 w-14 items-center justify-center overflow-hidden rounded-lg bg-primary-soft text-lg font-bold text-primary">
                 {community.emoji || community.name.slice(0, 2).toUpperCase()}
               </div>
               <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.16em] text-primary">

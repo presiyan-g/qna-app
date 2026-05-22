@@ -50,6 +50,7 @@ type ListCommunitiesOptions = {
 
 type SearchCommunitiesOptions = ListCommunitiesOptions & {
   q?: string | null;
+  categorySlug?: string | null;
 };
 
 const DEFAULT_LIMIT = 24;
@@ -65,6 +66,7 @@ export async function listCommunities({
 
 export async function searchCommunities({
   q = null,
+  categorySlug = null,
   limit = DEFAULT_LIMIT,
   offset = 0,
   userId = null,
@@ -72,13 +74,13 @@ export async function searchCommunities({
   const safeLimit = Math.min(Math.max(limit, 1), MAX_LIMIT);
   const safeOffset = Math.max(offset, 0);
   const query = q?.trim();
+  const category = categorySlug?.trim();
   const summaryFields = communitySummaryFields(userId);
-  const where = query
-    ? and(
-        eq(communities.status, 'active'),
-        ilike(communities.name, `%${query}%`),
-      )
-    : eq(communities.status, 'active');
+
+  const conditions = [eq(communities.status, 'active')];
+  if (query) conditions.push(ilike(communities.name, `%${query}%`));
+  if (category) conditions.push(eq(communityCategories.slug, category));
+  const where = conditions.length === 1 ? conditions[0] : and(...conditions);
 
   const rows = await db
     .select({

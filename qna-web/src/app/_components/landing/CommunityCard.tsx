@@ -9,7 +9,7 @@ export function CommunityCard({
   return (
     <article className="flex flex-col gap-3 rounded-[14px] border border-line bg-card p-5 transition-transform hover:-translate-y-0.5">
       <header className="flex items-center gap-3">
-        <div className="flex h-[34px] w-[34px] items-center justify-center rounded-[9px] bg-primary-soft text-[17px]">
+        <div className="flex h-[34px] w-[34px] items-center justify-center overflow-hidden rounded-[9px] bg-primary-soft text-[17px]">
           {community.emoji || community.name.slice(0, 2).toUpperCase()}
         </div>
         <div>

@@ -16,7 +16,7 @@ export function DashboardCommunityCard({
   return (
     <article className="rounded-lg border border-line bg-card p-5">
       <div className="flex items-start gap-4">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-lg font-bold text-primary">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-primary-soft text-lg font-bold text-primary">
           {community.emoji || community.name.slice(0, 2).toUpperCase()}
         </div>
         <div className="min-w-0 flex-1">
