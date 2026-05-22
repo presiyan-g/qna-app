@@ -2,17 +2,23 @@ import { useFocusEffect } from '@react-navigation/native';
 import { Image } from 'expo-image';
 import { useLocalSearchParams } from 'expo-router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import {
   BodyText,
   BrandButton,
+  ConfirmDialog,
   Eyebrow,
   FormError,
   Heading,
   Screen,
   StatePanel,
 } from '@/components/Brand';
+import {
+  CommentsApiError,
+  createCommentsClient,
+  type Comment,
+} from '@/services/comments/api';
 import { fonts, palette } from '@/constants/theme';
 import { useAuth } from '@/services/auth/AuthContext';
 import { useRuntimeApiUrl } from '@/services/config';
@@ -275,6 +281,16 @@ export default function QuestionDetailScreen() {
             Join community to answer
           </BrandButton>
         ) : null}
+
+        {slugValue && idValue ? (
+          <CommentsSection
+            slug={slugValue}
+            questionId={idValue}
+            question={question}
+            currentUserId={user?.id ?? null}
+            token={token}
+          />
+        ) : null}
       </ScrollView>
     </Screen>
   );
@@ -399,6 +415,381 @@ function getQuestionTimeHint(question: QuestionDetail, state: QuestionState): st
 
 function normalizeParam(value: string | string[] | undefined): string | undefined {
   return Array.isArray(value) ? value[0] : value;
+}
+
+function CommentsSection({
+  slug,
+  questionId,
+  question,
+  currentUserId,
+  token,
+}: {
+  slug: string;
+  questionId: string;
+  question: QuestionDetail;
+  currentUserId: string | null;
+  token: string | null;
+}) {
+  const apiUrl = useRuntimeApiUrl();
+  const commentsClient = useMemo(() => createCommentsClient({ apiUrl }), [apiUrl]);
+
+  const canList =
+    question.currentUserRole !== null && (question.result !== null || question.isClosed);
+  const canPost = question.currentUserRole !== null && question.result !== null;
+  const hasToken = Boolean(token);
+
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [openReplyCommentId, setOpenReplyCommentId] = useState<string | null>(null);
+  const [pendingDelete, setPendingDelete] = useState<Comment | null>(null);
+  const [deleting, setDeleting] = useState(false);
+
+  const loadComments = useCallback(
+    async (isActive: () => boolean = () => true) => {
+      if (!canList || !token) return;
+      setLoading(true);
+      setError(null);
+      try {
+        const result = await commentsClient.list(slug, questionId, token);
+        if (!isActive()) return;
+        setComments(result.comments);
+      } catch (err) {
+        if (!isActive()) return;
+        if (err instanceof CommentsApiError) {
+          setError(err.message);
+        } else {
+          setError('Unable to load comments.');
+        }
+      } finally {
+        if (isActive()) setLoading(false);
+      }
+    },
+    [canList, commentsClient, questionId, slug, token],
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      void loadComments(() => active);
+
+      return () => {
+        active = false;
+      };
+    }, [loadComments]),
+  );
+
+  async function handlePostTopLevel(body: string) {
+    if (!token) return;
+    await commentsClient.post(slug, questionId, { body }, token);
+    await loadComments();
+  }
+
+  async function handlePostReply(parentCommentId: string, body: string) {
+    if (!token) return;
+    await commentsClient.post(slug, questionId, { body, parentCommentId }, token);
+    setOpenReplyCommentId(null);
+    await loadComments();
+  }
+
+  async function handleConfirmDelete() {
+    if (!pendingDelete || !token || deleting) return;
+    setDeleting(true);
+    try {
+      await commentsClient.delete(slug, questionId, pendingDelete.id, token);
+      setPendingDelete(null);
+      await loadComments();
+    } catch {
+      // Refetch anyway in case it's already deleted.
+      setPendingDelete(null);
+      await loadComments();
+    } finally {
+      setDeleting(false);
+    }
+  }
+
+  // Gates
+  if (!hasToken) {
+    return (
+      <View style={styles.commentsGate}>
+        <Eyebrow>Discussion</Eyebrow>
+        <Heading compact>Sign in to join the conversation</Heading>
+        <BodyText>
+          See what other members said and add your own thoughts.
+        </BodyText>
+        <BrandButton
+          href={{
+            pathname: '/login',
+            params: { returnTo: `/communities/${slug}/questions/${questionId}` },
+          }}
+        >
+          Sign in
+        </BrandButton>
+      </View>
+    );
+  }
+
+  if (question.currentUserRole === null) {
+    return (
+      <View style={styles.commentsGate}>
+        <Eyebrow>Discussion</Eyebrow>
+        <Heading compact>Join this community to read the discussion</Heading>
+        <BodyText>
+          Membership unlocks comments on every question in this community.
+        </BodyText>
+        <BrandButton
+          href={{ pathname: '/communities/[slug]', params: { slug } }}
+          variant="secondary"
+        >
+          Go to community
+        </BrandButton>
+      </View>
+    );
+  }
+
+  if (!canList) {
+    return (
+      <View style={styles.commentsGate}>
+        <Eyebrow>Discussion</Eyebrow>
+        <Heading compact>Answer first to join the discussion</Heading>
+        <BodyText>
+          Once you submit your answer, you can read and post comments here.
+        </BodyText>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.commentsSection}>
+      <View style={styles.commentsHeader}>
+        <Text style={styles.commentsEyebrow}>
+          DISCUSSION{comments.length > 0 ? ` · ${comments.length}` : ''}
+        </Text>
+      </View>
+
+      {canPost ? (
+        <CommentComposer
+          placeholder="Share your thoughts..."
+          onSubmit={handlePostTopLevel}
+          submitLabel="Post"
+        />
+      ) : (
+        <Text style={styles.commentsLockedNote}>
+          Comments are closed for new posts on this question.
+        </Text>
+      )}
+
+      {loading ? (
+        <StatePanel title="Loading discussion..." />
+      ) : error ? (
+        <StatePanel title={error}>
+          <BrandButton variant="secondary" onPress={() => void loadComments()}>
+            Retry
+          </BrandButton>
+        </StatePanel>
+      ) : comments.length === 0 ? (
+        <Text style={styles.commentsEmpty}>
+          No comments yet — start the discussion.
+        </Text>
+      ) : (
+        <View style={styles.commentsList}>
+          {comments.map((comment) => (
+            <CommentRow
+              key={comment.id}
+              comment={comment}
+              depth={0}
+              currentUserId={currentUserId}
+              canReply={canPost}
+              openReplyCommentId={openReplyCommentId}
+              onOpenReply={(id) => setOpenReplyCommentId(id)}
+              onCloseReply={() => setOpenReplyCommentId(null)}
+              onSubmitReply={handlePostReply}
+              onRequestDelete={(c) => setPendingDelete(c)}
+            />
+          ))}
+        </View>
+      )}
+
+      <ConfirmDialog
+        cancelLabel="Cancel"
+        confirmLabel={deleting ? 'Deleting...' : 'Delete'}
+        message="This will remove your comment for everyone."
+        onCancel={() => (deleting ? undefined : setPendingDelete(null))}
+        onConfirm={handleConfirmDelete}
+        title="Delete this comment?"
+        visible={pendingDelete !== null}
+      />
+    </View>
+  );
+}
+
+function CommentComposer({
+  placeholder,
+  onSubmit,
+  onCancel,
+  submitLabel,
+}: {
+  placeholder: string;
+  onSubmit: (body: string) => Promise<void>;
+  onCancel?: () => void;
+  submitLabel: string;
+}) {
+  const [body, setBody] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [fieldError, setFieldError] = useState<string | null>(null);
+
+  const disabled = submitting || body.trim().length === 0;
+
+  async function handleSubmit() {
+    if (disabled) return;
+    setSubmitting(true);
+    setFieldError(null);
+    try {
+      await onSubmit(body.trim());
+      setBody('');
+    } catch (err) {
+      if (err instanceof CommentsApiError) {
+        setFieldError(err.fieldErrors.body ?? err.message);
+      } else {
+        setFieldError('Unable to post comment.');
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <View style={styles.composer}>
+      <TextInput
+        editable={!submitting}
+        multiline
+        onChangeText={setBody}
+        placeholder={placeholder}
+        placeholderTextColor={palette.muted}
+        style={styles.composerInput}
+        value={body}
+      />
+      <FormError>{fieldError}</FormError>
+      <View style={styles.composerActions}>
+        {onCancel ? (
+          <BrandButton
+            disabled={submitting}
+            onPress={onCancel}
+            style={styles.composerCancel}
+            variant="secondary"
+          >
+            Cancel
+          </BrandButton>
+        ) : null}
+        <BrandButton disabled={disabled} onPress={handleSubmit}>
+          {submitting ? 'Posting...' : submitLabel}
+        </BrandButton>
+      </View>
+    </View>
+  );
+}
+
+function CommentRow({
+  comment,
+  depth,
+  currentUserId,
+  canReply,
+  openReplyCommentId,
+  onOpenReply,
+  onCloseReply,
+  onSubmitReply,
+  onRequestDelete,
+}: {
+  comment: Comment;
+  depth: 0 | 1;
+  currentUserId: string | null;
+  canReply: boolean;
+  openReplyCommentId: string | null;
+  onOpenReply: (commentId: string) => void;
+  onCloseReply: () => void;
+  onSubmitReply: (parentCommentId: string, body: string) => Promise<void>;
+  onRequestDelete: (comment: Comment) => void;
+}) {
+  const isDeleted = comment.body === null;
+  const isOwnComment =
+    comment.author !== null && currentUserId !== null && comment.author.id === currentUserId;
+  const showDelete = !isDeleted && comment.canDelete && isOwnComment;
+  const showReply = !isDeleted && canReply && depth === 0;
+  const replyOpen = openReplyCommentId === comment.id;
+
+  return (
+    <View style={[styles.commentRow, depth === 1 ? styles.commentRowReply : null]}>
+      <View style={styles.commentHeader}>
+        <Text style={styles.commentAuthor}>
+          {comment.author ? `@${comment.author.username}` : 'Anonymous'}
+        </Text>
+        <Text style={styles.commentTime}>{formatRelativeTime(comment.createdAt)}</Text>
+      </View>
+
+      {isDeleted ? (
+        <Text style={styles.commentDeleted}>Comment removed</Text>
+      ) : (
+        <Text style={styles.commentBody}>{comment.body}</Text>
+      )}
+
+      {(showReply || showDelete) && !isDeleted ? (
+        <View style={styles.commentActions}>
+          {showReply ? (
+            <Pressable
+              accessibilityRole="button"
+              hitSlop={6}
+              onPress={() => (replyOpen ? onCloseReply() : onOpenReply(comment.id))}
+            >
+              <Text style={styles.commentActionText}>
+                {replyOpen ? 'Cancel reply' : 'Reply'}
+              </Text>
+            </Pressable>
+          ) : null}
+          {showDelete ? (
+            <Pressable
+              accessibilityRole="button"
+              hitSlop={6}
+              onPress={() => onRequestDelete(comment)}
+            >
+              <Text style={[styles.commentActionText, styles.commentActionDelete]}>
+                Delete
+              </Text>
+            </Pressable>
+          ) : null}
+        </View>
+      ) : null}
+
+      {replyOpen ? (
+        <View style={styles.commentReplyComposer}>
+          <CommentComposer
+            placeholder={`Reply to @${comment.author?.username ?? 'comment'}...`}
+            onSubmit={(body) => onSubmitReply(comment.id, body)}
+            onCancel={onCloseReply}
+            submitLabel="Post reply"
+          />
+        </View>
+      ) : null}
+
+      {depth === 0 && comment.replies.length > 0 ? (
+        <View style={styles.commentRepliesList}>
+          {comment.replies.map((reply) => (
+            <CommentRow
+              key={reply.id}
+              comment={reply}
+              depth={1}
+              currentUserId={currentUserId}
+              canReply={canReply}
+              openReplyCommentId={openReplyCommentId}
+              onOpenReply={onOpenReply}
+              onCloseReply={onCloseReply}
+              onSubmitReply={onSubmitReply}
+              onRequestDelete={onRequestDelete}
+            />
+          ))}
+        </View>
+      ) : null}
+    </View>
+  );
 }
 
 const stateBadgeStyles: Record<
@@ -617,5 +1008,137 @@ const styles = StyleSheet.create({
   },
   pressed: {
     opacity: 0.72,
+  },
+  commentsGate: {
+    alignItems: 'center',
+    backgroundColor: palette.card,
+    borderColor: palette.line,
+    borderRadius: 12,
+    borderWidth: 1,
+    gap: 10,
+    paddingHorizontal: 18,
+    paddingVertical: 20,
+  },
+  commentsSection: {
+    gap: 12,
+    paddingTop: 8,
+  },
+  commentsHeader: {
+    paddingTop: 4,
+  },
+  commentsEyebrow: {
+    color: palette.muted,
+    fontFamily: fonts.sans,
+    fontSize: 11,
+    fontWeight: '800',
+    letterSpacing: 0.6,
+    textTransform: 'uppercase',
+  },
+  commentsLockedNote: {
+    color: palette.muted,
+    fontFamily: fonts.sans,
+    fontSize: 13,
+    fontStyle: 'italic',
+  },
+  commentsEmpty: {
+    color: palette.muted,
+    fontFamily: fonts.sans,
+    fontSize: 13,
+    paddingTop: 6,
+  },
+  commentsList: {
+    gap: 12,
+  },
+  composer: {
+    gap: 8,
+  },
+  composerInput: {
+    backgroundColor: palette.paper,
+    borderColor: palette.line,
+    borderRadius: 10,
+    borderWidth: 1,
+    color: palette.ink,
+    fontFamily: fonts.sans,
+    fontSize: 14,
+    minHeight: 80,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    textAlignVertical: 'top',
+  },
+  composerActions: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 8,
+    justifyContent: 'flex-end',
+  },
+  composerCancel: {
+    marginRight: 'auto',
+  },
+  commentRow: {
+    backgroundColor: palette.card,
+    borderColor: palette.line,
+    borderRadius: 12,
+    borderWidth: 1,
+    gap: 6,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+  },
+  commentRowReply: {
+    backgroundColor: palette.paper,
+    borderLeftColor: palette.primary,
+    borderLeftWidth: 2,
+    borderRadius: 8,
+    marginLeft: 14,
+  },
+  commentHeader: {
+    alignItems: 'baseline',
+    flexDirection: 'row',
+    gap: 10,
+    justifyContent: 'space-between',
+  },
+  commentAuthor: {
+    color: palette.primary,
+    fontFamily: fonts.sans,
+    fontSize: 13,
+    fontWeight: '800',
+  },
+  commentTime: {
+    color: palette.muted,
+    fontFamily: fonts.sans,
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  commentBody: {
+    color: palette.ink,
+    fontFamily: fonts.serif,
+    fontSize: 15,
+    lineHeight: 22,
+  },
+  commentDeleted: {
+    color: palette.muted,
+    fontFamily: fonts.serif,
+    fontSize: 14,
+    fontStyle: 'italic',
+  },
+  commentActions: {
+    flexDirection: 'row',
+    gap: 14,
+    paddingTop: 4,
+  },
+  commentActionText: {
+    color: palette.primary,
+    fontFamily: fonts.sans,
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  commentActionDelete: {
+    color: '#A12B2B',
+  },
+  commentReplyComposer: {
+    paddingTop: 8,
+  },
+  commentRepliesList: {
+    gap: 8,
+    paddingTop: 8,
   },
 });

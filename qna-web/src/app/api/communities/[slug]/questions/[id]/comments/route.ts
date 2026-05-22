@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { corsOptionsResponse, withCors } from '../../../../../_utils/cors';
 import { AccountSuspendedError } from '@/services/admin';
 import { getApiSession } from '@/services/auth/api-session';
 import {
@@ -14,13 +15,21 @@ type RouteContext = {
   params: Promise<{ slug: string; id: string }>;
 };
 
+export function OPTIONS(request: NextRequest) {
+  return corsOptionsResponse(request.headers.get('origin'));
+}
+
 export async function GET(request: NextRequest, { params }: RouteContext) {
+  const origin = request.headers.get('origin');
   const [{ slug, id }, session] = await Promise.all([
     params,
     getApiSession(request),
   ]);
   if (!session) {
-    return NextResponse.json({ error: 'Authentication required.' }, { status: 401 });
+    return withCors(
+      NextResponse.json({ error: 'Authentication required.' }, { status: 401 }),
+      origin,
+    );
   }
 
   try {
@@ -29,34 +38,50 @@ export async function GET(request: NextRequest, { params }: RouteContext) {
       questionId: id,
       userId: session.sub,
     });
-    return NextResponse.json({ comments: comments.map(toCommentResource) });
+    return withCors(
+      NextResponse.json({ comments: comments.map(toCommentResource) }),
+      origin,
+    );
   } catch (err) {
     if (err instanceof CommentNotFoundError) {
-      return NextResponse.json({ error: err.message }, { status: 404 });
+      return withCors(
+        NextResponse.json({ error: err.message }, { status: 404 }),
+        origin,
+      );
     }
     if (err instanceof CommentPermissionError) {
-      return NextResponse.json({ error: err.message }, { status: 403 });
+      return withCors(
+        NextResponse.json({ error: err.message }, { status: 403 }),
+        origin,
+      );
     }
     throw err;
   }
 }
 
 export async function POST(request: NextRequest, { params }: RouteContext) {
+  const origin = request.headers.get('origin');
   const [{ slug, id }, session] = await Promise.all([
     params,
     getApiSession(request),
   ]);
   if (!session) {
-    return NextResponse.json({ error: 'Authentication required.' }, { status: 401 });
+    return withCors(
+      NextResponse.json({ error: 'Authentication required.' }, { status: 401 }),
+      origin,
+    );
   }
 
   let body: unknown;
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json(
-      { error: 'Invalid JSON body.', fieldErrors: {} },
-      { status: 422 },
+    return withCors(
+      NextResponse.json(
+        { error: 'Invalid JSON body.', fieldErrors: {} },
+        { status: 422 },
+      ),
+      origin,
     );
   }
 
@@ -68,21 +93,36 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
       body: toBody(body),
       parentCommentId: toParentCommentId(body),
     });
-    return NextResponse.json({ comment: toCommentResource(comment) }, { status: 201 });
+    return withCors(
+      NextResponse.json({ comment: toCommentResource(comment) }, { status: 201 }),
+      origin,
+    );
   } catch (err) {
     if (err instanceof CommentNotFoundError) {
-      return NextResponse.json({ error: err.message }, { status: 404 });
+      return withCors(
+        NextResponse.json({ error: err.message }, { status: 404 }),
+        origin,
+      );
     }
     if (err instanceof CommentPermissionError) {
-      return NextResponse.json({ error: err.message }, { status: 403 });
+      return withCors(
+        NextResponse.json({ error: err.message }, { status: 403 }),
+        origin,
+      );
     }
     if (err instanceof AccountSuspendedError) {
-      return NextResponse.json({ error: err.message }, { status: 403 });
+      return withCors(
+        NextResponse.json({ error: err.message }, { status: 403 }),
+        origin,
+      );
     }
     if (err instanceof CommentValidationError) {
-      return NextResponse.json(
-        { error: err.message, fieldErrors: err.fieldErrors },
-        { status: 422 },
+      return withCors(
+        NextResponse.json(
+          { error: err.message, fieldErrors: err.fieldErrors },
+          { status: 422 },
+        ),
+        origin,
       );
     }
     throw err;
