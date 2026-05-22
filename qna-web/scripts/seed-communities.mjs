@@ -11,6 +11,7 @@ import {
   uniqueIndex,
   uuid,
 } from 'drizzle-orm/pg-core';
+import { seedCategories } from './seed-categories.mjs';
 
 config({ path: '.env.local' });
 config();
@@ -28,19 +29,6 @@ const users = pgTable('users', {
   createdAt: timestamp('created_at', { withTimezone: true }),
   updatedAt: timestamp('updated_at', { withTimezone: true }),
 });
-
-const communityCategories = pgTable(
-  'community_categories',
-  {
-    id: uuid('id').primaryKey(),
-    slug: text('slug').notNull(),
-    name: text('name').notNull(),
-    description: text('description').notNull(),
-    createdAt: timestamp('created_at', { withTimezone: true }),
-    updatedAt: timestamp('updated_at', { withTimezone: true }),
-  },
-  (table) => [uniqueIndex('community_categories_slug_unique').on(table.slug)],
-);
 
 const communities = pgTable(
   'communities',
@@ -86,54 +74,6 @@ const db = drizzle(neon(process.env.DATABASE_URL));
 const PASSWORD_HASH =
   '$2b$10$H0qbDEKzV5l7j7JMrNlxLOiFKZLeHtYRqH61pUQ3DP9Ls15lBpF8K';
 
-const categories = [
-  {
-    slug: 'ai-and-tools',
-    name: 'AI & Tools',
-    description: 'Applied AI, agents, workflows, and builders shipping useful systems.',
-  },
-  {
-    slug: 'strategy-games',
-    name: 'Strategy Games',
-    description: 'Chess, tactics, decision-making, and competitive analysis.',
-  },
-  {
-    slug: 'web-and-design',
-    name: 'Web & Design',
-    description: 'Modern front-end craft, interface design, CSS, and product polish.',
-  },
-  {
-    slug: 'markets-and-policy',
-    name: 'Markets & Policy',
-    description: 'Macro signals, business cycles, finance, and public policy questions.',
-  },
-  {
-    slug: 'science-and-health',
-    name: 'Science & Health',
-    description: 'Biotech, neuroscience, research literacy, and clinical reasoning.',
-  },
-  {
-    slug: 'law-and-civics',
-    name: 'Law & Civics',
-    description: 'Contracts, governance, civic systems, and practical legal concepts.',
-  },
-  {
-    slug: 'product-and-startups',
-    name: 'Product & Startups',
-    description: 'Founder habits, product sense, growth, and community building.',
-  },
-  {
-    slug: 'writing-and-culture',
-    name: 'Writing & Culture',
-    description: 'Writing practice, film, language, philosophy, and cultural critique.',
-  },
-  {
-    slug: 'security-and-ops',
-    name: 'Security & Ops',
-    description: 'Security review, incident response, infrastructure, and reliability.',
-  },
-];
-
 const seededCommunities = [
   {
     slug: 'daily-ai-builders',
@@ -150,7 +90,7 @@ const seededCommunities = [
     slug: 'chess-tactics-daily',
     name: 'Chess Tactics Daily',
     emoji: '♟',
-    categorySlug: 'strategy-games',
+    categorySlug: 'gaming',
     description: 'A tactical chess position every day, with discussion unlocked after you choose your line.',
     cadence: 'daily',
     isFeatured: true,
@@ -271,7 +211,7 @@ const seededCommunities = [
     slug: 'indie-game-design',
     name: 'Indie Game Design',
     emoji: '🎮',
-    categorySlug: 'strategy-games',
+    categorySlug: 'gaming',
     description: 'Small daily prompts about mechanics, pacing, level design, and player motivation.',
     cadence: 'daily',
     isFeatured: false,
@@ -282,7 +222,7 @@ const seededCommunities = [
     slug: 'spanish-grammar-daily',
     name: 'Spanish Grammar Daily',
     emoji: '🇪🇸',
-    categorySlug: 'writing-and-culture',
+    categorySlug: 'languages',
     description: 'One practical Spanish grammar or usage question a day with a concise explanation.',
     cadence: 'daily',
     isFeatured: false,
@@ -385,25 +325,7 @@ async function main() {
     })
     .returning();
 
-  const categoryRows = await Promise.all(
-    categories.map((category) =>
-      db
-        .insert(communityCategories)
-        .values(category)
-        .onConflictDoUpdate({
-          target: communityCategories.slug,
-          set: {
-            name: category.name,
-            description: category.description,
-          },
-        })
-        .returning(),
-    ),
-  );
-
-  const categoryBySlug = new Map(
-    categoryRows.map(([category]) => [category.slug, category]),
-  );
+  const categoryBySlug = await seedCategories(db);
 
   const demoUsers = Array.from({ length: maxDemoMembers }, (_, index) => {
     const number = String(index + 1).padStart(3, '0');
@@ -496,7 +418,7 @@ async function main() {
 
   const featuredCount = seededRows.filter((row) => row.isFeatured).length;
   console.log(
-    `Seeded ${categories.length} categories, ${seededRows.length} communities, and ${featuredCount} featured communities.`,
+    `Seeded ${categoryBySlug.size} categories, ${seededRows.length} communities, and ${featuredCount} featured communities.`,
   );
 }
 

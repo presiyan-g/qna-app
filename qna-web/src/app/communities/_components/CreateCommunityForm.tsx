@@ -1,11 +1,12 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import {
   createCommunityAction,
   type CommunityFormState,
 } from '@/app/actions/communities';
 import type { CommunityCategory } from '@/db/schema/communities';
+import { EmojiPicker } from './EmojiPicker';
 
 const INITIAL: CommunityFormState = { ok: false };
 
@@ -20,6 +21,7 @@ export function CreateCommunityForm({
     createCommunityAction,
     INITIAL,
   );
+  const [emoji, setEmoji] = useState('');
 
   return (
     <form action={formAction} className="flex flex-col gap-5">
@@ -69,14 +71,35 @@ export function CreateCommunityForm({
         )}
       </div>
       <div className="grid gap-4 sm:grid-cols-[120px_1fr]">
-        <Field
-          label="Icon"
-          name="emoji"
-          type="text"
-          autoComplete="off"
-          placeholder="AI"
-          error={state.fieldErrors?.emoji}
-        />
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="field-emoji" className="text-[13px] font-semibold text-ink">
+            Icon
+          </label>
+          <div className="relative">
+            <input
+              id="field-emoji"
+              name="emoji"
+              type="text"
+              autoComplete="off"
+              placeholder="AI"
+              value={emoji}
+              onChange={(event) => setEmoji(event.target.value)}
+              aria-invalid={state.fieldErrors?.emoji ? 'true' : undefined}
+              aria-describedby={
+                state.fieldErrors?.emoji ? 'field-emoji-error' : undefined
+              }
+              className="w-full rounded-lg border border-line bg-paper py-2.5 pl-3.5 pr-12 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+            />
+            <div className="absolute inset-y-0 right-1.5 flex items-center">
+              <EmojiPicker value={emoji} onChange={setEmoji} />
+            </div>
+          </div>
+          {state.fieldErrors?.emoji && (
+            <p id="field-emoji-error" className="text-[12px] text-red-700">
+              {state.fieldErrors.emoji}
+            </p>
+          )}
+        </div>
         <div className="flex flex-col gap-1.5">
           <label htmlFor="field-cadence" className="text-[13px] font-semibold">
             Cadence
