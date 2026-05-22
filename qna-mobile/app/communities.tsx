@@ -3,7 +3,7 @@ import { FlatList, Pressable, RefreshControl, StyleSheet, Text, View } from 'rea
 import { useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
 
-import { BodyText, BrandButton, Eyebrow, Heading, Screen, StatePanel } from '@/components/Brand';
+import { BodyText, BrandButton, Heading, Screen, StatePanel } from '@/components/Brand';
 import { fonts, palette } from '@/constants/theme';
 import { useAuth } from '@/services/auth/AuthContext';
 import { useRuntimeApiUrl } from '@/services/config';
@@ -73,7 +73,6 @@ export default function CommunitiesScreen() {
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
         ListHeaderComponent={
           <View style={styles.copy}>
-            <Eyebrow>Communities</Eyebrow>
             <Heading compact>Pick your daily room.</Heading>
             <BodyText>
               Browse active communities, open a detail page, and join when you are ready.

@@ -375,7 +375,6 @@ const styles = StyleSheet.create({
     color: palette.ink,
   },
   badge: {
-    alignItems: 'center',
     backgroundColor: palette.card,
     borderColor: palette.line,
     borderWidth: 1,

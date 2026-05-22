@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { corsOptionsResponse, withCors } from '../../../../_utils/cors';
 import { getApiSession } from '@/services/auth/api-session';
 import {
   AnswerPermissionError,
@@ -11,13 +12,21 @@ type RouteContext = {
   params: Promise<{ slug: string; id: string }>;
 };
 
+export function OPTIONS(request: NextRequest) {
+  return corsOptionsResponse(request.headers.get('origin'));
+}
+
 export async function GET(request: NextRequest, { params }: RouteContext) {
+  const origin = request.headers.get('origin');
   const [{ slug, id }, session] = await Promise.all([
     params,
     getApiSession(request),
   ]);
   if (!session) {
-    return NextResponse.json({ error: 'Authentication required.' }, { status: 401 });
+    return withCors(
+      NextResponse.json({ error: 'Authentication required.' }, { status: 401 }),
+      origin,
+    );
   }
 
   try {
@@ -26,13 +35,13 @@ export async function GET(request: NextRequest, { params }: RouteContext) {
       questionId: id,
       userId: session.sub,
     });
-    return NextResponse.json(toQuestionDetailResource(question));
+    return withCors(NextResponse.json(toQuestionDetailResource(question)), origin);
   } catch (err) {
     if (err instanceof QuestionNotFoundError) {
-      return NextResponse.json({ error: err.message }, { status: 404 });
+      return withCors(NextResponse.json({ error: err.message }, { status: 404 }), origin);
     }
     if (err instanceof AnswerPermissionError) {
-      return NextResponse.json({ error: err.message }, { status: 403 });
+      return withCors(NextResponse.json({ error: err.message }, { status: 403 }), origin);
     }
     throw err;
   }

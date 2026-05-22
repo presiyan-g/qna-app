@@ -45,6 +45,7 @@ export async function GET(request: NextRequest, { params }: RouteContext) {
           }
         : null,
       memberCount: community.memberCount,
+      liveQuestionCount: community.liveQuestionCount,
       currentUserRole: community.currentUserRole,
       createdAt: community.createdAt.toISOString(),
       updatedAt: community.updatedAt.toISOString(),

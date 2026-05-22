@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
+import { corsOptionsResponse, withCors } from '../../_utils/cors';
 import {
   getPublicUserProfileByUsername,
   type PublicUserProfile,
@@ -8,15 +9,23 @@ type RouteContext = {
   params: Promise<{ username: string }>;
 };
 
-export async function GET(_request: Request, { params }: RouteContext) {
+export function OPTIONS(request: NextRequest) {
+  return corsOptionsResponse(request.headers.get('origin'));
+}
+
+export async function GET(request: NextRequest, { params }: RouteContext) {
+  const origin = request.headers.get('origin');
   const { username } = await params;
   const profile = await getPublicUserProfileByUsername(username);
 
   if (!profile) {
-    return NextResponse.json({ error: 'User not found.' }, { status: 404 });
+    return withCors(
+      NextResponse.json({ error: 'User not found.' }, { status: 404 }),
+      origin,
+    );
   }
 
-  return NextResponse.json(toPublicProfileResource(profile));
+  return withCors(NextResponse.json(toPublicProfileResource(profile)), origin);
 }
 
 function toPublicProfileResource(profile: PublicUserProfile) {

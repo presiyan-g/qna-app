@@ -127,6 +127,7 @@ function toCommunityResource(
     isFeatured: community.isFeatured,
     featuredRank: community.featuredRank,
     memberCount: community.memberCount,
+    liveQuestionCount: community.liveQuestionCount,
     currentUserRole: community.currentUserRole,
     createdAt: community.createdAt.toISOString(),
     updatedAt: community.updatedAt.toISOString(),

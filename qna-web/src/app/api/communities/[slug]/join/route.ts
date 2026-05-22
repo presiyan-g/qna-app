@@ -50,6 +50,7 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
             }
           : null,
         memberCount: community.memberCount,
+        liveQuestionCount: community.liveQuestionCount,
         currentUserRole: community.currentUserRole,
         createdAt: community.createdAt.toISOString(),
         updatedAt: community.updatedAt.toISOString(),
@@ -100,6 +101,7 @@ export async function DELETE(request: NextRequest, { params }: RouteContext) {
             }
           : null,
         memberCount: community.memberCount,
+        liveQuestionCount: community.liveQuestionCount,
         currentUserRole: community.currentUserRole,
         createdAt: community.createdAt.toISOString(),
         updatedAt: community.updatedAt.toISOString(),

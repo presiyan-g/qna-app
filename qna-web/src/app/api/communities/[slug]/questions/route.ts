@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { corsOptionsResponse, withCors } from '../../../_utils/cors';
 import { AccountSuspendedError } from '@/services/admin';
 import { getApiSession } from '@/services/auth/api-session';
 import {
@@ -14,7 +15,12 @@ type RouteContext = {
   params: Promise<{ slug: string }>;
 };
 
+export function OPTIONS(request: NextRequest) {
+  return corsOptionsResponse(request.headers.get('origin'));
+}
+
 export async function GET(request: NextRequest, { params }: RouteContext) {
+  const origin = request.headers.get('origin');
   const [{ slug }, session] = await Promise.all([
     params,
     getApiSession(request),
@@ -29,26 +35,36 @@ export async function GET(request: NextRequest, { params }: RouteContext) {
     offset,
   });
 
-  return NextResponse.json({
-    items: questions.map(toQuestionResource),
-    pagination: { limit, offset },
-  });
+  return withCors(
+    NextResponse.json({
+      items: questions.map(toQuestionResource),
+      pagination: { limit, offset },
+    }),
+    origin,
+  );
 }
 
 export async function POST(request: NextRequest, { params }: RouteContext) {
+  const origin = request.headers.get('origin');
   const [{ slug }, session] = await Promise.all([
     params,
     getApiSession(request),
   ]);
   if (!session) {
-    return NextResponse.json({ error: 'Authentication required.' }, { status: 401 });
+    return withCors(
+      NextResponse.json({ error: 'Authentication required.' }, { status: 401 }),
+      origin,
+    );
   }
 
   let body: unknown;
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: 'Invalid JSON body.' }, { status: 400 });
+    return withCors(
+      NextResponse.json({ error: 'Invalid JSON body.' }, { status: 400 }),
+      origin,
+    );
   }
 
   try {
@@ -58,19 +74,22 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
       creatorUserId: session.sub,
       input,
     });
-    return NextResponse.json(toQuestionResource(question), { status: 201 });
+    return withCors(NextResponse.json(toQuestionResource(question), { status: 201 }), origin);
   } catch (err) {
     if (err instanceof QuestionsValidationError) {
-      return NextResponse.json(
-        { error: 'Invalid question input.', fieldErrors: err.fieldErrors },
-        { status: 422 },
+      return withCors(
+        NextResponse.json(
+          { error: 'Invalid question input.', fieldErrors: err.fieldErrors },
+          { status: 422 },
+        ),
+        origin,
       );
     }
     if (err instanceof QuestionPermissionError) {
-      return NextResponse.json({ error: err.message }, { status: 403 });
+      return withCors(NextResponse.json({ error: err.message }, { status: 403 }), origin);
     }
     if (err instanceof AccountSuspendedError) {
-      return NextResponse.json({ error: err.message }, { status: 403 });
+      return withCors(NextResponse.json({ error: err.message }, { status: 403 }), origin);
     }
     throw err;
   }

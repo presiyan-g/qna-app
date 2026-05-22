@@ -8,8 +8,8 @@ import { Footer } from '@/app/_components/landing/Footer';
 import { Nav } from '@/app/_components/landing/Nav';
 import { getSession } from '@/services/auth';
 import { getCommunityBySlug } from '@/services/communities';
-import { getLatestCommunityBroadcast } from '@/services/broadcasts';
-import { listCommunityQuestions } from '@/services/questions';
+import { getLatestCommunityBroadcastForCommunity } from '@/services/broadcasts';
+import { listCommunityQuestionsForCommunity } from '@/services/questions';
 import { QuestionList } from './_components/QuestionList';
 
 type PageProps = {
@@ -18,12 +18,16 @@ type PageProps = {
 
 export default async function CommunityPage({ params }: PageProps) {
   const [{ slug }, session] = await Promise.all([params, getSession()]);
-  const [community, questions, latestBroadcast] = await Promise.all([
-    getCommunityBySlug(slug, session?.sub ?? null),
-    listCommunityQuestions({ slug, userId: session?.sub ?? null }),
-    getLatestCommunityBroadcast({ slug, viewerUserId: session?.sub ?? null }),
-  ]);
+  const community = await getCommunityBySlug(slug, session?.sub ?? null);
   if (!community) notFound();
+
+  const [questions, latestBroadcast] = await Promise.all([
+    listCommunityQuestionsForCommunity({ community }),
+    getLatestCommunityBroadcastForCommunity({
+      community,
+      viewerUserId: session?.sub ?? null,
+    }),
+  ]);
 
   const joinAction = joinCommunityAction.bind(null, community.slug);
   const leaveAction = leaveCommunityAction.bind(null, community.slug);

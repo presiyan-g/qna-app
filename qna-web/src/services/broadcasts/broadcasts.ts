@@ -48,6 +48,11 @@ type BroadcastViewer = {
   accountStatus: 'active' | 'suspended' | null;
 };
 
+type ResolvedCommunity = {
+  id: string;
+  currentUserRole: CommunityRole | null;
+};
+
 export async function listCommunityBroadcasts({
   slug,
   limit,
@@ -126,6 +131,20 @@ export async function getLatestCommunityBroadcast({
 }): Promise<BroadcastPostResource | null> {
   const community = await getCommunityBySlug(slug, viewerUserId);
   if (!community) return null;
+
+  return getLatestCommunityBroadcastForCommunity({
+    community,
+    viewerUserId,
+  });
+}
+
+export async function getLatestCommunityBroadcastForCommunity({
+  community,
+  viewerUserId = null,
+}: {
+  community: ResolvedCommunity;
+  viewerUserId?: string | null;
+}): Promise<BroadcastPostResource | null> {
   const viewerStatus = viewerUserId
     ? await findUserStatusById(viewerUserId)
     : null;

@@ -20,6 +20,7 @@ export type Community = {
   isFeatured?: boolean;
   featuredRank?: number | null;
   memberCount: number;
+  liveQuestionCount?: number;
   currentUserRole: CommunityRole | null;
   createdAt: string;
   updatedAt: string;

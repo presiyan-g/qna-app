@@ -1,5 +1,5 @@
 import 'server-only';
-import { and, asc, count, desc, eq, ilike, inArray } from 'drizzle-orm';
+import { and, asc, desc, eq, ilike, sql } from 'drizzle-orm';
 import { db } from '@/db/client';
 import { AccountSuspendedError, assertUserCanMutate } from '@/services/admin';
 import { findUserStatusById } from '@/services/auth';
@@ -10,11 +10,18 @@ import {
   type Community,
   type CommunityCategory,
 } from '@/db/schema/communities';
+import { questions } from '@/db/schema/questions';
 import {
   CommunityConflictError,
   CommunityMembershipError,
   CommunityNotFoundError,
 } from './errors';
+import {
+  buildCommunityResource,
+  buildCreatedCommunityResource,
+  markCommunityJoined,
+  markCommunityLeft,
+} from './resource';
 import type { CreateCommunityInput } from './validation';
 
 export type CommunityRole = 'member' | 'creator';
@@ -22,12 +29,16 @@ export type CommunityRole = 'member' | 'creator';
 export type CommunityWithMembership = Community & {
   category: CommunityCategory | null;
   memberCount: number;
+  liveQuestionCount: number;
   currentUserRole: CommunityRole | null;
 };
 
 type CommunityWithCategoryRow = {
   community: Community;
   category: CommunityCategory | null;
+  memberCount: number;
+  liveQuestionCount: number;
+  currentUserRole: CommunityRole | null;
 };
 
 type ListCommunitiesOptions = {
@@ -60,6 +71,7 @@ export async function searchCommunities({
   const safeLimit = Math.min(Math.max(limit, 1), MAX_LIMIT);
   const safeOffset = Math.max(offset, 0);
   const query = q?.trim();
+  const summaryFields = communitySummaryFields(userId);
   const where = query
     ? and(
         eq(communities.status, 'active'),
@@ -71,6 +83,7 @@ export async function searchCommunities({
     .select({
       community: communities,
       category: communityCategories,
+      ...summaryFields,
     })
     .from(communities)
     .leftJoin(
@@ -82,7 +95,7 @@ export async function searchCommunities({
     .limit(safeLimit)
     .offset(safeOffset);
 
-  return withMembershipSummaries(rows, userId);
+  return rows.map(toCommunityWithMembership);
 }
 
 export async function listFeaturedCommunities({
@@ -93,10 +106,12 @@ export async function listFeaturedCommunities({
   userId?: string | null;
 } = {}): Promise<CommunityWithMembership[]> {
   const safeLimit = Math.min(Math.max(limit, 1), MAX_LIMIT);
+  const summaryFields = communitySummaryFields(userId);
   const rows = await db
     .select({
       community: communities,
       category: communityCategories,
+      ...summaryFields,
     })
     .from(communities)
     .leftJoin(
@@ -109,17 +124,19 @@ export async function listFeaturedCommunities({
     .orderBy(asc(communities.featuredRank), desc(communities.createdAt))
     .limit(safeLimit);
 
-  return withMembershipSummaries(rows, userId);
+  return rows.map(toCommunityWithMembership);
 }
 
 export async function getCommunityBySlug(
   slug: string,
   userId?: string | null,
 ): Promise<CommunityWithMembership | null> {
+  const summaryFields = communitySummaryFields(userId ?? null);
   const [row] = await db
     .select({
       community: communities,
       category: communityCategories,
+      ...summaryFields,
     })
     .from(communities)
     .leftJoin(
@@ -130,8 +147,7 @@ export async function getCommunityBySlug(
     .limit(1);
 
   if (!row) return null;
-  const [community] = await withMembershipSummaries([row], userId ?? null);
-  return community;
+  return toCommunityWithMembership(row);
 }
 
 export async function createCommunity({
@@ -162,9 +178,10 @@ export async function createCommunity({
       role: 'creator',
     });
 
-    const created = await getCommunityBySlug(community.slug, creatorUserId);
-    if (!created) throw new CommunityNotFoundError();
-    return created;
+    return buildCreatedCommunityResource({
+      community,
+      category: null,
+    });
   } catch (err) {
     if (isUniqueViolation(err)) {
       throw new CommunityConflictError('slug');
@@ -185,7 +202,7 @@ export async function joinCommunity({
   const community = await getCommunityBySlug(slug, userId);
   if (!community) throw new CommunityNotFoundError();
 
-  await db
+  const [inserted] = await db
     .insert(communityMembers)
     .values({
       communityId: community.id,
@@ -194,11 +211,10 @@ export async function joinCommunity({
     })
     .onConflictDoNothing({
       target: [communityMembers.communityId, communityMembers.userId],
-    });
+    })
+    .returning({ id: communityMembers.id });
 
-  const joined = await getCommunityBySlug(slug, userId);
-  if (!joined) throw new CommunityNotFoundError();
-  return joined;
+  return markCommunityJoined(community, Boolean(inserted));
 }
 
 export async function leaveCommunity({
@@ -212,10 +228,12 @@ export async function leaveCommunity({
   if (!community) throw new CommunityNotFoundError();
 
   if (community.currentUserRole === 'creator') {
-    throw new CommunityMembershipError('Community creators cannot leave their own community.');
+    throw new CommunityMembershipError(
+      'Community creators cannot leave their own community.',
+    );
   }
 
-  await db
+  const deleted = await db
     .delete(communityMembers)
     .where(
       and(
@@ -223,58 +241,51 @@ export async function leaveCommunity({
         eq(communityMembers.userId, userId),
         eq(communityMembers.role, 'member'),
       ),
-    );
+    )
+    .returning({ id: communityMembers.id });
 
-  const left = await getCommunityBySlug(slug, userId);
-  if (!left) throw new CommunityNotFoundError();
-  return left;
+  return markCommunityLeft(community, deleted.length > 0);
 }
 
-async function withMembershipSummaries(
-  rows: CommunityWithCategoryRow[],
-  userId: string | null,
-): Promise<CommunityWithMembership[]> {
-  const ids = rows.map((row) => row.community.id);
-  if (ids.length === 0) return [];
+function communitySummaryFields(userId: string | null) {
+  return {
+    memberCount: sql<number>`(
+      select count(*)::int
+      from ${communityMembers}
+      where ${communityMembers.communityId} = ${communities.id}
+    )`,
+    liveQuestionCount: sql<number>`(
+      select count(*)::int
+      from ${questions}
+      where ${questions.communityId} = ${communities.id}
+        and ${questions.deletedAt} is null
+        and ${questions.publishedAt} is not null
+        and ${questions.publishedAt} <= now()
+        and ${questions.closesAt} is not null
+        and ${questions.closesAt} > now()
+    )`,
+    currentUserRole: userId
+      ? sql<CommunityRole | null>`(
+          select ${communityMembers.role}
+          from ${communityMembers}
+          where ${communityMembers.communityId} = ${communities.id}
+            and ${communityMembers.userId} = ${userId}
+          limit 1
+        )`
+      : sql<CommunityRole | null>`null`,
+  };
+}
 
-  const countRows = await db
-    .select({
-      communityId: communityMembers.communityId,
-      value: count(),
-    })
-    .from(communityMembers)
-    .where(inArray(communityMembers.communityId, ids))
-    .groupBy(communityMembers.communityId);
-
-  const counts = new Map(
-    countRows.map((row) => [row.communityId, Number(row.value)]),
-  );
-
-  const membershipRows = userId
-    ? await db
-        .select({
-          communityId: communityMembers.communityId,
-          role: communityMembers.role,
-        })
-        .from(communityMembers)
-        .where(
-          and(
-            eq(communityMembers.userId, userId),
-            inArray(communityMembers.communityId, ids),
-          ),
-        )
-    : [];
-
-  const roles = new Map(
-    membershipRows.map((row) => [row.communityId, row.role]),
-  );
-
-  return rows.map((row) => ({
-    ...row.community,
+function toCommunityWithMembership(
+  row: CommunityWithCategoryRow,
+): CommunityWithMembership {
+  return buildCommunityResource({
+    community: row.community,
     category: row.category,
-    memberCount: counts.get(row.community.id) ?? 0,
-    currentUserRole: roles.get(row.community.id) ?? null,
-  }));
+    memberCount: Number(row.memberCount),
+    liveQuestionCount: Number(row.liveQuestionCount),
+    currentUserRole: row.currentUserRole,
+  });
 }
 
 function isUniqueViolation(err: unknown): boolean {

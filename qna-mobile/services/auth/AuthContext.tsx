@@ -1,4 +1,5 @@
 import { useRouter } from 'expo-router';
+import type { Href } from 'expo-router';
 import { createContext, type ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 
 import {
@@ -93,10 +94,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-function getSafeReturnPath(returnTo?: string | null) {
+function getSafeReturnPath(returnTo?: string | null): Href {
   if (!returnTo || !returnTo.startsWith('/') || returnTo.startsWith('//')) return '/';
 
-  return returnTo;
+  return returnTo as Href;
 }
 
 export function useAuth() {

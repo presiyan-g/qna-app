@@ -18,7 +18,10 @@ import {
 } from '@/db/schema/questions';
 import { AccountSuspendedError, assertUserCanMutate } from '@/services/admin';
 import { findUserStatusById } from '@/services/auth';
-import { getCommunityBySlug } from '@/services/communities';
+import {
+  getCommunityBySlug,
+  type CommunityWithMembership,
+} from '@/services/communities';
 import { QuestionNotFoundError, QuestionPermissionError } from './errors';
 import { assertCanManageQuestion } from './management-policy';
 import type {
@@ -64,6 +67,18 @@ export async function listCommunityQuestions({
   const community = await getCommunityBySlug(slug, userId);
   if (!community) return [];
 
+  return listCommunityQuestionsForCommunity({ community, limit, offset });
+}
+
+export async function listCommunityQuestionsForCommunity({
+  community,
+  limit = DEFAULT_LIMIT,
+  offset = 0,
+}: {
+  community: Pick<CommunityWithMembership, 'id' | 'currentUserRole'>;
+  limit?: number;
+  offset?: number;
+}): Promise<ScheduledCommunityQuestion[]> {
   const safeLimit = Math.min(Math.max(limit, 1), MAX_LIMIT);
   const safeOffset = Math.max(offset, 0);
   const canSeeCorrectAnswers = community.currentUserRole === 'creator';

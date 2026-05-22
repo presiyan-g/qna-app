@@ -23,6 +23,18 @@ import {
   createCommunitiesClient,
 } from '@/services/communities/api';
 import { formatCommunityCadence, formatCommunityRole } from '@/services/communities/format';
+import {
+  createQuestionsClient,
+  QuestionsApiError,
+  type QuestionSummary,
+} from '@/services/questions/api';
+import {
+  formatPoints,
+  formatQuestionStateLabel,
+  formatRelativeTime,
+  getQuestionState,
+  type QuestionState,
+} from '@/services/questions/format';
 
 type DetailTab = 'questions' | 'broadcasts' | 'leaderboard' | 'about';
 
@@ -50,7 +62,7 @@ export default function CommunityDetailScreen() {
   const slugValue = Array.isArray(slug) ? slug[0] : slug;
 
   const loadCommunity = useCallback(
-    async (isActive = () => true) => {
+    async (isActive: () => boolean = () => true) => {
       if (!slugValue) return;
 
       setLoading(true);
@@ -138,7 +150,7 @@ export default function CommunityDetailScreen() {
                   <Text style={styles.badgeText}>{community.emoji || community.name.slice(0, 2)}</Text>
                 </View>
                 <View style={styles.heroTitleGroup}>
-                  <Eyebrow>{community.category?.name ?? 'Community'}</Eyebrow>
+                  {community.category ? <Eyebrow>{community.category.name}</Eyebrow> : null}
                   <Heading compact>{community.name}</Heading>
                 </View>
               </View>
@@ -229,12 +241,15 @@ function TabPanel({ activeTab, community }: { activeTab: DetailTab; community: C
     );
   }
 
-  const scaffoldTab = activeTab as Exclude<DetailTab, 'about'>;
+  if (activeTab === 'questions') {
+    return <QuestionsTab community={community} />;
+  }
+
+  const scaffoldTab = activeTab as Exclude<DetailTab, 'about' | 'questions'>;
   const copy = {
-    questions: 'The next challenge will land here when this community publishes it.',
     broadcasts: 'Notes from the creator will appear here when there is something new to read.',
     leaderboard: 'Scores and streaks will show here once members start answering.',
-  } satisfies Record<Exclude<DetailTab, 'about'>, string>;
+  } satisfies Record<Exclude<DetailTab, 'about' | 'questions'>, string>;
 
   return (
     <View style={styles.panel}>
@@ -243,6 +258,142 @@ function TabPanel({ activeTab, community }: { activeTab: DetailTab; community: C
     </View>
   );
 }
+
+function QuestionsTab({ community }: { community: Community }) {
+  const router = useRouter();
+  const { token } = useAuth();
+  const apiUrl = useRuntimeApiUrl();
+  const questionsClient = useMemo(() => createQuestionsClient({ apiUrl }), [apiUrl]);
+  const [questions, setQuestions] = useState<QuestionSummary[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const loadQuestions = useCallback(
+    async (isActive: () => boolean = () => true) => {
+      setLoading(true);
+      setError(null);
+      try {
+        const result = await questionsClient.list(community.slug, { limit: 20, token });
+        if (!isActive()) return;
+        setQuestions(result.items);
+      } catch (err) {
+        if (!isActive()) return;
+        setError(err instanceof QuestionsApiError ? err.message : 'Unable to load questions.');
+      } finally {
+        if (isActive()) setLoading(false);
+      }
+    },
+    [community.slug, questionsClient, token],
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      void loadQuestions(() => active);
+
+      return () => {
+        active = false;
+      };
+    }, [loadQuestions]),
+  );
+
+  if (loading) {
+    return <StatePanel title="Loading questions..." />;
+  }
+  if (error) {
+    return (
+      <StatePanel title={error}>
+        <BrandButton variant="secondary" onPress={() => void loadQuestions()}>
+          Retry
+        </BrandButton>
+      </StatePanel>
+    );
+  }
+  if (questions.length === 0) {
+    return <StatePanel title="No published questions yet. Check back when the creator schedules one." />;
+  }
+
+  return (
+    <View style={styles.questionList}>
+      {questions.map((question) => (
+        <QuestionCard
+          key={question.id}
+          question={question}
+          onPress={() =>
+            router.push({
+              pathname: '/communities/[slug]/questions/[id]',
+              params: { slug: community.slug, id: question.id },
+            })
+          }
+        />
+      ))}
+    </View>
+  );
+}
+
+function QuestionCard({
+  question,
+  onPress,
+}: {
+  question: QuestionSummary;
+  onPress: () => void;
+}) {
+  const state = getQuestionState(question);
+  const stateBadgeStyle = stateBadgeStyles[state];
+  const timeHint = getQuestionTimeHint(question, state);
+
+  return (
+    <Pressable
+      accessibilityLabel={`Open question: ${question.prompt}`}
+      accessibilityRole="link"
+      onPress={onPress}
+      style={({ pressed }) => [styles.questionCard, pressed ? styles.pressed : null]}
+    >
+      <View style={styles.questionMetaRow}>
+        <View style={[styles.stateBadge, stateBadgeStyle.container]}>
+          <Text style={[styles.stateBadgeText, stateBadgeStyle.text]}>
+            {formatQuestionStateLabel(state).toUpperCase()}
+          </Text>
+        </View>
+        {timeHint ? <Text style={styles.questionMetaText}>{timeHint}</Text> : null}
+        <Text style={styles.questionPointsText}>{formatPoints(question.points)}</Text>
+      </View>
+      <Text style={styles.questionPrompt} numberOfLines={3}>
+        {question.prompt}
+      </Text>
+    </Pressable>
+  );
+}
+
+function getQuestionTimeHint(question: QuestionSummary, state: QuestionState): string | null {
+  if (state === 'scheduled') {
+    const target = question.publishedAt ?? question.scheduledFor;
+    if (!target) return null;
+    return `Goes live ${formatRelativeTime(target)}`;
+  }
+  if (state === 'live') {
+    return `Closes ${formatRelativeTime(question.closesAt)}`;
+  }
+  return `Closed ${formatRelativeTime(question.closesAt)}`;
+}
+
+const stateBadgeStyles: Record<
+  QuestionState,
+  { container: { backgroundColor: string; borderColor: string }; text: { color: string } }
+> = {
+  scheduled: {
+    container: { backgroundColor: palette.card, borderColor: palette.line },
+    text: { color: palette.muted },
+  },
+  live: {
+    container: { backgroundColor: palette.primarySoft, borderColor: palette.primary },
+    text: { color: palette.primary },
+  },
+  closed: {
+    container: { backgroundColor: palette.card, borderColor: palette.line },
+    text: { color: palette.ink },
+  },
+};
 
 function MetaItem({
   label,
@@ -387,5 +538,56 @@ const styles = StyleSheet.create({
     fontFamily: fonts.sans,
     fontSize: 14,
     lineHeight: 21,
+  },
+  questionList: {
+    gap: 11,
+  },
+  questionCard: {
+    backgroundColor: palette.card,
+    borderColor: palette.line,
+    borderRadius: 12,
+    borderWidth: 1,
+    gap: 10,
+    padding: 14,
+  },
+  questionMetaRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 10,
+  },
+  stateBadge: {
+    borderRadius: 999,
+    borderWidth: 1,
+    paddingHorizontal: 9,
+    paddingVertical: 3,
+  },
+  stateBadgeText: {
+    fontFamily: fonts.sans,
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 1,
+  },
+  questionMetaText: {
+    color: palette.muted,
+    flex: 1,
+    fontFamily: fonts.sans,
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  questionPointsText: {
+    color: palette.primary,
+    fontFamily: fonts.sans,
+    fontSize: 12,
+    fontWeight: '800',
+  },
+  questionPrompt: {
+    color: palette.ink,
+    fontFamily: fonts.sans,
+    fontSize: 15,
+    fontWeight: '700',
+    lineHeight: 21,
+  },
+  pressed: {
+    opacity: 0.72,
   },
 });

@@ -2,6 +2,7 @@ export {
   createQuestion,
   createQuestionDraft,
   listCommunityQuestions,
+  listCommunityQuestionsForCommunity,
   listDashboardQuestions,
   scheduleQuestion,
   softDeleteUnpublishedQuestion,

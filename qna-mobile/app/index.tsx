@@ -3,12 +3,11 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 
 import {
-  BrandBadge,
   BodyText,
   BrandButton,
   BrandLogo,
   CommunityPreviewCard,
-  ConfirmDialog,
+  Eyebrow,
   Heading,
   Screen,
   StatePanel,
@@ -22,32 +21,45 @@ import {
   createCommunitiesClient,
 } from '@/services/communities/api';
 import { formatCommunityCadence } from '@/services/communities/format';
+import {
+  buildHomeCommunitySections,
+  buildHomeStatusMessage,
+} from '@/services/home/shell';
 
 export default function HomeScreen() {
-  const { loading, logout, token, user } = useAuth();
-  const [confirmingLogout, setConfirmingLogout] = useState(false);
+  const { loading, token, user } = useAuth();
   const [communities, setCommunities] = useState<Community[]>([]);
   const [communitiesError, setCommunitiesError] = useState<string | null>(null);
   const [communitiesLoading, setCommunitiesLoading] = useState(true);
   const apiUrl = useRuntimeApiUrl();
   const communitiesClient = useMemo(() => createCommunitiesClient({ apiUrl }), [apiUrl]);
+  const sections = useMemo(() => buildHomeCommunitySections(communities), [communities]);
+  const isEngaged = sections.myCommunities.length > 0;
+  const heroHeading = isEngaged ? 'Welcome back.' : 'Today starts with a community.';
+  const heroBody = isEngaged
+    ? "Tap a community to answer today's question."
+    : 'Choose a room, answer the daily question, and unlock the conversation.';
+  const statusMessage = buildHomeStatusMessage(sections.myCommunities);
 
-  const loadCommunities = useCallback(async (isActive = () => true) => {
-    setCommunitiesLoading(true);
-    setCommunitiesError(null);
-    try {
-      const result = await communitiesClient.list({ limit: 3, offset: 0, token });
-      if (!isActive()) return;
-      setCommunities(result.items);
-    } catch (err) {
-      if (!isActive()) return;
-      setCommunitiesError(
-        err instanceof CommunitiesApiError ? err.message : 'Unable to load communities.',
-      );
-    } finally {
-      if (isActive()) setCommunitiesLoading(false);
-    }
-  }, [communitiesClient, token]);
+  const loadCommunities = useCallback(
+    async (isActive: () => boolean = () => true) => {
+      setCommunitiesLoading(true);
+      setCommunitiesError(null);
+      try {
+        const result = await communitiesClient.list({ limit: 24, offset: 0, token });
+        if (!isActive()) return;
+        setCommunities(result.items);
+      } catch (err) {
+        if (!isActive()) return;
+        setCommunitiesError(
+          err instanceof CommunitiesApiError ? err.message : 'Unable to load communities.',
+        );
+      } finally {
+        if (isActive()) setCommunitiesLoading(false);
+      }
+    },
+    [communitiesClient, token],
+  );
 
   useFocusEffect(
     useCallback(() => {
@@ -60,11 +72,6 @@ export default function HomeScreen() {
     }, [loadCommunities]),
   );
 
-  async function handleConfirmLogout() {
-    setConfirmingLogout(false);
-    await logout();
-  }
-
   return (
     <Screen edges={['top', 'left', 'right', 'bottom']} padded={false}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
@@ -72,89 +79,108 @@ export default function HomeScreen() {
           <BrandLogo />
           {user ? (
             <BrandButton
-              onPress={() => setConfirmingLogout(true)}
+              href={{ pathname: '/users/[username]', params: { username: user.username } }}
               variant="secondary"
-              style={styles.headerJoinButton}
+              style={styles.headerActionButton}
             >
-              Logout
+              @{user.username}
             </BrandButton>
           ) : (
-            <BrandButton disabled={loading} href="/register" style={styles.headerJoinButton}>
-              Join
-            </BrandButton>
+            <View style={styles.headerActions}>
+              <BrandButton
+                disabled={loading}
+                href="/register"
+                style={styles.headerActionButton}
+              >
+                Join
+              </BrandButton>
+              <BrandButton
+                disabled={loading}
+                href="/login"
+                variant="secondary"
+                style={styles.headerActionButton}
+              >
+                Sign in
+              </BrandButton>
+            </View>
           )}
         </View>
 
-        <View style={styles.quickActions}>
-          <BrandButton href="/communities" style={styles.quickActionButton}>
-            Communities
-          </BrandButton>
-          {user ? (
-            <BrandBadge
-              accessibilityLabel={`Signed in as ${user.username}`}
-              style={styles.quickActionButton}
-            >
-              @{user.username}
-            </BrandBadge>
-          ) : (
-            <BrandButton
-              disabled={loading}
-              href="/login"
-              variant="secondary"
-              style={styles.quickActionButton}
-            >
-              Sign in
-            </BrandButton>
-          )}
+        <View style={styles.statusStrip}>
+          <Text style={styles.statusText}>{statusMessage}</Text>
         </View>
 
         <View style={styles.hero}>
-          <Heading compact>Pick a daily challenge.</Heading>
-          <BodyText>
-            Browse communities, answer today&apos;s question, and unlock the discussion.
-          </BodyText>
+          <Heading compact>{heroHeading}</Heading>
+          <BodyText>{heroBody}</BodyText>
         </View>
 
-        <View style={styles.communityList}>
-          {communitiesLoading ? (
-            <StatePanel title="Loading communities..." />
-          ) : communitiesError ? (
-            <StatePanel title={communitiesError}>
-              <BrandButton variant="secondary" onPress={() => void loadCommunities()}>
-                Retry
-              </BrandButton>
-            </StatePanel>
-          ) : communities.length > 0 ? (
-            communities.map((community) => (
-              <CommunityPreviewCard
-                key={community.id}
-                initials={community.emoji || community.name.slice(0, 2)}
-                name={community.name}
-                cadence={formatCommunityCadence(community.cadence)}
-                description={community.description}
-                href={`/communities/${community.slug}`}
+        {communitiesLoading ? (
+          <StatePanel title="Loading communities..." />
+        ) : communitiesError ? (
+          <StatePanel title={communitiesError}>
+            <BrandButton variant="secondary" onPress={() => void loadCommunities()}>
+              Retry
+            </BrandButton>
+          </StatePanel>
+        ) : (
+          <>
+            {user ? (
+              <CommunitySection
+                emptyTitle="Join a community and it will stay close at hand here."
+                title="My Communities"
+                communities={sections.myCommunities}
               />
-            ))
-          ) : (
-            <StatePanel title="No communities are open yet." />
-          )}
-        </View>
+            ) : null}
 
-        <View style={styles.footerCta}>
-          <Text style={styles.footerLabel}>Ready to explore?</Text>
-          <BrandButton href="/communities">Browse communities</BrandButton>
-        </View>
+            <CommunitySection
+              emptyTitle="You're up to date with the featured rooms."
+              title="Discover"
+              communities={sections.discover}
+            />
+
+            <View style={styles.footerCta}>
+              <Text style={styles.footerLabel}>Looking for more?</Text>
+              <BrandButton variant="secondary" href="/communities">
+                Browse all communities
+              </BrandButton>
+            </View>
+          </>
+        )}
       </ScrollView>
-      <ConfirmDialog
-        cancelLabel="Stay signed in"
-        confirmLabel="Logout"
-        message="You can sign back in any time with your email and password."
-        onCancel={() => setConfirmingLogout(false)}
-        onConfirm={handleConfirmLogout}
-        title="Logout?"
-        visible={confirmingLogout}
-      />
     </Screen>
+  );
+}
+
+function CommunitySection({
+  communities,
+  emptyTitle,
+  title,
+}: {
+  communities: Community[];
+  emptyTitle: string;
+  title: string;
+}) {
+  return (
+    <View style={styles.section}>
+      <View style={styles.sectionHeader}>
+        <Eyebrow>{title}</Eyebrow>
+      </View>
+      {communities.length > 0 ? (
+        communities.map((community) => (
+          <CommunityPreviewCard
+            key={community.id}
+            initials={community.emoji || community.name.slice(0, 2)}
+            name={community.name}
+            cadence={formatCommunityCadence(community.cadence)}
+            description={community.description}
+            href={`/communities/${community.slug}`}
+          />
+        ))
+      ) : (
+        <StatePanel title={emptyTitle} />
+      )}
+    </View>
   );
 }
 
@@ -168,40 +194,52 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     flexDirection: 'row',
+    gap: 10,
     justifyContent: 'space-between',
   },
-  headerJoinButton: {
-    minHeight: 40,
-    paddingHorizontal: 16,
-  },
-  quickActions: {
+  headerActions: {
     flexDirection: 'row',
-    gap: 9,
+    gap: 8,
   },
-  quickActionButton: {
-    flex: 1,
+  headerActionButton: {
+    minHeight: 40,
+    paddingHorizontal: 14,
   },
   hero: {
     gap: 10,
     paddingTop: 2,
   },
-  communityList: {
-    gap: 11,
-  },
-  footerCta: {
-    backgroundColor: palette.primarySoft,
+  statusStrip: {
+    backgroundColor: palette.card,
     borderColor: palette.line,
-    borderRadius: 14,
+    borderRadius: 10,
     borderWidth: 1,
-    gap: 12,
-    padding: 16,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
   },
-  footerLabel: {
+  statusText: {
     color: palette.primary,
     fontFamily: fonts.sans,
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: '800',
-    letterSpacing: 1,
     textTransform: 'uppercase',
+  },
+  section: {
+    gap: 11,
+  },
+  sectionHeader: {
+    paddingTop: 4,
+  },
+  footerCta: {
+    alignItems: 'stretch',
+    gap: 8,
+    paddingTop: 4,
+  },
+  footerLabel: {
+    color: palette.muted,
+    fontFamily: fonts.sans,
+    fontSize: 13,
+    fontWeight: '700',
+    textAlign: 'center',
   },
 });
