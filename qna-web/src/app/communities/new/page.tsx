@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { Footer } from '@/app/_components/landing/Footer';
 import { Nav } from '@/app/_components/landing/Nav';
 import { getSession } from '@/services/auth';
+import { listCommunityCategories } from '@/services/communities';
 import { CreateCommunityForm } from '../_components/CreateCommunityForm';
 
 export const metadata = {
@@ -12,6 +13,9 @@ export const metadata = {
 export default async function NewCommunityPage() {
   const session = await getSession();
   if (!session) redirect('/login');
+
+  const categories = await listCommunityCategories();
+  const categoryOptions = categories.map(({ id, name }) => ({ id, name }));
 
   return (
     <main className="flex flex-1 flex-col bg-paper text-ink">
@@ -38,7 +42,7 @@ export default async function NewCommunityPage() {
           </div>
 
           <div className="rounded-lg border border-line bg-card p-6">
-            <CreateCommunityForm />
+            <CreateCommunityForm categories={categoryOptions} />
           </div>
         </div>
       </section>

@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { logoutAction } from '@/app/actions/auth';
 
 type NavLink = { href: string; label: string };
 
@@ -72,14 +71,6 @@ export function MobileMenu({
                 >
                   Dashboard
                 </Link>
-                <form action={logoutAction}>
-                  <button
-                    type="submit"
-                    className="w-full rounded-full border border-line px-4 py-2.5 text-center text-sm font-semibold text-ink"
-                  >
-                    Sign out
-                  </button>
-                </form>
               </>
             ) : (
               <>

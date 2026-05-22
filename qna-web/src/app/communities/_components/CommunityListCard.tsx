@@ -59,8 +59,22 @@ export function CommunityListCard({
           View
         </Link>
         {community.currentUserRole === 'creator' ? (
-          <span className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-paper">
-            Creator
+          <span className="inline-flex items-center gap-1.5 px-1 py-2 text-sm font-semibold text-muted">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden
+            >
+              <path
+                d="M3 8l4 3 5-7 5 7 4-3-2 11H5L3 8z"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinejoin="round"
+              />
+            </svg>
+            Your community
           </span>
         ) : community.currentUserRole === 'member' ? (
           <>

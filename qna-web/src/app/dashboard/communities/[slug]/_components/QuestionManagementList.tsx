@@ -1,8 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useActionState, useState, useTransition } from 'react';
-import type { ReactNode } from 'react';
+import { useActionState, useMemo, useState, useTransition } from 'react';
 import {
   deleteQuestionAction,
   scheduleQuestionAction,
@@ -19,7 +18,15 @@ export type SerializedManagedQuestion = QuestionFormValues & {
   points: number;
 };
 
+type TabKey = 'drafts' | 'scheduled' | 'published';
+
 const INITIAL: DashboardQuestionFormState = { ok: false };
+
+const TABS: Array<{ key: TabKey; label: string; empty: string }> = [
+  { key: 'drafts', label: 'Drafts', empty: 'No drafts yet.' },
+  { key: 'scheduled', label: 'Scheduled', empty: 'No upcoming questions.' },
+  { key: 'published', label: 'Published', empty: 'No published questions yet.' },
+];
 
 export function QuestionManagementList({
   slug,
@@ -28,56 +35,78 @@ export function QuestionManagementList({
   slug: string;
   questions: SerializedManagedQuestion[];
 }) {
-  const drafts = questions.filter((question) => question.state === 'draft');
-  const scheduled = questions.filter((question) => question.state === 'scheduled');
-  const published = questions.filter(
-    (question) => question.state === 'live' || question.state === 'closed',
-  );
+  const grouped = useMemo(() => groupQuestions(questions), [questions]);
+  const initialTab: TabKey =
+    grouped.drafts.length > 0
+      ? 'drafts'
+      : grouped.scheduled.length > 0
+        ? 'scheduled'
+        : 'published';
+  const [activeTab, setActiveTab] = useState<TabKey>(initialTab);
+  const activeQuestions = grouped[activeTab];
+  const activeMeta = TABS.find((tab) => tab.key === activeTab)!;
 
   return (
-    <div className="grid gap-6">
-      <QuestionGroup title="Drafts" empty="No drafts yet">
-        {drafts.map((question) => (
-          <QuestionCard key={question.id} slug={slug} question={question} />
-        ))}
-      </QuestionGroup>
-      <QuestionGroup title="Scheduled" empty="No upcoming questions">
-        {scheduled.map((question) => (
-          <QuestionCard key={question.id} slug={slug} question={question} />
-        ))}
-      </QuestionGroup>
-      <QuestionGroup title="Published / history" empty="No published questions">
-        {published.map((question) => (
-          <QuestionCard key={question.id} slug={slug} question={question} />
-        ))}
-      </QuestionGroup>
+    <div>
+      <div
+        role="tablist"
+        aria-label="Question lifecycle"
+        className="flex flex-wrap gap-1 rounded-full border border-primary/15 bg-card p-1"
+      >
+        {TABS.map((tab) => {
+          const count = grouped[tab.key].length;
+          const isActive = tab.key === activeTab;
+          return (
+            <button
+              key={tab.key}
+              type="button"
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => setActiveTab(tab.key)}
+              className={
+                isActive
+                  ? 'inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-paper shadow-sm transition-colors'
+                  : 'inline-flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-muted transition-colors hover:bg-primary-soft hover:text-primary'
+              }
+            >
+              <span>{tab.label}</span>
+              <span
+                className={
+                  isActive
+                    ? 'rounded-full bg-paper/20 px-2 py-0.5 text-[11px] font-bold text-paper'
+                    : 'rounded-full bg-primary-soft px-2 py-0.5 text-[11px] font-bold text-primary'
+                }
+              >
+                {count}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="mt-6 grid gap-4">
+        {activeQuestions.length > 0 ? (
+          activeQuestions.map((question) => (
+            <QuestionCard key={question.id} slug={slug} question={question} />
+          ))
+        ) : (
+          <div className="rounded-2xl border border-dashed border-primary/20 bg-card px-6 py-10 text-center text-sm text-muted">
+            {activeMeta.empty}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
-function QuestionGroup({
-  title,
-  empty,
-  children,
-}: {
-  title: string;
-  empty: string;
-  children: ReactNode[];
-}) {
-  return (
-    <section>
-      <h2 className="text-2xl font-bold">{title}</h2>
-      <div className="mt-4 grid gap-4">
-        {children.length > 0 ? (
-          children
-        ) : (
-          <div className="rounded-lg border border-dashed border-line bg-card p-5 text-sm text-muted">
-            {empty}
-          </div>
-        )}
-      </div>
-    </section>
-  );
+function groupQuestions(questions: SerializedManagedQuestion[]) {
+  return {
+    drafts: questions.filter((question) => question.state === 'draft'),
+    scheduled: questions.filter((question) => question.state === 'scheduled'),
+    published: questions.filter(
+      (question) => question.state === 'live' || question.state === 'closed',
+    ),
+  };
 }
 
 function QuestionCard({

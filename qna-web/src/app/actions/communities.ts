@@ -17,7 +17,10 @@ export type CommunityFormState = {
   ok: false;
   formError?: string;
   fieldErrors?: Partial<
-    Record<'name' | 'description' | 'emoji' | 'cadence', string>
+    Record<
+      'name' | 'description' | 'emoji' | 'cadence' | 'categoryId',
+      string
+    >
   >;
 };
 
@@ -35,6 +38,7 @@ export async function createCommunityAction(
       description: formData.get('description'),
       emoji: formData.get('emoji'),
       cadence: formData.get('cadence'),
+      categoryId: formData.get('categoryId'),
     });
     const community = await createCommunity({
       creatorUserId: session.sub,

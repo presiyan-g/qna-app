@@ -39,7 +39,7 @@ export default async function CreatorCommunityDashboardPage({
         <CreatorForbidden />
       ) : (
         <section className="px-6 py-12 md:px-12 md:py-16">
-          <div className="mx-auto max-w-[1120px]">
+          <div className="mx-auto max-w-[880px]">
             <Link
               href="/dashboard"
               className="text-sm font-semibold text-primary hover:underline"
@@ -62,31 +62,40 @@ export default async function CreatorCommunityDashboardPage({
               </div>
               <Link
                 href={`/communities/${dashboard.community.slug}`}
-                className="rounded-full border border-line px-4 py-2.5 text-sm font-semibold text-ink hover:border-primary hover:text-primary"
+                className="rounded-full border border-primary/25 px-4 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-primary hover:bg-primary-soft hover:text-primary"
               >
                 View public community
               </Link>
             </div>
 
-            <div className="mt-10 grid gap-6 lg:grid-cols-[380px_1fr]">
-              <aside className="rounded-lg border border-line bg-card p-5 lg:sticky lg:top-6 lg:self-start">
-                <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
-                  Question composer
-                </p>
-                <h2 className="mt-2 text-2xl font-bold">Create a question</h2>
-                <p className="mt-2 text-sm leading-6 text-muted">
-                  Save a draft without a publish time, or schedule it in GMT.
-                </p>
-                <div className="mt-5">
-                  <QuestionManagementForm slug={dashboard.community.slug} />
-                </div>
-              </aside>
+            <section
+              aria-labelledby="composer-heading"
+              className="mt-10 rounded-2xl border border-primary/15 bg-card p-6 shadow-[0_18px_40px_-32px_rgba(31,64,50,0.35)] md:p-8"
+            >
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
+                Question composer
+              </p>
+              <h2
+                id="composer-heading"
+                className="mt-2 text-3xl font-bold tracking-tight"
+              >
+                Create a question
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-muted">
+                Save a draft, schedule for a specific GMT time, or publish it
+                right now.
+              </p>
+              <div className="mt-6">
+                <QuestionManagementForm slug={dashboard.community.slug} />
+              </div>
+            </section>
 
+            <section aria-label="Existing questions" className="mt-12">
               <QuestionManagementList
                 slug={dashboard.community.slug}
                 questions={dashboard.questions.map(serializeQuestion)}
               />
-            </div>
+            </section>
           </div>
         </section>
       )}

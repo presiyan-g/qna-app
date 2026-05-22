@@ -9,7 +9,9 @@ export function canListQuestionComments({
   hasAnswered: boolean;
   isClosed: boolean;
 }): boolean {
-  return Boolean(communityRole && (hasAnswered || isClosed));
+  if (!communityRole) return false;
+  if (communityRole === 'creator') return true;
+  return hasAnswered || isClosed;
 }
 
 export function canPostQuestionComment({
@@ -19,7 +21,9 @@ export function canPostQuestionComment({
   communityRole: CommunityRole | null;
   hasAnswered: boolean;
 }): boolean {
-  return Boolean(communityRole && hasAnswered);
+  if (!communityRole) return false;
+  if (communityRole === 'creator') return true;
+  return hasAnswered;
 }
 
 export function canSoftDeleteQuestionComment({

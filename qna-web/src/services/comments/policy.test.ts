@@ -60,6 +60,24 @@ test('blocks non-members from listing and posting comments', () => {
   );
 });
 
+test('allows community creators to list and post comments without answering', () => {
+  assert.equal(
+    canListQuestionComments({
+      communityRole: 'creator',
+      hasAnswered: false,
+      isClosed: false,
+    }),
+    true,
+  );
+  assert.equal(
+    canPostQuestionComment({
+      communityRole: 'creator',
+      hasAnswered: false,
+    }),
+    true,
+  );
+});
+
 test('allows authors and community creators to soft-delete comments', () => {
   assert.equal(
     canSoftDeleteQuestionComment({

@@ -15,6 +15,7 @@ import {
   CommunityConflictError,
   CommunityMembershipError,
   CommunityNotFoundError,
+  CommunityValidationError,
 } from './errors';
 import {
   buildCommunityResource,
@@ -98,6 +99,53 @@ export async function searchCommunities({
   return rows.map(toCommunityWithMembership);
 }
 
+export async function listMyCommunities({
+  userId,
+  limit = DEFAULT_LIMIT,
+  offset = 0,
+}: {
+  userId: string;
+  limit?: number;
+  offset?: number;
+}): Promise<CommunityWithMembership[]> {
+  const safeLimit = Math.min(Math.max(limit, 1), MAX_LIMIT);
+  const safeOffset = Math.max(offset, 0);
+  const summaryFields = communitySummaryFields(userId);
+
+  const rows = await db
+    .select({
+      community: communities,
+      category: communityCategories,
+      ...summaryFields,
+      joinedAt: communityMembers.joinedAt,
+    })
+    .from(communities)
+    .innerJoin(
+      communityMembers,
+      and(
+        eq(communityMembers.communityId, communities.id),
+        eq(communityMembers.userId, userId),
+      ),
+    )
+    .leftJoin(
+      communityCategories,
+      eq(communities.categoryId, communityCategories.id),
+    )
+    .where(eq(communities.status, 'active'))
+    .orderBy(desc(communityMembers.joinedAt))
+    .limit(safeLimit)
+    .offset(safeOffset);
+
+  return rows.map(toCommunityWithMembership);
+}
+
+export async function listCommunityCategories(): Promise<CommunityCategory[]> {
+  return db
+    .select()
+    .from(communityCategories)
+    .orderBy(asc(communityCategories.name));
+}
+
 export async function listFeaturedCommunities({
   limit = 8,
   userId = null,
@@ -159,11 +207,27 @@ export async function createCommunity({
 }): Promise<CommunityWithMembership> {
   await assertAccountCanMutate(creatorUserId);
 
+  let category: CommunityCategory | null = null;
+  if (input.categoryId) {
+    const [found] = await db
+      .select()
+      .from(communityCategories)
+      .where(eq(communityCategories.id, input.categoryId))
+      .limit(1);
+    if (!found) {
+      throw new CommunityValidationError({
+        categoryId: 'Choose a valid category.',
+      });
+    }
+    category = found;
+  }
+
   try {
     const [community] = await db
       .insert(communities)
       .values({
         creatorUserId,
+        categoryId: input.categoryId,
         slug: input.slug,
         name: input.name,
         description: input.description,
@@ -180,7 +244,7 @@ export async function createCommunity({
 
     return buildCreatedCommunityResource({
       community,
-      category: null,
+      category,
     });
   } catch (err) {
     if (isUniqueViolation(err)) {

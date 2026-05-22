@@ -19,8 +19,9 @@ export async function CommentThread({
   question: QuestionDetail;
   userId: string;
 }) {
-  const canRead = Boolean(question.result) || question.isClosed;
-  const canPost = Boolean(question.result);
+  const isCreator = question.currentUserRole === 'creator';
+  const canRead = isCreator || Boolean(question.result) || question.isClosed;
+  const canPost = isCreator || Boolean(question.result);
 
   if (!canRead) {
     return (

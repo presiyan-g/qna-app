@@ -6,16 +6,20 @@ export type CreateCommunityInput = {
   description: string;
   emoji: string;
   cadence: 'daily' | 'weekly' | 'custom';
+  categoryId: string | null;
 };
 
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const CADENCES = new Set(['daily', 'weekly', 'custom']);
+const UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export function validateCreateCommunityInput(raw: {
   name?: unknown;
   description?: unknown;
   emoji?: unknown;
   cadence?: unknown;
+  categoryId?: unknown;
 }): CreateCommunityInput {
   const fieldErrors: Record<string, string> = {};
   const name = typeof raw.name === 'string' ? raw.name.trim() : '';
@@ -23,6 +27,8 @@ export function validateCreateCommunityInput(raw: {
     typeof raw.description === 'string' ? raw.description.trim() : '';
   const emoji = typeof raw.emoji === 'string' ? raw.emoji.trim() : '';
   const cadence = typeof raw.cadence === 'string' ? raw.cadence : 'daily';
+  const categoryIdRaw =
+    typeof raw.categoryId === 'string' ? raw.categoryId.trim() : '';
   const slug = slugify(name);
 
   if (!name) fieldErrors.name = 'Community name is required.';
@@ -45,6 +51,15 @@ export function validateCreateCommunityInput(raw: {
     fieldErrors.cadence = 'Choose a valid cadence.';
   }
 
+  let categoryId: string | null = null;
+  if (categoryIdRaw) {
+    if (!UUID_RE.test(categoryIdRaw)) {
+      fieldErrors.categoryId = 'Choose a valid category.';
+    } else {
+      categoryId = categoryIdRaw;
+    }
+  }
+
   if (Object.keys(fieldErrors).length > 0) {
     throw new CommunityValidationError(fieldErrors);
   }
@@ -55,6 +70,7 @@ export function validateCreateCommunityInput(raw: {
     description,
     emoji,
     cadence: cadence as CreateCommunityInput['cadence'],
+    categoryId,
   };
 }
 

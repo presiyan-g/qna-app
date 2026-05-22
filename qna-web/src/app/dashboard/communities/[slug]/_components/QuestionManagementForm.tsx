@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import {
   createQuestionDraftAction,
   createScheduledQuestionAction,
+  publishQuestionNowAction,
   updateQuestionAction,
   type DashboardQuestionFormState,
 } from '@/app/actions/questions';
@@ -45,20 +46,24 @@ export function QuestionManagementForm({
 function CreateQuestionForm({ slug }: { slug: string }) {
   const draftAction = createQuestionDraftAction.bind(null, slug);
   const scheduledAction = createScheduledQuestionAction.bind(null, slug);
+  const publishNowAction = publishQuestionNowAction.bind(null, slug);
   const [draftState, draftFormAction, draftPending] = useActionState(
     draftAction,
     INITIAL,
   );
   const [scheduledState, scheduledFormAction, scheduledPending] =
     useActionState(scheduledAction, INITIAL);
+  const [publishNowState, publishNowFormAction, publishNowPending] =
+    useActionState(publishNowAction, INITIAL);
   const formRef = useRef<HTMLFormElement>(null);
-  const state = scheduledState.ok || scheduledState.formError || scheduledState.fieldErrors
-    ? scheduledState
-    : draftState;
+  const state = pickActiveState(scheduledState, publishNowState, draftState);
+  const pending = draftPending || scheduledPending || publishNowPending;
 
   useEffect(() => {
-    if (draftState.ok || scheduledState.ok) formRef.current?.reset();
-  }, [draftState.ok, scheduledState.ok]);
+    if (draftState.ok || scheduledState.ok || publishNowState.ok) {
+      formRef.current?.reset();
+    }
+  }, [draftState.ok, scheduledState.ok, publishNowState.ok]);
 
   return (
     <QuestionFields
@@ -66,27 +71,44 @@ function CreateQuestionForm({ slug }: { slug: string }) {
       state={state}
       choices={emptyChoices()}
       footer={
-        <div className="flex flex-col gap-3 sm:flex-row">
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-end">
           <button
             type="submit"
             formAction={draftFormAction}
-            disabled={draftPending || scheduledPending}
-            className="rounded-full border border-line px-5 py-3 text-sm font-bold text-ink disabled:opacity-60"
+            disabled={pending}
+            className="rounded-full border border-primary/25 bg-paper px-5 py-3 text-sm font-bold text-ink transition-colors hover:border-primary hover:bg-primary-soft hover:text-primary disabled:opacity-60"
           >
             {draftPending ? 'Saving...' : 'Save draft'}
           </button>
           <button
             type="submit"
             formAction={scheduledFormAction}
-            disabled={draftPending || scheduledPending}
-            className="rounded-full bg-primary px-5 py-3 text-sm font-bold text-paper disabled:opacity-60"
+            disabled={pending}
+            className="rounded-full border border-primary bg-primary-soft px-5 py-3 text-sm font-bold text-primary transition-colors hover:brightness-95 disabled:opacity-60"
           >
-            {scheduledPending ? 'Scheduling...' : 'Schedule question'}
+            {scheduledPending ? 'Scheduling...' : 'Schedule for later'}
+          </button>
+          <button
+            type="submit"
+            formAction={publishNowFormAction}
+            disabled={pending}
+            className="rounded-full bg-primary px-5 py-3 text-sm font-bold text-paper transition-colors hover:brightness-110 disabled:opacity-60"
+          >
+            {publishNowPending ? 'Publishing...' : 'Publish now'}
           </button>
         </div>
       }
     />
   );
+}
+
+function pickActiveState(
+  ...states: DashboardQuestionFormState[]
+): DashboardQuestionFormState {
+  for (const state of states) {
+    if (state.ok || state.formError || state.fieldErrors) return state;
+  }
+  return states[states.length - 1] ?? INITIAL;
 }
 
 function EditQuestionForm({
@@ -218,12 +240,17 @@ const QuestionFields = function QuestionFields({
       </FieldError>
 
       <FieldError error={state.fieldErrors?.scheduledFor}>
-        <label
-          htmlFor="question-scheduled-for"
-          className="text-[13px] font-semibold"
-        >
-          Publish time (GMT)
-        </label>
+        <div className="flex items-baseline justify-between gap-3">
+          <label
+            htmlFor="question-scheduled-for"
+            className="text-[13px] font-semibold"
+          >
+            Publish time (GMT)
+          </label>
+          <span className="text-[11px] font-medium text-muted">
+            Only required when scheduling
+          </span>
+        </div>
         <input
           id="question-scheduled-for"
           name="scheduledFor"

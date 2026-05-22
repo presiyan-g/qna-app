@@ -126,6 +126,36 @@ export async function createScheduledQuestionAction(
   return { ok: true };
 }
 
+export async function publishQuestionNowAction(
+  slug: string,
+  _prev: DashboardQuestionFormState,
+  formData: FormData,
+): Promise<DashboardQuestionFormState> {
+  const session = await getSession();
+  if (!session) redirect(`/login?next=/dashboard/communities/${slug}`);
+
+  try {
+    const input = validateCreateQuestionInput({
+      prompt: formData.get('prompt'),
+      explanation: formData.get('explanation'),
+      imageUrl: formData.get('imageUrl'),
+      scheduledFor: new Date().toISOString(),
+      choices: toChoiceInputs(formData),
+    });
+
+    await createQuestion({
+      slug,
+      creatorUserId: session.sub,
+      input,
+    });
+  } catch (err) {
+    return toDashboardQuestionFormError(err);
+  }
+
+  revalidateDashboardQuestionPaths(slug);
+  return { ok: true };
+}
+
 export async function updateQuestionAction(
   slug: string,
   questionId: string,

@@ -5,10 +5,17 @@ import {
   createCommunityAction,
   type CommunityFormState,
 } from '@/app/actions/communities';
+import type { CommunityCategory } from '@/db/schema/communities';
 
 const INITIAL: CommunityFormState = { ok: false };
 
-export function CreateCommunityForm() {
+type CategoryOption = Pick<CommunityCategory, 'id' | 'name'>;
+
+export function CreateCommunityForm({
+  categories,
+}: {
+  categories: CategoryOption[];
+}) {
   const [state, formAction, pending] = useActionState(
     createCommunityAction,
     INITIAL,
@@ -37,6 +44,30 @@ export function CreateCommunityForm() {
         name="description"
         error={state.fieldErrors?.description}
       />
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="field-categoryId" className="text-[13px] font-semibold">
+          Category
+        </label>
+        <select
+          id="field-categoryId"
+          name="categoryId"
+          defaultValue=""
+          aria-invalid={state.fieldErrors?.categoryId ? 'true' : undefined}
+          className="rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+        >
+          <option value="">No category</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
+        {state.fieldErrors?.categoryId && (
+          <p className="text-[12px] text-red-700">
+            {state.fieldErrors.categoryId}
+          </p>
+        )}
+      </div>
       <div className="grid gap-4 sm:grid-cols-[120px_1fr]">
         <Field
           label="Icon"

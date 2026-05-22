@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const CHECKLIST = [
   {
     head: "Schedule recurring questions",
@@ -34,12 +36,12 @@ export function ForCreators() {
             enough to launch a community. Schedule one question. Members
             answer, learn, talk. You see exactly who shows up.
           </p>
-          <a
-            href="#"
+          <Link
+            href="/communities/new"
             className="inline-flex rounded-full bg-primary px-[22px] py-[13px] text-sm font-semibold text-paper"
           >
             Start your community →
-          </a>
+          </Link>
         </div>
 
         <ul className="grid gap-3.5">

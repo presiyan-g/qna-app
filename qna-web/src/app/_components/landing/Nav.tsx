@@ -13,8 +13,8 @@ const LANDING_NAV_LINKS = [
 ];
 
 const APP_NAV_LINKS = [
-  { href: '/communities', label: 'Communities' },
-  { href: '/communities/new', label: 'Create' },
+  { href: '/communities', label: 'Discover' },
+  { href: '/my-communities', label: 'My communities' },
 ];
 
 export async function Nav() {
