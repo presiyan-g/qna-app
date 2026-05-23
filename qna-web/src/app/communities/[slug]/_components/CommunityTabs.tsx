@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import type { CommunityWithMembership } from '@/services/communities';
 
 type Tab = {
-  key: 'questions' | 'broadcasts' | 'leaderboard' | 'about';
+  key: 'questions' | 'broadcasts' | 'leaderboard' | 'about' | 'edit';
   label: string;
   href: (slug: string) => string;
   count?: number;
@@ -14,8 +14,10 @@ type Tab = {
 
 export function CommunityTabs({
   community,
+  canManage = false,
 }: {
   community: CommunityWithMembership;
+  canManage?: boolean;
 }) {
   const pathname = usePathname();
   const slug = community.slug;
@@ -53,6 +55,15 @@ export function CommunityTabs({
       isActive: (p, s) => p.startsWith(`/communities/${s}/about`),
     },
   ];
+
+  if (canManage) {
+    tabs.push({
+      key: 'edit',
+      label: 'Edit',
+      href: (s) => `/communities/${s}/edit`,
+      isActive: (p, s) => p.startsWith(`/communities/${s}/edit`),
+    });
+  }
 
   return (
     <nav className="mt-8 flex gap-1 overflow-x-auto border-b border-line">

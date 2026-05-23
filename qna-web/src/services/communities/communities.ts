@@ -17,6 +17,7 @@ import {
   CommunityConflictError,
   CommunityMembershipError,
   CommunityNotFoundError,
+  CommunityPermissionError,
   CommunityValidationError,
 } from './errors';
 import {
@@ -25,7 +26,10 @@ import {
   markCommunityJoined,
   markCommunityLeft,
 } from './resource';
-import type { CreateCommunityInput } from './validation';
+import type {
+  CreateCommunityInput,
+  UpdateCommunityInput,
+} from './validation';
 
 export type CommunityRole = 'member' | 'creator';
 
@@ -262,6 +266,86 @@ export async function createCommunity({
     }
     throw err;
   }
+}
+
+export async function updateCommunity({
+  slug,
+  userId,
+  platformRole = 'member',
+  input,
+}: {
+  slug: string;
+  userId: string;
+  platformRole?: 'member' | 'admin';
+  input: UpdateCommunityInput;
+}): Promise<CommunityWithMembership> {
+  await assertAccountCanMutate(userId);
+
+  const community = await getCommunityBySlug(slug, userId);
+  if (!community) throw new CommunityNotFoundError();
+  assertCanManageCommunity(community.currentUserRole, platformRole);
+
+  let category: CommunityCategory | null = null;
+  if (input.categoryId) {
+    const [found] = await db
+      .select()
+      .from(communityCategories)
+      .where(eq(communityCategories.id, input.categoryId))
+      .limit(1);
+    if (!found) {
+      throw new CommunityValidationError({
+        categoryId: 'Choose a valid category.',
+      });
+    }
+    category = found;
+  }
+
+  await db
+    .update(communities)
+    .set({
+      name: input.name,
+      description: input.description,
+      emoji: input.emoji,
+      cadence: input.cadence,
+      categoryId: input.categoryId,
+      coverImageUrl: input.coverImageUrl,
+      updatedAt: new Date(),
+    })
+    .where(eq(communities.id, community.id));
+
+  const updated = await getCommunityBySlug(slug, userId);
+  if (!updated) throw new CommunityNotFoundError();
+  return { ...updated, category };
+}
+
+export async function archiveCommunity({
+  slug,
+  userId,
+  platformRole = 'member',
+}: {
+  slug: string;
+  userId: string;
+  platformRole?: 'member' | 'admin';
+}): Promise<void> {
+  await assertAccountCanMutate(userId);
+
+  const community = await getCommunityBySlug(slug, userId);
+  if (!community) throw new CommunityNotFoundError();
+  assertCanManageCommunity(community.currentUserRole, platformRole);
+
+  await db
+    .update(communities)
+    .set({ status: 'archived', updatedAt: new Date() })
+    .where(eq(communities.id, community.id));
+}
+
+function assertCanManageCommunity(
+  currentUserRole: CommunityRole | null,
+  platformRole: 'member' | 'admin',
+): void {
+  if (platformRole === 'admin') return;
+  if (currentUserRole === 'creator') return;
+  throw new CommunityPermissionError();
 }
 
 export async function joinCommunity({

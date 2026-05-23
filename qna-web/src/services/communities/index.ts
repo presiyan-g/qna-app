@@ -1,4 +1,5 @@
 export {
+  archiveCommunity,
   createCommunity,
   getCommunityBySlug,
   joinCommunity,
@@ -9,19 +10,24 @@ export {
   listMyCommunities,
   markBroadcastsSeen,
   searchCommunities,
+  updateCommunity,
   type CommunityRole,
   type CommunityWithMembership,
 } from './communities';
 
 export {
-  validateCreateCommunityInput,
   slugify,
+  validateCreateCommunityInput,
+  validateUpdateCommunityInput,
+  type CommunityFieldsInput,
   type CreateCommunityInput,
+  type UpdateCommunityInput,
 } from './validation';
 
 export {
   CommunityConflictError,
   CommunityMembershipError,
   CommunityNotFoundError,
+  CommunityPermissionError,
   CommunityValidationError,
 } from './errors';

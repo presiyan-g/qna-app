@@ -25,3 +25,10 @@ export class CommunityMembershipError extends Error {
     this.name = 'CommunityMembershipError';
   }
 }
+
+export class CommunityPermissionError extends Error {
+  constructor(message = 'You do not have permission to manage this community.') {
+    super(message);
+    this.name = 'CommunityPermissionError';
+  }
+}

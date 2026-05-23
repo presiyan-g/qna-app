@@ -3,26 +3,60 @@
 import { useActionState, useState } from 'react';
 import {
   createCommunityAction,
+  updateCommunityAction,
   type CommunityFormState,
 } from '@/app/actions/communities';
 import type { CommunityCategory } from '@/db/schema/communities';
-import { EmojiPicker } from './EmojiPicker';
 import { ImageUploader } from '@/app/_components/ImageUploader';
+import { EmojiPicker } from './EmojiPicker';
 
 const INITIAL: CommunityFormState = { ok: false };
 
 type CategoryOption = Pick<CommunityCategory, 'id' | 'name'>;
 
-export function CreateCommunityForm({
-  categories,
-}: {
+export type CommunityFormInitialValue = {
+  name: string;
+  description: string;
+  emoji: string;
+  coverImageUrl: string | null;
+  categoryId: string | null;
+  cadence: 'daily' | 'weekly' | 'custom';
+  communityId: string;
+};
+
+type CreateProps = {
+  mode: 'create';
   categories: CategoryOption[];
-}) {
-  const [state, formAction, pending] = useActionState(
-    createCommunityAction,
-    INITIAL,
-  );
-  const [emoji, setEmoji] = useState('');
+  initialValue?: undefined;
+  slug?: undefined;
+};
+
+type EditProps = {
+  mode: 'edit';
+  categories: CategoryOption[];
+  initialValue: CommunityFormInitialValue;
+  slug: string;
+};
+
+type Props = CreateProps | EditProps;
+
+export function CommunityForm(props: Props) {
+  const isEdit = props.mode === 'edit';
+  const boundAction = isEdit
+    ? updateCommunityAction.bind(null, props.slug)
+    : createCommunityAction;
+
+  const [state, formAction, pending] = useActionState(boundAction, INITIAL);
+
+  const [emoji, setEmoji] = useState(props.initialValue?.emoji ?? '');
+
+  const submitLabel = isEdit
+    ? pending
+      ? 'Saving...'
+      : 'Save changes'
+    : pending
+      ? 'Creating...'
+      : 'Create community';
 
   return (
     <form action={formAction} className="flex flex-col gap-5">
@@ -40,19 +74,22 @@ export function CreateCommunityForm({
         name="name"
         type="text"
         autoComplete="off"
+        defaultValue={props.initialValue?.name}
         error={state.fieldErrors?.name}
       />
       <TextArea
         label="Description"
         name="description"
+        defaultValue={props.initialValue?.description}
         error={state.fieldErrors?.description}
       />
       <ImageUploader
         name="coverImageUrl"
         scope="community-cover"
-        communityId={null}
+        communityId={props.initialValue?.communityId ?? null}
         label="Cover image (optional)"
         helpText="JPEG, PNG, or WebP up to 5 MB."
+        initialUrl={props.initialValue?.coverImageUrl ?? null}
       />
       <div className="flex flex-col gap-1.5">
         <label htmlFor="field-categoryId" className="text-[13px] font-semibold">
@@ -61,12 +98,12 @@ export function CreateCommunityForm({
         <select
           id="field-categoryId"
           name="categoryId"
-          defaultValue=""
+          defaultValue={props.initialValue?.categoryId ?? ''}
           aria-invalid={state.fieldErrors?.categoryId ? 'true' : undefined}
           className="rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
         >
           <option value="">No category</option>
-          {categories.map((category) => (
+          {props.categories.map((category) => (
             <option key={category.id} value={category.id}>
               {category.name}
             </option>
@@ -116,7 +153,7 @@ export function CreateCommunityForm({
           <select
             id="field-cadence"
             name="cadence"
-            defaultValue="daily"
+            defaultValue={props.initialValue?.cadence ?? 'daily'}
             className="rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
           >
             <option value="daily">Daily</option>
@@ -136,7 +173,7 @@ export function CreateCommunityForm({
         disabled={pending}
         className="rounded-full bg-primary px-[22px] py-[13px] text-sm font-semibold text-paper disabled:opacity-60"
       >
-        {pending ? 'Creating...' : 'Create community'}
+        {submitLabel}
       </button>
     </form>
   );
@@ -147,6 +184,7 @@ function Field({
   name,
   type,
   autoComplete,
+  defaultValue,
   error,
   placeholder,
 }: {
@@ -154,6 +192,7 @@ function Field({
   name: string;
   type: 'text';
   autoComplete?: string;
+  defaultValue?: string;
   error?: string;
   placeholder?: string;
 }) {
@@ -169,6 +208,7 @@ function Field({
         type={type}
         autoComplete={autoComplete}
         placeholder={placeholder}
+        defaultValue={defaultValue}
         aria-invalid={error ? 'true' : undefined}
         aria-describedby={error ? `${id}-error` : undefined}
         className="rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
@@ -185,10 +225,12 @@ function Field({
 function TextArea({
   label,
   name,
+  defaultValue,
   error,
 }: {
   label: string;
   name: string;
+  defaultValue?: string;
   error?: string;
 }) {
   const id = `field-${name}`;
@@ -201,6 +243,7 @@ function TextArea({
         id={id}
         name={name}
         rows={4}
+        defaultValue={defaultValue}
         aria-invalid={error ? 'true' : undefined}
         aria-describedby={error ? `${id}-error` : undefined}
         className="resize-none rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"

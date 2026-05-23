@@ -1,0 +1,83 @@
+'use client';
+
+import { useRef, useTransition } from 'react';
+import { archiveCommunityAction } from '@/app/actions/communities';
+
+export function ArchiveCommunityButton({
+  slug,
+  communityName,
+}: {
+  slug: string;
+  communityName: string;
+}) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const [pending, startTransition] = useTransition();
+
+  function openDialog() {
+    dialogRef.current?.showModal();
+  }
+
+  function closeDialog() {
+    dialogRef.current?.close();
+  }
+
+  function onConfirm() {
+    startTransition(async () => {
+      await archiveCommunityAction(slug);
+    });
+  }
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={openDialog}
+        disabled={pending}
+        className="rounded-full border border-red-300 px-5 py-2.5 text-sm font-semibold text-red-700 transition hover:border-red-500 hover:bg-red-50 disabled:opacity-60"
+      >
+        {pending ? 'Archiving...' : 'Archive community'}
+      </button>
+
+      <dialog
+        ref={dialogRef}
+        aria-labelledby="archive-dialog-title"
+        onClose={() => {
+          // Reset is handled by the redirect; nothing to do here.
+        }}
+        className="m-auto w-[min(440px,calc(100vw-32px))] rounded-xl border border-line bg-card p-0 text-ink shadow-xl backdrop:bg-black/40"
+      >
+        <div className="p-6">
+          <h2
+            id="archive-dialog-title"
+            className="text-lg font-bold text-ink"
+          >
+            Archive &ldquo;{communityName}&rdquo;?
+          </h2>
+          <p className="mt-3 text-sm leading-6 text-muted">
+            It will be hidden from everyone and removed from listings.
+            Members, questions, broadcasts, and answers are preserved in
+            storage, but it cannot be undone from the UI.
+          </p>
+          <div className="mt-6 flex flex-wrap justify-end gap-2">
+            <button
+              type="button"
+              onClick={closeDialog}
+              disabled={pending}
+              className="rounded-full border border-line bg-paper px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-primary hover:text-primary disabled:opacity-60"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={onConfirm}
+              disabled={pending}
+              className="rounded-full bg-red-600 px-5 py-2.5 text-sm font-semibold text-paper transition hover:bg-red-700 disabled:opacity-60"
+            >
+              {pending ? 'Archiving...' : 'Archive community'}
+            </button>
+          </div>
+        </div>
+      </dialog>
+    </>
+  );
+}

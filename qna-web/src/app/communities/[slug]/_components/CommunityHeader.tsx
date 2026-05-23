@@ -1,5 +1,8 @@
 import Link from 'next/link';
-import { joinCommunityAction, leaveCommunityAction } from '@/app/actions/communities';
+import {
+  joinCommunityAction,
+  leaveCommunityAction,
+} from '@/app/actions/communities';
 import type { CommunityWithMembership } from '@/services/communities';
 
 export function CommunityHeader({
@@ -69,9 +72,7 @@ function CommunityHeaderAction({
 }) {
   if (community.currentUserRole === 'creator') {
     return (
-      <span className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-paper">
-        You are the creator
-      </span>
+      <span className="text-sm text-muted">You&rsquo;re the creator</span>
     );
   }
   if (community.currentUserRole === 'member') {

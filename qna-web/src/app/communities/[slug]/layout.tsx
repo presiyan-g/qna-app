@@ -17,6 +17,9 @@ export default async function CommunityLayout({ children, params }: LayoutProps)
   const community = await getCommunityBySlug(slug, session?.sub ?? null);
   if (!community) notFound();
 
+  const canManage =
+    community.currentUserRole === 'creator' || session?.role === 'admin';
+
   return (
     <main className="flex flex-1 flex-col bg-paper text-ink">
       <Nav />
@@ -33,7 +36,7 @@ export default async function CommunityLayout({ children, params }: LayoutProps)
             <CommunityHeader community={community} signedIn={!!session} />
           </div>
 
-          <CommunityTabs community={community} />
+          <CommunityTabs community={community} canManage={canManage} />
 
           <div className="mt-8">{children}</div>
         </div>

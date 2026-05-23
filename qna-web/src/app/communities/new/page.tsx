@@ -4,7 +4,7 @@ import { Footer } from '@/app/_components/landing/Footer';
 import { Nav } from '@/app/_components/landing/Nav';
 import { getSession } from '@/services/auth';
 import { listCommunityCategories } from '@/services/communities';
-import { CreateCommunityForm } from '../_components/CreateCommunityForm';
+import { CommunityForm } from '../_components/CommunityForm';
 
 export const metadata = {
   title: 'Create community - Quorum',
@@ -42,7 +42,7 @@ export default async function NewCommunityPage() {
           </div>
 
           <div className="rounded-lg border border-line bg-card p-6">
-            <CreateCommunityForm categories={categoryOptions} />
+            <CommunityForm mode="create" categories={categoryOptions} />
           </div>
         </div>
       </section>
