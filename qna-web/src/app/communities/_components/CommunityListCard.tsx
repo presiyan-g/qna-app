@@ -25,35 +25,46 @@ export function CommunityListCard({
       community.newBroadcastCount > 0);
 
   return (
-    <article className="flex min-h-[220px] flex-col overflow-hidden rounded-lg border border-line bg-card">
-      {community.coverImageUrl && (
+    <article className="group relative flex min-h-[220px] cursor-pointer flex-col overflow-hidden rounded-lg border border-line bg-card transition-all duration-200 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg focus-within:ring-2 focus-within:ring-primary/40">
+      {community.coverImageUrl ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={community.coverImageUrl}
           alt=""
-          className="h-32 w-full object-cover"
+          className="h-32 w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
         />
+      ) : (
+        <div
+          aria-hidden
+          className="flex h-32 w-full items-center justify-center overflow-hidden bg-gradient-to-br from-primary-soft via-primary-soft/60 to-paper"
+        >
+          <span className="select-none truncate px-4 text-5xl font-bold leading-none text-primary/40 transition-transform duration-300 group-hover:scale-110">
+            {(community.emoji || community.name.slice(0, 2).toUpperCase()).slice(0, 2)}
+          </span>
+        </div>
       )}
       <div className="flex flex-1 flex-col justify-between p-5">
         <div>
           <header className="flex items-start justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg bg-primary-soft text-sm font-bold text-primary">
-                {community.emoji || community.name.slice(0, 2).toUpperCase()}
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-primary-soft text-sm font-bold text-primary">
+                <span className="block max-w-full truncate px-1 text-center leading-none">
+                  {(community.emoji || community.name.slice(0, 2).toUpperCase()).slice(0, 2)}
+                </span>
               </div>
               <div>
                 <Link
                   href={`/communities/${community.slug}`}
-                  className="text-[17px] font-bold leading-tight hover:underline"
+                  className="text-[17px] font-bold leading-tight text-ink outline-none transition-colors group-hover:text-primary before:absolute before:inset-0 before:z-0 before:rounded-lg before:content-['']"
                 >
-                  {community.name}
+                  <span className="relative z-10">{community.name}</span>
                 </Link>
                 <p className="mt-1 text-[11px] uppercase tracking-wider text-muted">
                   {community.memberCount.toLocaleString('en-US')} members
                 </p>
               </div>
             </div>
-            <span className="rounded-full bg-primary-soft px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+            <span className="relative z-10 rounded-full bg-primary-soft px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
               {formatLabel(community.cadence)}
             </span>
           </header>
@@ -69,11 +80,11 @@ export function CommunityListCard({
           </p>
 
           {showIndicators ? (
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className="relative z-10 mt-4 flex flex-wrap gap-2">
               {community.unansweredQuestionCount > 0 ? (
                 <Link
                   href={`/communities/${community.slug}`}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold text-primary"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-paper"
                 >
                   <span
                     className="h-1.5 w-1.5 rounded-full bg-primary"
@@ -98,15 +109,9 @@ export function CommunityListCard({
           ) : null}
         </div>
 
-        <footer className="mt-5 flex items-center gap-2">
-          <Link
-            href={`/communities/${community.slug}`}
-            className="rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink hover:bg-primary-soft"
-          >
-            View
-          </Link>
+        <footer className="relative z-10 mt-5 flex items-center gap-2">
           {community.currentUserRole === 'creator' ? (
-            <span className="inline-flex items-center gap-1.5 px-1 py-2 text-sm font-semibold text-muted">
+            <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted">
               <svg
                 width="14"
                 height="14"
@@ -141,7 +146,7 @@ export function CommunityListCard({
             <form action={joinAction}>
               <button
                 type="submit"
-                className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-paper"
+                className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-paper transition-colors hover:brightness-95"
               >
                 Join
               </button>
@@ -149,7 +154,7 @@ export function CommunityListCard({
           ) : (
             <Link
               href="/login"
-              className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-paper"
+              className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-paper transition-colors hover:brightness-95"
             >
               Sign in to join
             </Link>

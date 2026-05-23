@@ -28,7 +28,7 @@ export type QuestionFormValues = {
 
 const INITIAL: DashboardQuestionFormState = { ok: false };
 
-export function QuestionManagementForm({
+export function QuestionForm({
   slug,
   communityId,
   question,

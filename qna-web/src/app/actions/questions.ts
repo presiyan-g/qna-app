@@ -92,7 +92,7 @@ export async function createQuestionDraftAction(
     return toDashboardQuestionFormError(err);
   }
 
-  revalidateDashboardQuestionPaths(slug);
+  revalidateCommunityQuestionPaths(slug);
   return { ok: true };
 }
 
@@ -122,7 +122,7 @@ export async function createScheduledQuestionAction(
     return toDashboardQuestionFormError(err);
   }
 
-  revalidateDashboardQuestionPaths(slug);
+  revalidateCommunityQuestionPaths(slug);
   return { ok: true };
 }
 
@@ -152,7 +152,7 @@ export async function publishQuestionNowAction(
     return toDashboardQuestionFormError(err);
   }
 
-  revalidateDashboardQuestionPaths(slug);
+  revalidateCommunityQuestionPaths(slug);
   return { ok: true };
 }
 
@@ -183,7 +183,7 @@ export async function updateQuestionAction(
     return toDashboardQuestionFormError(err);
   }
 
-  revalidateDashboardQuestionPaths(slug);
+  revalidateCommunityQuestionPaths(slug);
   return { ok: true };
 }
 
@@ -211,7 +211,7 @@ export async function scheduleQuestionAction(
     return toDashboardQuestionFormError(err);
   }
 
-  revalidateDashboardQuestionPaths(slug);
+  revalidateCommunityQuestionPaths(slug);
   return { ok: true };
 }
 
@@ -228,7 +228,7 @@ export async function deleteQuestionAction(
     creatorUserId: session.sub,
   });
 
-  revalidateDashboardQuestionPaths(slug);
+  revalidateCommunityQuestionPaths(slug);
 }
 
 function toChoiceInputs(formData: FormData) {
@@ -258,8 +258,7 @@ function toDashboardQuestionFormError(
   throw err;
 }
 
-function revalidateDashboardQuestionPaths(slug: string): void {
+function revalidateCommunityQuestionPaths(slug: string): void {
   revalidatePath('/dashboard');
-  revalidatePath(`/dashboard/communities/${slug}`);
   revalidatePath(`/communities/${slug}`);
 }
