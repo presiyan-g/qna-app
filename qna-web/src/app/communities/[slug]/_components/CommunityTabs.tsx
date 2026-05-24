@@ -66,24 +66,27 @@ export function CommunityTabs({
   }
 
   return (
-    <nav className="mt-8 flex gap-1 overflow-x-auto border-b border-line">
+    <nav className="mt-8">
+      <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-1 sm:border-b sm:border-line">
       {tabs.map((tab) => {
         const active = tab.isActive(pathname, slug);
         return (
           <Link
             key={tab.key}
             href={tab.href(slug)}
-            className={`flex shrink-0 items-center gap-2 border-b-2 px-4 py-3 text-sm font-semibold transition-colors ${
+            className={`flex min-h-11 items-center justify-center gap-2 rounded-lg border px-3 py-2 text-center text-sm font-semibold transition-colors sm:min-h-0 sm:shrink-0 sm:justify-start sm:rounded-none sm:border-x-0 sm:border-t-0 sm:bg-transparent sm:px-4 sm:py-3 sm:text-left ${
               active
-                ? 'border-primary text-primary'
-                : 'border-transparent text-muted hover:text-ink'
+                ? 'border-primary bg-primary text-paper sm:border-b-2 sm:text-primary'
+                : 'border-line bg-card text-muted hover:border-primary/40 hover:text-ink sm:border-b-2 sm:border-transparent'
             }`}
           >
             {tab.label}
             {typeof tab.count === 'number' && (
               <span
-                className={`rounded-full px-2 py-0.5 text-[11px] font-bold ${
-                  active ? 'bg-primary text-paper' : 'bg-primary-soft text-primary'
+                className={`rounded-full px-2 py-0.5 text-[11px] font-bold leading-none ${
+                  active
+                    ? 'bg-paper text-primary sm:bg-primary sm:text-paper'
+                    : 'bg-primary-soft text-primary'
                 }`}
               >
                 {tab.count}
@@ -92,6 +95,7 @@ export function CommunityTabs({
           </Link>
         );
       })}
+      </div>
     </nav>
   );
 }
