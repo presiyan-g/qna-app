@@ -67,6 +67,7 @@ export async function deleteCommentAction(
     questionId,
     commentId,
     userId: session.sub,
+    platformRole: session.role,
   });
 
   revalidatePath(`/communities/${slug}/questions/${questionId}`);

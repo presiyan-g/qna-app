@@ -14,6 +14,7 @@ test('builds top-level comments with one level of replies', () => {
   const thread = buildCommentThread(rows, {
     userId: 'author_2',
     communityRole: 'member',
+    platformRole: 'member',
   });
 
   assert.equal(thread.length, 1);
@@ -37,6 +38,7 @@ test('returns tombstones for soft-deleted comments while preserving replies', ()
   const [comment] = buildCommentThread(rows, {
     userId: 'author_2',
     communityRole: 'member',
+    platformRole: 'member',
   });
 
   assert.equal(comment.body, null);
@@ -56,10 +58,12 @@ test('marks active comments deletable by their author or a community creator', (
   const memberThread = buildCommentThread(rows, {
     userId: 'author_1',
     communityRole: 'member',
+    platformRole: 'member',
   });
   const creatorThread = buildCommentThread(rows, {
     userId: 'creator_1',
     communityRole: 'creator',
+    platformRole: 'member',
   });
 
   assert.equal(memberThread[0].canDelete, true);

@@ -104,3 +104,38 @@ test('allows authors and community creators to soft-delete comments', () => {
     false,
   );
 });
+
+test('admins can list comments regardless of answer state', () => {
+  assert.equal(
+    canListQuestionComments({
+      communityRole: null,
+      hasAnswered: false,
+      isClosed: false,
+      platformRole: 'admin',
+    }),
+    true,
+  );
+});
+
+test('admins can soft-delete any comment', () => {
+  assert.equal(
+    canSoftDeleteQuestionComment({
+      authorUserId: 'user_1',
+      userId: 'admin_1',
+      communityRole: null,
+      platformRole: 'admin',
+    }),
+    true,
+  );
+});
+
+test('admins still cannot post comments', () => {
+  assert.equal(
+    canPostQuestionComment({
+      communityRole: null,
+      hasAnswered: false,
+      platformRole: 'admin',
+    }),
+    false,
+  );
+});

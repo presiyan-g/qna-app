@@ -32,7 +32,10 @@ export default async function CommunityLeaderboardPage({
 
   const community = await getCommunityBySlug(slug, session?.sub ?? null);
   if (!community) notFound();
-  if (community.currentUserRole === null) {
+  const isAdmin = session?.role === 'admin';
+  const isMember =
+    community.currentUserRole === 'member' || community.currentUserRole === 'creator';
+  if (!isMember && !isAdmin) {
     redirect(`/communities/${slug}/about`);
   }
 

@@ -6,7 +6,11 @@ import { comments } from '@/db/schema/comments';
 import { communities, communityMembers } from '@/db/schema/communities';
 import { questions } from '@/db/schema/questions';
 import { users } from '@/db/schema/users';
-import { AccountSuspendedError, assertUserCanMutate } from '@/services/admin';
+import {
+  AccountSuspendedError,
+  assertUserCanMutate,
+  type PlatformRole,
+} from '@/services/admin';
 import { findUserStatusById } from '@/services/auth';
 import { getCommunityBySlug, type CommunityRole } from '@/services/communities';
 import {
@@ -41,11 +45,13 @@ export async function listQuestionComments({
   slug,
   questionId,
   userId,
+  platformRole = 'member',
   now = new Date(),
 }: {
   slug: string;
   questionId: string;
   userId: string;
+  platformRole?: PlatformRole;
   now?: Date;
 }): Promise<QuestionComment[]> {
   const context = await loadCommentQuestionContext({
@@ -55,13 +61,12 @@ export async function listQuestionComments({
     now,
   });
 
-  const communityRole = context.communityRole;
   if (
-    !communityRole ||
     !canListQuestionComments({
-      communityRole,
+      communityRole: context.communityRole,
       hasAnswered: context.hasAnswered,
       isClosed: context.isClosed,
+      platformRole,
     })
   ) {
     throw new CommentPermissionError();
@@ -81,7 +86,8 @@ export async function listQuestionComments({
     rows.map(toCommentThreadRow),
     {
       userId,
-      communityRole,
+      communityRole: context.communityRole,
+      platformRole,
     },
   );
 }
@@ -159,6 +165,7 @@ export async function postComment({
     {
       userId,
       communityRole,
+      platformRole: 'member',
     },
   )[0];
 }
@@ -166,12 +173,14 @@ export async function postComment({
 export async function softDeleteComment({
   commentId,
   userId,
+  platformRole = 'member',
   slug,
   questionId,
   now = new Date(),
 }: {
   commentId: string;
   userId: string;
+  platformRole?: PlatformRole;
   slug?: string;
   questionId?: string;
   now?: Date;
@@ -204,17 +213,17 @@ export async function softDeleteComment({
     .limit(1);
 
   if (!row) throw new CommentNotFoundError();
-  if (!row.communityRole) throw new CommentPermissionError();
 
   if (
     !canSoftDeleteQuestionComment({
       authorUserId: row.comment.authorUserId,
       userId,
       communityRole: row.communityRole,
+      platformRole,
     })
   ) {
     throw new CommentPermissionError(
-      'Only the comment author or community creator can delete comments.',
+      'Only the comment author, community creator, or platform admin can delete comments.',
     );
   }
 

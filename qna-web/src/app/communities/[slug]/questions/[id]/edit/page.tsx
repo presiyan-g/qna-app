@@ -15,13 +15,16 @@ export default async function EditQuestionPage({ params }: PageProps) {
   }
   const community = await getCommunityBySlug(slug, session.sub);
   if (!community) notFound();
-  if (community.currentUserRole !== 'creator') {
+
+  const isAdmin = session.role === 'admin';
+  if (community.currentUserRole !== 'creator' && !isAdmin) {
     redirect(`/communities/${slug}`);
   }
 
   const dashboard = await getCreatorCommunityDashboard({
     slug,
     userId: session.sub,
+    platformRole: session.role,
   });
   const question = dashboard?.questions.find((q) => q.id === id);
   if (!question) notFound();

@@ -72,3 +72,32 @@ test('members and creators can read broadcasts; non-members cannot', () => {
   assert.equal(canReadBroadcasts('member'), true);
   assert.equal(canReadBroadcasts(null), false);
 });
+
+test('admins can soft-delete any broadcast', () => {
+  assert.equal(
+    canSoftDeleteBroadcastPost({
+      authorUserId: 'user_1',
+      userId: 'admin_1',
+      communityRole: null,
+      platformRole: 'admin',
+    }),
+    true,
+  );
+});
+
+test('admins can read broadcasts in non-joined communities', () => {
+  assert.equal(canReadBroadcasts(null, 'admin'), true);
+});
+
+test('admins still cannot create or edit broadcasts', () => {
+  assert.equal(canCreateBroadcastPost(null, 'admin'), false);
+  assert.equal(
+    canEditBroadcastPost({
+      authorUserId: 'user_1',
+      userId: 'admin_1',
+      communityRole: null,
+      platformRole: 'admin',
+    }),
+    false,
+  );
+});

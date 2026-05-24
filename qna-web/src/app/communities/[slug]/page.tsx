@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getSession } from '@/services/auth';
 import { getCommunityBySlug } from '@/services/communities';
@@ -8,6 +7,7 @@ import {
 } from '@/services/questions';
 import { CommunitySidebar } from './_components/CommunitySidebar';
 import { QuestionsTabBody } from './_components/QuestionsTabBody';
+import { SavedBanner } from './_components/SavedBanner';
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -33,21 +33,24 @@ export default async function CommunityQuestionsTab({
   ]);
   const community = await getCommunityBySlug(slug, session?.sub ?? null);
   if (!community) {
-    // The layout already calls notFound() for missing community, but be defensive.
     redirect('/communities');
   }
 
-  // Visitor → About tab (the only public surface for non-members).
-  if (community.currentUserRole === null) {
+  const isAdmin = session?.role === 'admin';
+  const isCreator = community.currentUserRole === 'creator';
+  const isMember =
+    community.currentUserRole === 'member' || isCreator;
+
+  if (!isMember && !isAdmin) {
     redirect(`/communities/${slug}/about`);
   }
 
-  // Fetch questions according to viewer role.
   let questions;
-  if (community.currentUserRole === 'creator') {
+  if (isCreator || isAdmin) {
     const dashboard = await getCreatorCommunityDashboard({
       slug,
       userId: session!.sub,
+      platformRole: session!.role,
     });
     questions = dashboard?.questions ?? [];
   } else {
@@ -61,25 +64,13 @@ export default async function CommunityQuestionsTab({
 
   return (
     <div className="flex flex-col gap-4">
-      {savedMessage && (
-        <div
-          role="status"
-          className="flex items-center justify-between gap-3 rounded-md border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800"
-        >
-          <span className="font-semibold">✓ {savedMessage}</span>
-          <Link
-            href={`/communities/${slug}`}
-            className="text-xs font-semibold uppercase tracking-wider text-green-700 hover:underline"
-          >
-            Dismiss
-          </Link>
-        </div>
-      )}
+      {savedMessage && <SavedBanner message={savedMessage} />}
       <div className="grid gap-6 lg:grid-cols-[1fr_300px]">
         <QuestionsTabBody
           slug={slug}
           questions={questions}
           viewerRole={community.currentUserRole}
+          isAdmin={isAdmin}
         />
         <CommunitySidebar
           community={community}

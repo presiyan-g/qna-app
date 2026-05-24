@@ -29,7 +29,7 @@ export default async function MyCommunitiesPage() {
                 My communities
               </p>
               <h1 className="text-[34px] font-bold leading-tight md:text-[46px]">
-                The challenges you've signed up for.
+                The challenges you&apos;ve signed up for.
               </h1>
             </div>
             <Link

@@ -78,6 +78,7 @@ export async function deleteBroadcastAction(
     slug,
     postId,
     userId: session.sub,
+    platformRole: session.role,
   });
 
   revalidateBroadcastPaths(slug, postId);

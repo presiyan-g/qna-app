@@ -1,3 +1,4 @@
+import type { PlatformRole } from '@/services/admin';
 import type { CommunityRole } from '@/services/communities';
 import { canSoftDeleteQuestionComment } from './policy';
 
@@ -29,9 +30,15 @@ export type QuestionComment = {
   replies: QuestionComment[];
 };
 
+type Viewer = {
+  userId: string;
+  communityRole: CommunityRole | null;
+  platformRole: PlatformRole;
+};
+
 export function buildCommentThread(
   rows: CommentThreadRow[],
-  viewer: { userId: string; communityRole: CommunityRole },
+  viewer: Viewer,
 ): QuestionComment[] {
   const comments = rows.map((row) => toCommentResource(row, viewer));
   const byId = new Map(comments.map((comment) => [comment.id, comment]));
@@ -54,7 +61,7 @@ export function buildCommentThread(
 
 function toCommentResource(
   row: CommentThreadRow,
-  viewer: { userId: string; communityRole: CommunityRole },
+  viewer: Viewer,
 ): QuestionComment {
   const isDeleted = Boolean(row.deletedAt);
 
@@ -78,6 +85,7 @@ function toCommentResource(
         authorUserId: row.authorUserId,
         userId: viewer.userId,
         communityRole: viewer.communityRole,
+        platformRole: viewer.platformRole,
       }),
     replies: [],
   };

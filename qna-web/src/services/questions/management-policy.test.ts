@@ -15,11 +15,16 @@ describe('canAccessCreatorDashboard', () => {
     assert.equal(canAccessCreatorDashboard('member'), false);
     assert.equal(canAccessCreatorDashboard(null), false);
   });
+
+  it('allows admins regardless of community role', () => {
+    assert.equal(canAccessCreatorDashboard(null, 'admin'), true);
+    assert.equal(canAccessCreatorDashboard('member', 'admin'), true);
+  });
 });
 
 describe('assertCanManageQuestion', () => {
   it('allows drafts and future scheduled questions', () => {
-    assert.doesNotThrow(() => assertCanManageQuestion(question({}), now));
+    assert.doesNotThrow(() => assertCanManageQuestion(question({}), { now }));
     assert.doesNotThrow(() =>
       assertCanManageQuestion(
         question({
@@ -27,7 +32,7 @@ describe('assertCanManageQuestion', () => {
           publishedAt: '2026-05-21T12:00:00.000Z',
           closesAt: '2026-05-22T12:00:00.000Z',
         }),
-        now,
+        { now },
       ),
     );
   });
@@ -41,7 +46,7 @@ describe('assertCanManageQuestion', () => {
             publishedAt: '2026-05-20T10:00:00.000Z',
             closesAt: '2026-05-21T10:00:00.000Z',
           }),
-          now,
+          { now },
         ),
       QuestionImmutableError,
     );
@@ -53,7 +58,7 @@ describe('assertCanManageQuestion', () => {
             publishedAt: '2026-05-18T10:00:00.000Z',
             closesAt: '2026-05-19T10:00:00.000Z',
           }),
-          now,
+          { now },
         ),
       QuestionImmutableError,
     );
@@ -61,7 +66,46 @@ describe('assertCanManageQuestion', () => {
       () =>
         assertCanManageQuestion(
           question({ deletedAt: '2026-05-20T11:00:00.000Z' }),
-          now,
+          { now },
+        ),
+      QuestionImmutableError,
+    );
+  });
+});
+
+describe('assertCanManageQuestion (admin bypass)', () => {
+  it('does not throw for admin against a published, live question', () => {
+    assert.doesNotThrow(() =>
+      assertCanManageQuestion(
+        question({
+          scheduledFor: '2026-05-20T10:00:00.000Z',
+          publishedAt: '2026-05-20T10:00:00.000Z',
+          closesAt: '2026-05-21T10:00:00.000Z',
+        }),
+        { platformRole: 'admin', now },
+      ),
+    );
+  });
+
+  it('does not throw for admin against a closed question', () => {
+    assert.doesNotThrow(() =>
+      assertCanManageQuestion(
+        question({
+          scheduledFor: '2026-05-18T10:00:00.000Z',
+          publishedAt: '2026-05-18T10:00:00.000Z',
+          closesAt: '2026-05-19T10:00:00.000Z',
+        }),
+        { platformRole: 'admin', now },
+      ),
+    );
+  });
+
+  it('still throws for admin against a soft-deleted question', () => {
+    assert.throws(
+      () =>
+        assertCanManageQuestion(
+          question({ deletedAt: '2026-05-20T11:00:00.000Z' }),
+          { platformRole: 'admin', now },
         ),
       QuestionImmutableError,
     );

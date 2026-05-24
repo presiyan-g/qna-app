@@ -3,7 +3,11 @@ import { and, asc, eq, isNotNull, isNull } from 'drizzle-orm';
 import { db } from '@/db/client';
 import { answers, type Answer } from '@/db/schema/answers';
 import { questionChoices, questions } from '@/db/schema/questions';
-import { AccountSuspendedError, assertUserCanMutate } from '@/services/admin';
+import {
+  AccountSuspendedError,
+  assertUserCanMutate,
+  type PlatformRole,
+} from '@/services/admin';
 import { findUserStatusById } from '@/services/auth';
 import { getCommunityBySlug, type CommunityRole } from '@/services/communities';
 import { QuestionNotFoundError } from '@/services/questions';
@@ -49,7 +53,8 @@ export type QuestionDetail = {
   points: number;
   createdAt: Date;
   updatedAt: Date;
-  currentUserRole: CommunityRole;
+  currentUserRole: CommunityRole | null;
+  viewerCanModerate: boolean;
   canAnswer: boolean;
   canSeeSolution: boolean;
   isClosed: boolean;
@@ -60,7 +65,8 @@ export type QuestionDetail = {
 
 type QuestionContext = {
   question: AnswerableQuestion;
-  currentUserRole: CommunityRole;
+  currentUserRole: CommunityRole | null;
+  platformRole: PlatformRole;
   choices: (typeof questionChoices.$inferSelect)[];
   existingAnswer: Answer | null;
 };
@@ -74,15 +80,17 @@ export async function getQuestionDetail({
   slug,
   questionId,
   userId,
+  platformRole = 'member',
   now = new Date(),
 }: {
   slug: string;
   questionId: string;
   userId: string;
+  platformRole?: PlatformRole;
   now?: Date;
 }): Promise<QuestionDetail> {
   const [context, status] = await Promise.all([
-    loadQuestionContext({ slug, questionId, userId }),
+    loadQuestionContext({ slug, questionId, userId, platformRole }),
     findUserStatusById(userId),
   ]);
   return toQuestionDetail(context, now, status === 'suspended');
@@ -103,7 +111,7 @@ export async function submitQuestionAnswer({
 }): Promise<QuestionDetail> {
   await assertAccountCanMutate(userId);
 
-  const context = await loadQuestionContext({ slug, questionId, userId });
+  const context = await loadQuestionContext({ slug, questionId, userId, platformRole: 'member' });
   if (context.existingAnswer) return toQuestionDetail(context, now, false);
 
   if (context.question.scheduledFor.getTime() > now.getTime()) {
@@ -152,14 +160,18 @@ async function loadQuestionContext({
   slug,
   questionId,
   userId,
+  platformRole,
 }: {
   slug: string;
   questionId: string;
   userId: string;
+  platformRole: PlatformRole;
 }): Promise<QuestionContext> {
   const community = await getCommunityBySlug(slug, userId);
   if (!community) throw new QuestionNotFoundError();
-  if (!community.currentUserRole) throw new AnswerPermissionError();
+  if (!community.currentUserRole && platformRole !== 'admin') {
+    throw new AnswerPermissionError();
+  }
 
   const [question] = await db
     .select()
@@ -189,6 +201,7 @@ async function loadQuestionContext({
   return {
     question: answerableQuestion,
     currentUserRole: community.currentUserRole,
+    platformRole,
     choices,
     existingAnswer,
   };
@@ -220,13 +233,18 @@ function toQuestionDetail(
   now: Date,
   isSuspended: boolean,
 ): QuestionDetail {
-  const { question, choices, existingAnswer } = context;
+  const { question, choices, existingAnswer, platformRole } = context;
+  const isAdmin = platformRole === 'admin';
   const hasAnswer = Boolean(existingAnswer);
   const isClosed = question.closesAt.getTime() <= now.getTime();
   const isScheduled = question.scheduledFor.getTime() > now.getTime();
+  const viewerCanModerate =
+    !isSuspended &&
+    (context.currentUserRole === 'creator' || isAdmin);
   const canSeeSolution =
-    context.currentUserRole === 'creator' || hasAnswer || isClosed;
-  const canAnswer = !isSuspended && !isScheduled && !hasAnswer;
+    viewerCanModerate || hasAnswer || isClosed;
+  const canAnswer =
+    !isSuspended && !isAdmin && !isScheduled && !hasAnswer && context.currentUserRole !== null;
   const resourceChoices = choices.map((choice) =>
     toChoiceResource(choice, canSeeSolution),
   );
@@ -237,6 +255,7 @@ function toQuestionDetail(
   return {
     ...question,
     currentUserRole: context.currentUserRole,
+    viewerCanModerate,
     explanation: canSeeSolution ? question.explanation : null,
     canAnswer,
     canSeeSolution,

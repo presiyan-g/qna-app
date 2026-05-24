@@ -5,7 +5,7 @@ export {
   listCommunityQuestionsForCommunity,
   listDashboardQuestions,
   scheduleQuestion,
-  softDeleteUnpublishedQuestion,
+  softDeleteQuestion,
   updateUnpublishedQuestion,
   type CommunityQuestion,
   type SafeQuestionChoice,

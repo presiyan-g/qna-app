@@ -12,7 +12,7 @@ import {
   QuestionPermissionError,
   QuestionsValidationError,
   scheduleQuestion,
-  softDeleteUnpublishedQuestion,
+  softDeleteQuestion,
   updateUnpublishedQuestion,
   validateCreateQuestionInput,
   validateDraftQuestionInput,
@@ -182,7 +182,8 @@ export async function updateQuestionAction(
     await updateUnpublishedQuestion({
       slug,
       questionId,
-      creatorUserId: session.sub,
+      userId: session.sub,
+      platformRole: session.role,
       input,
     });
   } catch (err) {
@@ -211,7 +212,8 @@ export async function scheduleQuestionAction(
     await scheduleQuestion({
       slug,
       questionId,
-      creatorUserId: session.sub,
+      userId: session.sub,
+      platformRole: session.role,
       input,
     });
   } catch (err) {
@@ -229,10 +231,11 @@ export async function deleteQuestionAction(
   const session = await getSession();
   if (!session) redirect(`/login?next=/communities/${slug}`);
 
-  await softDeleteUnpublishedQuestion({
+  await softDeleteQuestion({
     slug,
     questionId,
-    creatorUserId: session.sub,
+    userId: session.sub,
+    platformRole: session.role,
   });
 
   revalidateCommunityQuestionPaths(slug);

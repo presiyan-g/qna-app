@@ -19,7 +19,11 @@ export default async function BroadcastDetailPage({ params }: PageProps) {
 
   const community = await getCommunityBySlug(slug, session?.sub ?? null);
   if (!community) notFound();
-  if (community.currentUserRole === null) {
+
+  const isAdmin = session?.role === 'admin';
+  const isMember =
+    community.currentUserRole === 'member' || community.currentUserRole === 'creator';
+  if (!isMember && !isAdmin) {
     redirect(`/communities/${slug}/about`);
   }
 
@@ -27,12 +31,18 @@ export default async function BroadcastDetailPage({ params }: PageProps) {
     slug,
     postId,
     viewerUserId: session?.sub ?? null,
+    viewerPlatformRole: session?.role,
   });
   if (!post) notFound();
 
   return (
     <section>
-      <BroadcastFeed slug={slug} communityId={post.communityId} posts={[serializeBroadcast(post)]} />
+      <BroadcastFeed
+        slug={slug}
+        communityId={post.communityId}
+        posts={[serializeBroadcast(post)]}
+        showOpenLink={false}
+      />
     </section>
   );
 }

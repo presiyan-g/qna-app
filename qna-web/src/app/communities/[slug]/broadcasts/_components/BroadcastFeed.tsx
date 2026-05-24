@@ -25,11 +25,13 @@ export function BroadcastFeed({
   communityId,
   posts,
   emptyTitle = 'No broadcasts yet',
+  showOpenLink = true,
 }: {
   slug: string;
   communityId: string;
   posts: SerializedBroadcastPost[];
   emptyTitle?: string;
+  showOpenLink?: boolean;
 }) {
   if (posts.length === 0) {
     return (
@@ -48,7 +50,13 @@ export function BroadcastFeed({
   return (
     <div className="grid gap-5">
       {posts.map((post) => (
-        <BroadcastCard key={post.id} slug={slug} communityId={communityId} post={post} />
+        <BroadcastCard
+          key={post.id}
+          slug={slug}
+          communityId={communityId}
+          post={post}
+          showOpenLink={showOpenLink}
+        />
       ))}
     </div>
   );
@@ -58,10 +66,12 @@ function BroadcastCard({
   slug,
   communityId,
   post,
+  showOpenLink,
 }: {
   slug: string;
   communityId: string;
   post: SerializedBroadcastPost;
+  showOpenLink: boolean;
 }) {
   const [editing, setEditing] = useState(false);
 
@@ -80,12 +90,14 @@ function BroadcastCard({
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <Link
-            href={`/communities/${slug}/broadcasts/${post.id}`}
-            className="text-sm font-bold text-primary hover:underline"
-          >
-            Open
-          </Link>
+          {showOpenLink && (
+            <Link
+              href={`/communities/${slug}/broadcasts/${post.id}`}
+              className="text-sm font-bold text-primary hover:underline"
+            >
+              Open
+            </Link>
+          )}
           {post.canEdit && (
             <button
               type="button"

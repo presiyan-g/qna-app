@@ -29,11 +29,15 @@ export default async function CommunityBroadcastsPage({
   ]);
   const community = await getCommunityBySlug(slug, session?.sub ?? null);
   if (!community) notFound();
-  if (community.currentUserRole === null) {
+
+  const isAdmin = session?.role === 'admin';
+  const isMember =
+    community.currentUserRole === 'member' || community.currentUserRole === 'creator';
+  if (!isMember && !isAdmin) {
     redirect(`/communities/${slug}/about`);
   }
 
-  if (session?.sub) {
+  if (session?.sub && isMember) {
     await markBroadcastsSeen({ userId: session.sub, slug });
   }
 
@@ -42,6 +46,7 @@ export default async function CommunityBroadcastsPage({
     limit: normalizeBroadcastLimit(query.limit ?? null),
     cursor: query.cursor ?? null,
     viewerUserId: session?.sub ?? null,
+    viewerPlatformRole: session?.role,
   });
 
   return (

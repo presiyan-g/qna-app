@@ -7,10 +7,12 @@ export function QuestionsTabBody({
   slug,
   questions,
   viewerRole,
+  isAdmin = false,
 }: {
   slug: string;
   questions: CommunityQuestion[];
   viewerRole: CommunityRole | null;
+  isAdmin?: boolean;
 }) {
   const sorted = [...questions].sort(sortByMostRecentFirst);
   const liveQuestion = sorted.find((q) => getQuestionLifecycleState(q) === 'live');
@@ -42,7 +44,12 @@ export function QuestionsTabBody({
         <ul className="grid gap-3">
           {otherQuestions.map((question) => (
             <li key={question.id}>
-              <QuestionRow slug={slug} question={question} viewerRole={viewerRole} />
+              <QuestionRow
+                slug={slug}
+                question={question}
+                viewerRole={viewerRole}
+                isAdmin={isAdmin}
+              />
             </li>
           ))}
         </ul>

@@ -11,13 +11,15 @@ export function QuestionRow({
   slug,
   question,
   viewerRole,
+  isAdmin = false,
 }: {
   slug: string;
   question: QuestionRowQuestion;
   viewerRole: CommunityRole | null;
+  isAdmin?: boolean;
 }) {
   const state = getQuestionLifecycleState(question);
-  const href = getRowHref({ slug, questionId: question.id, state, viewerRole });
+  const href = getRowHref({ slug, questionId: question.id, state, viewerRole, isAdmin });
   const dateLine = question.scheduledFor ?? question.publishedAt;
 
   return (
@@ -69,13 +71,16 @@ function getRowHref({
   questionId,
   state,
   viewerRole,
+  isAdmin,
 }: {
   slug: string;
   questionId: string;
   state: string;
   viewerRole: CommunityRole | null;
+  isAdmin: boolean;
 }): string {
-  if (viewerRole === 'creator' && (state === 'draft' || state === 'scheduled')) {
+  const canEditUnpublished = viewerRole === 'creator' || isAdmin;
+  if (canEditUnpublished && (state === 'draft' || state === 'scheduled')) {
     return `/communities/${slug}/questions/${questionId}/edit`;
   }
   return `/communities/${slug}/questions/${questionId}`;

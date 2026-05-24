@@ -1,6 +1,7 @@
 import { notFound, redirect } from 'next/navigation';
 import { getSession } from '@/services/auth';
 import { getCommunityBySlug } from '@/services/communities';
+import { getRemainingForUser } from '@/services/ai-usage';
 import { QuestionForm } from '../_components/QuestionForm';
 
 type PageProps = {
@@ -21,6 +22,13 @@ export default async function NewQuestionPage({ params }: PageProps) {
     redirect(`/communities/${slug}`);
   }
 
+  let initialRemainingQuota: number | null = null;
+  try {
+    initialRemainingQuota = await getRemainingForUser(session.sub);
+  } catch (err) {
+    console.error('new question page: getRemainingForUser failed', err);
+  }
+
   return (
     <section className="max-w-[720px]">
       <h2 className="text-2xl font-bold">Draft a new question</h2>
@@ -32,6 +40,7 @@ export default async function NewQuestionPage({ params }: PageProps) {
           slug={slug}
           communityId={community.id}
           cadence={community.cadence}
+          initialRemainingQuota={initialRemainingQuota}
         />
       </div>
     </section>

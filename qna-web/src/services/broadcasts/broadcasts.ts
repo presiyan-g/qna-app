@@ -3,7 +3,11 @@ import { and, desc, eq, isNull, lt, or } from 'drizzle-orm';
 import { db } from '@/db/client';
 import { broadcastPosts, type BroadcastPost } from '@/db/schema/broadcasts';
 import { users } from '@/db/schema/users';
-import { AccountSuspendedError, assertUserCanMutate } from '@/services/admin';
+import {
+  AccountSuspendedError,
+  assertUserCanMutate,
+  type PlatformRole,
+} from '@/services/admin';
 import { findUserStatusById } from '@/services/auth';
 import { getCommunityBySlug, type CommunityRole } from '@/services/communities';
 import {
@@ -52,6 +56,7 @@ type BroadcastViewer = {
   userId: string | null;
   communityRole: CommunityRole | null;
   accountStatus: 'active' | 'suspended' | null;
+  platformRole: PlatformRole;
 };
 
 type ResolvedCommunity = {
@@ -64,11 +69,13 @@ export async function listCommunityBroadcasts({
   limit,
   cursor,
   viewerUserId = null,
+  viewerPlatformRole = 'member',
 }: {
   slug: string;
   limit?: number;
   cursor?: string | null;
   viewerUserId?: string | null;
+  viewerPlatformRole?: PlatformRole;
 }): Promise<BroadcastPage> {
   const community = await getCommunityBySlug(slug, viewerUserId);
   const safeLimit = normalizeBroadcastLimit(limit ? String(limit) : null);
@@ -78,6 +85,7 @@ export async function listCommunityBroadcasts({
   assertCanReadBroadcasts({
     viewerUserId,
     communityRole: community.currentUserRole,
+    platformRole: viewerPlatformRole,
   });
   const viewerStatus = viewerUserId
     ? await findUserStatusById(viewerUserId)
@@ -118,6 +126,7 @@ export async function listCommunityBroadcasts({
         userId: viewerUserId,
         communityRole: community.currentUserRole,
         accountStatus: viewerStatus,
+        platformRole: viewerPlatformRole,
       }),
     ),
     pagination: {
@@ -135,9 +144,11 @@ export async function listCommunityBroadcasts({
 export async function getLatestCommunityBroadcast({
   slug,
   viewerUserId = null,
+  viewerPlatformRole = 'member',
 }: {
   slug: string;
   viewerUserId?: string | null;
+  viewerPlatformRole?: PlatformRole;
 }): Promise<BroadcastPostResource | null> {
   const community = await getCommunityBySlug(slug, viewerUserId);
   if (!community) return null;
@@ -145,15 +156,18 @@ export async function getLatestCommunityBroadcast({
   return getLatestCommunityBroadcastForCommunity({
     community,
     viewerUserId,
+    viewerPlatformRole,
   });
 }
 
 export async function getLatestCommunityBroadcastForCommunity({
   community,
   viewerUserId = null,
+  viewerPlatformRole = 'member',
 }: {
   community: ResolvedCommunity;
   viewerUserId?: string | null;
+  viewerPlatformRole?: PlatformRole;
 }): Promise<BroadcastPostResource | null> {
   const viewerStatus = viewerUserId
     ? await findUserStatusById(viewerUserId)
@@ -180,6 +194,7 @@ export async function getLatestCommunityBroadcastForCommunity({
         userId: viewerUserId,
         communityRole: community.currentUserRole,
         accountStatus: viewerStatus,
+        platformRole: viewerPlatformRole,
       })
     : null;
 }
@@ -188,16 +203,19 @@ export async function getCommunityBroadcast({
   slug,
   postId,
   viewerUserId = null,
+  viewerPlatformRole = 'member',
 }: {
   slug: string;
   postId: string;
   viewerUserId?: string | null;
+  viewerPlatformRole?: PlatformRole;
 }): Promise<BroadcastPostResource | null> {
   const community = await getCommunityBySlug(slug, viewerUserId);
   if (!community) return null;
   assertCanReadBroadcasts({
     viewerUserId,
     communityRole: community.currentUserRole,
+    platformRole: viewerPlatformRole,
   });
   const viewerStatus = viewerUserId
     ? await findUserStatusById(viewerUserId)
@@ -214,6 +232,7 @@ export async function getCommunityBroadcast({
         userId: viewerUserId,
         communityRole: community.currentUserRole,
         accountStatus: viewerStatus,
+        platformRole: viewerPlatformRole,
       })
     : null;
 }
@@ -264,6 +283,7 @@ export async function createBroadcastPost({
     userId,
     communityRole: community.currentUserRole,
     accountStatus: 'active',
+    platformRole: 'member',
   });
 }
 
@@ -327,6 +347,7 @@ export async function updateBroadcastPost({
     userId,
     communityRole: community.currentUserRole,
     accountStatus: 'active',
+    platformRole: 'member',
   });
 }
 
@@ -334,11 +355,13 @@ export async function softDeleteBroadcastPost({
   slug,
   postId,
   userId,
+  platformRole = 'member',
   now = new Date(),
 }: {
   slug: string;
   postId: string;
   userId: string;
+  platformRole?: PlatformRole;
   now?: Date;
 }): Promise<void> {
   await assertAccountCanMutate(userId);
@@ -358,6 +381,7 @@ export async function softDeleteBroadcastPost({
       authorUserId: row.post.authorUserId,
       userId,
       communityRole: community.currentUserRole,
+      platformRole,
     })
   ) {
     throw new BroadcastPermissionError();
@@ -405,6 +429,8 @@ function toBroadcastResource(
 ): BroadcastPostResource {
   const activeViewerUserId =
     viewer.accountStatus === 'active' ? viewer.userId : null;
+  const adminCanModerate =
+    viewer.platformRole === 'admin' && viewer.accountStatus !== 'suspended';
 
   return {
     id: row.post.id,
@@ -423,15 +449,18 @@ function toBroadcastResource(
           authorUserId: row.post.authorUserId,
           userId: activeViewerUserId,
           communityRole: viewer.communityRole,
+          platformRole: viewer.platformRole,
         })
       : false,
-    canDelete: activeViewerUserId
-      ? canSoftDeleteBroadcastPost({
-          authorUserId: row.post.authorUserId,
-          userId: activeViewerUserId,
-          communityRole: viewer.communityRole,
-        })
-      : false,
+    canDelete:
+      activeViewerUserId
+        ? canSoftDeleteBroadcastPost({
+            authorUserId: row.post.authorUserId,
+            userId: activeViewerUserId,
+            communityRole: viewer.communityRole,
+            platformRole: viewer.platformRole,
+          })
+        : adminCanModerate,
   };
 }
 
@@ -444,14 +473,16 @@ async function assertAccountCanMutate(userId: string): Promise<void> {
 function assertCanReadBroadcasts({
   viewerUserId,
   communityRole,
+  platformRole,
 }: {
   viewerUserId: string | null;
   communityRole: CommunityRole | null;
+  platformRole: PlatformRole;
 }): void {
   if (!viewerUserId) {
     throw new BroadcastAuthenticationRequiredError();
   }
-  if (!canReadBroadcasts(communityRole)) {
+  if (!canReadBroadcasts(communityRole, platformRole)) {
     throw new BroadcastMembershipRequiredError();
   }
 }

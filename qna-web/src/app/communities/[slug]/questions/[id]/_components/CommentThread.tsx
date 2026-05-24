@@ -1,3 +1,4 @@
+import { getSession } from '@/services/auth';
 import {
   CommentPermissionError,
   listQuestionComments,
@@ -19,8 +20,12 @@ export async function CommentThread({
   question: QuestionDetail;
   userId: string;
 }) {
+  const session = await getSession();
+  const platformRole = session?.role ?? 'member';
+  const isAdmin = platformRole === 'admin';
   const isCreator = question.currentUserRole === 'creator';
-  const canRead = isCreator || Boolean(question.result) || question.isClosed;
+  const canRead =
+    isAdmin || isCreator || Boolean(question.result) || question.isClosed;
   const canPost = isCreator || Boolean(question.result);
 
   if (!canRead) {
@@ -45,6 +50,7 @@ export async function CommentThread({
       slug,
       questionId: question.id,
       userId,
+      platformRole,
     });
   } catch (err) {
     if (err instanceof CommentPermissionError) {
@@ -66,9 +72,14 @@ export async function CommentThread({
           </p>
           <h2 className="mt-2 text-2xl font-bold">Question thread</h2>
         </div>
-        {!canPost && (
+        {!canPost && !isAdmin && (
           <p className="max-w-[280px] text-sm leading-6 text-muted sm:text-right">
             You can read this closed discussion. Submit an answer to post.
+          </p>
+        )}
+        {isAdmin && !canPost && (
+          <p className="max-w-[280px] text-sm leading-6 text-muted sm:text-right">
+            Admin view — read-only.
           </p>
         )}
       </div>

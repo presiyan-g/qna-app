@@ -17,7 +17,11 @@ import {
   type Question,
   type QuestionChoice,
 } from '@/db/schema/questions';
-import { AccountSuspendedError, assertUserCanMutate } from '@/services/admin';
+import {
+  AccountSuspendedError,
+  assertUserCanMutate,
+  type PlatformRole,
+} from '@/services/admin';
 import { findUserStatusById } from '@/services/auth';
 import {
   getCommunityBySlug,
@@ -277,22 +281,25 @@ export async function createQuestionDraft({
 export async function updateUnpublishedQuestion({
   slug,
   questionId,
-  creatorUserId,
+  userId,
+  platformRole = 'member',
   input,
   now = new Date(),
 }: {
   slug: string;
   questionId: string;
-  creatorUserId: string;
+  userId: string;
+  platformRole?: PlatformRole;
   input: DraftQuestionInput;
   now?: Date;
 }): Promise<CommunityQuestion> {
-  await assertAccountCanMutate(creatorUserId);
+  await assertAccountCanMutate(userId);
 
   const { question } = await loadQuestionForManagement({
     slug,
     questionId,
-    creatorUserId,
+    userId,
+    platformRole,
   });
 
   const [updated] = await db
@@ -317,24 +324,27 @@ export async function updateUnpublishedQuestion({
 export async function scheduleQuestion({
   slug,
   questionId,
-  creatorUserId,
+  userId,
+  platformRole = 'member',
   input,
   now = new Date(),
 }: {
   slug: string;
   questionId: string;
-  creatorUserId: string;
+  userId: string;
+  platformRole?: PlatformRole;
   input: ScheduleQuestionInput;
   now?: Date;
 }): Promise<CommunityQuestion> {
-  await assertAccountCanMutate(creatorUserId);
+  await assertAccountCanMutate(userId);
 
   const { question, community } = await loadQuestionForManagement({
     slug,
     questionId,
-    creatorUserId,
+    userId,
+    platformRole,
   });
-  assertCanManageQuestion(question, now);
+  assertCanManageQuestion(question, { platformRole, now });
 
   const closesAt = computeQuestionClosesAt({
     cadence: community.cadence as CommunityCadence,
@@ -358,24 +368,31 @@ export async function scheduleQuestion({
   return resource;
 }
 
-export async function softDeleteUnpublishedQuestion({
+export async function softDeleteQuestion({
   slug,
   questionId,
-  creatorUserId,
+  userId,
+  platformRole = 'member',
   now = new Date(),
 }: {
   slug: string;
   questionId: string;
-  creatorUserId: string;
+  userId: string;
+  platformRole?: PlatformRole;
   now?: Date;
 }): Promise<void> {
-  await assertAccountCanMutate(creatorUserId);
+  await assertAccountCanMutate(userId);
 
   const { question } = await loadQuestionForManagement({
     slug,
     questionId,
-    creatorUserId,
+    userId,
+    platformRole,
   });
+
+  if (platformRole !== 'admin') {
+    assertCanManageQuestion(question, { platformRole, now });
+  }
 
   await db
     .update(questions)
@@ -477,14 +494,17 @@ async function fetchViewerAnswerMap(
 async function loadQuestionForManagement({
   slug,
   questionId,
-  creatorUserId,
+  userId,
+  platformRole,
 }: {
   slug: string;
   questionId: string;
-  creatorUserId: string;
+  userId: string;
+  platformRole: PlatformRole;
 }): Promise<{ question: Question; community: CommunityWithMembership }> {
-  const community = await getCommunityBySlug(slug, creatorUserId);
-  if (!community || community.currentUserRole !== 'creator') {
+  const community = await getCommunityBySlug(slug, userId);
+  if (!community) throw new QuestionPermissionError();
+  if (community.currentUserRole !== 'creator' && platformRole !== 'admin') {
     throw new QuestionPermissionError();
   }
 

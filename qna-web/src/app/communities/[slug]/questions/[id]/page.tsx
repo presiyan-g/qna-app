@@ -7,7 +7,6 @@ import {
   getQuestionDetail,
 } from '@/services/answers';
 import { getSession } from '@/services/auth';
-import { getCommunityBySlug } from '@/services/communities';
 import { QuestionNotFoundError } from '@/services/questions';
 import { AnswerForm } from './_components/AnswerForm';
 import { CommentThread } from './_components/CommentThread';
@@ -27,6 +26,7 @@ export default async function QuestionDetailPage({ params }: PageProps) {
       slug,
       questionId: id,
       userId: session.sub,
+      platformRole: session.role,
     });
   } catch (err) {
     if (err instanceof QuestionNotFoundError) notFound();
@@ -36,8 +36,10 @@ export default async function QuestionDetailPage({ params }: PageProps) {
     throw err;
   }
 
-  const community = await getCommunityBySlug(slug, session.sub);
-  const isCreator = community?.currentUserRole === 'creator';
+  const canModerate = question.viewerCanModerate;
+  const isCreator = question.currentUserRole === 'creator';
+  const showAnswerForm =
+    question.canAnswer && question.currentUserRole !== null;
 
   return (
     <div className="mx-auto max-w-[900px]">
@@ -65,10 +67,10 @@ export default async function QuestionDetailPage({ params }: PageProps) {
             <p>{question.points} points</p>
           </div>
         </div>
-        {isCreator && (
+        {canModerate && (
           <div className="mt-6 flex flex-wrap items-center gap-2 border-t border-line pt-4">
             <span className="mr-auto text-[11px] font-bold uppercase tracking-[0.16em] text-muted">
-              Creator actions
+              {isCreator ? 'Creator actions' : 'Admin actions'}
             </span>
             <Link
               href={`/communities/${slug}/questions/${id}/edit`}
@@ -92,14 +94,14 @@ export default async function QuestionDetailPage({ params }: PageProps) {
       <div className="mt-6 grid gap-6">
         {question.result ? (
           <ResultPanel question={question} />
-        ) : question.canAnswer ? (
+        ) : showAnswerForm ? (
           <AnswerForm
             slug={slug}
             questionId={question.id}
             choices={question.choices}
             isLate={question.isClosed}
           />
-        ) : (
+        ) : !canModerate ? (
           <div className="rounded-lg border border-line bg-card p-5">
             <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
               Not open yet
@@ -112,7 +114,7 @@ export default async function QuestionDetailPage({ params }: PageProps) {
               submit your answer.
             </p>
           </div>
-        )}
+        ) : null}
 
         {!question.result && question.canSeeSolution && (
           <SolutionPanel question={question} />

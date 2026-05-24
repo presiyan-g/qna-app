@@ -17,6 +17,7 @@ import { db } from '@/db/client';
 import { broadcastPosts } from '@/db/schema/broadcasts';
 import { communities, communityMembers } from '@/db/schema/communities';
 import { questions, type Question } from '@/db/schema/questions';
+import type { PlatformRole } from '@/services/admin';
 import { findUserStatusById } from '@/services/auth';
 import { getCommunityBySlug } from '@/services/communities';
 import { canAccessCreatorDashboard } from './management-policy';
@@ -52,6 +53,21 @@ export type CreatorCommunityDashboard = {
 };
 
 type CreatorCommunityRow = typeof communities.$inferSelect;
+
+export async function listRecentQuestionPrompts(
+  communityId: string,
+  limit: number,
+): Promise<string[]> {
+  const rows = await db
+    .select({ prompt: questions.prompt })
+    .from(questions)
+    .where(
+      and(eq(questions.communityId, communityId), isNull(questions.deletedAt)),
+    )
+    .orderBy(desc(questions.createdAt))
+    .limit(limit);
+  return rows.map((r) => r.prompt);
+}
 
 export async function listCreatorCommunitiesDashboard({
   userId,
@@ -90,17 +106,22 @@ export async function listCreatorCommunitiesDashboard({
 export async function getCreatorCommunityDashboard({
   slug,
   userId,
+  platformRole = 'member',
   now = new Date(),
 }: {
   slug: string;
   userId: string;
+  platformRole?: PlatformRole;
   now?: Date;
 }): Promise<CreatorCommunityDashboard | null> {
   const status = await findUserStatusById(userId);
   if (status !== 'active') return null;
 
   const community = await getCommunityBySlug(slug, userId);
-  if (!community || !canAccessCreatorDashboard(community.currentUserRole)) {
+  if (
+    !community ||
+    !canAccessCreatorDashboard(community.currentUserRole, platformRole)
+  ) {
     return null;
   }
 
