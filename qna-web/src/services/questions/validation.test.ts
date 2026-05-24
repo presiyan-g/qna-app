@@ -25,7 +25,7 @@ test('validates a scheduled GMT multiple-choice question', () => {
   assert.equal(input.prompt, 'Which field controls when a question becomes available?');
   assert.equal(input.explanation, 'scheduled_for is the source of truth for availability.');
   assert.equal(input.scheduledFor.toISOString(), '2026-05-20T09:30:00.000Z');
-  assert.equal(input.closesAt.toISOString(), '2026-05-21T09:30:00.000Z');
+  assert.equal(input.requestedClosesAt, null);
   assert.equal(input.timeZone, 'GMT');
   assert.equal(input.points, 10);
   assert.deepEqual(
@@ -91,7 +91,7 @@ test('validates a complete draft without a schedule', () => {
   });
 
   assert.equal(draft.scheduledFor, null);
-  assert.equal(draft.closesAt, null);
+  assert.equal(draft.requestedClosesAt, null);
   assert.equal(draft.points, 10);
   assert.equal(draft.choices.length, 2);
 });
@@ -103,8 +103,19 @@ test('validates a future GMT schedule', () => {
   );
 
   assert.equal(schedule.scheduledFor.toISOString(), '2026-05-21T12:00:00.000Z');
-  assert.equal(schedule.closesAt.toISOString(), '2026-05-22T12:00:00.000Z');
+  assert.equal(schedule.requestedClosesAt, null);
   assert.equal(schedule.publishedAt.toISOString(), '2026-05-21T12:00:00.000Z');
+});
+
+test('validator passes through a requestedClosesAt when supplied', () => {
+  const schedule = validateScheduleQuestionInput(
+    {
+      scheduledFor: '2026-05-21T12:00',
+      closesAt: '2026-05-24T12:00',
+    },
+    { now: new Date('2026-05-20T12:00:00.000Z') },
+  );
+  assert.equal(schedule.requestedClosesAt?.toISOString(), '2026-05-24T12:00:00.000Z');
 });
 
 test('accepts null/undefined/empty imageUrl without R2 env', () => {

@@ -28,7 +28,11 @@ export default async function NewQuestionPage({ params }: PageProps) {
         Save a draft, schedule it for a specific GMT time, or publish it now.
       </p>
       <div className="mt-6">
-        <QuestionForm slug={slug} communityId={community.id} />
+        <QuestionForm
+          slug={slug}
+          communityId={community.id}
+          cadence={community.cadence}
+        />
       </div>
     </section>
   );

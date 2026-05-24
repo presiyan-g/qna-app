@@ -23,7 +23,10 @@ export type QuestionFormState = {
   ok: boolean;
   formError?: string;
   fieldErrors?: Partial<
-    Record<'prompt' | 'explanation' | 'scheduledFor' | 'choices' | 'imageUrl', string>
+    Record<
+      'prompt' | 'explanation' | 'scheduledFor' | 'closesAt' | 'choices' | 'imageUrl',
+      string
+    >
   >;
 };
 
@@ -42,6 +45,7 @@ export async function createQuestionAction(
       prompt: formData.get('prompt'),
       explanation: formData.get('explanation'),
       scheduledFor: formData.get('scheduledFor'),
+      closesAt: formData.get('closesAt'),
       choices: toChoiceInputs(formData),
     });
 
@@ -110,6 +114,7 @@ export async function createScheduledQuestionAction(
       explanation: formData.get('explanation'),
       imageUrl: formData.get('imageUrl'),
       scheduledFor: formData.get('scheduledFor'),
+      closesAt: formData.get('closesAt'),
       choices: toChoiceInputs(formData),
     });
 
@@ -140,6 +145,7 @@ export async function publishQuestionNowAction(
       explanation: formData.get('explanation'),
       imageUrl: formData.get('imageUrl'),
       scheduledFor: new Date().toISOString(),
+      closesAt: formData.get('closesAt'),
       choices: toChoiceInputs(formData),
     });
 
@@ -199,6 +205,7 @@ export async function scheduleQuestionAction(
   try {
     const input = validateScheduleQuestionInput({
       scheduledFor: formData.get('scheduledFor'),
+      closesAt: formData.get('closesAt'),
     });
 
     await scheduleQuestion({

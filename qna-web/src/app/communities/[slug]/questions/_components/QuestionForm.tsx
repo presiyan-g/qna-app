@@ -23,30 +23,43 @@ export type QuestionFormValues = {
   explanation: string | null;
   imageUrl: string | null;
   scheduledFor: string | null;
+  closesAt: string | null;
   choices: QuestionFormChoice[];
 };
+
+export type CommunityCadence = 'daily' | 'weekly' | 'custom';
 
 const INITIAL: DashboardQuestionFormState = { ok: false };
 
 export function QuestionForm({
   slug,
   communityId,
+  cadence,
   question,
   onSaved,
 }: {
   slug: string;
   communityId: string;
+  cadence: CommunityCadence;
   question?: QuestionFormValues;
   onSaved?: () => void;
 }) {
   return question ? (
-    <EditQuestionForm slug={slug} communityId={communityId} question={question} onSaved={onSaved} />
+    <EditQuestionForm slug={slug} communityId={communityId} cadence={cadence} question={question} onSaved={onSaved} />
   ) : (
-    <CreateQuestionForm slug={slug} communityId={communityId} />
+    <CreateQuestionForm slug={slug} communityId={communityId} cadence={cadence} />
   );
 }
 
-function CreateQuestionForm({ slug, communityId }: { slug: string; communityId: string }) {
+function CreateQuestionForm({
+  slug,
+  communityId,
+  cadence,
+}: {
+  slug: string;
+  communityId: string;
+  cadence: CommunityCadence;
+}) {
   const draftAction = createQuestionDraftAction.bind(null, slug);
   const scheduledAction = createScheduledQuestionAction.bind(null, slug);
   const publishNowAction = publishQuestionNowAction.bind(null, slug);
@@ -73,6 +86,7 @@ function CreateQuestionForm({ slug, communityId }: { slug: string; communityId: 
       ref={formRef}
       state={state}
       communityId={communityId}
+      cadence={cadence}
       choices={emptyChoices()}
       footer={
         <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-end">
@@ -118,11 +132,13 @@ function pickActiveState(
 function EditQuestionForm({
   slug,
   communityId,
+  cadence,
   question,
   onSaved,
 }: {
   slug: string;
   communityId: string;
+  cadence: CommunityCadence;
   question: QuestionFormValues;
   onSaved?: () => void;
 }) {
@@ -138,10 +154,12 @@ function EditQuestionForm({
       state={state}
       action={formAction}
       communityId={communityId}
+      cadence={cadence}
       prompt={question.prompt}
       explanation={question.explanation ?? ''}
       imageUrl={question.imageUrl ?? ''}
       scheduledFor={question.scheduledFor}
+      closesAt={question.closesAt}
       choices={question.choices}
       footer={
         <button
@@ -160,10 +178,12 @@ const QuestionFields = function QuestionFields({
   action,
   state,
   communityId,
+  cadence,
   prompt = '',
   explanation = '',
   imageUrl = '',
   scheduledFor,
+  closesAt,
   choices,
   footer,
   ref,
@@ -171,10 +191,12 @@ const QuestionFields = function QuestionFields({
   action?: (payload: FormData) => void;
   state: DashboardQuestionFormState;
   communityId: string;
+  cadence: CommunityCadence;
   prompt?: string;
   explanation?: string;
   imageUrl?: string;
   scheduledFor?: string | null;
+  closesAt?: string | null;
   choices: QuestionFormChoice[];
   footer: ReactNode;
   ref?: React.Ref<HTMLFormElement>;
@@ -261,6 +283,32 @@ const QuestionFields = function QuestionFields({
           type="datetime-local"
           defaultValue={toDatetimeLocalValue(scheduledFor)}
           aria-invalid={state.fieldErrors?.scheduledFor ? 'true' : undefined}
+          className="rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+        />
+      </FieldError>
+
+      <FieldError error={state.fieldErrors?.closesAt}>
+        <div className="flex items-baseline justify-between gap-3">
+          <label
+            htmlFor="question-closes-at"
+            className="text-[13px] font-semibold"
+          >
+            Closes at (GMT)
+          </label>
+          <span className="text-[11px] font-medium text-muted">
+            {cadence === 'custom'
+              ? 'Required — up to 30 days after publish'
+              : cadence === 'weekly'
+                ? 'Optional — defaults to 7 days after publish'
+                : 'Optional — defaults to 24 hours after publish'}
+          </span>
+        </div>
+        <input
+          id="question-closes-at"
+          name="closesAt"
+          type="datetime-local"
+          defaultValue={toDatetimeLocalValue(closesAt)}
+          aria-invalid={state.fieldErrors?.closesAt ? 'true' : undefined}
           className="rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
         />
       </FieldError>

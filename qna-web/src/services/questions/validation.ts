@@ -12,7 +12,12 @@ export type CreateQuestionInput = {
   explanation: string;
   imageUrl: string | null;
   scheduledFor: Date;
-  closesAt: Date;
+  /**
+   * Caller-supplied close time. Only meaningful for `custom`-cadence
+   * communities; ignored when the community cadence is `daily` or `weekly`.
+   * The service derives the authoritative `closesAt` via `computeQuestionClosesAt`.
+   */
+  requestedClosesAt: Date | null;
   timeZone: 'GMT';
   points: number;
   choices: CreateQuestionChoiceInput[];
@@ -20,16 +25,16 @@ export type CreateQuestionInput = {
 
 export type DraftQuestionInput = Omit<
   CreateQuestionInput,
-  'scheduledFor' | 'closesAt'
+  'scheduledFor' | 'requestedClosesAt'
 > & {
   scheduledFor: null;
-  closesAt: null;
+  requestedClosesAt: null;
 };
 
 export type ScheduleQuestionInput = {
   scheduledFor: Date;
   publishedAt: Date;
-  closesAt: Date;
+  requestedClosesAt: Date | null;
   timeZone: 'GMT';
 };
 
@@ -47,7 +52,6 @@ type RawChoice = {
 };
 
 const DEFAULT_POINTS = 10;
-const DEFAULT_ANSWER_WINDOW_HOURS = 24;
 const PAST_SCHEDULE_GRACE_MS = 5 * 60 * 1000;
 const MAX_CHOICES = 6;
 
@@ -57,6 +61,7 @@ export function validateCreateQuestionInput(
     explanation?: unknown;
     imageUrl?: unknown;
     scheduledFor?: unknown;
+    closesAt?: unknown;
     choices?: unknown;
   },
   options: { now?: Date } = {},
@@ -65,6 +70,7 @@ export function validateCreateQuestionInput(
   const fieldErrors: Record<string, string> = {};
   const core = validateQuestionCore(raw, fieldErrors);
   const scheduledFor = parseGmtDateTime(raw.scheduledFor);
+  const requestedClosesAt = parseGmtDateTime(raw.closesAt);
 
   if (!scheduledFor) {
     fieldErrors.scheduledFor = 'Choose a GMT publish time.';
@@ -79,9 +85,7 @@ export function validateCreateQuestionInput(
   return {
     ...core,
     scheduledFor,
-    closesAt: new Date(
-      scheduledFor.getTime() + DEFAULT_ANSWER_WINDOW_HOURS * 60 * 60 * 1000,
-    ),
+    requestedClosesAt,
     timeZone: 'GMT',
   };
 }
@@ -102,19 +106,20 @@ export function validateDraftQuestionInput(raw: {
   return {
     ...core,
     scheduledFor: null,
-    closesAt: null,
+    requestedClosesAt: null,
     timeZone: 'GMT',
     points: DEFAULT_POINTS,
   };
 }
 
 export function validateScheduleQuestionInput(
-  raw: { scheduledFor?: unknown },
+  raw: { scheduledFor?: unknown; closesAt?: unknown },
   options: { now?: Date } = {},
 ): ScheduleQuestionInput {
   const now = options.now ?? new Date();
   const fieldErrors: Record<string, string> = {};
   const scheduledFor = parseGmtDateTime(raw.scheduledFor);
+  const requestedClosesAt = parseGmtDateTime(raw.closesAt);
 
   if (!scheduledFor) {
     fieldErrors.scheduledFor = 'Choose a GMT publish time.';
@@ -129,9 +134,7 @@ export function validateScheduleQuestionInput(
   return {
     scheduledFor,
     publishedAt: scheduledFor,
-    closesAt: new Date(
-      scheduledFor.getTime() + DEFAULT_ANSWER_WINDOW_HOURS * 60 * 60 * 1000,
-    ),
+    requestedClosesAt,
     timeZone: 'GMT',
   };
 }
@@ -144,7 +147,7 @@ function validateQuestionCore(
     choices?: unknown;
   },
   fieldErrors: Record<string, string>,
-): Omit<CreateQuestionInput, 'scheduledFor' | 'closesAt' | 'timeZone'> {
+): Omit<CreateQuestionInput, 'scheduledFor' | 'requestedClosesAt' | 'timeZone'> {
   const prompt = typeof raw.prompt === 'string' ? raw.prompt.trim() : '';
   const explanation =
     typeof raw.explanation === 'string' ? raw.explanation.trim() : '';

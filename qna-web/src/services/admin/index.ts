@@ -33,5 +33,7 @@ export {
   normalizeAdminQuery,
   normalizeAdminReason,
   normalizeCommunityStatusFilter,
+  normalizeUserStatusFilter,
   type CommunityStatusFilter,
+  type UserStatusFilter,
 } from './validation';

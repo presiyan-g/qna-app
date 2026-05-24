@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import { Footer } from '@/app/_components/landing/Footer';
 import { Nav } from '@/app/_components/landing/Nav';
+import { AdminTabs } from './AdminTabs';
 
 export function AdminShell({
   title,
@@ -22,26 +22,7 @@ export function AdminShell({
           <h1 className="mt-2 text-[34px] font-bold leading-tight md:text-[48px]">
             {title}
           </h1>
-          <nav className="mt-6 flex flex-wrap gap-3 text-sm font-bold">
-            <Link
-              className="rounded-lg border border-line bg-card px-3 py-2"
-              href="/admin"
-            >
-              Overview
-            </Link>
-            <Link
-              className="rounded-lg border border-line bg-card px-3 py-2"
-              href="/admin/users"
-            >
-              Users
-            </Link>
-            <Link
-              className="rounded-lg border border-line bg-card px-3 py-2"
-              href="/admin/communities"
-            >
-              Communities
-            </Link>
-          </nav>
+          <AdminTabs />
           <div className="mt-8">{children}</div>
         </div>
       </section>

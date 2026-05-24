@@ -23,6 +23,7 @@ import {
   normalizeAdminQuery,
   normalizeAdminReason,
   type CommunityStatusFilter,
+  type UserStatusFilter,
 } from './validation';
 
 const DEFAULT_LIMIT = 20;
@@ -106,19 +107,34 @@ export async function listAdminAuditLogs({
 export async function searchAdminUsers({
   actorUserId,
   q,
+  status = 'all',
   limit = DEFAULT_LIMIT,
   offset = 0,
 }: {
   actorUserId: string;
   q?: unknown;
+  status?: UserStatusFilter;
   limit?: number;
   offset?: number;
 }) {
   await requireAdminActor(actorUserId);
   const query = normalizeAdminQuery(q);
-  const where = query
-    ? or(ilike(users.email, `%${query}%`), ilike(users.username, `%${query}%`))
-    : undefined;
+
+  const conditions = [];
+  if (query) {
+    conditions.push(
+      or(ilike(users.email, `%${query}%`), ilike(users.username, `%${query}%`)),
+    );
+  }
+  if (status !== 'all') {
+    conditions.push(eq(users.status, status));
+  }
+  const where =
+    conditions.length === 0
+      ? undefined
+      : conditions.length === 1
+        ? conditions[0]
+        : and(...conditions);
 
   const rows = await db
     .select({

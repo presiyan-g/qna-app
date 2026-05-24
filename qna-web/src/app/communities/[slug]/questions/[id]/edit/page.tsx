@@ -45,12 +45,14 @@ export default async function EditQuestionPage({ params }: PageProps) {
         <QuestionForm
           slug={slug}
           communityId={community.id}
+          cadence={community.cadence}
           question={{
             id: question.id,
             prompt: question.prompt,
             explanation: question.explanation,
             imageUrl: question.imageUrl,
             scheduledFor: question.scheduledFor?.toISOString() ?? null,
+            closesAt: question.closesAt?.toISOString() ?? null,
             choices: question.choices.map((c) => ({
               label: c.label,
               imageUrl: c.imageUrl,

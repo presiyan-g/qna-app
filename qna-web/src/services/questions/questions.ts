@@ -23,6 +23,7 @@ import {
   getCommunityBySlug,
   type CommunityWithMembership,
 } from '@/services/communities';
+import { computeQuestionClosesAt, type CommunityCadence } from './closing';
 import { QuestionNotFoundError, QuestionPermissionError } from './errors';
 import { assertCanManageQuestion } from './management-policy';
 import type {
@@ -166,6 +167,12 @@ export async function createQuestion({
     throw new QuestionPermissionError();
   }
 
+  const closesAt = computeQuestionClosesAt({
+    cadence: community.cadence as CommunityCadence,
+    scheduledFor: input.scheduledFor,
+    requestedClosesAt: input.requestedClosesAt,
+  });
+
   const [created] = await db
     .insert(questions)
     .values({
@@ -175,7 +182,7 @@ export async function createQuestion({
       explanation: input.explanation,
       imageUrl: input.imageUrl,
       scheduledFor: input.scheduledFor,
-      closesAt: input.closesAt,
+      closesAt,
       timeZone: input.timeZone,
       points: input.points,
       publishedAt: input.scheduledFor,
@@ -323,19 +330,25 @@ export async function scheduleQuestion({
 }): Promise<CommunityQuestion> {
   await assertAccountCanMutate(creatorUserId);
 
-  const { question } = await loadQuestionForManagement({
+  const { question, community } = await loadQuestionForManagement({
     slug,
     questionId,
     creatorUserId,
   });
   assertCanManageQuestion(question, now);
 
+  const closesAt = computeQuestionClosesAt({
+    cadence: community.cadence as CommunityCadence,
+    scheduledFor: input.scheduledFor,
+    requestedClosesAt: input.requestedClosesAt,
+  });
+
   const [updated] = await db
     .update(questions)
     .set({
       scheduledFor: input.scheduledFor,
       publishedAt: input.publishedAt,
-      closesAt: input.closesAt,
+      closesAt,
       timeZone: input.timeZone,
       updatedAt: now,
     })
@@ -471,7 +484,7 @@ async function loadQuestionForManagement({
   slug: string;
   questionId: string;
   creatorUserId: string;
-}): Promise<{ question: Question }> {
+}): Promise<{ question: Question; community: CommunityWithMembership }> {
   const community = await getCommunityBySlug(slug, creatorUserId);
   if (!community || community.currentUserRole !== 'creator') {
     throw new QuestionPermissionError();
@@ -490,7 +503,7 @@ async function loadQuestionForManagement({
     .limit(1);
   if (!question) throw new QuestionNotFoundError();
 
-  return { question };
+  return { question, community };
 }
 
 async function insertQuestionChoices(

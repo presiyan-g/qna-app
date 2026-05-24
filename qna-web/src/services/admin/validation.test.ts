@@ -5,6 +5,7 @@ import {
   normalizeAdminQuery,
   normalizeAdminReason,
   normalizeCommunityStatusFilter,
+  normalizeUserStatusFilter,
 } from './validation';
 
 describe('normalizeAdminReason', () => {
@@ -33,6 +34,23 @@ describe('normalizeCommunityStatusFilter', () => {
     assert.equal(normalizeCommunityStatusFilter(null), 'active');
     assert.throws(
       () => normalizeCommunityStatusFilter('deleted'),
+      AdminValidationError,
+    );
+  });
+});
+
+describe('normalizeUserStatusFilter', () => {
+  it('defaults to all and accepts active, suspended, all', () => {
+    assert.equal(normalizeUserStatusFilter(null), 'all');
+    assert.equal(normalizeUserStatusFilter(''), 'all');
+    assert.equal(normalizeUserStatusFilter('all'), 'all');
+    assert.equal(normalizeUserStatusFilter('active'), 'active');
+    assert.equal(normalizeUserStatusFilter('suspended'), 'suspended');
+  });
+
+  it('rejects unknown values', () => {
+    assert.throws(
+      () => normalizeUserStatusFilter('banned'),
       AdminValidationError,
     );
   });
