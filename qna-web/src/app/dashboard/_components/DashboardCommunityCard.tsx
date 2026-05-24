@@ -55,22 +55,10 @@ export function DashboardCommunityCard({
 
       <div className="mt-5 flex flex-wrap gap-3">
         <Link
-          href={`/dashboard/communities/${community.slug}`}
+          href={`/communities/${community.slug}`}
           className="rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-paper"
         >
-          Manage questions
-        </Link>
-        <Link
-          href={`/communities/${community.slug}`}
-          className="rounded-full border border-line px-4 py-2.5 text-sm font-semibold text-ink hover:border-primary hover:text-primary"
-        >
-          Public page
-        </Link>
-        <Link
-          href={`/communities/${community.slug}/broadcasts`}
-          className="rounded-full border border-line px-4 py-2.5 text-sm font-semibold text-ink hover:border-primary hover:text-primary"
-        >
-          Broadcasts
+          Manage
         </Link>
       </div>
     </article>

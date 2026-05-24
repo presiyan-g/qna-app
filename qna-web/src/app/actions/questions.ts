@@ -77,7 +77,7 @@ export async function createQuestionDraftAction(
   formData: FormData,
 ): Promise<DashboardQuestionFormState> {
   const session = await getSession();
-  if (!session) redirect(`/login?next=/dashboard/communities/${slug}`);
+  if (!session) redirect(`/login?next=/communities/${slug}`);
 
   try {
     const input = validateDraftQuestionInput({
@@ -106,7 +106,7 @@ export async function createScheduledQuestionAction(
   formData: FormData,
 ): Promise<DashboardQuestionFormState> {
   const session = await getSession();
-  if (!session) redirect(`/login?next=/dashboard/communities/${slug}`);
+  if (!session) redirect(`/login?next=/communities/${slug}`);
 
   try {
     const input = validateCreateQuestionInput({
@@ -137,7 +137,7 @@ export async function publishQuestionNowAction(
   formData: FormData,
 ): Promise<DashboardQuestionFormState> {
   const session = await getSession();
-  if (!session) redirect(`/login?next=/dashboard/communities/${slug}`);
+  if (!session) redirect(`/login?next=/communities/${slug}`);
 
   try {
     const input = validateCreateQuestionInput({
@@ -169,7 +169,7 @@ export async function updateQuestionAction(
   formData: FormData,
 ): Promise<DashboardQuestionFormState> {
   const session = await getSession();
-  if (!session) redirect(`/login?next=/dashboard/communities/${slug}`);
+  if (!session) redirect(`/login?next=/communities/${slug}`);
 
   try {
     const input = validateDraftQuestionInput({
@@ -200,7 +200,7 @@ export async function scheduleQuestionAction(
   formData: FormData,
 ): Promise<DashboardQuestionFormState> {
   const session = await getSession();
-  if (!session) redirect(`/login?next=/dashboard/communities/${slug}`);
+  if (!session) redirect(`/login?next=/communities/${slug}`);
 
   try {
     const input = validateScheduleQuestionInput({
@@ -227,7 +227,7 @@ export async function deleteQuestionAction(
   questionId: string,
 ): Promise<void> {
   const session = await getSession();
-  if (!session) redirect(`/login?next=/dashboard/communities/${slug}`);
+  if (!session) redirect(`/login?next=/communities/${slug}`);
 
   await softDeleteUnpublishedQuestion({
     slug,
