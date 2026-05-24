@@ -8,7 +8,7 @@ describe('getKeyboardAvoidingBehavior', () => {
     assert.equal(getKeyboardAvoidingBehavior('ios'), 'padding');
   });
 
-  it('leaves Android on the platform default behavior', () => {
-    assert.equal(getKeyboardAvoidingBehavior('android'), undefined);
+  it('uses height on Android so the scroll view can shrink above the keyboard', () => {
+    assert.equal(getKeyboardAvoidingBehavior('android'), 'height');
   });
 });

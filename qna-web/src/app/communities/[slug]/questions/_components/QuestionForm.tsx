@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState, useEffect, useMemo, useRef, useState } from 'react';
+import { useActionState, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import {
   createQuestionDraftAction,
@@ -36,16 +36,14 @@ export function QuestionForm({
   communityId,
   cadence,
   question,
-  onSaved,
 }: {
   slug: string;
   communityId: string;
   cadence: CommunityCadence;
   question?: QuestionFormValues;
-  onSaved?: () => void;
 }) {
   return question ? (
-    <EditQuestionForm slug={slug} communityId={communityId} cadence={cadence} question={question} onSaved={onSaved} />
+    <EditQuestionForm slug={slug} communityId={communityId} cadence={cadence} question={question} />
   ) : (
     <CreateQuestionForm slug={slug} communityId={communityId} cadence={cadence} />
   );
@@ -71,19 +69,11 @@ function CreateQuestionForm({
     useActionState(scheduledAction, INITIAL);
   const [publishNowState, publishNowFormAction, publishNowPending] =
     useActionState(publishNowAction, INITIAL);
-  const formRef = useRef<HTMLFormElement>(null);
   const state = pickActiveState(scheduledState, publishNowState, draftState);
   const pending = draftPending || scheduledPending || publishNowPending;
 
-  useEffect(() => {
-    if (draftState.ok || scheduledState.ok || publishNowState.ok) {
-      formRef.current?.reset();
-    }
-  }, [draftState.ok, scheduledState.ok, publishNowState.ok]);
-
   return (
     <QuestionFields
-      ref={formRef}
       state={state}
       communityId={communityId}
       cadence={cadence}
@@ -134,20 +124,14 @@ function EditQuestionForm({
   communityId,
   cadence,
   question,
-  onSaved,
 }: {
   slug: string;
   communityId: string;
   cadence: CommunityCadence;
   question: QuestionFormValues;
-  onSaved?: () => void;
 }) {
   const action = updateQuestionAction.bind(null, slug, question.id);
   const [state, formAction, pending] = useActionState(action, INITIAL);
-
-  useEffect(() => {
-    if (state.ok) onSaved?.();
-  }, [onSaved, state.ok]);
 
   return (
     <QuestionFields
@@ -162,13 +146,15 @@ function EditQuestionForm({
       closesAt={question.closesAt}
       choices={question.choices}
       footer={
-        <button
-          type="submit"
-          disabled={pending}
-          className="rounded-full bg-primary px-5 py-3 text-sm font-bold text-paper disabled:opacity-60"
-        >
-          {pending ? 'Saving...' : 'Save changes'}
-        </button>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            disabled={pending}
+            className="cursor-pointer rounded-full bg-primary px-5 py-3 text-sm font-bold text-paper transition hover:brightness-110 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {pending ? 'Saving...' : 'Save changes'}
+          </button>
+        </div>
       }
     />
   );
@@ -186,7 +172,6 @@ const QuestionFields = function QuestionFields({
   closesAt,
   choices,
   footer,
-  ref,
 }: {
   action?: (payload: FormData) => void;
   state: DashboardQuestionFormState;
@@ -199,7 +184,6 @@ const QuestionFields = function QuestionFields({
   closesAt?: string | null;
   choices: QuestionFormChoice[];
   footer: ReactNode;
-  ref?: React.Ref<HTMLFormElement>;
 }) {
   const [choiceRows, setChoiceRows] = useState(() => normalizeChoices(choices));
   const correctIndex = useMemo(
@@ -208,12 +192,7 @@ const QuestionFields = function QuestionFields({
   );
 
   return (
-    <form ref={ref} action={action} className="flex flex-col gap-5">
-      {state.ok && (
-        <div className="rounded-md border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-800">
-          Saved.
-        </div>
-      )}
+    <form action={action} className="flex flex-col gap-5">
       {state.formError && (
         <div
           role="alert"

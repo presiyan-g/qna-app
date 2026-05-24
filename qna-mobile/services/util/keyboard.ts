@@ -1,3 +1,5 @@
-export function getKeyboardAvoidingBehavior(platform: string): 'padding' | undefined {
-  return platform === 'ios' ? 'padding' : undefined;
+export function getKeyboardAvoidingBehavior(platform: string): 'padding' | 'height' | undefined {
+  if (platform === 'ios') return 'padding';
+  if (platform === 'android') return 'height';
+  return undefined;
 }

@@ -1,7 +1,7 @@
 import { useFocusEffect } from '@react-navigation/native';
 import { Image } from 'expo-image';
 import { useLocalSearchParams } from 'expo-router';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   KeyboardAvoidingView,
   Modal,
@@ -67,6 +67,7 @@ export default function QuestionDetailScreen() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [inspectedImage, setInspectedImage] = useState<InspectableImage | null>(null);
+  const scrollViewRef = useRef<ScrollView>(null);
 
   const loadQuestion = useCallback(
     async (isActive: () => boolean = () => true) => {
@@ -164,6 +165,12 @@ export default function QuestionDetailScreen() {
     }
   }
 
+  const handleCommentInputFocus = useCallback(() => {
+    setTimeout(() => {
+      scrollViewRef.current?.scrollToEnd({ animated: true });
+    }, 300);
+  }, []);
+
   // Anonymous gate
   if (!authLoading && !token) {
     return (
@@ -251,6 +258,7 @@ export default function QuestionDetailScreen() {
           contentContainerStyle={styles.content}
           keyboardDismissMode={Platform.OS === 'ios' ? 'interactive' : 'on-drag'}
           keyboardShouldPersistTaps="handled"
+          ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.metaRow}>
@@ -327,6 +335,7 @@ export default function QuestionDetailScreen() {
               questionId={idValue}
               question={question}
               currentUserId={user?.id ?? null}
+              onComposerFocus={handleCommentInputFocus}
               token={token}
             />
           ) : null}
@@ -522,12 +531,14 @@ function CommentsSection({
   questionId,
   question,
   currentUserId,
+  onComposerFocus,
   token,
 }: {
   slug: string;
   questionId: string;
   question: QuestionDetail;
   currentUserId: string | null;
+  onComposerFocus: () => void;
   token: string | null;
 }) {
   const apiUrl = useRuntimeApiUrl();
@@ -670,6 +681,7 @@ function CommentsSection({
       {canPost ? (
         <CommentComposer
           placeholder="Share your thoughts..."
+          onFocus={onComposerFocus}
           onSubmit={handlePostTopLevel}
           submitLabel="Post"
         />
@@ -703,6 +715,7 @@ function CommentsSection({
               openReplyCommentId={openReplyCommentId}
               onOpenReply={(id) => setOpenReplyCommentId(id)}
               onCloseReply={() => setOpenReplyCommentId(null)}
+              onComposerFocus={onComposerFocus}
               onSubmitReply={handlePostReply}
               onRequestDelete={(c) => setPendingDelete(c)}
             />
@@ -725,11 +738,13 @@ function CommentsSection({
 
 function CommentComposer({
   placeholder,
+  onFocus,
   onSubmit,
   onCancel,
   submitLabel,
 }: {
   placeholder: string;
+  onFocus?: () => void;
   onSubmit: (body: string) => Promise<void>;
   onCancel?: () => void;
   submitLabel: string;
@@ -764,6 +779,7 @@ function CommentComposer({
         editable={!submitting}
         multiline
         onChangeText={setBody}
+        onFocus={onFocus}
         placeholder={placeholder}
         placeholderTextColor={palette.muted}
         style={styles.composerInput}
@@ -797,6 +813,7 @@ function CommentRow({
   openReplyCommentId,
   onOpenReply,
   onCloseReply,
+  onComposerFocus,
   onSubmitReply,
   onRequestDelete,
 }: {
@@ -807,6 +824,7 @@ function CommentRow({
   openReplyCommentId: string | null;
   onOpenReply: (commentId: string) => void;
   onCloseReply: () => void;
+  onComposerFocus: () => void;
   onSubmitReply: (parentCommentId: string, body: string) => Promise<void>;
   onRequestDelete: (comment: Comment) => void;
 }) {
@@ -863,6 +881,7 @@ function CommentRow({
         <View style={styles.commentReplyComposer}>
           <CommentComposer
             placeholder={`Reply to @${comment.author?.username ?? 'comment'}...`}
+            onFocus={onComposerFocus}
             onSubmit={(body) => onSubmitReply(comment.id, body)}
             onCancel={onCloseReply}
             submitLabel="Post reply"
@@ -882,6 +901,7 @@ function CommentRow({
               openReplyCommentId={openReplyCommentId}
               onOpenReply={onOpenReply}
               onCloseReply={onCloseReply}
+              onComposerFocus={onComposerFocus}
               onSubmitReply={onSubmitReply}
               onRequestDelete={onRequestDelete}
             />
