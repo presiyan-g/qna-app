@@ -4,8 +4,10 @@ import { describe, it } from 'node:test';
 import {
   buildHomeCommunitySections,
   buildHomeStatusMessage,
+  buildLiveQuestionItems,
   DISCOVER_LIMIT,
 } from './shell';
+import type { QuestionSummary } from '../questions/api';
 import type { Community } from '../communities/api';
 
 describe('buildHomeCommunitySections', () => {
@@ -97,6 +99,57 @@ describe('buildHomeStatusMessage', () => {
       '3 questions live today',
     );
   });
+
+  it('prefers unanswered live counts when the API provides them', () => {
+    assert.equal(
+      buildHomeStatusMessage([
+        community({
+          slug: 'a',
+          role: 'member',
+          liveQuestionCount: 2,
+          unansweredQuestionCount: 0,
+        }),
+      ]),
+      'All caught up today',
+    );
+  });
+});
+
+describe('buildLiveQuestionItems', () => {
+  it('returns live unanswered questions from joined communities only', () => {
+    const items = buildLiveQuestionItems({
+      communities: [
+        community({ slug: 'joined', role: 'member' }),
+        community({ slug: 'open', role: null }),
+      ],
+      questionsByCommunitySlug: {
+        joined: [
+          question({ id: 'live_unanswered', prompt: 'Answer me' }),
+          question({
+            id: 'already_answered',
+            prompt: 'Answered',
+            viewerAnswer: { selectedChoiceId: 'choice_1', isCorrect: true },
+          }),
+          question({
+            id: 'closed',
+            prompt: 'Closed',
+            closesAt: '2026-05-21T09:00:00.000Z',
+          }),
+        ],
+        open: [question({ id: 'outsider_live', prompt: 'No membership' })],
+      },
+      now: new Date('2026-05-21T12:00:00.000Z'),
+    });
+
+    assert.deepEqual(
+      items.map((item) => ({
+        communitySlug: item.community.slug,
+        questionId: item.question.id,
+        prompt: item.question.prompt,
+      })),
+      [{ communitySlug: 'joined', questionId: 'live_unanswered', prompt: 'Answer me' }],
+    );
+  });
 });
 
 function community(options: {
@@ -105,6 +158,7 @@ function community(options: {
   isFeatured?: boolean;
   featuredRank?: number | null;
   liveQuestionCount?: number;
+  unansweredQuestionCount?: number;
 }): Community {
   return {
     id: `community_${options.slug}`,
@@ -112,6 +166,7 @@ function community(options: {
     name: options.slug,
     description: 'Description',
     emoji: 'Q',
+    coverImageUrl: null,
     cadence: 'daily',
     status: 'active',
     creatorUserId: 'user_1',
@@ -120,8 +175,32 @@ function community(options: {
     featuredRank: options.featuredRank ?? null,
     memberCount: 1,
     liveQuestionCount: options.liveQuestionCount,
+    unansweredQuestionCount: options.unansweredQuestionCount,
     currentUserRole: options.role,
     createdAt: '2026-05-21T09:00:00.000Z',
     updatedAt: '2026-05-21T09:00:00.000Z',
+  };
+}
+
+function question(
+  options: Partial<QuestionSummary> & { id: string; prompt: string },
+): QuestionSummary {
+  return {
+    id: options.id,
+    communityId: options.communityId ?? 'community_1',
+    creatorUserId: options.creatorUserId ?? 'user_1',
+    prompt: options.prompt,
+    explanation: options.explanation ?? null,
+    imageUrl: options.imageUrl ?? null,
+    scheduledFor: options.scheduledFor ?? '2026-05-21T09:00:00.000Z',
+    publishedAt: options.publishedAt ?? '2026-05-21T09:00:00.000Z',
+    closesAt: options.closesAt ?? '2026-05-22T09:00:00.000Z',
+    timeZone: options.timeZone ?? 'GMT',
+    points: options.points ?? 10,
+    choiceCount: options.choiceCount ?? 4,
+    choices: options.choices ?? [],
+    viewerAnswer: options.viewerAnswer ?? null,
+    createdAt: options.createdAt ?? '2026-05-20T09:00:00.000Z',
+    updatedAt: options.updatedAt ?? '2026-05-20T09:00:00.000Z',
   };
 }

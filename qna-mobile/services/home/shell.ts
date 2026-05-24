@@ -1,4 +1,6 @@
 import type { Community } from '../communities/api';
+import type { QuestionSummary } from '../questions/api';
+import { getQuestionState } from '../questions/format';
 
 export const DISCOVER_LIMIT = 3;
 
@@ -22,18 +24,46 @@ export function buildHomeCommunitySections(communities: Community[]) {
  * Status strip copy for the home screen.
  *
  * - Anonymous or no joined communities: `'Pick a community to start'`
- * - Joined communities with zero live questions today: `'All caught up today'`
- * - Joined communities with one or more live questions: `'N question(s) live today'`
+ * - Joined communities with zero unanswered live questions today: `'All caught up today'`
+ * - Joined communities with one or more unanswered live questions: `'N question(s) live today'`
  */
 export function buildHomeStatusMessage(myCommunities: Community[]): string {
   if (myCommunities.length === 0) return 'Pick a community to start';
 
   const liveCount = myCommunities.reduce(
-    (total, community) => total + (community.liveQuestionCount ?? 0),
+    (total, community) =>
+      total + (community.unansweredQuestionCount ?? community.liveQuestionCount ?? 0),
     0,
   );
 
   if (liveCount === 0) return 'All caught up today';
   if (liveCount === 1) return '1 question live today';
   return `${liveCount} questions live today`;
+}
+
+export type LiveQuestionItem = {
+  community: Community;
+  question: QuestionSummary;
+};
+
+export function buildLiveQuestionItems({
+  communities,
+  questionsByCommunitySlug,
+  now = new Date(),
+}: {
+  communities: Community[];
+  questionsByCommunitySlug: Record<string, QuestionSummary[]>;
+  now?: Date;
+}): LiveQuestionItem[] {
+  return communities
+    .filter((community) => Boolean(community.currentUserRole))
+    .flatMap((community) =>
+      (questionsByCommunitySlug[community.slug] ?? [])
+        .filter(
+          (question) =>
+            getQuestionState(question, now) === 'live' &&
+            question.viewerAnswer == null,
+        )
+        .map((question) => ({ community, question })),
+    );
 }

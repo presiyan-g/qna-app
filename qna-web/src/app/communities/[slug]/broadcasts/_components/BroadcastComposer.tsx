@@ -78,7 +78,7 @@ export function BroadcastComposer({
           communityId={communityId}
           label="Image (optional)"
           initialUrl={initialImageUrl || null}
-          helpText="JPEG, PNG, or WebP up to 5 MB."
+          helpText="JPEG, PNG, WebP, or AVIF up to 5 MB."
         />
         {state.fieldErrors?.imageUrl && (
           <p className="text-[12px] text-red-700">{state.fieldErrors.imageUrl}</p>

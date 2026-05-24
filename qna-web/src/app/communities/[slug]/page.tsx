@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getSession } from '@/services/auth';
 import { getCommunityBySlug } from '@/services/communities';
@@ -10,10 +11,26 @@ import { QuestionsTabBody } from './_components/QuestionsTabBody';
 
 type PageProps = {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ saved?: string }>;
 };
 
-export default async function CommunityQuestionsTab({ params }: PageProps) {
-  const [{ slug }, session] = await Promise.all([params, getSession()]);
+const SAVED_MESSAGES: Record<string, string> = {
+  draft: 'Draft saved.',
+  scheduled: 'Question scheduled.',
+  published: 'Question published.',
+  updated: 'Question updated.',
+  deleted: 'Question deleted.',
+};
+
+export default async function CommunityQuestionsTab({
+  params,
+  searchParams,
+}: PageProps) {
+  const [{ slug }, search, session] = await Promise.all([
+    params,
+    searchParams,
+    getSession(),
+  ]);
   const community = await getCommunityBySlug(slug, session?.sub ?? null);
   if (!community) {
     // The layout already calls notFound() for missing community, but be defensive.
@@ -40,17 +57,35 @@ export default async function CommunityQuestionsTab({ params }: PageProps) {
     });
   }
 
+  const savedMessage = search.saved ? SAVED_MESSAGES[search.saved] : null;
+
   return (
-    <div className="grid gap-6 lg:grid-cols-[1fr_300px]">
-      <QuestionsTabBody
-        slug={slug}
-        questions={questions}
-        viewerRole={community.currentUserRole}
-      />
-      <CommunitySidebar
-        community={community}
-        viewerUserId={session?.sub ?? null}
-      />
+    <div className="flex flex-col gap-4">
+      {savedMessage && (
+        <div
+          role="status"
+          className="flex items-center justify-between gap-3 rounded-md border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800"
+        >
+          <span className="font-semibold">✓ {savedMessage}</span>
+          <Link
+            href={`/communities/${slug}`}
+            className="text-xs font-semibold uppercase tracking-wider text-green-700 hover:underline"
+          >
+            Dismiss
+          </Link>
+        </div>
+      )}
+      <div className="grid gap-6 lg:grid-cols-[1fr_300px]">
+        <QuestionsTabBody
+          slug={slug}
+          questions={questions}
+          viewerRole={community.currentUserRole}
+        />
+        <CommunitySidebar
+          community={community}
+          viewerUserId={session?.sub ?? null}
+        />
+      </div>
     </div>
   );
 }

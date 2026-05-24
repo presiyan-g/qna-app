@@ -2,7 +2,17 @@ import { useFocusEffect } from '@react-navigation/native';
 import { Image } from 'expo-image';
 import { useLocalSearchParams } from 'expo-router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 
 import {
   BodyText,
@@ -34,6 +44,11 @@ import {
   getQuestionState,
   type QuestionState,
 } from '@/services/questions/format';
+import {
+  toInspectableImage,
+  type InspectableImage,
+} from '@/services/questions/images';
+import { getKeyboardAvoidingBehavior } from '@/services/util/keyboard';
 import { formatRelativeTime } from '@/services/util/time';
 
 export default function QuestionDetailScreen() {
@@ -51,6 +66,7 @@ export default function QuestionDetailScreen() {
   const [selectedChoiceId, setSelectedChoiceId] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [inspectedImage, setInspectedImage] = useState<InspectableImage | null>(null);
 
   const loadQuestion = useCallback(
     async (isActive: () => boolean = () => true) => {
@@ -219,79 +235,104 @@ export default function QuestionDetailScreen() {
   const state = getQuestionState(question);
   const hasResult = Boolean(question.result);
   const showChoiceForm = !hasResult && question.canAnswer;
+  const promptImage = toInspectableImage({
+    accessibilityLabel: 'Question image',
+    uri: question.imageUrl,
+  });
 
   return (
     <Screen padded={false}>
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <View style={styles.metaRow}>
-          <View style={[styles.stateBadge, stateBadgeStyles[state].container]}>
-            <Text style={[styles.stateBadgeText, stateBadgeStyles[state].text]}>
-              {formatQuestionStateLabel(state).toUpperCase()}
-            </Text>
+      <KeyboardAvoidingView
+        behavior={getKeyboardAvoidingBehavior(Platform.OS)}
+        style={styles.keyboardView}
+      >
+        <ScrollView
+          automaticallyAdjustKeyboardInsets={Platform.OS === 'ios'}
+          contentContainerStyle={styles.content}
+          keyboardDismissMode={Platform.OS === 'ios' ? 'interactive' : 'on-drag'}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.metaRow}>
+            <View style={[styles.stateBadge, stateBadgeStyles[state].container]}>
+              <Text style={[styles.stateBadgeText, stateBadgeStyles[state].text]}>
+                {formatQuestionStateLabel(state).toUpperCase()}
+              </Text>
+            </View>
+            <Text style={styles.metaText}>{getQuestionTimeHint(question, state)}</Text>
+            <Text style={styles.pointsText}>{formatPoints(question.points)}</Text>
           </View>
-          <Text style={styles.metaText}>{getQuestionTimeHint(question, state)}</Text>
-          <Text style={styles.pointsText}>{formatPoints(question.points)}</Text>
-        </View>
 
-        <View style={styles.promptCard}>
-          <Heading compact>{question.prompt}</Heading>
-          {question.imageUrl ? (
-            <Image
-              accessibilityLabel="Question image"
-              contentFit="cover"
-              source={{ uri: question.imageUrl }}
-              style={styles.promptImage}
+          <View style={styles.promptCard}>
+            <Heading compact>{question.prompt}</Heading>
+            {promptImage ? (
+              <Pressable
+                accessibilityHint="Opens the image full screen."
+                accessibilityLabel={promptImage.accessibilityLabel}
+                accessibilityRole="button"
+                onPress={() => setInspectedImage(promptImage)}
+                style={({ pressed }) => [pressed ? styles.pressed : null]}
+              >
+                <Image
+                  accessibilityIgnoresInvertColors
+                  contentFit="contain"
+                  source={{ uri: promptImage.uri }}
+                  style={styles.promptImage}
+                />
+              </Pressable>
+            ) : null}
+          </View>
+
+          {state === 'scheduled' ? (
+            <StatePanel
+              title={`This question goes live ${formatRelativeTime(
+                question.publishedAt ?? question.scheduledFor,
+              )}.`}
+            />
+          ) : showChoiceForm ? (
+            <ChoiceForm
+              choices={question.choices}
+              disabled={submitting}
+              onOpenImage={setInspectedImage}
+              onSelect={setSelectedChoiceId}
+              selectedChoiceId={selectedChoiceId}
+            />
+          ) : hasResult && question.result ? (
+            <ResultPanel result={question.result} explanation={question.explanation} />
+          ) : (
+            <StatePanel title="This question is closed and you didn't submit an answer." />
+          )}
+
+          {showChoiceForm ? (
+            <View style={styles.submitArea}>
+              <FormError>{submitError}</FormError>
+              <BrandButton disabled={!selectedChoiceId || submitting} onPress={handleSubmit}>
+                {submitting ? 'Submitting...' : 'Submit answer'}
+              </BrandButton>
+            </View>
+          ) : null}
+
+          {!showChoiceForm && !hasResult && user && question.currentUserRole === null ? (
+            <BrandButton
+              href={{ pathname: '/communities/[slug]', params: { slug: slugValue ?? '' } }}
+              variant="secondary"
+            >
+              Join community to answer
+            </BrandButton>
+          ) : null}
+
+          {slugValue && idValue ? (
+            <CommentsSection
+              slug={slugValue}
+              questionId={idValue}
+              question={question}
+              currentUserId={user?.id ?? null}
+              token={token}
             />
           ) : null}
-        </View>
-
-        {state === 'scheduled' ? (
-          <StatePanel
-            title={`This question goes live ${formatRelativeTime(
-              question.publishedAt ?? question.scheduledFor,
-            )}.`}
-          />
-        ) : showChoiceForm ? (
-          <ChoiceForm
-            choices={question.choices}
-            disabled={submitting}
-            onSelect={setSelectedChoiceId}
-            selectedChoiceId={selectedChoiceId}
-          />
-        ) : hasResult && question.result ? (
-          <ResultPanel result={question.result} explanation={question.explanation} />
-        ) : (
-          <StatePanel title="This question is closed and you didn't submit an answer." />
-        )}
-
-        {showChoiceForm ? (
-          <View style={styles.submitArea}>
-            <FormError>{submitError}</FormError>
-            <BrandButton disabled={!selectedChoiceId || submitting} onPress={handleSubmit}>
-              {submitting ? 'Submitting...' : 'Submit answer'}
-            </BrandButton>
-          </View>
-        ) : null}
-
-        {!showChoiceForm && !hasResult && user && question.currentUserRole === null ? (
-          <BrandButton
-            href={{ pathname: '/communities/[slug]', params: { slug: slugValue ?? '' } }}
-            variant="secondary"
-          >
-            Join community to answer
-          </BrandButton>
-        ) : null}
-
-        {slugValue && idValue ? (
-          <CommentsSection
-            slug={slugValue}
-            questionId={idValue}
-            question={question}
-            currentUserId={user?.id ?? null}
-            token={token}
-          />
-        ) : null}
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
+      <ImagePreviewModal image={inspectedImage} onClose={() => setInspectedImage(null)} />
     </Screen>
   );
 }
@@ -299,11 +340,13 @@ export default function QuestionDetailScreen() {
 function ChoiceForm({
   choices,
   disabled,
+  onOpenImage,
   onSelect,
   selectedChoiceId,
 }: {
   choices: QuestionDetail['choices'];
   disabled: boolean;
+  onOpenImage: (image: InspectableImage) => void;
   onSelect: (id: string) => void;
   selectedChoiceId: string | null;
 }) {
@@ -311,6 +354,10 @@ function ChoiceForm({
     <View style={styles.choiceList}>
       {choices.map((choice) => {
         const selected = choice.id === selectedChoiceId;
+        const choiceImage = toInspectableImage({
+          accessibilityLabel: `Image for choice: ${choice.label}`,
+          uri: choice.imageUrl,
+        });
         return (
           <Pressable
             key={choice.id}
@@ -330,19 +377,72 @@ function ChoiceForm({
             </View>
             <View style={styles.choiceBody}>
               <Text style={styles.choiceLabel}>{choice.label}</Text>
-              {choice.imageUrl ? (
-                <Image
-                  accessibilityLabel="Choice image"
-                  contentFit="cover"
-                  source={{ uri: choice.imageUrl }}
-                  style={styles.choiceImage}
-                />
+              {choiceImage ? (
+                <Pressable
+                  accessibilityHint="Opens the image full screen."
+                  accessibilityLabel={choiceImage.accessibilityLabel}
+                  accessibilityRole="button"
+                  disabled={disabled}
+                  onPress={() => onOpenImage(choiceImage)}
+                  style={({ pressed }) => [pressed ? styles.pressed : null]}
+                >
+                  <Image
+                    accessibilityIgnoresInvertColors
+                    contentFit="contain"
+                    source={{ uri: choiceImage.uri }}
+                    style={styles.choiceImage}
+                  />
+                </Pressable>
               ) : null}
             </View>
           </Pressable>
         );
       })}
     </View>
+  );
+}
+
+function ImagePreviewModal({
+  image,
+  onClose,
+}: {
+  image: InspectableImage | null;
+  onClose: () => void;
+}) {
+  if (!image) return null;
+
+  return (
+    <Modal
+      animationType="fade"
+      onRequestClose={onClose}
+      transparent
+      visible
+    >
+      <View style={styles.imageModal}>
+        <View style={styles.imageModalHeader}>
+          <Text style={styles.imageModalTitle}>{image.accessibilityLabel}</Text>
+          <Pressable
+            accessibilityLabel="Close image preview"
+            accessibilityRole="button"
+            hitSlop={10}
+            onPress={onClose}
+            style={({ pressed }) => [
+              styles.imageModalClose,
+              pressed ? styles.pressed : null,
+            ]}
+          >
+            <Text style={styles.imageModalCloseText}>Close</Text>
+          </Pressable>
+        </View>
+        <Image
+          accessibilityIgnoresInvertColors
+          accessibilityLabel={image.accessibilityLabel}
+          contentFit="contain"
+          source={{ uri: image.uri }}
+          style={styles.imageModalImage}
+        />
+      </View>
+    </Modal>
   );
 }
 
@@ -811,6 +911,9 @@ const stateBadgeStyles: Record<
 };
 
 const styles = StyleSheet.create({
+  keyboardView: {
+    flex: 1,
+  },
   content: {
     gap: 16,
     padding: 20,
@@ -905,6 +1008,45 @@ const styles = StyleSheet.create({
     aspectRatio: 16 / 9,
     backgroundColor: palette.paper,
     borderRadius: 8,
+    width: '100%',
+  },
+  imageModal: {
+    backgroundColor: '#111111',
+    flex: 1,
+    paddingBottom: 24,
+    paddingHorizontal: 16,
+    paddingTop: 48,
+  },
+  imageModalHeader: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 12,
+    justifyContent: 'space-between',
+    paddingBottom: 14,
+  },
+  imageModalTitle: {
+    color: palette.paper,
+    flex: 1,
+    fontFamily: fonts.sans,
+    fontSize: 13,
+    fontWeight: '800',
+    textTransform: 'uppercase',
+  },
+  imageModalClose: {
+    borderColor: 'rgba(255,255,255,0.28)',
+    borderRadius: 999,
+    borderWidth: 1,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+  },
+  imageModalCloseText: {
+    color: palette.paper,
+    fontFamily: fonts.sans,
+    fontSize: 13,
+    fontWeight: '800',
+  },
+  imageModalImage: {
+    flex: 1,
     width: '100%',
   },
   submitArea: {

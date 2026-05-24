@@ -28,7 +28,7 @@ test('maps each allowed mime type to a canonical extension', () => {
       contentType: type,
       sizeBytes: 1,
     });
-    assert.match(result.extension, /^(jpg|png|webp)$/);
+    assert.match(result.extension, /^(jpg|png|webp|avif)$/);
   }
 });
 
@@ -56,7 +56,7 @@ test('rejects disallowed content types', () => {
       }),
     (err) =>
       err instanceof UploadValidationError &&
-      err.fieldErrors.contentType === 'Use JPEG, PNG, or WebP.',
+      err.fieldErrors.contentType === 'Use JPEG, PNG, WebP, or AVIF.',
   );
 });
 

@@ -7,9 +7,11 @@ import {
   getQuestionDetail,
 } from '@/services/answers';
 import { getSession } from '@/services/auth';
+import { getCommunityBySlug } from '@/services/communities';
 import { QuestionNotFoundError } from '@/services/questions';
 import { AnswerForm } from './_components/AnswerForm';
 import { CommentThread } from './_components/CommentThread';
+import { DeleteQuestionButton } from './_components/DeleteQuestionButton';
 
 type PageProps = {
   params: Promise<{ slug: string; id: string }>;
@@ -33,6 +35,9 @@ export default async function QuestionDetailPage({ params }: PageProps) {
     }
     throw err;
   }
+
+  const community = await getCommunityBySlug(slug, session.sub);
+  const isCreator = community?.currentUserRole === 'creator';
 
   return (
     <div className="mx-auto max-w-[900px]">
@@ -60,6 +65,20 @@ export default async function QuestionDetailPage({ params }: PageProps) {
             <p>{question.points} points</p>
           </div>
         </div>
+        {isCreator && (
+          <div className="mt-6 flex flex-wrap items-center gap-2 border-t border-line pt-4">
+            <span className="mr-auto text-[11px] font-bold uppercase tracking-[0.16em] text-muted">
+              Creator actions
+            </span>
+            <Link
+              href={`/communities/${slug}/questions/${id}/edit`}
+              className="cursor-pointer rounded-full border border-primary/25 px-4 py-2 text-sm font-semibold text-primary transition-colors hover:border-primary hover:bg-primary-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+            >
+              Edit
+            </Link>
+            <DeleteQuestionButton slug={slug} questionId={id} />
+          </div>
+        )}
         {question.imageUrl && (
           // eslint-disable-next-line @next/next/no-img-element
           <img

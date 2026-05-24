@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
 
 import {
   BodyText,
@@ -27,6 +28,7 @@ import {
 } from '@/services/home/shell';
 
 export default function HomeScreen() {
+  const router = useRouter();
   const { loading, token, user } = useAuth();
   const [communities, setCommunities] = useState<Community[]>([]);
   const [communitiesError, setCommunitiesError] = useState<string | null>(null);
@@ -40,6 +42,11 @@ export default function HomeScreen() {
     ? "Tap a community to answer today's question."
     : 'Choose a room, answer the daily question, and unlock the conversation.';
   const statusMessage = buildHomeStatusMessage(sections.myCommunities);
+  const liveQuestionCount = sections.myCommunities.reduce(
+    (total, community) =>
+      total + (community.unansweredQuestionCount ?? community.liveQuestionCount ?? 0),
+    0,
+  );
 
   const loadCommunities = useCallback(
     async (isActive: () => boolean = () => true) => {
@@ -106,9 +113,24 @@ export default function HomeScreen() {
           )}
         </View>
 
-        <View style={styles.statusStrip}>
+        <Pressable
+          accessibilityHint={
+            liveQuestionCount > 0
+              ? 'Opens the live questions ready for you to answer.'
+              : undefined
+          }
+          accessibilityRole={liveQuestionCount > 0 ? 'link' : 'text'}
+          disabled={liveQuestionCount === 0}
+          onPress={() => router.push('/live-questions')}
+          style={({ pressed }) => [
+            styles.statusStrip,
+            liveQuestionCount > 0 ? styles.statusStripAction : null,
+            pressed ? styles.pressed : null,
+          ]}
+        >
           <Text style={styles.statusText}>{statusMessage}</Text>
-        </View>
+          {liveQuestionCount > 0 ? <Text style={styles.statusArrow}>Open</Text> : null}
+        </Pressable>
 
         <View style={styles.hero}>
           <Heading compact>{heroHeading}</Heading>
@@ -210,15 +232,30 @@ const styles = StyleSheet.create({
     paddingTop: 2,
   },
   statusStrip: {
+    alignItems: 'center',
     backgroundColor: palette.card,
     borderColor: palette.line,
     borderRadius: 10,
     borderWidth: 1,
+    flexDirection: 'row',
+    gap: 12,
+    justifyContent: 'space-between',
     paddingHorizontal: 14,
     paddingVertical: 12,
   },
+  statusStripAction: {
+    borderColor: palette.primary,
+  },
   statusText: {
     color: palette.primary,
+    flex: 1,
+    fontFamily: fonts.sans,
+    fontSize: 12,
+    fontWeight: '800',
+    textTransform: 'uppercase',
+  },
+  statusArrow: {
+    color: palette.ink,
     fontFamily: fonts.sans,
     fontSize: 12,
     fontWeight: '800',
@@ -241,5 +278,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '700',
     textAlign: 'center',
+  },
+  pressed: {
+    opacity: 0.72,
   },
 });

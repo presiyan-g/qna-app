@@ -88,7 +88,7 @@ export function CommunityForm(props: Props) {
         scope="community-cover"
         communityId={props.initialValue?.communityId ?? null}
         label="Cover image (optional)"
-        helpText="JPEG, PNG, or WebP up to 5 MB."
+        helpText="JPEG, PNG, WebP, or AVIF up to 5 MB."
         initialUrl={props.initialValue?.coverImageUrl ?? null}
       />
       <div className="flex flex-col gap-1.5">

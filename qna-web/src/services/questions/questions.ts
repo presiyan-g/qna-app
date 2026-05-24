@@ -294,7 +294,6 @@ export async function updateUnpublishedQuestion({
     questionId,
     creatorUserId,
   });
-  assertCanManageQuestion(question, now);
 
   const [updated] = await db
     .update(questions)
@@ -377,7 +376,6 @@ export async function softDeleteUnpublishedQuestion({
     questionId,
     creatorUserId,
   });
-  assertCanManageQuestion(question, now);
 
   await db
     .update(questions)

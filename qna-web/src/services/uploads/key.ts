@@ -4,7 +4,7 @@ export type BuildObjectKeyInput = {
   scope: UploadScope;
   userId: string;
   communityId: string | null;
-  extension: 'jpg' | 'png' | 'webp';
+  extension: 'jpg' | 'png' | 'webp' | 'avif';
   randomId: string;
 };
 

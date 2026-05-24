@@ -9,6 +9,7 @@ const community = {
   name: 'Daily AI Builders',
   description: 'A daily challenge for people building with AI tools.',
   emoji: 'AI',
+  coverImageUrl: null,
   cadence: 'daily',
   status: 'active' as const,
   creatorUserId: 'user_1',

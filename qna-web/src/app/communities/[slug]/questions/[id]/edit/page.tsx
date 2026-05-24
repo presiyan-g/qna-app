@@ -1,10 +1,7 @@
 import { notFound, redirect } from 'next/navigation';
 import { getSession } from '@/services/auth';
 import { getCommunityBySlug } from '@/services/communities';
-import {
-  getCreatorCommunityDashboard,
-  getQuestionLifecycleState,
-} from '@/services/questions';
+import { getCreatorCommunityDashboard } from '@/services/questions';
 import { QuestionForm } from '../../_components/QuestionForm';
 
 type PageProps = {
@@ -28,12 +25,6 @@ export default async function EditQuestionPage({ params }: PageProps) {
   });
   const question = dashboard?.questions.find((q) => q.id === id);
   if (!question) notFound();
-
-  const state = getQuestionLifecycleState(question);
-  if (state === 'live' || state === 'closed') {
-    // Live or closed questions cannot be edited; send to the answer view.
-    redirect(`/communities/${slug}/questions/${id}`);
-  }
 
   return (
     <section className="max-w-[720px]">

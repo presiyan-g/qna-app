@@ -133,6 +133,7 @@ function toQuestionResource(question: ScheduledCommunityQuestion) {
       position: choice.position,
       isCorrect: choice.isCorrect,
     })),
+    viewerAnswer: question.viewerAnswer,
     createdAt: question.createdAt.toISOString(),
     updatedAt: question.updatedAt.toISOString(),
   };

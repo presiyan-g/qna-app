@@ -41,6 +41,7 @@ export default function RootLayout() {
         >
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="communities" options={{ title: 'Communities' }} />
+          <Stack.Screen name="live-questions" options={{ title: 'Live Questions' }} />
           <Stack.Screen name="communities/[slug]" options={{ title: 'Community' }} />
           <Stack.Screen
             name="communities/[slug]/questions/[id]"

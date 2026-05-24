@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import { FlatList, Pressable, RefreshControl, StyleSheet, Text, View } from 'react-native';
+import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -92,36 +93,55 @@ export default function CommunitiesScreen() {
             <StatePanel title="No active communities yet." />
           )
         }
-        renderItem={({ item }) => (
-          <Pressable
-            accessibilityRole="link"
-            onPress={() => router.push(`/communities/${item.slug}`)}
-            style={({ pressed }) => [styles.communityCard, pressed ? styles.pressed : null]}
-          >
-            <View style={styles.communityHeader}>
-              <View style={styles.communityBadge}>
-                <Text style={styles.communityBadgeText} numberOfLines={1}>
-                  {(item.emoji || item.name.slice(0, 2)).slice(0, 2)}
-                </Text>
+        renderItem={({ item }) => {
+          const initials = (item.emoji || item.name.slice(0, 2)).slice(0, 2);
+          return (
+            <Pressable
+              accessibilityRole="link"
+              onPress={() => router.push(`/communities/${item.slug}`)}
+              style={({ pressed }) => [styles.communityCard, pressed ? styles.pressed : null]}
+            >
+              {item.coverImageUrl ? (
+                <Image
+                  accessibilityIgnoresInvertColors
+                  contentFit="cover"
+                  source={{ uri: item.coverImageUrl }}
+                  style={styles.communityCover}
+                />
+              ) : (
+                <View style={styles.communityCoverFallback}>
+                  <Text style={styles.communityCoverGlyph} numberOfLines={1}>
+                    {initials}
+                  </Text>
+                </View>
+              )}
+              <View style={styles.communityBody}>
+                <View style={styles.communityHeader}>
+                  <View style={styles.communityBadge}>
+                    <Text style={styles.communityBadgeText} numberOfLines={1}>
+                      {initials}
+                    </Text>
+                  </View>
+                  <View style={styles.communityTitleGroup}>
+                    <Text style={styles.communityName}>{item.name}</Text>
+                    <Text style={styles.communityMeta}>
+                      {formatCommunityCadence(item.cadence)} / {formatMemberCount(item.memberCount)}
+                    </Text>
+                  </View>
+                </View>
+                <Text style={styles.communityDescription}>{item.description}</Text>
+                <View style={styles.communityFooter}>
+                  <Text style={styles.communityCategory}>
+                    {item.category?.name ?? 'General'}
+                  </Text>
+                  <Text style={styles.communityRole}>
+                    {item.currentUserRole ? 'Joined' : 'Open'}
+                  </Text>
+                </View>
               </View>
-              <View style={styles.communityTitleGroup}>
-                <Text style={styles.communityName}>{item.name}</Text>
-                <Text style={styles.communityMeta}>
-                  {formatCommunityCadence(item.cadence)} / {formatMemberCount(item.memberCount)}
-                </Text>
-              </View>
-            </View>
-            <Text style={styles.communityDescription}>{item.description}</Text>
-            <View style={styles.communityFooter}>
-              <Text style={styles.communityCategory}>
-                {item.category?.name ?? 'General'}
-              </Text>
-              <Text style={styles.communityRole}>
-                {item.currentUserRole ? 'Joined' : 'Open'}
-              </Text>
-            </View>
-          </Pressable>
-        )}
+            </Pressable>
+          );
+        }}
       />
     </Screen>
   );
@@ -145,6 +165,28 @@ const styles = StyleSheet.create({
     borderColor: palette.line,
     borderRadius: 12,
     borderWidth: 1,
+    overflow: 'hidden',
+  },
+  communityCover: {
+    backgroundColor: palette.primarySoft,
+    height: 120,
+    width: '100%',
+  },
+  communityCoverFallback: {
+    alignItems: 'center',
+    backgroundColor: palette.primarySoft,
+    height: 120,
+    justifyContent: 'center',
+    width: '100%',
+  },
+  communityCoverGlyph: {
+    color: palette.primary,
+    fontFamily: fonts.sans,
+    fontSize: 56,
+    fontWeight: '800',
+    opacity: 0.45,
+  },
+  communityBody: {
     gap: 12,
     padding: 16,
   },

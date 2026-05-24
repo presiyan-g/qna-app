@@ -22,6 +22,7 @@ const summary: QuestionSummary = {
   points: 10,
   choiceCount: 4,
   choices: [],
+  viewerAnswer: null,
   createdAt: '2026-05-20T09:00:00.000Z',
   updatedAt: '2026-05-20T09:00:00.000Z',
 };

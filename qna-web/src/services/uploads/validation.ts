@@ -12,22 +12,24 @@ export const ALLOWED_IMAGE_TYPES = [
   'image/jpeg',
   'image/png',
   'image/webp',
+  'image/avif',
 ] as const;
 export type AllowedImageType = (typeof ALLOWED_IMAGE_TYPES)[number];
 
 export const MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024;
 
-const EXTENSION_BY_TYPE: Record<AllowedImageType, 'jpg' | 'png' | 'webp'> = {
+const EXTENSION_BY_TYPE: Record<AllowedImageType, 'jpg' | 'png' | 'webp' | 'avif'> = {
   'image/jpeg': 'jpg',
   'image/png': 'png',
   'image/webp': 'webp',
+  'image/avif': 'avif',
 };
 
 export type UploadRequest = {
   scope: UploadScope;
   contentType: AllowedImageType;
   sizeBytes: number;
-  extension: 'jpg' | 'png' | 'webp';
+  extension: 'jpg' | 'png' | 'webp' | 'avif';
 };
 
 export function validateUploadRequest(raw: {
@@ -49,7 +51,7 @@ export function validateUploadRequest(raw: {
   }
 
   if (!ALLOWED_IMAGE_TYPES.includes(contentType as AllowedImageType)) {
-    fieldErrors.contentType = 'Use JPEG, PNG, or WebP.';
+    fieldErrors.contentType = 'Use JPEG, PNG, WebP, or AVIF.';
   }
 
   if (sizeBytes <= 0) {

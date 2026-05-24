@@ -94,7 +94,7 @@ function CreateQuestionForm({
             type="submit"
             formAction={draftFormAction}
             disabled={pending}
-            className="rounded-full border border-primary/25 bg-paper px-5 py-3 text-sm font-bold text-ink transition-colors hover:border-primary hover:bg-primary-soft hover:text-primary disabled:opacity-60"
+            className="cursor-pointer rounded-full border border-primary/25 bg-paper px-5 py-3 text-sm font-bold text-ink transition-colors hover:border-primary hover:bg-primary-soft hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {draftPending ? 'Saving...' : 'Save draft'}
           </button>
@@ -102,7 +102,7 @@ function CreateQuestionForm({
             type="submit"
             formAction={scheduledFormAction}
             disabled={pending}
-            className="rounded-full border border-primary bg-primary-soft px-5 py-3 text-sm font-bold text-primary transition-colors hover:brightness-95 disabled:opacity-60"
+            className="cursor-pointer rounded-full border border-primary bg-primary-soft px-5 py-3 text-sm font-bold text-primary transition hover:shadow-md hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {scheduledPending ? 'Scheduling...' : 'Schedule for later'}
           </button>
@@ -110,7 +110,7 @@ function CreateQuestionForm({
             type="submit"
             formAction={publishNowFormAction}
             disabled={pending}
-            className="rounded-full bg-primary px-5 py-3 text-sm font-bold text-paper transition-colors hover:brightness-110 disabled:opacity-60"
+            className="cursor-pointer rounded-full bg-primary px-5 py-3 text-sm font-bold text-paper transition hover:brightness-110 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {publishNowPending ? 'Publishing...' : 'Publish now'}
           </button>
@@ -262,7 +262,7 @@ const QuestionFields = function QuestionFields({
         communityId={communityId}
         label="Question image (optional)"
         initialUrl={imageUrl || null}
-        helpText="JPEG, PNG, or WebP up to 5 MB."
+        helpText="JPEG, PNG, WebP, or AVIF up to 5 MB."
       />
 
       <FieldError error={state.fieldErrors?.scheduledFor}>
@@ -325,7 +325,7 @@ const QuestionFields = function QuestionFields({
                 { label: '', imageUrl: null, isCorrect: false },
               ])
             }
-            className="text-[12px] font-bold text-primary disabled:text-muted"
+            className="cursor-pointer rounded-full px-3 py-1.5 text-[12px] font-bold text-primary transition-colors enabled:hover:bg-primary-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 disabled:cursor-not-allowed disabled:text-muted"
           >
             Add choice
           </button>
@@ -355,7 +355,7 @@ const QuestionFields = function QuestionFields({
                 onClick={() =>
                   setChoiceRows((rows) => rows.filter((_, rowIndex) => rowIndex !== index))
                 }
-                className="rounded-lg border border-line px-3 text-sm font-bold text-muted disabled:opacity-40"
+                className="cursor-pointer rounded-lg border border-line px-3 py-2.5 text-sm font-bold text-ink transition-colors enabled:hover:border-red-300 enabled:hover:bg-red-50 enabled:hover:text-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/30 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Remove
               </button>

@@ -97,7 +97,7 @@ export async function createQuestionDraftAction(
   }
 
   revalidateCommunityQuestionPaths(slug);
-  return { ok: true };
+  redirect(`/communities/${slug}?saved=draft`);
 }
 
 export async function createScheduledQuestionAction(
@@ -128,7 +128,7 @@ export async function createScheduledQuestionAction(
   }
 
   revalidateCommunityQuestionPaths(slug);
-  return { ok: true };
+  redirect(`/communities/${slug}?saved=scheduled`);
 }
 
 export async function publishQuestionNowAction(
@@ -159,7 +159,7 @@ export async function publishQuestionNowAction(
   }
 
   revalidateCommunityQuestionPaths(slug);
-  return { ok: true };
+  redirect(`/communities/${slug}?saved=published`);
 }
 
 export async function updateQuestionAction(
@@ -190,7 +190,7 @@ export async function updateQuestionAction(
   }
 
   revalidateCommunityQuestionPaths(slug);
-  return { ok: true };
+  redirect(`/communities/${slug}?saved=updated`);
 }
 
 export async function scheduleQuestionAction(
@@ -236,6 +236,7 @@ export async function deleteQuestionAction(
   });
 
   revalidateCommunityQuestionPaths(slug);
+  redirect(`/communities/${slug}?saved=deleted`);
 }
 
 function toChoiceInputs(formData: FormData) {

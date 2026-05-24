@@ -115,7 +115,7 @@ export function ImageUploader({
             ref={fileInputRef}
             id={inputId}
             type="file"
-            accept="image/jpeg,image/png,image/webp"
+            accept="image/jpeg,image/png,image/webp,image/avif"
             disabled={busy}
             onChange={(event) => {
               const file = event.target.files?.[0];

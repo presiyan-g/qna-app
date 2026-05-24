@@ -21,6 +21,11 @@ export type QuestionResult = {
   correctChoice: QuestionChoice;
 };
 
+export type ViewerAnswerSummary = {
+  selectedChoiceId: string;
+  isCorrect: boolean;
+};
+
 export type QuestionSummary = {
   id: string;
   communityId: string;
@@ -35,6 +40,7 @@ export type QuestionSummary = {
   points: number;
   choiceCount: number;
   choices: QuestionChoice[];
+  viewerAnswer: ViewerAnswerSummary | null;
   createdAt: string;
   updatedAt: string;
 };

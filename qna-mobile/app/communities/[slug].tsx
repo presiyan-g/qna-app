@@ -6,7 +6,6 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import {
   BodyText,
-  BrandBadge,
   BrandButton,
   ConfirmDialog,
   Eyebrow,
@@ -23,7 +22,7 @@ import {
   type Community,
   createCommunitiesClient,
 } from '@/services/communities/api';
-import { formatCommunityCadence, formatCommunityRole } from '@/services/communities/format';
+import { formatCommunityCadence } from '@/services/communities/format';
 import {
   createQuestionsClient,
   QuestionsApiError,
@@ -157,6 +156,14 @@ export default function CommunityDetailScreen() {
           </StatePanel>
         ) : (
           <>
+            {community.coverImageUrl ? (
+              <Image
+                accessibilityIgnoresInvertColors
+                contentFit="cover"
+                source={{ uri: community.coverImageUrl }}
+                style={styles.coverImage}
+              />
+            ) : null}
             <View style={styles.hero}>
               <View style={styles.heroHeader}>
                 <View style={styles.badge}>
@@ -169,6 +176,46 @@ export default function CommunityDetailScreen() {
                   <Heading compact>{community.name}</Heading>
                 </View>
               </View>
+              <View style={styles.membershipRow}>
+                {community.currentUserRole === 'member' ? (
+                  <>
+                    <View style={styles.joinedPill}>
+                      <Text style={styles.joinedPillText}>✓ Joined</Text>
+                    </View>
+                    <Pressable
+                      accessibilityRole="button"
+                      disabled={leaving}
+                      onPress={() => setConfirmingLeave(true)}
+                      style={({ pressed }) => [
+                        styles.leaveButton,
+                        pressed ? styles.pressed : null,
+                      ]}
+                    >
+                      <Text style={styles.leaveButtonText}>
+                        {leaving ? 'Leaving...' : 'Leave'}
+                      </Text>
+                    </Pressable>
+                  </>
+                ) : community.currentUserRole === 'creator' ? (
+                  <View style={styles.joinedPill}>
+                    <Text style={styles.joinedPillText}>Creator</Text>
+                  </View>
+                ) : (
+                  <Pressable
+                    accessibilityRole="button"
+                    disabled={authLoading || joining}
+                    onPress={handleJoin}
+                    style={({ pressed }) => [
+                      styles.joinButton,
+                      pressed ? styles.pressed : null,
+                    ]}
+                  >
+                    <Text style={styles.joinButtonText}>
+                      {joining ? 'Joining...' : 'Join community'}
+                    </Text>
+                  </Pressable>
+                )}
+              </View>
               <BodyText>{community.description}</BodyText>
               <View style={styles.metaGrid}>
                 <MetaItem label="Cadence" value={formatCommunityCadence(community.cadence)} />
@@ -177,54 +224,33 @@ export default function CommunityDetailScreen() {
                   separated
                   value={formatMemberCount(community.memberCount)}
                 />
-                <MetaItem
-                  label="Role"
-                  separated
-                  value={formatCommunityRole(community.currentUserRole)}
-                />
               </View>
-              {community.currentUserRole === 'member' ? (
-                <View style={styles.membershipActions}>
-                  <BrandBadge style={styles.membershipBadge}>Joined</BrandBadge>
-                  <BrandButton
-                    disabled={leaving}
-                    variant="secondary"
-                    onPress={() => setConfirmingLeave(true)}
-                  >
-                    {leaving ? 'Leaving...' : 'Leave community'}
-                  </BrandButton>
-                </View>
-              ) : community.currentUserRole === 'creator' ? (
-                <BrandBadge style={styles.membershipBadge}>Creator</BrandBadge>
-              ) : (
-                <BrandButton disabled={authLoading || joining} onPress={handleJoin}>
-                  {joining ? 'Joining...' : 'Join community'}
-                </BrandButton>
-              )}
               <FormError>{joinError}</FormError>
             </View>
 
-            <ScrollView
-              horizontal
-              contentContainerStyle={styles.tabs}
-              showsHorizontalScrollIndicator={false}
-            >
-              {TABS.map((tab) => {
-                const active = activeTab === tab.value;
-                return (
-                  <Pressable
-                    key={tab.value}
-                    accessibilityRole="button"
-                    onPress={() => setActiveTab(tab.value)}
-                    style={[styles.tabButton, active ? styles.activeTabButton : null]}
-                  >
-                    <Text style={[styles.tabText, active ? styles.activeTabText : null]}>
-                      {tab.label}
-                    </Text>
-                  </Pressable>
-                );
-              })}
-            </ScrollView>
+            <View style={styles.tabsWrapper}>
+              <ScrollView
+                horizontal
+                contentContainerStyle={styles.tabs}
+                showsHorizontalScrollIndicator={false}
+              >
+                {TABS.map((tab) => {
+                  const active = activeTab === tab.value;
+                  return (
+                    <Pressable
+                      key={tab.value}
+                      accessibilityRole="button"
+                      onPress={() => setActiveTab(tab.value)}
+                      style={[styles.tabButton, active ? styles.activeTabButton : null]}
+                    >
+                      <Text style={[styles.tabText, active ? styles.activeTabText : null]}>
+                        {tab.label}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </ScrollView>
+            </View>
 
             <TabPanel activeTab={activeTab} community={community} />
           </>
@@ -724,6 +750,14 @@ const styles = StyleSheet.create({
     gap: 18,
     padding: 20,
   },
+  coverImage: {
+    backgroundColor: palette.primarySoft,
+    borderColor: palette.line,
+    borderRadius: 12,
+    borderWidth: 1,
+    height: 180,
+    width: '100%',
+  },
   hero: {
     backgroundColor: palette.card,
     borderColor: palette.line,
@@ -756,11 +790,48 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 4,
   },
-  membershipActions: {
-    gap: 10,
+  membershipRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
   },
-  membershipBadge: {
-    minHeight: 50,
+  joinedPill: {
+    backgroundColor: palette.primarySoft,
+    borderRadius: 999,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+  },
+  joinedPillText: {
+    color: palette.primary,
+    fontFamily: fonts.sans,
+    fontSize: 13,
+    fontWeight: '800',
+  },
+  leaveButton: {
+    borderColor: palette.line,
+    borderRadius: 999,
+    borderWidth: 1,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+  },
+  leaveButtonText: {
+    color: palette.ink,
+    fontFamily: fonts.sans,
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  joinButton: {
+    backgroundColor: palette.primary,
+    borderRadius: 999,
+    paddingHorizontal: 18,
+    paddingVertical: 9,
+  },
+  joinButtonText: {
+    color: palette.paper,
+    fontFamily: fonts.sans,
+    fontSize: 13,
+    fontWeight: '800',
   },
   metaGrid: {
     gap: 8,
@@ -786,31 +857,34 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '700',
   },
+  tabsWrapper: {
+    borderBottomColor: palette.line,
+    borderBottomWidth: 1,
+  },
   tabs: {
     flexDirection: 'row',
-    gap: 8,
+    gap: 4,
     paddingRight: 20,
   },
   tabButton: {
-    backgroundColor: palette.card,
-    borderColor: palette.line,
-    borderRadius: 999,
-    borderWidth: 1,
-    paddingHorizontal: 13,
-    paddingVertical: 9,
+    borderBottomColor: 'transparent',
+    borderBottomWidth: 2,
+    marginBottom: -1,
+    paddingHorizontal: 14,
+    paddingVertical: 11,
   },
   activeTabButton: {
-    backgroundColor: palette.primary,
-    borderColor: palette.primary,
+    borderBottomColor: palette.primary,
   },
   tabText: {
-    color: palette.ink,
+    color: palette.muted,
     fontFamily: fonts.sans,
-    fontSize: 12,
-    fontWeight: '800',
+    fontSize: 13,
+    fontWeight: '700',
   },
   activeTabText: {
-    color: palette.paper,
+    color: palette.primary,
+    fontWeight: '800',
   },
   panel: {
     backgroundColor: palette.card,

@@ -13,6 +13,7 @@ export type Community = {
   name: string;
   description: string;
   emoji: string;
+  coverImageUrl: string | null;
   cadence: string;
   status: 'active' | 'archived';
   creatorUserId: string;
@@ -21,6 +22,8 @@ export type Community = {
   featuredRank?: number | null;
   memberCount: number;
   liveQuestionCount?: number;
+  unansweredQuestionCount?: number;
+  newBroadcastCount?: number;
   currentUserRole: CommunityRole | null;
   createdAt: string;
   updatedAt: string;
