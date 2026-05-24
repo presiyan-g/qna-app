@@ -160,7 +160,9 @@ export default function CommunityDetailScreen() {
             <View style={styles.hero}>
               <View style={styles.heroHeader}>
                 <View style={styles.badge}>
-                  <Text style={styles.badgeText}>{community.emoji || community.name.slice(0, 2)}</Text>
+                  <Text style={styles.badgeText} numberOfLines={1}>
+                    {(community.emoji || community.name.slice(0, 2)).slice(0, 2)}
+                  </Text>
                 </View>
                 <View style={styles.heroTitleGroup}>
                   {community.category ? <Eyebrow>{community.category.name}</Eyebrow> : null}
@@ -741,6 +743,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     height: 52,
     justifyContent: 'center',
+    overflow: 'hidden',
     width: 52,
   },
   badgeText: {

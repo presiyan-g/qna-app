@@ -170,7 +170,7 @@ function CommunitySection({
         communities.map((community) => (
           <CommunityPreviewCard
             key={community.id}
-            initials={community.emoji || community.name.slice(0, 2)}
+            initials={(community.emoji || community.name.slice(0, 2)).slice(0, 2)}
             name={community.name}
             cadence={formatCommunityCadence(community.cadence)}
             description={community.description}

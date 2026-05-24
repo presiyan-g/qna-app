@@ -243,7 +243,9 @@ export function CommunityPreviewCard({
     <>
       <View style={styles.communityHeader}>
         <View style={styles.communityBadge}>
-          <Text style={styles.communityBadgeText}>{initials}</Text>
+          <Text style={styles.communityBadgeText} numberOfLines={1}>
+            {initials}
+          </Text>
         </View>
         <View style={styles.communityTitleGroup}>
           <Text style={styles.communityName}>{name}</Text>
@@ -499,6 +501,7 @@ const styles = StyleSheet.create({
     borderRadius: 9,
     height: 36,
     justifyContent: 'center',
+    overflow: 'hidden',
     width: 36,
   },
   communityBadgeText: {

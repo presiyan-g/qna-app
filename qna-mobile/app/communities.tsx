@@ -100,7 +100,9 @@ export default function CommunitiesScreen() {
           >
             <View style={styles.communityHeader}>
               <View style={styles.communityBadge}>
-                <Text style={styles.communityBadgeText}>{item.emoji || item.name.slice(0, 2)}</Text>
+                <Text style={styles.communityBadgeText} numberOfLines={1}>
+                  {(item.emoji || item.name.slice(0, 2)).slice(0, 2)}
+                </Text>
               </View>
               <View style={styles.communityTitleGroup}>
                 <Text style={styles.communityName}>{item.name}</Text>
@@ -157,6 +159,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: 42,
     justifyContent: 'center',
+    overflow: 'hidden',
     width: 42,
   },
   communityBadgeText: {
