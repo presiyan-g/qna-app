@@ -32,7 +32,7 @@ export function ForCreators() {
             <span className="serif-italic">easier than a podcast.</span>
           </h3>
           <p className="mb-5 text-[15px] leading-relaxed text-muted">
-            If you teach something — even a narrow slice of it — you have
+            If you teach something, even a narrow slice of it, you have
             enough to launch a community. Schedule one question. Members
             answer, learn, talk. You see exactly who shows up.
           </p>
@@ -54,7 +54,7 @@ export function ForCreators() {
                 ✓
               </span>
               <span>
-                <strong>{item.head}</strong> — {item.tail}
+                <strong>{item.head}</strong> - {item.tail}
               </span>
             </li>
           ))}

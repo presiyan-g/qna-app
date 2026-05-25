@@ -14,11 +14,20 @@ import { DeleteQuestionButton } from './_components/DeleteQuestionButton';
 
 type PageProps = {
   params: Promise<{ slug: string; id: string }>;
+  searchParams?: Promise<{ cursor?: string | string[] }>;
 };
 
-export default async function QuestionDetailPage({ params }: PageProps) {
-  const [{ slug, id }, session] = await Promise.all([params, getSession()]);
+export default async function QuestionDetailPage({
+  params,
+  searchParams,
+}: PageProps) {
+  const [{ slug, id }, query, session] = await Promise.all([
+    params,
+    searchParams ?? Promise.resolve<{ cursor?: string | string[] }>({}),
+    getSession(),
+  ]);
   if (!session) redirect('/login');
+  const cursor = firstParam(query?.cursor) ?? null;
 
   let question: QuestionDetail;
   try {
@@ -120,10 +129,20 @@ export default async function QuestionDetailPage({ params }: PageProps) {
           <SolutionPanel question={question} />
         )}
 
-        <CommentThread slug={slug} question={question} userId={session.sub} />
+        <CommentThread
+          slug={slug}
+          question={question}
+          userId={session.sub}
+          cursor={cursor}
+        />
       </div>
     </div>
   );
+}
+
+function firstParam(value: string | string[] | undefined): string | undefined {
+  if (Array.isArray(value)) return value[0];
+  return value;
 }
 
 function PermissionScreen({

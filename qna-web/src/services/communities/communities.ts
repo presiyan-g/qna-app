@@ -1,5 +1,5 @@
 import 'server-only';
-import { and, asc, desc, eq, ilike, sql } from 'drizzle-orm';
+import { and, asc, count, desc, eq, ilike, sql } from 'drizzle-orm';
 import { db } from '@/db/client';
 import { AccountSuspendedError, assertUserCanMutate } from '@/services/admin';
 import { findUserStatusById } from '@/services/auth';
@@ -71,7 +71,8 @@ export async function listCommunities({
   offset = 0,
   userId = null,
 }: ListCommunitiesOptions = {}): Promise<CommunityWithMembership[]> {
-  return searchCommunities({ limit, offset, userId });
+  const { items } = await searchCommunities({ limit, offset, userId });
+  return items;
 }
 
 export async function searchCommunities({
@@ -80,7 +81,10 @@ export async function searchCommunities({
   limit = DEFAULT_LIMIT,
   offset = 0,
   userId = null,
-}: SearchCommunitiesOptions = {}): Promise<CommunityWithMembership[]> {
+}: SearchCommunitiesOptions = {}): Promise<{
+  items: CommunityWithMembership[];
+  totalCount: number;
+}> {
   const safeLimit = Math.min(Math.max(limit, 1), MAX_LIMIT);
   const safeOffset = Math.max(offset, 0);
   const query = q?.trim();
@@ -92,23 +96,36 @@ export async function searchCommunities({
   if (category) conditions.push(eq(communityCategories.slug, category));
   const where = conditions.length === 1 ? conditions[0] : and(...conditions);
 
-  const rows = await db
-    .select({
-      community: communities,
-      category: communityCategories,
-      ...summaryFields,
-    })
-    .from(communities)
-    .leftJoin(
-      communityCategories,
-      eq(communities.categoryId, communityCategories.id),
-    )
-    .where(where)
-    .orderBy(desc(communities.createdAt))
-    .limit(safeLimit)
-    .offset(safeOffset);
+  const [rows, countRows] = await Promise.all([
+    db
+      .select({
+        community: communities,
+        category: communityCategories,
+        ...summaryFields,
+      })
+      .from(communities)
+      .leftJoin(
+        communityCategories,
+        eq(communities.categoryId, communityCategories.id),
+      )
+      .where(where)
+      .orderBy(desc(communities.createdAt))
+      .limit(safeLimit)
+      .offset(safeOffset),
+    db
+      .select({ value: count() })
+      .from(communities)
+      .leftJoin(
+        communityCategories,
+        eq(communities.categoryId, communityCategories.id),
+      )
+      .where(where),
+  ]);
 
-  return rows.map(toCommunityWithMembership);
+  return {
+    items: rows.map(toCommunityWithMembership),
+    totalCount: Number(countRows[0]?.value ?? 0),
+  };
 }
 
 export async function listMyCommunities({

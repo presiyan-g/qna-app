@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { Footer } from '@/app/_components/landing/Footer';
 import { Nav } from '@/app/_components/landing/Nav';
+import { Pagination } from '@/app/_components/Pagination';
+import { parsePageParam } from '@/lib/pagination';
 import { getSession } from '@/services/auth';
 import {
   listCommunityCategories,
@@ -12,10 +14,13 @@ export const metadata = {
   title: 'Browse communities - Quorum',
 };
 
+const PAGE_SIZE = 24;
+
 type CommunitiesPageProps = {
   searchParams?: Promise<{
     q?: string | string[];
     category?: string | string[];
+    page?: string | string[];
   }>;
 };
 
@@ -30,13 +35,16 @@ export default async function CommunitiesPage({
   const params = await searchParams;
   const query = firstParam(params?.q);
   const categorySlug = firstParam(params?.category);
+  const page = parsePageParam(params?.page);
   const session = await getSession();
-  const [categories, communities] = await Promise.all([
+  const [categories, { items: communities, totalCount }] = await Promise.all([
     listCommunityCategories(),
     searchCommunities({
       q: query,
       categorySlug: categorySlug || null,
       userId: session?.sub ?? null,
+      limit: PAGE_SIZE,
+      offset: (page - 1) * PAGE_SIZE,
     }),
   ]);
   const activeCategory = categorySlug
@@ -113,15 +121,28 @@ export default async function CommunitiesPage({
           </form>
 
           {communities.length > 0 ? (
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {communities.map((community) => (
-                <CommunityListCard
-                  key={community.id}
-                  community={community}
-                  signedIn={Boolean(session)}
-                />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+                {communities.map((community) => (
+                  <CommunityListCard
+                    key={community.id}
+                    community={community}
+                    signedIn={Boolean(session)}
+                  />
+                ))}
+              </div>
+              <Pagination
+                totalCount={totalCount}
+                currentPage={page}
+                pageSize={PAGE_SIZE}
+                baseHref="/communities"
+                queryParams={{
+                  q: query,
+                  category: categorySlug,
+                }}
+                itemLabel="communities"
+              />
+            </>
           ) : (
             <div className="rounded-lg border border-line bg-card p-8 text-center">
               <h2 className="text-xl font-bold">

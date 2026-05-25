@@ -28,7 +28,7 @@ export async function GET(request: NextRequest, { params }: RouteContext) {
   const { searchParams } = request.nextUrl;
   const limit = parsePositiveInt(searchParams.get('limit'), 20);
   const offset = parsePositiveInt(searchParams.get('offset'), 0);
-  const questions = await listCommunityQuestions({
+  const { items } = await listCommunityQuestions({
     slug,
     userId: session?.sub ?? null,
     limit,
@@ -37,7 +37,7 @@ export async function GET(request: NextRequest, { params }: RouteContext) {
 
   return withCors(
     NextResponse.json({
-      items: questions.map(toQuestionResource),
+      items: items.map(toQuestionResource),
       pagination: { limit, offset },
     }),
     origin,

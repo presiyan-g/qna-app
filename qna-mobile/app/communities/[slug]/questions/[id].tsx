@@ -564,7 +564,7 @@ function CommentsSection({
       try {
         const result = await commentsClient.list(slug, questionId, token);
         if (!isActive()) return;
-        setComments(result.comments);
+        setComments(result.items);
       } catch (err) {
         if (!isActive()) return;
         if (err instanceof CommentsApiError) {

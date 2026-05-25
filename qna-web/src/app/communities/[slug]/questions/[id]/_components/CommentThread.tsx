@@ -1,7 +1,10 @@
+import Link from 'next/link';
 import { getSession } from '@/services/auth';
 import {
+  CommentCursorError,
   CommentPermissionError,
   listQuestionComments,
+  type CommentPage,
   type QuestionComment,
 } from '@/services/comments';
 import type { QuestionDetail } from '@/services/answers';
@@ -15,10 +18,12 @@ export async function CommentThread({
   slug,
   question,
   userId,
+  cursor = null,
 }: {
   slug: string;
   question: QuestionDetail;
   userId: string;
+  cursor?: string | null;
 }) {
   const session = await getSession();
   const platformRole = session?.role ?? 'member';
@@ -44,13 +49,17 @@ export async function CommentThread({
     );
   }
 
-  let comments: QuestionComment[] = [];
+  let page: CommentPage = {
+    items: [],
+    pagination: { limit: 0, nextCursor: null },
+  };
   try {
-    comments = await listQuestionComments({
+    page = await listQuestionComments({
       slug,
       questionId: question.id,
       userId,
       platformRole,
+      cursor,
     });
   } catch (err) {
     if (err instanceof CommentPermissionError) {
@@ -60,8 +69,25 @@ export async function CommentThread({
         </section>
       );
     }
+    if (err instanceof CommentCursorError) {
+      return (
+        <section className="rounded-lg border border-line bg-card p-5">
+          <p className="text-sm font-semibold text-muted">
+            That comment page link is invalid.{' '}
+            <Link
+              href={`/communities/${slug}/questions/${question.id}`}
+              className="font-bold text-primary hover:underline"
+            >
+              Start over
+            </Link>
+            .
+          </p>
+        </section>
+      );
+    }
     throw err;
   }
+  const comments = page.items;
 
   return (
     <section className="rounded-lg border border-line bg-card p-5">
@@ -96,6 +122,17 @@ export async function CommentThread({
         comments={comments.map(serializeComment)}
         canPost={canPost}
       />
+
+      {page.pagination.nextCursor && (
+        <div className="mt-6 flex justify-center">
+          <Link
+            href={`/communities/${slug}/questions/${question.id}?cursor=${encodeURIComponent(page.pagination.nextCursor)}`}
+            className="inline-flex rounded-full border border-line px-5 py-2.5 text-sm font-bold text-ink hover:border-primary hover:text-primary"
+          >
+            Older comments
+          </Link>
+        </div>
+      )}
     </section>
   );
 }

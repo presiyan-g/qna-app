@@ -1,5 +1,5 @@
 import 'server-only';
-import { and, desc, eq, isNotNull, isNull } from 'drizzle-orm';
+import { and, desc, eq, inArray, isNotNull, isNull, lt, or } from 'drizzle-orm';
 import { db } from '@/db/client';
 import { answers } from '@/db/schema/answers';
 import { comments } from '@/db/schema/comments';
@@ -13,6 +13,11 @@ import {
 } from '@/services/admin';
 import { findUserStatusById } from '@/services/auth';
 import { getCommunityBySlug, type CommunityRole } from '@/services/communities';
+import {
+  decodeCommentCursor,
+  encodeCommentCursor,
+  normalizeCommentLimit,
+} from './cursor';
 import {
   CommentNotFoundError,
   CommentPermissionError,
@@ -29,6 +34,11 @@ import {
   type QuestionComment,
 } from './thread';
 import { validateCommentBody } from './validation';
+
+export type CommentPage = {
+  items: QuestionComment[];
+  pagination: { limit: number; nextCursor: string | null };
+};
 
 type CommentQuestionContext = {
   question: CommentableQuestion;
@@ -47,13 +57,17 @@ export async function listQuestionComments({
   userId,
   platformRole = 'member',
   now = new Date(),
+  limit,
+  cursor,
 }: {
   slug: string;
   questionId: string;
   userId: string;
   platformRole?: PlatformRole;
   now?: Date;
-}): Promise<QuestionComment[]> {
+  limit?: number;
+  cursor?: string | null;
+}): Promise<CommentPage> {
   const context = await loadCommentQuestionContext({
     slug,
     questionId,
@@ -72,24 +86,76 @@ export async function listQuestionComments({
     throw new CommentPermissionError();
   }
 
-  const rows = await db
+  const safeLimit = normalizeCommentLimit(
+    typeof limit === 'number' ? String(limit) : null,
+  );
+  const decodedCursor = cursor ? decodeCommentCursor(cursor) : null;
+
+  const topLevelRows = await db
     .select({
       comment: comments,
       authorUsername: users.username,
     })
     .from(comments)
     .innerJoin(users, eq(comments.authorUserId, users.id))
-    .where(eq(comments.questionId, context.question.id))
-    .orderBy(desc(comments.createdAt));
+    .where(
+      and(
+        eq(comments.questionId, context.question.id),
+        isNull(comments.parentCommentId),
+        decodedCursor
+          ? or(
+              lt(comments.createdAt, decodedCursor.createdAt),
+              and(
+                eq(comments.createdAt, decodedCursor.createdAt),
+                lt(comments.id, decodedCursor.id),
+              ),
+            )
+          : undefined,
+      ),
+    )
+    .orderBy(desc(comments.createdAt), desc(comments.id))
+    .limit(safeLimit + 1);
 
-  return buildCommentThread(
-    rows.map(toCommentThreadRow),
+  const pageTopLevel = topLevelRows.slice(0, safeLimit);
+  const hasMore = topLevelRows.length > safeLimit;
+  const topLevelIds = pageTopLevel.map((row) => row.comment.id);
+
+  const replyRows = topLevelIds.length
+    ? await db
+        .select({
+          comment: comments,
+          authorUsername: users.username,
+        })
+        .from(comments)
+        .innerJoin(users, eq(comments.authorUserId, users.id))
+        .where(inArray(comments.parentCommentId, topLevelIds))
+    : [];
+
+  const items = buildCommentThread(
+    [...pageTopLevel, ...replyRows].map(toCommentThreadRow),
     {
       userId,
       communityRole: context.communityRole,
       platformRole,
     },
   );
+
+  const lastTopLevel = pageTopLevel[pageTopLevel.length - 1]?.comment;
+  const nextCursor =
+    hasMore && lastTopLevel
+      ? encodeCommentCursor({
+          createdAt: lastTopLevel.createdAt,
+          id: lastTopLevel.id,
+        })
+      : null;
+
+  return {
+    items,
+    pagination: {
+      limit: safeLimit,
+      nextCursor,
+    },
+  };
 }
 
 export async function postComment({

@@ -21,7 +21,10 @@ const comment: Comment = {
   replies: [],
 };
 
-const listResult: CommentListResult = { comments: [comment] };
+const listResult: CommentListResult = {
+  items: [comment],
+  pagination: { limit: 20, nextCursor: null },
+};
 
 describe('createCommentsClient', () => {
   it('lists comments with bearer auth', async () => {
@@ -36,7 +39,8 @@ describe('createCommentsClient', () => {
 
     const result = await client.list('ai-builders', 'question_1', 'jwt');
 
-    assert.deepEqual(result.comments, [comment]);
+    assert.deepEqual(result.items, [comment]);
+    assert.equal(result.pagination.nextCursor, null);
     assert.equal(
       calls[0].url,
       'http://localhost:3000/api/communities/ai-builders/questions/question_1/comments',

@@ -16,12 +16,23 @@ export type Comment = {
   replies: Comment[];
 };
 
+export type CommentPagination = {
+  limit: number;
+  nextCursor: string | null;
+};
+
 export type CommentListResult = {
-  comments: Comment[];
+  items: Comment[];
+  pagination: CommentPagination;
 };
 
 export type CommentPostResult = {
   comment: Comment;
+};
+
+export type CommentListOptions = {
+  limit?: number;
+  cursor?: string | null;
 };
 
 type CommentsClientOptions = {
@@ -70,10 +81,22 @@ export function createCommentsClient(options: CommentsClientOptions = {}) {
   const fetchImpl = options.fetch ?? fetch;
 
   return {
-    list(slug: string, questionId: string, token: string): Promise<CommentListResult> {
+    list(
+      slug: string,
+      questionId: string,
+      token: string,
+      options: CommentListOptions = {},
+    ): Promise<CommentListResult> {
+      const query = new URLSearchParams();
+      if (options.cursor) query.set('cursor', options.cursor);
+      if (typeof options.limit === 'number') {
+        query.set('limit', String(options.limit));
+      }
+      const qs = query.toString();
+      const suffix = qs ? `?${qs}` : '';
       return requestJson<CommentListResult>(
         fetchImpl,
-        `${apiUrl}/communities/${encodeURIComponent(slug)}/questions/${encodeURIComponent(questionId)}/comments`,
+        `${apiUrl}/communities/${encodeURIComponent(slug)}/questions/${encodeURIComponent(questionId)}/comments${suffix}`,
         { method: 'GET', headers: authHeaders(token) },
       );
     },

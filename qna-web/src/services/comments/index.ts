@@ -2,7 +2,16 @@ export {
   listQuestionComments,
   postComment,
   softDeleteComment,
+  type CommentPage,
 } from './comments';
+
+export {
+  CommentCursorError,
+  decodeCommentCursor,
+  encodeCommentCursor,
+  normalizeCommentLimit,
+  type CommentCursor,
+} from './cursor';
 
 export {
   CommentNotFoundError,

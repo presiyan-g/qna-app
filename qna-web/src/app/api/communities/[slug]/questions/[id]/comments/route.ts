@@ -3,10 +3,12 @@ import { corsOptionsResponse, withCors } from '../../../../../_utils/cors';
 import { AccountSuspendedError } from '@/services/admin';
 import { getApiSession } from '@/services/auth/api-session';
 import {
+  CommentCursorError,
   CommentNotFoundError,
   CommentPermissionError,
   CommentValidationError,
   listQuestionComments,
+  normalizeCommentLimit,
   postComment,
   type QuestionComment,
 } from '@/services/comments';
@@ -32,14 +34,23 @@ export async function GET(request: NextRequest, { params }: RouteContext) {
     );
   }
 
+  const url = new URL(request.url);
+  const cursor = url.searchParams.get('cursor');
+  const limit = normalizeCommentLimit(url.searchParams.get('limit'));
+
   try {
-    const comments = await listQuestionComments({
+    const page = await listQuestionComments({
       slug,
       questionId: id,
       userId: session.sub,
+      limit,
+      cursor,
     });
     return withCors(
-      NextResponse.json({ comments: comments.map(toCommentResource) }),
+      NextResponse.json({
+        items: page.items.map(toCommentResource),
+        pagination: page.pagination,
+      }),
       origin,
     );
   } catch (err) {
@@ -52,6 +63,12 @@ export async function GET(request: NextRequest, { params }: RouteContext) {
     if (err instanceof CommentPermissionError) {
       return withCors(
         NextResponse.json({ error: err.message }, { status: 403 }),
+        origin,
+      );
+    }
+    if (err instanceof CommentCursorError) {
+      return withCors(
+        NextResponse.json({ error: err.message }, { status: 400 }),
         origin,
       );
     }

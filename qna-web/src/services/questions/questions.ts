@@ -71,14 +71,19 @@ type ListCommunityQuestionsOptions = {
 const DEFAULT_LIMIT = 20;
 const MAX_LIMIT = 50;
 
+export type ListCommunityQuestionsResult = {
+  items: ScheduledCommunityQuestion[];
+  totalCount: number;
+};
+
 export async function listCommunityQuestions({
   slug,
   userId = null,
   limit = DEFAULT_LIMIT,
   offset = 0,
-}: ListCommunityQuestionsOptions): Promise<ScheduledCommunityQuestion[]> {
+}: ListCommunityQuestionsOptions): Promise<ListCommunityQuestionsResult> {
   const community = await getCommunityBySlug(slug, userId);
-  if (!community) return [];
+  if (!community) return { items: [], totalCount: 0 };
 
   return listCommunityQuestionsForCommunity({
     community,
@@ -98,25 +103,30 @@ export async function listCommunityQuestionsForCommunity({
   viewerUserId?: string | null;
   limit?: number;
   offset?: number;
-}): Promise<ScheduledCommunityQuestion[]> {
+}): Promise<ListCommunityQuestionsResult> {
   const safeLimit = Math.min(Math.max(limit, 1), MAX_LIMIT);
   const safeOffset = Math.max(offset, 0);
   const canSeeCorrectAnswers = community.currentUserRole === 'creator';
 
-  const rows = await db
-    .select()
-    .from(questions)
-    .where(
-      and(
-        eq(questions.communityId, community.id),
-        isNull(questions.deletedAt),
-        isNotNull(questions.scheduledFor),
-        isNotNull(questions.closesAt),
-      ),
-    )
-    .orderBy(desc(questions.scheduledFor))
-    .limit(safeLimit)
-    .offset(safeOffset);
+  const whereClause = and(
+    eq(questions.communityId, community.id),
+    isNull(questions.deletedAt),
+    isNotNull(questions.scheduledFor),
+    isNotNull(questions.closesAt),
+  );
+
+  const [rows, countResult] = await Promise.all([
+    db
+      .select()
+      .from(questions)
+      .where(whereClause)
+      .orderBy(desc(questions.scheduledFor))
+      .limit(safeLimit)
+      .offset(safeOffset),
+    db.select({ value: count() }).from(questions).where(whereClause),
+  ]);
+
+  const totalCount = Number(countResult[0]?.value ?? 0);
 
   const scheduledRows = rows.map(toScheduledQuestion);
   const withChoiceRows = await withChoices(scheduledRows, canSeeCorrectAnswers);
@@ -143,7 +153,7 @@ export async function listCommunityQuestionsForCommunity({
     community.currentUserRole === 'creator';
   const isCreator = community.currentUserRole === 'creator';
 
-  return baseQuestions.map((q) => {
+  const items = baseQuestions.map((q) => {
     const viewerAnswer = answerMap.get(q.id) ?? null;
     const closedNow = q.closesAt.getTime() <= now;
     const isRevealed =
@@ -153,6 +163,8 @@ export async function listCommunityQuestionsForCommunity({
       : null;
     return { ...q, viewerAnswer, revealedCorrectChoiceId };
   });
+
+  return { items, totalCount };
 }
 
 export async function createQuestion({
