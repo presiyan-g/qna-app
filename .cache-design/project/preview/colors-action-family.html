@@ -1,0 +1,46 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Action colors</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  .row-action { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .pair { border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; background: var(--card); }
+  .pair-head { padding: 14px; display: flex; align-items: center; justify-content: space-between; }
+  .pair-head .name { font-weight: 700; font-size: 14px; }
+  .pair-head .hex  { font-family: var(--font-mono); font-size: 11px; color: var(--paper); opacity: .8; }
+  .pair-foot { padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; }
+  .pair-foot .name { font-weight: 600; font-size: 12px; color: var(--ink); }
+  .pair-foot .hex  { font-family: var(--font-mono); font-size: 10px; color: var(--muted); }
+  .swatch-band { height: 28px; }
+  .new { display:inline-block;padding:2px 6px;border-radius:4px;background:var(--accent);color:#2a2a28;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-left:6px;vertical-align:middle; }
+</style></head>
+<body><div class="card-frame">
+  <p style="margin:0;font-size:12px;color:var(--muted);">Action color family — primary (existing) + clay + lake <span class="new">new</span></p>
+  <div class="row-action">
+    <div class="pair">
+      <div class="pair-head" style="background: var(--primary); color: var(--paper);">
+        <span class="name">Forest · primary</span>
+        <span class="hex">#1F4032</span>
+      </div>
+      <div class="swatch-band" style="background: var(--primary-soft);"></div>
+      <div class="pair-foot"><span class="name">Primary soft</span><span class="hex">#F4F1E3</span></div>
+    </div>
+    <div class="pair">
+      <div class="pair-head" style="background: var(--action-clay); color: #fff;">
+        <span class="name">Clay · secondary</span>
+        <span class="hex">#C2543A</span>
+      </div>
+      <div class="swatch-band" style="background: var(--action-clay-soft);"></div>
+      <div class="pair-foot"><span class="name">Clay soft</span><span class="hex">#F8E6DE</span></div>
+    </div>
+    <div class="pair">
+      <div class="pair-head" style="background: var(--action-lake); color: #fff;">
+        <span class="name">Lake · tertiary</span>
+        <span class="hex">#3A6E8F</span>
+      </div>
+      <div class="swatch-band" style="background: var(--action-lake-soft);"></div>
+      <div class="pair-foot"><span class="name">Lake soft</span><span class="hex">#E3ECF2</span></div>
+    </div>
+  </div>
+  <p style="margin:0;font-size:12px;color:var(--muted);line-height:1.6;">
+    Priority order: <b>Forest → Clay → Lake → ghost</b>. Never use two saturated action colors as competing CTAs on the same surface.
+  </p>
+</div></body></html>

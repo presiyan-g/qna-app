@@ -31,3 +31,15 @@
 body {
   font-family: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
 }
+
+/* Tailwind v4's preflight reverted Tailwind v3's `cursor: pointer` on
+   buttons to align with browser defaults. Restore the affordance here so
+   every enabled <button> across the app shows the hand cursor on hover.
+   Disabled buttons keep their `disabled:cursor-not-allowed` utility (or
+   the browser default) — class-level utilities have higher specificity
+   than this element selector and continue to override as expected. */
+@layer base {
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+}

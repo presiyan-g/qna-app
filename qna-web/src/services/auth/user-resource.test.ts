@@ -10,6 +10,7 @@ const baseUser: User = {
   passwordHash: 'never-leak-me',
   role: 'member',
   status: 'active',
+  lastSeenNotificationsAt: null,
   createdAt: new Date('2026-05-20T12:00:00.000Z'),
   updatedAt: new Date('2026-05-20T12:00:00.000Z'),
 };

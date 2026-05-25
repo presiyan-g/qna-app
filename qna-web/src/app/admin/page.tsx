@@ -5,13 +5,25 @@ import {
   listAdminAuditLogs,
 } from '@/services/admin';
 import { getSession } from '@/services/auth';
+import { Pagination } from '@/app/_components/Pagination';
+import { parsePageParam } from '@/lib/pagination';
 import { AdminShell } from './_components/AdminShell';
 
-export default async function AdminPage() {
+const AUDIT_PAGE_SIZE = 10;
+
+type AdminPageProps = {
+  searchParams?: Promise<{
+    page?: string | string[];
+  }>;
+};
+
+export default async function AdminPage({ searchParams }: AdminPageProps) {
   const session = await getSession();
   if (!session) redirect('/login?next=/admin');
 
-  const data = await loadAdminPage(session.sub);
+  const params = await searchParams;
+  const page = parsePageParam(params?.page);
+  const data = await loadAdminPage(session.sub, page);
 
   return (
     <AdminShell title="Platform admin">
@@ -27,7 +39,7 @@ export default async function AdminPage() {
       <section className="mt-8 rounded-lg border border-line bg-card p-5">
         <h2 className="text-xl font-bold">Recent admin actions</h2>
         <div className="mt-4 space-y-3">
-          {data.logs.map(({ log, actorUsername }) => (
+          {data.logs.items.map(({ log, actorUsername }) => (
             <div
               key={log.id}
               className="border-t border-line pt-3 text-sm first:border-t-0 first:pt-0"
@@ -39,20 +51,31 @@ export default async function AdminPage() {
               </p>
             </div>
           ))}
-          {data.logs.length === 0 ? (
+          {data.logs.items.length === 0 ? (
             <p className="text-sm text-ink/70">No admin actions yet.</p>
           ) : null}
         </div>
+        <Pagination
+          totalCount={data.logs.totalCount}
+          currentPage={page}
+          pageSize={AUDIT_PAGE_SIZE}
+          baseHref="/admin"
+          itemLabel="admin actions"
+        />
       </section>
     </AdminShell>
   );
 }
 
-async function loadAdminPage(actorUserId: string) {
+async function loadAdminPage(actorUserId: string, page: number) {
   try {
     const [overview, logs] = await Promise.all([
       getAdminOverview({ actorUserId }),
-      listAdminAuditLogs({ actorUserId, limit: 10 }),
+      listAdminAuditLogs({
+        actorUserId,
+        limit: AUDIT_PAGE_SIZE,
+        offset: (page - 1) * AUDIT_PAGE_SIZE,
+      }),
     ]);
     return { overview, logs };
   } catch (err) {

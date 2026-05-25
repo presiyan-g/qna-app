@@ -1,5 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { type Href, useRouter } from 'expo-router';
 import { useCallback, useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
@@ -23,9 +23,20 @@ import {
   UsersApiError,
 } from '@/services/users/api';
 
-export default function UserProfileScreen() {
+/**
+ * Renders a user's public profile, with a Logout button when the viewer is
+ * looking at their own profile.
+ *
+ * Shared between two routes:
+ *   - `app/users/[username].tsx` — full screen pushed via Stack (back button).
+ *   - `app/(tabs)/profile.tsx`   — embedded in the tab navigator (no back).
+ *
+ * The component is intentionally pure-presentation + data-fetching; navigation
+ * concerns (whether it's pushed or tabbed) are owned by the route file that
+ * mounts it.
+ */
+export function UserProfileView({ username }: { username: string }) {
   const router = useRouter();
-  const { username } = useLocalSearchParams<{ username?: string }>();
   const { logout, user } = useAuth();
   const [confirmingLogout, setConfirmingLogout] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -33,23 +44,16 @@ export default function UserProfileScreen() {
   const [profile, setProfile] = useState<PublicUserProfile | null>(null);
   const apiUrl = useRuntimeApiUrl();
   const usersClient = useMemo(() => createUsersClient({ apiUrl }), [apiUrl]);
-  const usernameValue = Array.isArray(username) ? username[0] : username;
   const isOwnProfile = Boolean(
-    user?.username && usernameValue && user.username.toLowerCase() === usernameValue.toLowerCase(),
+    user?.username && user.username.toLowerCase() === username.toLowerCase(),
   );
 
   const loadProfile = useCallback(
     async (isActive: () => boolean = () => true) => {
-      if (!usernameValue) {
-        setError('Profile not found.');
-        setLoading(false);
-        return;
-      }
-
       setLoading(true);
       setError(null);
       try {
-        const result = await usersClient.getProfile(usernameValue);
+        const result = await usersClient.getProfile(username);
         if (!isActive()) return;
         setProfile(result);
       } catch (err) {
@@ -59,7 +63,7 @@ export default function UserProfileScreen() {
         if (isActive()) setLoading(false);
       }
     },
-    [usernameValue, usersClient],
+    [username, usersClient],
   );
 
   useFocusEffect(
@@ -85,7 +89,7 @@ export default function UserProfileScreen() {
           <StatePanel title="Loading profile..." />
         ) : error || !profile ? (
           <StatePanel title={error ?? 'Profile not found.'}>
-            <BrandButton variant="secondary" href="/">
+            <BrandButton variant="secondary" href={'/' as Href}>
               Back home
             </BrandButton>
           </StatePanel>

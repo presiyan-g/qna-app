@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Mono</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  .mono-card {
+    background: #1a2620;
+    color: #d4e2da;
+    border-radius: 10px;
+    padding: 16px 18px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+  .mono-card .k { color: #88c3a6; }
+  .mono-card .s { color: #d6a12b; }
+  .mono-card .c { color: #6f8278; font-style: italic; }
+</style></head>
+<body><div class="card-frame">
+  <div class="mono-card">
+<span class="c">// services/leaderboard.ts</span>
+<span class="k">type</span> LeaderboardWindow = <span class="s">'7d'</span> | <span class="s">'30d'</span> | <span class="s">'all'</span>;
+
+<span class="k">async function</span> getLeaderboard({ slug, window }) {
+  <span class="k">return</span> db.query.scores.findMany({ where: …, orderBy: desc });
+}
+  </div>
+  <div style="display:flex;gap:18px;align-items:center;">
+    <span style="font-family:var(--font-mono);font-size:13px;color:var(--ink);">q_8f2c</span>
+    <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">scheduled_for: 2026-03-14T16:00Z</span>
+  </div>
+  <p style="margin:0;color:var(--muted);font-size:12px;line-height:1.6;">
+    Geist Mono. Used for short IDs in admin, schedule timestamps, and any code surface (docs, terminal, schema).
+  </p>
+</div></body></html>

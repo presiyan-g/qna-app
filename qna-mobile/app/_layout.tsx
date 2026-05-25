@@ -5,7 +5,6 @@ import { Platform, StyleSheet } from 'react-native';
 import 'react-native-reanimated';
 
 import { HeaderBackButton } from '@/components/HeaderBackButton';
-import { HeaderProfileChip } from '@/components/HeaderProfileChip';
 import { navigationTheme, palette } from '@/constants/theme';
 import { AuthProvider } from '@/services/auth/AuthContext';
 
@@ -23,8 +22,6 @@ export default function RootLayout() {
                   headerLeftContainerStyle: { paddingLeft: 16 },
                 }
               : null),
-            headerRight: () => <HeaderProfileChip />,
-            headerRightContainerStyle: { paddingRight: 16 },
             headerShadowVisible: false,
             headerStyle: {
               backgroundColor: palette.paper,
@@ -39,26 +36,14 @@ export default function RootLayout() {
             },
           }}
         >
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="communities" options={{ title: 'Communities' }} />
-          <Stack.Screen name="live-questions" options={{ title: 'Live Questions' }} />
-          <Stack.Screen name="communities/[slug]" options={{ title: 'Community' }} />
-          <Stack.Screen
-            name="communities/[slug]/questions/[id]"
-            options={{ title: 'Question' }}
-          />
-          <Stack.Screen
-            name="users/[username]"
-            options={{ title: 'Profile', headerRight: () => null }}
-          />
-          <Stack.Screen
-            name="login"
-            options={{ title: 'Sign in', headerRight: () => null }}
-          />
-          <Stack.Screen
-            name="register"
-            options={{ title: 'Join Quorum', headerRight: () => null }}
-          />
+          {/* The (tabs) group owns the entire signed-in / signed-out
+              experience and renders its own per-tab headers. Detail screens
+              (community, question, public profile) live inside the group too
+              so the tab bar stays visible across navigation. */}
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          {/* Auth screens stay outside the tabs — full-screen focused flows. */}
+          <Stack.Screen name="login" options={{ title: 'Sign in' }} />
+          <Stack.Screen name="register" options={{ title: 'Join Quorum' }} />
         </Stack>
         <StatusBar style="dark" />
       </AuthProvider>

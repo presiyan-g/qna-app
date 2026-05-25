@@ -3,8 +3,16 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { logoutAction } from '@/app/actions/auth';
+import type { ListQuestionNotificationsResult } from '@/services/notifications';
+import { NotificationsBellMenu } from './NotificationsBellMenu';
 
-export function UserMenu({ username }: { username: string }) {
+export function UserMenu({
+  username,
+  notifications,
+}: {
+  username: string;
+  notifications: ListQuestionNotificationsResult;
+}) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -36,6 +44,10 @@ export function UserMenu({ username }: { username: string }) {
       >
         Dashboard
       </Link>
+      <NotificationsBellMenu
+        items={notifications.items}
+        unreadCount={notifications.unreadCount}
+      />
       <div ref={containerRef} className="relative">
         <button
           type="button"

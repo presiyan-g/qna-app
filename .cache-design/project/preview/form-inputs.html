@@ -1,0 +1,38 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Form inputs</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 28px; align-items: start; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field > label { font-size: 13px; font-weight: 600; color: var(--ink); }
+  .input, .select, .textarea {
+    width: 100%; box-sizing: border-box;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 8px;
+    padding: 10px 14px; font-family: var(--font-sans); font-size: 13px; color: var(--ink);
+    outline: none;
+    transition: border-color 200ms cubic-bezier(.16,1,.3,1), box-shadow 200ms cubic-bezier(.16,1,.3,1);
+  }
+  .input:focus, .select:focus, .textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-ring); }
+  .focused { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-ring); }
+  .err { border-color: var(--status-danger-border); }
+  .err-msg { font-size: 12px; color: var(--status-danger-fg); }
+  .check { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); cursor: pointer; }
+  .check input { accent-color: var(--primary); }
+</style></head>
+<body><div class="card-frame">
+  <div class="grid">
+    <div class="field"><label>Email</label><input class="input" type="email" placeholder="you@example.com"></div>
+    <div class="field"><label>Email · focused</label><input class="input focused" type="email" value="you@example.com"></div>
+    <div class="field"><label>Cadence</label>
+      <select class="select"><option>Daily</option><option>Weekly</option><option>Custom</option></select>
+    </div>
+    <div class="field"><label>Description</label><textarea class="textarea" rows="2" placeholder="One sentence about your community"></textarea></div>
+    <div class="field" style="grid-column: span 2;">
+      <label>Choice (radio)</label>
+      <label class="check"><input type="radio" name="x"><span style="font-size:13px;">An MCP server should expose its <i>tools</i> before its resources.</span></label>
+    </div>
+    <div class="field" style="grid-column: span 2;"><label>Password · error</label>
+      <input class="input err" type="password" value="…">
+      <span class="err-msg">Must be at least 8 characters.</span>
+    </div>
+  </div>
+</div></body></html>

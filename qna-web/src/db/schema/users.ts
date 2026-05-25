@@ -13,6 +13,9 @@ export const users = pgTable('users', {
   passwordHash: text('password_hash').notNull(),
   role: userRoleEnum('role').notNull().default('member'),
   status: userStatusEnum('status').notNull().default('active'),
+  lastSeenNotificationsAt: timestamp('last_seen_notifications_at', {
+    withTimezone: true,
+  }),
   createdAt: timestamp('created_at', { withTimezone: true })
     .notNull()
     .defaultNow(),

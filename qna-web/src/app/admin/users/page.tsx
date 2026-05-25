@@ -8,12 +8,17 @@ import {
   type UserStatusFilter,
 } from '@/services/admin';
 import { getSession } from '@/services/auth';
+import { Pagination } from '@/app/_components/Pagination';
+import { parsePageParam } from '@/lib/pagination';
 import { AdminShell } from '../_components/AdminShell';
+
+const PAGE_SIZE = 20;
 
 type AdminUsersPageProps = {
   searchParams?: Promise<{
     q?: string | string[];
     status?: string | string[];
+    page?: string | string[];
   }>;
 };
 
@@ -30,7 +35,13 @@ export default async function AdminUsersPage({
     : params?.status;
   const query = rawQuery?.trim() ?? '';
   const status = getStatusFilter(rawStatus);
-  const users = await loadUsers(session.sub, query, status);
+  const page = parsePageParam(params?.page);
+  const { items: users, totalCount } = await loadUsers(
+    session.sub,
+    query,
+    status,
+    page,
+  );
 
   const hasFilters = query.length > 0 || status !== 'all';
 
@@ -109,6 +120,14 @@ export default async function AdminUsersPage({
           <p className="p-6 text-sm text-ink/70">No users found.</p>
         ) : null}
       </div>
+      <Pagination
+        totalCount={totalCount}
+        currentPage={page}
+        pageSize={PAGE_SIZE}
+        baseHref="/admin/users"
+        queryParams={{ q: query, status }}
+        itemLabel="users"
+      />
     </AdminShell>
   );
 }
@@ -126,9 +145,16 @@ async function loadUsers(
   actorUserId: string,
   q: string,
   status: UserStatusFilter,
+  page: number,
 ) {
   try {
-    return await searchAdminUsers({ actorUserId, q, status });
+    return await searchAdminUsers({
+      actorUserId,
+      q,
+      status,
+      limit: PAGE_SIZE,
+      offset: (page - 1) * PAGE_SIZE,
+    });
   } catch (err) {
     if (err instanceof AdminPermissionError) notFound();
     throw err;

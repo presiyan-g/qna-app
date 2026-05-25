@@ -85,7 +85,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         await tokenStorage.clear();
         setToken(null);
         setUser(null);
-        router.replace('/');
+        // Cast: see HeaderBackButton.tsx — `'/'` is a valid runtime route but
+        // Expo Router's typed-routes generator drops it once the home screen
+        // sits inside a group folder like `(tabs)/`.
+        router.replace('/' as Href);
       },
     }),
     [authClient, loading, router, token, user],
@@ -95,7 +98,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 }
 
 function getSafeReturnPath(returnTo?: string | null): Href {
-  if (!returnTo || !returnTo.startsWith('/') || returnTo.startsWith('//')) return '/';
+  if (!returnTo || !returnTo.startsWith('/') || returnTo.startsWith('//')) {
+    return '/' as Href;
+  }
 
   return returnTo as Href;
 }

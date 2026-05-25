@@ -6,7 +6,6 @@ import { useRouter } from 'expo-router';
 import {
   BodyText,
   BrandButton,
-  BrandLogo,
   CommunityPreviewCard,
   Eyebrow,
   Heading,
@@ -29,7 +28,7 @@ import {
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { loading, token, user } = useAuth();
+  const { token, user } = useAuth();
   const [communities, setCommunities] = useState<Community[]>([]);
   const [communitiesError, setCommunitiesError] = useState<string | null>(null);
   const [communitiesLoading, setCommunitiesLoading] = useState(true);
@@ -82,37 +81,6 @@ export default function HomeScreen() {
   return (
     <Screen edges={['top', 'left', 'right', 'bottom']} padded={false}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <BrandLogo />
-          {user ? (
-            <BrandButton
-              href={{ pathname: '/users/[username]', params: { username: user.username } }}
-              variant="secondary"
-              style={styles.headerActionButton}
-            >
-              @{user.username}
-            </BrandButton>
-          ) : (
-            <View style={styles.headerActions}>
-              <BrandButton
-                disabled={loading}
-                href="/register"
-                style={styles.headerActionButton}
-              >
-                Join
-              </BrandButton>
-              <BrandButton
-                disabled={loading}
-                href="/login"
-                variant="secondary"
-                style={styles.headerActionButton}
-              >
-                Sign in
-              </BrandButton>
-            </View>
-          )}
-        </View>
-
         <Pressable
           accessibilityHint={
             liveQuestionCount > 0
@@ -154,19 +122,6 @@ export default function HomeScreen() {
                 communities={sections.myCommunities}
               />
             ) : null}
-
-            <CommunitySection
-              emptyTitle="You're up to date with the featured rooms."
-              title="Discover"
-              communities={sections.discover}
-            />
-
-            <View style={styles.footerCta}>
-              <Text style={styles.footerLabel}>Looking for more?</Text>
-              <BrandButton variant="secondary" href="/communities">
-                Browse all communities
-              </BrandButton>
-            </View>
           </>
         )}
       </ScrollView>
@@ -213,20 +168,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 18,
   },
-  header: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    gap: 10,
-    justifyContent: 'space-between',
-  },
-  headerActions: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-  headerActionButton: {
-    minHeight: 40,
-    paddingHorizontal: 14,
-  },
   hero: {
     gap: 10,
     paddingTop: 2,
@@ -266,18 +207,6 @@ const styles = StyleSheet.create({
   },
   sectionHeader: {
     paddingTop: 4,
-  },
-  footerCta: {
-    alignItems: 'stretch',
-    gap: 8,
-    paddingTop: 4,
-  },
-  footerLabel: {
-    color: palette.muted,
-    fontFamily: fonts.sans,
-    fontSize: 13,
-    fontWeight: '700',
-    textAlign: 'center',
   },
   pressed: {
     opacity: 0.72,
