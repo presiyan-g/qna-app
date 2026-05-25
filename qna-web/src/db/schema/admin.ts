@@ -15,6 +15,7 @@ export const adminAuditLogs = pgTable(
         | 'user_suspended'
         | 'user_unsuspended'
         | 'community_archived'
+        | 'community_placement_updated'
         | 'community_restored'
       >()
       .notNull(),

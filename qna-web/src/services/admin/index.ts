@@ -10,6 +10,7 @@ export {
   searchAdminUsers,
   suspendUser,
   unsuspendUser,
+  updateCommunityPlacement,
 } from './admin';
 
 export {
@@ -32,8 +33,10 @@ export {
 export {
   normalizeAdminQuery,
   normalizeAdminReason,
+  normalizeCommunityPlacementInput,
   normalizeCommunityStatusFilter,
   normalizeUserStatusFilter,
+  type CommunityPlacementInput,
   type CommunityStatusFilter,
   type UserStatusFilter,
 } from './validation';

@@ -91,6 +91,7 @@ function community(): Community {
     status: 'active',
     isFeatured: false,
     featuredRank: null,
+    directoryRank: null,
     createdAt: now,
     updatedAt: now,
   };

@@ -12,13 +12,16 @@ import {
   restoreCommunity,
   suspendUser,
   unsuspendUser,
+  updateCommunityPlacement,
 } from '@/services/admin';
 import { getSession } from '@/services/auth';
 
 export type AdminActionState = {
   ok: boolean;
   formError?: string;
-  fieldErrors?: Partial<Record<'reason', string>>;
+  fieldErrors?: Partial<
+    Record<'reason' | 'featuredRank' | 'directoryRank', string>
+  >;
 };
 
 const INITIAL_OK: AdminActionState = { ok: true };
@@ -105,6 +108,35 @@ export async function restoreCommunityAction(
   revalidatePath('/admin');
   revalidatePath('/admin/communities');
   revalidatePath('/communities');
+}
+
+export async function updateCommunityPlacementAction(
+  communityId: string,
+  _prev: AdminActionState,
+  formData: FormData,
+): Promise<AdminActionState> {
+  const session = await getSession();
+  if (!session) redirect('/login?next=/admin');
+
+  try {
+    await updateCommunityPlacement({
+      actorUserId: session.sub,
+      communityId,
+      input: {
+        isFeatured: formData.get('isFeatured'),
+        featuredRank: formData.get('featuredRank'),
+        directoryRank: formData.get('directoryRank'),
+      },
+    });
+  } catch (err) {
+    return toAdminActionError(err);
+  }
+
+  revalidatePath('/');
+  revalidatePath('/admin');
+  revalidatePath('/admin/communities');
+  revalidatePath('/communities');
+  return INITIAL_OK;
 }
 
 function toAdminActionError(err: unknown): AdminActionState {

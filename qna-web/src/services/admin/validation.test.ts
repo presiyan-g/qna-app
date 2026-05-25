@@ -4,6 +4,7 @@ import { AdminValidationError } from './errors';
 import {
   normalizeAdminQuery,
   normalizeAdminReason,
+  normalizeCommunityPlacementInput,
   normalizeCommunityStatusFilter,
   normalizeUserStatusFilter,
 } from './validation';
@@ -34,6 +35,59 @@ describe('normalizeCommunityStatusFilter', () => {
     assert.equal(normalizeCommunityStatusFilter(null), 'active');
     assert.throws(
       () => normalizeCommunityStatusFilter('deleted'),
+      AdminValidationError,
+    );
+  });
+});
+
+describe('normalizeCommunityPlacementInput', () => {
+  it('normalizes featured and browse placement fields', () => {
+    assert.deepEqual(
+      normalizeCommunityPlacementInput({
+        isFeatured: 'on',
+        featuredRank: ' 2 ',
+        directoryRank: ' 10 ',
+      }),
+      {
+        isFeatured: true,
+        featuredRank: 2,
+        directoryRank: 10,
+      },
+    );
+  });
+
+  it('clears blank rank fields and ignores featured rank when not featured', () => {
+    assert.deepEqual(
+      normalizeCommunityPlacementInput({
+        isFeatured: null,
+        featuredRank: '4',
+        directoryRank: '',
+      }),
+      {
+        isFeatured: false,
+        featuredRank: null,
+        directoryRank: null,
+      },
+    );
+  });
+
+  it('rejects negative or non-integer ranks', () => {
+    assert.throws(
+      () =>
+        normalizeCommunityPlacementInput({
+          isFeatured: 'on',
+          featuredRank: '-1',
+          directoryRank: '3',
+        }),
+      AdminValidationError,
+    );
+    assert.throws(
+      () =>
+        normalizeCommunityPlacementInput({
+          isFeatured: 'on',
+          featuredRank: '1.5',
+          directoryRank: '3',
+        }),
       AdminValidationError,
     );
   });

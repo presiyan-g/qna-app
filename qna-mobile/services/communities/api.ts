@@ -20,6 +20,7 @@ export type Community = {
   category?: CommunityCategory | null;
   isFeatured?: boolean;
   featuredRank?: number | null;
+  directoryRank?: number | null;
   memberCount: number;
   liveQuestionCount?: number;
   unansweredQuestionCount?: number;

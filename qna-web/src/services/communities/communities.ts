@@ -109,7 +109,7 @@ export async function searchCommunities({
         eq(communities.categoryId, communityCategories.id),
       )
       .where(where)
-      .orderBy(desc(communities.createdAt))
+      .orderBy(asc(communities.directoryRank), desc(communities.createdAt))
       .limit(safeLimit)
       .offset(safeOffset),
     db

@@ -57,7 +57,7 @@ export default async function CommunitiesPage({
       <Nav />
       <section className="px-6 py-12 md:px-12 md:py-16">
         <div className="mx-auto max-w-[1200px]">
-          <div className="mb-8 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div className="mb-8">
             <div>
               <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
                 Communities
@@ -66,12 +66,6 @@ export default async function CommunitiesPage({
                 Find a recurring challenge worth showing up for.
               </h1>
             </div>
-            <Link
-              href={session ? '/communities/new' : '/login'}
-              className="inline-flex items-center justify-center whitespace-nowrap rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-paper"
-            >
-              Create community
-            </Link>
           </div>
 
           <form action="/communities" className="mb-6">

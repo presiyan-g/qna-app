@@ -8,7 +8,10 @@ import {
 } from '@/services/admin';
 import { restoreCommunityAction } from '../actions';
 import { getSession } from '@/services/auth';
-import { ArchiveCommunityForm } from '../_components/AdminForms';
+import {
+  ArchiveCommunityForm,
+  CommunityPlacementForm,
+} from '../_components/AdminForms';
 import { AdminShell } from '../_components/AdminShell';
 
 type AdminCommunitiesPageProps = {
@@ -89,7 +92,10 @@ export default async function AdminCommunitiesPage({
               <p className="mt-1 text-ink/70">/{community.slug}</p>
               <div className="mt-4 grid gap-2 sm:grid-cols-4">
                 <Metric label="Status" value={community.status} />
-                <Metric label="Creator" value={`@${community.creatorUsername}`} />
+                <Metric
+                  label="Creator"
+                  value={`@${community.creatorUsername}`}
+                />
                 <Metric
                   label="Members"
                   value={community.memberCount.toLocaleString('en-US')}
@@ -98,20 +104,37 @@ export default async function AdminCommunitiesPage({
                   label="Created"
                   value={community.createdAt.toLocaleDateString('en-US')}
                 />
+                <Metric
+                  label="Featured"
+                  value={
+                    community.isFeatured
+                      ? `Yes - ${formatRank(community.featuredRank)}`
+                      : 'No'
+                  }
+                />
+                <Metric
+                  label="Browse"
+                  value={formatRank(community.directoryRank)}
+                />
               </div>
             </div>
-            {community.status === 'active' ? (
-              <ArchiveCommunityForm communityId={community.id} />
-            ) : (
-              <form action={restoreCommunityAction.bind(null, community.id)}>
-                <button
-                  type="submit"
-                  className="rounded-lg border border-line px-4 py-2 text-sm font-bold text-ink"
-                >
-                  Restore community
-                </button>
-              </form>
-            )}
+            <div className="space-y-4">
+              {community.status === 'active' ? (
+                <>
+                  <CommunityPlacementForm community={community} />
+                  <ArchiveCommunityForm communityId={community.id} />
+                </>
+              ) : (
+                <form action={restoreCommunityAction.bind(null, community.id)}>
+                  <button
+                    type="submit"
+                    className="rounded-lg border border-line px-4 py-2 text-sm font-bold text-ink"
+                  >
+                    Restore community
+                  </button>
+                </form>
+              )}
+            </div>
           </section>
         ))}
         {communities.length === 0 ? (
@@ -144,6 +167,10 @@ async function loadCommunities(
     if (err instanceof AdminPermissionError) notFound();
     throw err;
   }
+}
+
+function formatRank(value: number | null): string {
+  return value == null ? 'Unranked' : value.toLocaleString('en-US');
 }
 
 function Metric({ label, value }: { label: string; value: string }) {

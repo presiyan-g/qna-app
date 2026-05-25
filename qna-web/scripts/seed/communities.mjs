@@ -40,6 +40,7 @@ export async function seedCommunities(db, ctx) {
         status: 'active',
         isFeatured: community.isFeatured,
         featuredRank: community.featuredRank,
+        directoryRank: community.directoryRank ?? null,
       })
       .onConflictDoUpdate({
         target: communities.slug,
@@ -53,6 +54,7 @@ export async function seedCommunities(db, ctx) {
           status: 'active',
           isFeatured: community.isFeatured,
           featuredRank: community.featuredRank,
+          directoryRank: community.directoryRank ?? null,
         },
       })
       .returning({ id: communities.id, slug: communities.slug });

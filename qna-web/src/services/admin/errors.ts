@@ -21,7 +21,12 @@ export class AdminNotFoundError extends Error {
 
 export class AdminValidationError extends Error {
   constructor(
-    public fieldErrors: Partial<Record<'reason' | 'q' | 'status', string>>,
+    public fieldErrors: Partial<
+      Record<
+        'reason' | 'q' | 'status' | 'featuredRank' | 'directoryRank',
+        string
+      >
+    >,
   ) {
     super('Invalid admin input.');
     this.name = 'AdminValidationError';

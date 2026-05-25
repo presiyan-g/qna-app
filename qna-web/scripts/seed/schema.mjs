@@ -68,6 +68,7 @@ export const communities = pgTable(
     status: communityStatusEnum('status').notNull(),
     isFeatured: boolean('is_featured').notNull(),
     featuredRank: integer('featured_rank'),
+    directoryRank: integer('directory_rank'),
     createdAt: timestamp('created_at', { withTimezone: true }),
     updatedAt: timestamp('updated_at', { withTimezone: true }),
   },

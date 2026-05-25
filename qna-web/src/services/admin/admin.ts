@@ -1,6 +1,7 @@
 import 'server-only';
 import {
   and,
+  asc,
   count,
   desc,
   eq,
@@ -22,6 +23,7 @@ import {
 import {
   normalizeAdminQuery,
   normalizeAdminReason,
+  normalizeCommunityPlacementInput,
   type CommunityStatusFilter,
   type UserStatusFilter,
 } from './validation';
@@ -317,7 +319,7 @@ export async function searchAdminCommunities({
     .leftJoin(communityMembers, eq(communities.id, communityMembers.communityId))
     .where(where)
     .groupBy(communities.id, users.username)
-    .orderBy(desc(communities.createdAt))
+    .orderBy(asc(communities.directoryRank), desc(communities.createdAt))
     .limit(clampLimit(limit))
     .offset(Math.max(offset, 0));
 
@@ -326,6 +328,41 @@ export async function searchAdminCommunities({
     creatorUsername: row.creatorUsername,
     memberCount: Number(row.memberCount),
   }));
+}
+
+export async function updateCommunityPlacement({
+  actorUserId,
+  communityId,
+  input,
+}: {
+  actorUserId: string;
+  communityId: string;
+  input: {
+    isFeatured: unknown;
+    featuredRank: unknown;
+    directoryRank: unknown;
+  };
+}) {
+  await requireAdminActor(actorUserId);
+  const placement = normalizeCommunityPlacementInput(input);
+  const community = await getCommunityOrThrow(communityId);
+
+  await db
+    .update(communities)
+    .set({
+      isFeatured: placement.isFeatured,
+      featuredRank: placement.featuredRank,
+      directoryRank: placement.directoryRank,
+      updatedAt: new Date(),
+    })
+    .where(eq(communities.id, community.id));
+
+  await writeAuditLog({
+    actorUserId,
+    action: 'community_placement_updated',
+    targetCommunityId: community.id,
+    reason: 'Updated community placement from admin panel.',
+  });
 }
 
 export async function archiveCommunity({

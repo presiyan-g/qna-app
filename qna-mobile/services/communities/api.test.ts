@@ -21,6 +21,7 @@ const community = {
   },
   isFeatured: true,
   featuredRank: 1,
+  directoryRank: 2,
   memberCount: 12,
   currentUserRole: null,
   createdAt: '2026-05-21T09:00:00.000Z',

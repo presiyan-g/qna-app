@@ -127,6 +127,7 @@ function toCommunityResource(
       : null,
     isFeatured: community.isFeatured,
     featuredRank: community.featuredRank,
+    directoryRank: community.directoryRank,
     memberCount: community.memberCount,
     liveQuestionCount: community.liveQuestionCount,
     unansweredQuestionCount: community.unansweredQuestionCount,

@@ -45,6 +45,9 @@ export async function GET(request: NextRequest, { params }: RouteContext) {
             description: community.category.description,
           }
         : null,
+      isFeatured: community.isFeatured,
+      featuredRank: community.featuredRank,
+      directoryRank: community.directoryRank,
       memberCount: community.memberCount,
       liveQuestionCount: community.liveQuestionCount,
       unansweredQuestionCount: community.unansweredQuestionCount,

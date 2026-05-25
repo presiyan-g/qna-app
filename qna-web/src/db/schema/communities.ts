@@ -69,6 +69,7 @@ export const communities = pgTable(
     status: communityStatusEnum('status').notNull().default('active'),
     isFeatured: boolean('is_featured').notNull().default(false),
     featuredRank: integer('featured_rank'),
+    directoryRank: integer('directory_rank'),
     createdAt: timestamp('created_at', { withTimezone: true })
       .notNull()
       .defaultNow(),
@@ -82,6 +83,7 @@ export const communities = pgTable(
     index('communities_category_id_idx').on(table.categoryId),
     index('communities_created_at_idx').on(table.createdAt),
     index('communities_featured_idx').on(table.isFeatured, table.featuredRank),
+    index('communities_directory_rank_idx').on(table.directoryRank),
   ],
 );
 
