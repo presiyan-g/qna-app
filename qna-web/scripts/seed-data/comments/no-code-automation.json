@@ -1,0 +1,227 @@
+[
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "Okay, I definitely overthought this. I was trying to devise a complex logic for matching based on multiple fields, thinking that was the only way to be totally safe. Ended up picking the mapping option last minute. Glad I did, because it seems like the obvious choice in hindsight for this kind of task."
+    },
+    "reply": {
+      "body": "Same! My brain went straight to 'what if the email changes?' mode. But you're right, that's exactly what a unique ID field is for. Simpler is usually better in these automation puzzles, I'm learning."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "I initially picked the option about logging errors separately to a different sheet, but then reread the question about *not losing the lead*. That step alone wouldn't recover the actual prospect data if the Slack part failed. Had to backtrack on that one!"
+    },
+    "reply": {
+      "body": "Yeah, I almost did the same thing! The 'log error' feels like a good safety net, but it doesn't solve the problem of *resending* the lead to Slack if that first step choked. The wait and branch is way more active for recovery."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "Chose option B, the looping mechanism. Was a bit unsure at first if there was a hidden trick or a more 'clever' way to batch process it, but the loop seemed the most straightforward for handling each user individually. Glad the explanation confirmed that intuition. Had a similar problem last week and ended up doing it manually for a small list, which was a pain."
+    },
+    "reply": {
+      "body": "Yeah, looping is definitely the standard. I've seen some platforms try to get fancy with 'map' or 'reduce' type functions, but they often end up being more complex than a simple loop for this kind of task. Stick to the loop and keep it simple!"
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "Went with the AI text analysis option. Honestly, parsing freeform text felt like it would be impossible without writing some serious regex, but hoping the AI can handle the nuances of customer complaints."
+    },
+    "reply": {
+      "body": "Totally agree. I was staring at the other options, thinking about how I'd have to manually tag every possible variation of a 'login issue'. The built-in NLP really saved me a ton of time on a recent project. It's not perfect, but good enough for categorizing."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "I almost went with 'starts with', but then second-guessed myself. What if they wrote 'Please Approve' or 'I Reject This'? That 'contains' logic is definitely the way to go for anything open-ended like this. Surprised more people didn't pick it!"
+    },
+    "reply": {
+      "body": "Totally agree. I selected 'contains' too. I've had too many workflows break because I was too strict with the input matching. It's like, people can't just give you a clean 'yes' or 'no' sometimes, right? 'Contains' is the safety net."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "I went with the direct mapping option. Honestly, the other choices seemed way too complicated for what I needed. I remember one project where I tried to parse JSON in a really convoluted way and it took forever to debug. Glad there's a simpler path now."
+    },
+    "reply": {
+      "body": "Totally agree. Direct mapping is the way to go for specific fields. The key is realizing you don't always need a full JSON parser step if you can target what you need immediately. Saves so much time and headache."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "Okay, I definitely picked A initially because it seemed like the most straightforward option to just run the automation, but then I was thinking about actual errors. What happens if one email fails? Does the whole batch die? My mental model was a bit fuzzy on how the platform handles individual row failures versus a whole process failure. This question made me rethink."
+    },
+    "reply": {
+      "body": "Yeah, that's the tricky part with batch processing in no-code! Without explicit looping, a single hiccup can derail everything. I use loops constantly just to isolate issues and build in retry logic for specific records. It's less efficient if everything works perfectly, but way more robust when things inevitably go sideways."
+    }
+  },
+  {
+    "questionIndex": 7,
+    "topLevel": {
+      "body": "Went with option C. Seemed the most logical flow. The main hangup for me was remembering to pass the new folder ID to the document creation step. Took me a while on my first automation project to figure out how to reference dynamic data like that. Now it's second nature though!"
+    },
+    "reply": {
+      "body": "Totally agree, C is the way. That dynamic referencing can be a beast when you're starting out. I usually make sure my platforms highlight that 'output' data clearly. It's saved me so many headaches when I need to loop or create linked items."
+    }
+  },
+  {
+    "questionIndex": 8,
+    "topLevel": {
+      "body": "I almost went with the 'Filter Rows then Compare' option. My gut told me there had to be a simpler way though. Glad I trusted that instinct this time, because that would have been a nightmare to build out correctly."
+    },
+    "reply": {
+      "body": "Same here! I spent way too much time trying to figure out how to self-reference a filtered list before realizing tools often have built-in deduplication for specific fields. Definitely a time-saver."
+    }
+  },
+  {
+    "questionIndex": 9,
+    "topLevel": {
+      "body": "Option C definitely got me for a sec. I almost went with generating them on the fly because it seemed simpler, but then I remembered a past project where that became a total mess. Glad I re-read the options carefully. The hidden sheet approach feels so much cleaner long-term."
+    },
+    "reply": {
+      "body": "Totally agree! Generating on the fly sounds good until you hit a rate limit or some other weird glitch. Having a pre-generated list you can just pull from is way more robust. I usually create a separate sheet with a list of codes in one column and a 'used' status in another. Pull the next available, mark it used. Simple but effective."
+    }
+  },
+  {
+    "questionIndex": 10,
+    "topLevel": {
+      "body": "Definitely chose option B on this one. Had a real moment of panic last week when a form submission triggered two separate entries in my CRM because I forgot to implement the 'find first' step. Lesson learned the hard way!"
+    },
+    "reply": {
+      "body": "Oh man, been there! That duplicate record pain is the worst. I usually use a 'search' step before any 'create' action, even if it feels like overkill sometimes. It's saved me so much cleanup work down the line, totally worth the extra step."
+    }
+  },
+  {
+    "questionIndex": 11,
+    "topLevel": {
+      "body": "Okay, I definitely went with 'Scheduled Trigger' for this one. My brain almost got hung up on the 'first Monday' part, wondering if there was a more complex way to define that, but ultimately, that's exactly what a schedule is for, right? Just set it and forget it."
+    },
+    "reply": {
+      "body": "Yeah, I picked scheduled too. It's the most straightforward for recurring things. I did have a moment where I considered if a webhook from a calendar app *could* work, but that's way more complicated than it needs to be for this!"
+    }
+  },
+  {
+    "questionIndex": 12,
+    "topLevel": {
+      "body": "Ended up going with option B, the filter after the update. Honestly thought it would be more complex, like needing a separate branch or something. The explanation makes it sound so simple though, almost too simple? Just checking the number after it changes. It's a good reminder that sometimes the most obvious path is the right one in these automations."
+    },
+    "reply": {
+      "body": "Totally agree! I was overthinking it too, looking for some advanced lookup or comparison. The filter step is definitely the cleanest way. It avoids extra steps and keeps the flow linear and easy to understand. Plus, if you ever need to add more alerts based on different thresholds, you just add more filters."
+    }
+  },
+  {
+    "questionIndex": 13,
+    "topLevel": {
+      "body": "Went with the Filter step. Honestly, I almost picked the 'Search' action but that felt like it was for finding something *within* the email body, not for directing the whole ticket. Glad I re-read the prompt before hitting submit. Anyone else second guess that one?"
+    },
+    "reply": {
+      "body": "Totally! The 'Search' action definition can be a bit fuzzy. I ended up Googling how it worked in Zapier vs Make and Filter was definitely the clearer choice for routing based on a subject line keyword. Good catch on not overthinking it."
+    }
+  },
+  {
+    "questionIndex": 14,
+    "topLevel": {
+      "body": "I almost went with manually tagging in the CRM, but realized how messy that could get for thousands of customers. The URL parameter approach seemed way cleaner for tracking. Glad they clarified it this way, thought it might be an obvious one but the manual tagging trap is real!"
+    },
+    "reply": {
+      "body": "Totally agree! The manual tagging is tempting for smaller lists, but the URL parameter is the standard for a reason. It scales so much better and avoids so many potential errors down the line. Good intuition on that."
+    }
+  },
+  {
+    "questionIndex": 15,
+    "topLevel": {
+      "body": "I almost picked database lookup for this, but then remembered the webhook trigger has that built-in data parsing by default. Felt like a trap! Glad I double-checked the trigger options before committing to a more complex step. It's those subtle differences in trigger capabilities that make or break a workflow."
+    },
+    "reply": {
+      "body": "Totally get that. It's easy to overthink it and go for a tool you're familiar with, like a database step, when the solution is right there in front of you from the start. The trick is just trusting that the webhook data is already structured when it hits your automation. Saves so much time!"
+    }
+  },
+  {
+    "questionIndex": 16,
+    "topLevel": {
+      "body": "Definitely went with the lookup function. My first thought was a filter, but that felt clunky for checking against a whole separate list. Glad to know I was on the right track. I always forget about the lookup until I'm deep in it and realize I'm doing way too much work."
+    },
+    "reply": {
+      "body": "Yeah, the lookup is the secret weapon for this type of task. Filter is good for simple conditions within the same data set, but for external data or a predefined list, lookup is king. Saved me so much headache in the early days."
+    }
+  },
+  {
+    "questionIndex": 17,
+    "topLevel": {
+      "body": "I almost picked the scheduled sync because it seemed simpler to set up initially. But then I remembered a time last year when a whole batch of leads got missed because the sync window was just a little too late. Webhooks are definitely the way to go for real-time stuff like this, even if they are a bit more complex to configure."
+    },
+    "reply": {
+      "body": "Yeah, the initial setup for webhooks can be a pain point. But once it's running, you forget about it! No more chasing missed data. For customer-facing data, reliability totally trumps that initial setup hurdle, in my opinion."
+    }
+  },
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "I picked A, mapping by email. It felt like the most common unique identifier. Glad the explanation clarified why explicitly using a dedicated customer ID is even better though. Had a close call once where I just assumed email was always unique enough and ended up with a mess."
+    },
+    "reply": {
+      "body": "Totally agree. Email feels intuitive, but it's not always the perfect source of truth, especially if people use multiple or change them. Relying on a system-generated ID is way more robust for cross-platform stuff. Learned that the hard way too with some early Zapier integrations."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "Okay, I definitely picked C initially (just retrying the whole thing automatically). Then I saw the explanation about error handling branches. That makes so much more sense. I've had automations get stuck in loops before because I didn't have a proper branch for failures. Learning opportunity!"
+    },
+    "reply": {
+      "body": "Totally agree, the default retry felt too blunt. I was leaning towards just flagging it in a separate error log, but the wait and branch option seems much more integrated. It means you can potentially fix the Slack issue and then tell *that specific* lead's trigger to re-run without touching anything else. Saves so much manual sifting."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "I picked the loop function immediately. It just makes sense that to hit each user, you'd need to 'loop' through them. My only hesitation was wondering if there were some fancy webhook trick or advanced filtering I was missing that could somehow avoid a literal loop. But yeah, loops are standard for lists."
+    },
+    "reply": {
+      "body": "Totally agree. The 'loop' is the bread and butter for list processing in no-code. I've seen people try to get creative with individual filter steps for each user if the list is small, but that scales terribly. Looping is the only sensible way for dynamic lists."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "I almost went with regular expressions because I've used them before for simpler text parsing tasks. But then I remembered that trying to catch all variations of 'login issue' or 'billing error' with regex would be a nightmare. Glad I saw the NLP option first, feels way more robust for this kind of feedback."
+    },
+    "reply": {
+      "body": "Totally. Regex is good for patterns, but understanding intent in messy human language is where NLP shines. I've spent too many hours debugging complex regex only to miss a simple typo. This approach is much smarter for feedback analysis."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "I almost went with 'starts with' but then pictured a manager writing 'Approve this please, it's urgent.' My automation would have failed miserably. Definitely glad I reread the options and landed on 'contains'. Saved me future headaches!"
+    },
+    "reply": {
+      "body": "Totally agree! 'Starts with' felt intuitive at first, but you're right, those little additions managers throw in can break things. 'Contains' feels like the safest bet for anything that needs to parse natural language responses."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "I went with the 'map fields directly' option. Honestly, I almost second-guessed myself because it felt *too* simple. Was expecting some kind of transformation step in between. Glad to know that's the intended way though, saves fiddling with intermediate logic!"
+    },
+    "reply": {
+      "body": "Totally agree! I did the same. The trick for me is remembering that these platforms are getting smart enough to handle direct mapping cleanly. It's not like the old days where you'd NEED to parse everything into a temp variable first."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "Definitely went with the looping option. I was a bit worried about how it would handle errors if one email failed, but the description said it's good for individual processing, so I figured that's the way to go. My last attempt ended up sending duplicate emails because I didn't set it up right."
+    },
+    "reply": {
+      "body": "Yeah, loops are the key. If you don't use a loop, you're basically just processing the first row and then stopping, unless your platform has some weird auto-processing feature. Handling failures within the loop is a whole other beast though - gotta set up those error catch blocks carefully."
+    }
+  }
+]

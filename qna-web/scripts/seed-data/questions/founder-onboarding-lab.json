@@ -1,0 +1,462 @@
+[
+  {
+    "prompt": "When analyzing user onboarding, which metric best indicates immediate product value realization and the potential for long-term retention?",
+    "explanation": "Time to First Value (TTFV) directly measures how quickly a user experiences the core benefit of the product. This rapid value realization is crucial for early engagement and combating churn.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "User registration completion rate",
+        "isCorrect": false
+      },
+      {
+        "label": "Time to First Value (TTFV)",
+        "isCorrect": true
+      },
+      {
+        "label": "Number of feature adoptions within the first week",
+        "isCorrect": false
+      },
+      {
+        "label": "Customer Acquisition Cost (CAC)",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When designing a user onboarding flow, which of the following actions is most crucial for driving early user engagement and establishing a habit loop?",
+    "explanation": "Achieving the 'aha!' moment, where users discover the core value proposition, is the most critical step. This moment directly leads to engagement and sets the stage for habit formation.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Completing the user profile setup.",
+        "isCorrect": false
+      },
+      {
+        "label": "Experiencing the core value proposition ('aha!' moment).",
+        "isCorrect": true
+      },
+      {
+        "label": "Watching all introductory video tutorials.",
+        "isCorrect": false
+      },
+      {
+        "label": "Inviting team members to the platform.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When considering the critical path to activation for new users, which element of the onboarding experience is most likely to directly impact their ability to achieve the 'aha!' moment?",
+    "explanation": "Guiding users to complete a core action that demonstrates the product's primary value is paramount. This direct experience solidifies understanding and makes the benefit tangible, leading to the 'aha!' moment.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Collecting extensive user profile information",
+        "isCorrect": false
+      },
+      {
+        "label": "Presenting a comprehensive overview of all product features",
+        "isCorrect": false
+      },
+      {
+        "label": "Facilitating a key action that delivers immediate value",
+        "isCorrect": true
+      },
+      {
+        "label": "Requiring users to watch multiple tutorial videos before proceeding",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When a SaaS product aims to reduce early churn, which onboarding strategy is most effective at ensuring users discover and integrate the core value proposition into their workflow?",
+    "explanation": "Guiding users to successfully complete a key action that demonstrates value helps them integrate the product into their workflow. This direct experience with the core benefit is crucial for long-term retention.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Providing comprehensive documentation and tutorials upfront.",
+        "isCorrect": false
+      },
+      {
+        "label": "Implementing interactive, action-oriented guidance that leads to a 'first win'.",
+        "isCorrect": true
+      },
+      {
+        "label": "Requesting detailed user profile information for personalization.",
+        "isCorrect": false
+      },
+      {
+        "label": "Offering a free trial with unrestricted access to all features.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When optimizing the initial user experience of a new SaaS product, what strategy most effectively bridges the gap between a user signing up and them achieving a moment of genuine product engagement?",
+    "explanation": "Guiding users to their first 'success moment' by demonstrating core value quickly is paramount. This often involves a well-designed tutorial or guided experience that highlights the key benefit they signed up for.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Implementing a comprehensive, multi-step tutorial covering every feature.",
+        "isCorrect": false
+      },
+      {
+        "label": "Asking users to complete a lengthy profile setup before entering the product.",
+        "isCorrect": false
+      },
+      {
+        "label": "Designing a concise, value-driven 'first run' experience that leads to a quick win.",
+        "isCorrect": true
+      },
+      {
+        "label": "Providing access to all advanced features immediately upon signup.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the context of early-stage SaaS product onboarding, what is the primary benefit of guiding users to complete a core, value-driving action within their first session?",
+    "explanation": "Focusing on a core action helps users experience the product's primary value proposition quickly. This immediate 'win' is crucial for driving activation and setting the stage for sustained engagement and retention.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Collecting detailed user feedback for future iterations.",
+        "isCorrect": false
+      },
+      {
+        "label": "Demonstrating the full range of advanced features immediately.",
+        "isCorrect": false
+      },
+      {
+        "label": "Enabling users to achieve a tangible outcome and understand the product's core value.",
+        "isCorrect": true
+      },
+      {
+        "label": "Reducing the need for comprehensive documentation or tutorials.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When designing the initial user experience for a B2B SaaS product, what is the most effective method to ensure users quickly understand and utilize the core functionality that solves their primary problem?",
+    "explanation": "Guiding users to complete a single, high-value action that demonstrates immediate benefit helps them overcome the initial learning curve. This focused approach showcases the product's core value proposition and increases the likelihood of sustained engagement.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Providing an exhaustive, multi-page tutorial covering every feature",
+        "isCorrect": false
+      },
+      {
+        "label": "Offering a sandbox environment with pre-populated data for exploration",
+        "isCorrect": false
+      },
+      {
+        "label": "Directly guiding the user through completing one key task that delivers immediate value",
+        "isCorrect": true
+      },
+      {
+        "label": "Displaying a comprehensive feature checklist upon first login",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When analyzing the effectiveness of early user engagement strategies in a new product, which of the following provides the most direct insight into whether users are experiencing the core value proposition?",
+    "explanation": "Tracking the completion of a core, value-driving action is the most direct way to confirm that a user has successfully navigated the onboarding and experienced what the product is designed to deliver. This signals successful activation and a higher likelihood of retention.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Number of tutorial screens viewed",
+        "isCorrect": false
+      },
+      {
+        "label": "Time spent in the application during the first session",
+        "isCorrect": false
+      },
+      {
+        "label": "Completion of a key, value-generating user action",
+        "isCorrect": true
+      },
+      {
+        "label": "Number of features explored",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When seeking to understand if users are experiencing the core value of a new SaaS product, which of the following onboarding activities is the most direct indicator of success?",
+    "explanation": "Observing whether a user successfully completes a core, value-driving action directly shows they've engaged with the product's intended purpose. This active engagement is a stronger signal of value realization than passive metrics like profile completion or tooltips read.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Measuring the number of tooltips or feature guides a user views.",
+        "isCorrect": false
+      },
+      {
+        "label": "Tracking the completion rate of a user's first core, value-generating task.",
+        "isCorrect": true
+      },
+      {
+        "label": "Analyzing the time spent on the initial setup or profile creation screens.",
+        "isCorrect": false
+      },
+      {
+        "label": "Counting the number of features explored during the first session.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When analyzing the early success of a new user in a SaaS product, which of the following user behaviors most strongly suggests they have discovered and experienced the core value proposition?",
+    "explanation": "Successfully completing a core value-driving action demonstrates the user has understood the product's primary benefit and is actively using it to solve their problem. This active engagement is a much stronger signal of activation than passive actions or initial setup.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Completing the initial profile setup and tutorial.",
+        "isCorrect": false
+      },
+      {
+        "label": "Inviting team members or collaborators to join the platform.",
+        "isCorrect": false
+      },
+      {
+        "label": "Performing a key action that directly delivers the product's main benefit (e.g., creating a project, sending a message, analyzing data).",
+        "isCorrect": true
+      },
+      {
+        "label": "Visiting multiple feature pages within the application.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When onboarding a new user to a SaaS product, what is the most effective way to ensure they experience the core value proposition early on?",
+    "explanation": "Guiding users immediately to complete a core, value-driving action allows them to see the product's primary benefit firsthand. This direct experience is far more impactful than passive learning or exploration for establishing initial value perception.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Providing a comprehensive video tutorial library explaining all features.",
+        "isCorrect": false
+      },
+      {
+        "label": "Asking users to fill out a detailed profile before accessing the product.",
+        "isCorrect": false
+      },
+      {
+        "label": "Directing users to perform a key action that delivers immediate value.",
+        "isCorrect": true
+      },
+      {
+        "label": "Offering a lengthy interactive product tour with many steps.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When a new user signs up for a SaaS product, what qualitative feedback gathering method is most effective for understanding their initial friction points and unmet expectations during their first interaction?",
+    "explanation": "Observing users interact with the product in real-time allows for the identification of specific points of confusion or frustration as they occur. This direct observation yields richer insights than self-reported data, which can be retrospective and less precise about the immediate user experience.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Conducting post-signup email surveys capturing overall satisfaction.",
+        "isCorrect": false
+      },
+      {
+        "label": "Analyzing in-app analytics for feature usage patterns.",
+        "isCorrect": false
+      },
+      {
+        "label": "Performing live, unmoderated usability tests focused on core task completion.",
+        "isCorrect": true
+      },
+      {
+        "label": "Reviewing support tickets submitted by new users.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When designing a user onboarding flow, what is the most effective way to guide new users towards experiencing the core value proposition of your product as quickly as possible?",
+    "explanation": "Focusing on a single, high-impact setup action allows users to immediately see how the product solves their primary problem. This direct path to value realization is crucial for early activation and retention.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Completing a comprehensive profile setup before feature access.",
+        "isCorrect": false
+      },
+      {
+        "label": "Guiding users through a single, critical setup step that unlocks core functionality.",
+        "isCorrect": true
+      },
+      {
+        "label": "Providing an extensive tutorial covering all product features.",
+        "isCorrect": false
+      },
+      {
+        "label": "Asking users to define their goals with a detailed questionnaire.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When onboarding new users to a SaaS product, which approach is most effective for ensuring they understand not just *how* to use the product, but *why* it's valuable for their specific needs?",
+    "explanation": "Focusing on the user's 'job to be done' during onboarding ensures they connect the product's features to their personal goals. This contextual relevance is key to demonstrating value and driving adoption.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "A comprehensive, feature-by-feature tutorial covering every aspect of the product.",
+        "isCorrect": false
+      },
+      {
+        "label": "A guided setup process that helps the user define their primary goal and then demonstrates the product's solution to that specific goal.",
+        "isCorrect": true
+      },
+      {
+        "label": "Providing access to extensive documentation and a knowledge base from the outset.",
+        "isCorrect": false
+      },
+      {
+        "label": "Encouraging users to explore the product freely and discover its uses on their own.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When a new user encounters your product for the first time, what is the most effective way to demonstrate its core value proposition quickly and efficiently, setting the stage for activation?",
+    "explanation": "Guiding users to perform a primary, value-driving action within their first session is the most direct way to showcase the product's core benefit. This hands-on experience allows users to 'feel' the value rather than just being told about it.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Watch a lengthy introductory video explaining all features.",
+        "isCorrect": false
+      },
+      {
+        "label": "Complete a guided setup wizard that automates core tasks.",
+        "isCorrect": false
+      },
+      {
+        "label": "Successfully execute a key workflow that solves their main problem.",
+        "isCorrect": true
+      },
+      {
+        "label": "Explore a comprehensive knowledge base of all available features.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When designing an onboarding flow for a new SaaS product, what is the most critical element to focus on to ensure users quickly understand the product's core benefit and achieve initial success?",
+    "explanation": "Focusing on a user achieving a 'first win' or experiencing core value quickly is paramount. This immediate positive reinforcement dramatically increases the likelihood of activation and retention by demonstrating the product's tangible benefit early.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Comprehensive feature walkthroughs covering all advanced functionalities.",
+        "isCorrect": false
+      },
+      {
+        "label": "Requiring users to complete detailed profile setup before accessing the product.",
+        "isCorrect": false
+      },
+      {
+        "label": "Guiding users to achieve a single, high-value outcome that demonstrates the product's core benefit.",
+        "isCorrect": true
+      },
+      {
+        "label": "Providing extensive documentation and help articles accessible from the start.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When designing the initial user experience for a new SaaS product, what is the most effective way to ensure users experience the 'aha!' moment quickly and understand the core value proposition?",
+    "explanation": "Guiding users to complete a key 'aha!' action within their first session is crucial. This action should directly demonstrate the core value and solve an immediate user problem. By achieving this early, users are far more likely to recognize the product's utility and retain it.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Providing a comprehensive, multi-page tutorial overviewing all features.",
+        "isCorrect": false
+      },
+      {
+        "label": "Asking users to fill out a detailed profile before they can use the product.",
+        "isCorrect": false
+      },
+      {
+        "label": "Directing users to perform a single, high-impact action that solves a core problem.",
+        "isCorrect": true
+      },
+      {
+        "label": "Offering a discount or trial extension upon completion of initial setup.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When designing an initial user experience, what's the most crucial element to optimize for to drive early activation and retention?",
+    "explanation": "Focusing on the 'aha!' moment, where users first perceive the product's core value, is paramount. This immediate positive reinforcement is what turns initial interest into sustained engagement and reduces churn.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Offering a comprehensive tour of all features.",
+        "isCorrect": false
+      },
+      {
+        "label": "Ensuring users experience the core value proposition quickly.",
+        "isCorrect": true
+      },
+      {
+        "label": "Collecting extensive user profile data upfront.",
+        "isCorrect": false
+      },
+      {
+        "label": "Providing detailed technical documentation.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When optimizing the first-run experience for a new SaaS product, what is the most crucial factor to ensure users achieve a quick 'win' and experience the core value proposition?",
+    "explanation": "Focusing on the immediate value delivery ensures users understand the product's core benefit from the outset. This early success builds momentum and increases the likelihood of continued engagement and retention.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Comprehensive feature tour and documentation.",
+        "isCorrect": false
+      },
+      {
+        "label": "Collecting detailed user profile information upfront.",
+        "isCorrect": false
+      },
+      {
+        "label": "Guiding users to complete a key task that demonstrates core value.",
+        "isCorrect": true
+      },
+      {
+        "label": "Presenting all available product features and benefits.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When aiming to rapidly validate if a new product delivers core value, which method is most effective for gathering actionable early feedback on the user experience?",
+    "explanation": "Observing users attempting to complete a key task, especially in real-time or via recordings, provides the most direct and unvarnished feedback on whether the product's core value is being experienced and understood. This approach surfaces friction and confusion that self-reported surveys might miss.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Conducting in-depth user interviews after the onboarding is complete.",
+        "isCorrect": false
+      },
+      {
+        "label": "Analyzing quantitative metrics like feature adoption rates.",
+        "isCorrect": false
+      },
+      {
+        "label": "Observing users attempting to complete a core task during their first session.",
+        "isCorrect": true
+      },
+      {
+        "label": "Sending out a post-onboarding satisfaction survey.",
+        "isCorrect": false
+      }
+    ]
+  }
+]

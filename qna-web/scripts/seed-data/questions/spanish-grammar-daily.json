@@ -1,0 +1,462 @@
+[
+  {
+    "prompt": "¿Cuál es la forma correcta de preguntar \"Where is the bathroom?\" en español en un contexto formal?",
+    "explanation": "La pregunta  '¿Dónde está el baño?' es correcta y adecuada para la mayoría de las situaciones. Es la forma más común y directa.  '¿Dónde está el servicio?' también es aceptable, pero 'baño' es más usual.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "¿Dónde está el baño?",
+        "isCorrect": true
+      },
+      {
+        "label": "¿Dónde está el servicio?",
+        "isCorrect": false
+      },
+      {
+        "label": "¿Dónde queda el baño?",
+        "isCorrect": false
+      },
+      {
+        "label": "¿Dónde la sala de baño?",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "¿Cuál es la preposición correcta que se usa con el verbo 'pensar' cuando se refiere a una idea en la que se está reflexionando?",
+    "explanation": "El verbo 'pensar' se conjuga con la preposición 'en' cuando se refiere a reflexionar o tener algo en la mente. Por ejemplo, 'Pienso en la cena' significa que estás considerando lo que vas a cenar.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "pensar a",
+        "isCorrect": false
+      },
+      {
+        "label": "pensar de",
+        "isCorrect": false
+      },
+      {
+        "label": "pensar en",
+        "isCorrect": true
+      },
+      {
+        "label": "pensar sobre",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "¿Cuál es la forma correcta de expresar 'I am looking forward to the trip' en español, usando el verbo 'esperar'?",
+    "explanation": "La construcción correcta es 'Espero el viaje con ansias' o 'Tengo muchas ganas de que llegue el viaje'. El verbo 'esperar' por sí solo puede significar 'to hope' o 'to wait for', pero para expresar 'look forward to' se necesita añadir una expresión que indique anticipación o entusiasmo.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Espero el viaje.",
+        "isCorrect": false
+      },
+      {
+        "label": "Espero ansiosamente el viaje.",
+        "isCorrect": false
+      },
+      {
+        "label": "Espero el viaje con ansias.",
+        "isCorrect": true
+      },
+      {
+        "label": "Estoy esperando el viaje.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "En español, ¿cuál es la diferencia principal entre 'saber' y 'conocer' cuando se refieren a la posesión de información o familiaridad?",
+    "explanation": "El verbo 'saber' se usa para hechos, información específica y habilidades aprendidas (saber + infinitivo, saber + que). 'Conocer' se usa para familiaridad con personas, lugares o cosas. Por lo tanto, sabes un dato, pero conoces a una persona.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Saber se usa para hechos e información, mientras que conocer es para familiaridad con personas y lugares.",
+        "isCorrect": true
+      },
+      {
+        "label": "Se pueden usar indistintamente, ya que ambos significan 'to know'.",
+        "isCorrect": false
+      },
+      {
+        "label": "Saber se refiere a habilidades físicas, y conocer a habilidades mentales.",
+        "isCorrect": false
+      },
+      {
+        "label": "Conocer se usa para información abstracta, y saber para información concreta.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "¿Cuál es la forma correcta de decir 'I live in Madrid' en español, enfocándose en la permanencia de la residencia?",
+    "explanation": "Se usa 'vivir en' para indicar el lugar de residencia. La preposición 'en' es la correcta para indicar la ubicación de la vivienda.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Yo habito en Madrid.",
+        "isCorrect": false
+      },
+      {
+        "label": "Yo vivo en Madrid.",
+        "isCorrect": true
+      },
+      {
+        "label": "Yo resido en Madrid.",
+        "isCorrect": false
+      },
+      {
+        "label": "Yo estoy en Madrid.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Cuando se habla de una acción que se repite con frecuencia, ¿cuál es el uso gramatical correcto en español para indicar esa habitualidad?",
+    "explanation": "El presente simple en español se utiliza para acciones habituales o que se repiten con frecuencia. Por ejemplo, 'Cada día leo el periódico.'",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "El pretérito perfecto compuesto",
+        "isCorrect": false
+      },
+      {
+        "label": "El presente simple",
+        "isCorrect": true
+      },
+      {
+        "label": "El futuro simple",
+        "isCorrect": false
+      },
+      {
+        "label": "El subjuntivo presente",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "¿Cuál es la forma correcta de usar el pretérito imperfecto para describir una acción habitual en el pasado?",
+    "explanation": "El pretérito imperfecto se usa para describir acciones habituales o repetidas en el pasado, indicando que algo ocurría de forma continua. No se enfoca en el inicio o fin de la acción, sino en su duración o repetición en el tiempo.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Yo comía manzanas todos los días.",
+        "isCorrect": true
+      },
+      {
+        "label": "Yo comí manzanas todos los días.",
+        "isCorrect": false
+      },
+      {
+        "label": "Yo he comido manzanas todos los días.",
+        "isCorrect": false
+      },
+      {
+        "label": "Yo comeré manzanas todos los días.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "¿Cuál es la forma correcta de estructurar una pregunta sobre la opinión de alguien en español usando el verbo 'parecer'?",
+    "explanation": "El verbo 'parecer' se utiliza a menudo de forma impersonal en estas estructuras, seguido de 'que' y el pronombre o sujeto. '¿Qué te parece si...' es una forma común y natural de pedir opinión.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "¿Qué te parece si vamos al cine?",
+        "isCorrect": true
+      },
+      {
+        "label": "¿Qué te parece que vamos al cine?",
+        "isCorrect": false
+      },
+      {
+        "label": "¿Cómo te parece si vamos al cine?",
+        "isCorrect": false
+      },
+      {
+        "label": "¿Qué parece para ti si vamos al cine?",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "En español, ¿cuál es la forma correcta de expresar la idea de 'I am going to be there' en el futuro, indicando una acción que sucederá en un momento específico?",
+    "explanation": "La estructura 'ir a + infinitivo' se utiliza para expresar una acción futura que está planeada o que sucederá en un futuro cercano. 'Voy a estar allí' es la conjugación correcta para la primera persona del singular.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Estaré allí",
+        "isCorrect": false
+      },
+      {
+        "label": "Yo voy a estar allí",
+        "isCorrect": true
+      },
+      {
+        "label": "Voy estar allí",
+        "isCorrect": false
+      },
+      {
+        "label": "Estar allí voy",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "¿Cuál es la forma correcta de decir 'It's important to study' en español, utilizando el modo subjuntivo?",
+    "explanation": "El subjuntivo se usa después de expresiones impersonales que indican necesidad, importancia o emoción, como 'es importante'. Por lo tanto, 'Es importante que estudiemos' es la construcción correcta.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Es importante que estudiamos",
+        "isCorrect": false
+      },
+      {
+        "label": "Importa que estudiamos",
+        "isCorrect": false
+      },
+      {
+        "label": "Es importante que estudiemos",
+        "isCorrect": true
+      },
+      {
+        "label": "Importante es estudiar",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "¿Cuál es la forma correcta de conjugar el verbo 'tener' en la primera persona del singular del presente de indicativo cuando hablamos de posesión?",
+    "explanation": "La conjugación correcta del verbo 'tener' en la primera persona del singular (yo) del presente de indicativo es 'tengo'. Este verbo es irregular en esta conjugación.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "yo teno",
+        "isCorrect": false
+      },
+      {
+        "label": "yo tengo",
+        "isCorrect": true
+      },
+      {
+        "label": "yo tenés",
+        "isCorrect": false
+      },
+      {
+        "label": "yo tennho",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "¿Cuál es la forma correcta de expresar la idea de 'He is considered the best' en español, usando el verbo 'considerar' y la voz pasiva refleja?",
+    "explanation": "La voz pasiva refleja se forma con 'se' + el verbo en tercera persona (si el sujeto es singular) o tercera persona del plural (si el sujeto es plural). En este caso, 'el mejor' es singular, por lo tanto, se usa 'considera'.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Él se considera el mejor.",
+        "isCorrect": false
+      },
+      {
+        "label": "Se considera a él el mejor.",
+        "isCorrect": false
+      },
+      {
+        "label": "Se le considera el mejor.",
+        "isCorrect": false
+      },
+      {
+        "label": "Se considera el mejor.",
+        "isCorrect": true
+      }
+    ]
+  },
+  {
+    "prompt": "¿Cuál es la forma correcta de usar el gerundio en español para expresar una acción que está sucediendo en este preciso momento?",
+    "explanation": "El gerundio (andando, comiendo, viviendo) en español se usa para describir una acción en progreso. Se forma añadiendo '-ando' o '-iendo' a la raíz del verbo. Es la forma más directa de decir 'is doing something'.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Estoy trabajando mucho para el proyecto.",
+        "isCorrect": true
+      },
+      {
+        "label": "Yo trabajo mucho para el proyecto.",
+        "isCorrect": false
+      },
+      {
+        "label": "Yo voy a trabajar mucho para el proyecto.",
+        "isCorrect": false
+      },
+      {
+        "label": "Trabajaré mucho para el proyecto.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "¿Cuál es la forma correcta de conjugar el verbo 'ir' en la primera persona del singular del presente de indicativo cuando se indica movimiento hacia un lugar?",
+    "explanation": "La conjugación correcta para la primera persona del singular (yo) del verbo 'ir' en presente de indicativo es 'voy'. Esta forma se utiliza para indicar un movimiento o desplazamiento hacia un destino. Por ejemplo: 'Yo voy al mercado'.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Yo voy",
+        "isCorrect": true
+      },
+      {
+        "label": "Yo soy",
+        "isCorrect": false
+      },
+      {
+        "label": "Yo he",
+        "isCorrect": false
+      },
+      {
+        "label": "Yo iré",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "¿Cuándo se utiliza la preposición 'en' con los nombres de países o ciudades en español?",
+    "explanation": "Se usa 'en' para indicar el lugar de residencia, origen o destino. Es la preposición estándar para ubicar a alguien o algo dentro de una ciudad o país.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Siempre se usa 'a' para indicar ubicación.",
+        "isCorrect": false
+      },
+      {
+        "label": "Se usa 'en' para indicar ubicación geográfica.",
+        "isCorrect": true
+      },
+      {
+        "label": "Se usa 'sobre' para indicar que se está dentro de un lugar.",
+        "isCorrect": false
+      },
+      {
+        "label": "'En' se usa solo para posesiones, no para lugares.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "En español, ¿cuál es la forma correcta de expresar la posesión de una enfermedad o condición física, usando el verbo 'tener' o 'estar'?",
+    "explanation": "Se usa 'tener' para indicar la posesión de una enfermedad o condición física que afecta a una persona. El verbo 'estar' se reserva para condiciones temporales o estados de ánimo.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Tengo un resfriado.",
+        "isCorrect": true
+      },
+      {
+        "label": "Estoy un resfriado.",
+        "isCorrect": false
+      },
+      {
+        "label": "Tengo cansado.",
+        "isCorrect": false
+      },
+      {
+        "label": "Estoy de un resfriado.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "¿Cuál es la forma correcta de expresar la idea de 'He wishes he were taller' en español, utilizando el subjuntivo para una situación hipotética o irreal?",
+    "explanation": "Se utiliza el pretérito imperfecto de subjuntivo ('midiera' o 'midiese') para expresar deseos sobre algo que es irreal o improbable en el presente. La estructura 'Ojalá' refuerza la idea de un deseo.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Ojalá que él midiera más alto.",
+        "isCorrect": true
+      },
+      {
+        "label": "Ojalá que él mide más alto.",
+        "isCorrect": false
+      },
+      {
+        "label": "Él desea que él es más alto.",
+        "isCorrect": false
+      },
+      {
+        "label": "Ojalá él midió más alto.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "¿Cuál es la forma correcta de indicar que algo es obvio o evidente en español, utilizando el verbo 'ser' y un adjetivo?",
+    "explanation": "Se utiliza el verbo 'ser' seguido de un adjetivo para expresar cualidades inherentes o características que son evidentes. La construcción 'Es obvio que...' es fundamental para marcar la certeza.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Es obvio que necesitas estudiar más.",
+        "isCorrect": true
+      },
+      {
+        "label": "Está obvio que necesitas estudiar más.",
+        "isCorrect": false
+      },
+      {
+        "label": "Ser obvio que necesitas estudiar más.",
+        "isCorrect": false
+      },
+      {
+        "label": "Estás obvio que necesitas estudiar más.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "En español, ¿cuál es la forma correcta de expresar que algo es necesario o que se debe hacer, utilizando una construcción impersonal?",
+    "explanation": "La construcción impersonal con 'se' seguida del verbo en tercera persona del singular (o plural si el objeto es plural) es la forma correcta de expresar necesidad o deber de manera impersonal. 'Se necesita' se usa para singular, y 'se necesitan' para plural.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Es necesario hacer esto.",
+        "isCorrect": false
+      },
+      {
+        "label": "Hace falta estudiar más.",
+        "isCorrect": false
+      },
+      {
+        "label": "Se necesita ayuda.",
+        "isCorrect": true
+      },
+      {
+        "label": "Debe ser completado.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "¿Cuál es la diferencia principal entre 'por qué' y 'porque' en español, y cuándo se usa cada uno?",
+    "explanation": "'Por qué' se usa para preguntas (why) y se escribe separado y con tilde. 'Porque' se usa para respuestas o explicaciones (because) y se escribe junto y sin tilde.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Por qué: se usa para preguntas. Porque: se usa para respuestas.",
+        "isCorrect": true
+      },
+      {
+        "label": "Por qué: se usa para respuestas. Porque: se usa para preguntas.",
+        "isCorrect": false
+      },
+      {
+        "label": "Ambos se usan indistintamente para preguntas y respuestas.",
+        "isCorrect": false
+      },
+      {
+        "label": "Porqué: se usa para sustantivos (the reason). Por qué: para preguntas. Porque: para respuestas.",
+        "isCorrect": false
+      }
+    ]
+  }
+]

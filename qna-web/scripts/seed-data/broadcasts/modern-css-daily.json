@@ -1,0 +1,22 @@
+[
+  {
+    "theme": "welcome",
+    "body": "Welcome to Modern CSS Daily! We're thrilled to have you join our little corner of the web. Our goal is to keep your CSS skills sharp with quick, daily prompts covering everything from the latest layout techniques to sneaky selectors and accessibility best practices. Expect a new challenge to drop every day, designed to be digestible yet thought-provoking.\n\nParticipation is simple: jump in, share your solutions, and learn from others. We don't have a formal scoring system, but engagement and helpful contributions are what make this community thrive. Feel free to discuss your approaches, ask clarifying questions, or even challenge a solution – constructive conversation is highly encouraged!\n\nWe're building a space to learn and grow together, one CSS snippet at a time. So, dive in, experiment, and let's explore the exciting world of modern CSS!"
+  },
+  {
+    "theme": "weekly_recap",
+    "body": "Last week's Modern CSS Daily was a whirlwind of exploration! We dove deep into responsive layouts, tackled some advanced selector logic, and uncovered powerful new features like container queries. The trickiest question revolved around achieving a specific type of staggered grid layout reliably across different screen sizes and content lengths. It highlighted the common challenge of balancing complex layout requirements with cross-browser consistency and performance, really pushing us to think about intrinsic sizing and layout fallbacks.\n\nThanks to everyone who participated, debated, and shared their elegant solutions. Your insights continue to elevate our collective understanding of modern CSS. Keep an eye out for this week's prompts – we'll be exploring more fascinating corners of CSS!"
+  },
+  {
+    "theme": "resource",
+    "body": "Today's modern CSS resource is the 'CSS Reference' by Patrick Brosset. This isn't just a dry list of properties; it's a curated guide that focuses on the most important and frequently used CSS features, particularly those relevant to modern layouts and selectors. Brosset's explanations are clear, concise, and often include practical examples that make understanding complex topics like Flexbox and Grid much more approachable. It's an excellent quick-reference tool for anyone looking to solidify their understanding of core CSS concepts and discover modern techniques without getting lost in overwhelming documentation. You can find it here: https://www.patrickbrosset.com/css-reference/"
+  },
+  {
+    "theme": "winner",
+    "body": "This week's CSS challenge has concluded, and we have a clear winner! Huge congratulations to @top_scorer for an outstanding performance, consistently showcasing deep understanding and creative solutions across all prompts.\n\nYour dedication to mastering modern CSS is truly inspiring to the rest of the community. Keep up the fantastic work!\n\nWe'll be back tomorrow with a fresh set of challenges to test your layout, selectors, and accessibility skills. Don't miss out on your chance to climb the leaderboard next week!"
+  },
+  {
+    "theme": "milestone",
+    "body": "Wow! We just hit 200 members in Modern CSS Daily. It's incredible to see this community grow so quickly, with new folks joining every day to share their passion for modern CSS. \n\nThis is a huge milestone, and it's all thanks to you – your questions, your answers, and your willingness to experiment with new CSS features. We're building a fantastic resource for learning about layout, selectors, accessibility, and all the other modern CSS topics worth knowing.\n\nLet's keep the momentum going! What CSS topic are you excited to dive into next? Share your thoughts in the comments."
+  }
+]

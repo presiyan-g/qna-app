@@ -1,32 +1,8 @@
-import { neon } from '@neondatabase/serverless';
-import { config } from 'dotenv';
 import { inArray } from 'drizzle-orm';
-import { drizzle } from 'drizzle-orm/neon-http';
-import {
-  pgTable,
-  text,
-  timestamp,
-  uniqueIndex,
-  uuid,
-} from 'drizzle-orm/pg-core';
-import { pathToFileURL } from 'node:url';
+import { communityCategories } from './schema.mjs';
+import { categoryIdBySlug } from './ids.mjs';
 
-config({ path: '.env.local' });
-config();
-
-export const communityCategories = pgTable(
-  'community_categories',
-  {
-    id: uuid('id').primaryKey(),
-    slug: text('slug').notNull(),
-    name: text('name').notNull(),
-    description: text('description').notNull(),
-    createdAt: timestamp('created_at', { withTimezone: true }),
-    updatedAt: timestamp('updated_at', { withTimezone: true }),
-  },
-  (table) => [uniqueIndex('community_categories_slug_unique').on(table.slug)],
-);
-
+// Same 18 categories as the old top-level seed-categories.mjs.
 export const categories = [
   {
     slug: 'ai-and-tools',
@@ -127,13 +103,15 @@ export async function seedCategories(db) {
     categories.map((category) =>
       db
         .insert(communityCategories)
-        .values(category)
+        .values({
+          id: categoryIdBySlug(category.slug),
+          slug: category.slug,
+          name: category.name,
+          description: category.description,
+        })
         .onConflictDoUpdate({
           target: communityCategories.slug,
-          set: {
-            name: category.name,
-            description: category.description,
-          },
+          set: { name: category.name, description: category.description },
         })
         .returning(),
     ),
@@ -145,26 +123,7 @@ export async function seedCategories(db) {
       .where(inArray(communityCategories.slug, deprecatedCategorySlugs));
   }
 
-  return new Map(rows.map(([category]) => [category.slug, category]));
-}
-
-const isMain = import.meta.url === pathToFileURL(process.argv[1]).href;
-
-if (isMain) {
-  if (!process.env.DATABASE_URL) {
-    throw new Error('DATABASE_URL is not set.');
-  }
-
-  const db = drizzle(neon(process.env.DATABASE_URL));
-
-  seedCategories(db)
-    .then((map) => {
-      console.log(
-        `Seeded ${map.size} categories${deprecatedCategorySlugs.length ? ` (removed ${deprecatedCategorySlugs.length} deprecated)` : ''}.`,
-      );
-    })
-    .catch((err) => {
-      console.error(err);
-      process.exitCode = 1;
-    });
+  const categoryBySlug = new Map(rows.map(([cat]) => [cat.slug, cat]));
+  console.log(`Seeded ${categoryBySlug.size} categories.`);
+  return { categoryBySlug };
 }

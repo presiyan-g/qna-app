@@ -1,0 +1,462 @@
+[
+  {
+    "prompt": "During a critical incident, you notice a cascading failure across multiple services. The on-call engineer is struggling to identify the root cause, and the Situation Room is generating noise. What is the *most* effective immediate action to improve the situation?",
+    "explanation": "Focusing the immediate response on establishing clear communication and information flow is paramount in a chaotic incident. Designating a single point of contact for updates and questions prevents confusion and ensures accurate information dissemination.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Immediately deploy a rollback for all affected services to stabilize the system.",
+        "isCorrect": false
+      },
+      {
+        "label": "Ask the on-call engineer to stop investigating and wait for further instructions.",
+        "isCorrect": false
+      },
+      {
+        "label": "Designate a single person to provide official updates and field questions to reduce noise.",
+        "isCorrect": true
+      },
+      {
+        "label": "Start documenting the incident timeline in real-time within the public chat.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You're reviewing a postmortem for a recent outage. The incident response was lengthy, and the root cause analysis is struggling to pinpoint a single definitive factor. What is a crucial element to include in the 'Lessons Learned' section to prevent similar issues?",
+    "explanation": "Focusing on systemic contributors, like process gaps or architectural weaknesses, provides actionable insights beyond a single bug fix. This helps the team address underlying issues that could lead to future, potentially more complex, problems.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Detailing the exact code commit that caused the failure.",
+        "isCorrect": false
+      },
+      {
+        "label": "Listing all personnel involved in the incident response.",
+        "isCorrect": false
+      },
+      {
+        "label": "Identifying contributing factors and potential process or architectural improvements.",
+        "isCorrect": true
+      },
+      {
+        "label": "Documenting the precise time the incident was declared resolved.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "During a critical incident, a service dependency has been identified as the primary cause. However, disabling this dependency entirely will cause a significant, albeit less critical, user experience degradation affecting 20% of users. What is the most prudent operational tradeoff to consider in this immediate situation?",
+    "explanation": "While full dependency removal is ideal, the immediate impact on 20% of users necessitates a more nuanced approach. A phased rollback or partial disabling, targeting specific non-critical functionalities first, minimizes immediate blast radius while still addressing the root cause.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Immediately disable the entire dependency to stop the cascading failure, regardless of user impact.",
+        "isCorrect": false
+      },
+      {
+        "label": "Continue monitoring and hope the incident resolves itself without intervention.",
+        "isCorrect": false
+      },
+      {
+        "label": "Implement a phased rollback or partial disablement of the dependency, prioritizing critical user flows.",
+        "isCorrect": true
+      },
+      {
+        "label": "Communicate the issue to users and wait for their feedback before taking action.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "During a critical incident, you've identified a potential performance regression in a newly deployed feature as the root cause. The lead engineer states they need 2 hours to analyze logs and confirm this. The current impact is moderate but growing. What is the most appropriate immediate action to mitigate potential further impact while investigating?",
+    "explanation": "The most effective immediate action is to roll back the new feature. This stops the potential cause of the growing impact from affecting more users while the investigation is underway. It is a decisive step to contain the damage.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Continue monitoring the situation closely and wait for the lead engineer's full analysis.",
+        "isCorrect": false
+      },
+      {
+        "label": "Immediately roll back the newly deployed feature to a previous stable state.",
+        "isCorrect": true
+      },
+      {
+        "label": "Scale up the affected service's resources to handle the increased load.",
+        "isCorrect": false
+      },
+      {
+        "label": "Inform all stakeholders that an investigation is in progress but provide no timeline for resolution.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Following a significant production incident, the incident commander (IC) needs to ensure effective communication and coordination. During the incident, several team members were providing real-time updates but were speaking over each other in the primary communication channel, leading to missed information. What is the most effective immediate strategy for the IC to improve communication flow during future similar incidents?",
+    "explanation": "Implementing a structured communication protocol, like establishing a 'listener' role or designating specific times for updates, prevents chaos. This ensures critical information is conveyed clearly and efficiently. It allows for focused updates without interruption, improving overall incident response.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Instruct everyone to use a secondary, less monitored chat channel for all updates to avoid overwhelming the primary channel.",
+        "isCorrect": false
+      },
+      {
+        "label": "Introduce a mandatory 'one voice' rule where only the designated incident scribe can speak updates during active incident phases.",
+        "isCorrect": false
+      },
+      {
+        "label": "Establish designated update intervals and a clear moderator to manage the flow of information in the primary communication channel.",
+        "isCorrect": true
+      },
+      {
+        "label": "Advise team members to wait for a specific 'question' prompt from the incident commander before providing any new information.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A critical service is experiencing intermittent unresponsiveness. Alerts are firing, but the pattern is not immediately obvious, and the root cause is unclear. The team is spending significant time analyzing logs and metrics, but progress is slow. What is the most effective initial step to reduce the immediate blast radius and buy time for deeper investigation?",
+    "explanation": "Isolating the affected service or component, even if it's a temporary measure, limits the potential impact on other systems and users. This prevents further cascading failures and provides a stable environment for a more thorough root cause analysis.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Immediately roll back the most recent deployment.",
+        "isCorrect": false
+      },
+      {
+        "label": "Scale up the affected service's infrastructure significantly.",
+        "isCorrect": false
+      },
+      {
+        "label": "Temporarily disable or isolate the suspected problematic component or service.",
+        "isCorrect": true
+      },
+      {
+        "label": "Continue deep log analysis without any immediate mitigation.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "During a major incident, a key database cluster is experiencing high latency, impacting multiple downstream services. The primary database admin is offline. What is the most effective immediate action to alleviate the situation and gather more information?",
+    "explanation": "Promoting a replica database to primary takes the immediate load off the struggling primary, restoring some service functionality and creating a stable, albeit potentially slightly out-of-date, environment for investigation. This action directly addresses the impact while allowing for a less pressured analysis of the original primary.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Immediately restart the primary database cluster to clear potential memory leaks.",
+        "isCorrect": false
+      },
+      {
+        "label": "Begin a deep dive into application logs across all dependent services to find symptoms.",
+        "isCorrect": false
+      },
+      {
+        "label": "Promote a read replica to become the new primary database, then investigate the original primary.",
+        "isCorrect": true
+      },
+      {
+        "label": "Rollback the latest deployment immediately, assuming it's the cause without further evidence.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "During a critical incident, multiple teams are working in parallel on different potential fixes for a single service outage. Communication is fragmented, and there's a risk of conflicting changes. What is the most effective immediate action to improve coordination?",
+    "explanation": "Establishing a single point of contact or a central coordination role (like an Incident Commander or Technical Lead) ensures all proposed changes are reviewed and sequenced. This prevents conflicting efforts and provides a clear overview of the incident.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Assign a rotating lead engineer to coordinate all efforts.",
+        "isCorrect": false
+      },
+      {
+        "label": "Mandate that all proposed changes are documented and approved in a shared real-time document.",
+        "isCorrect": false
+      },
+      {
+        "label": "Appoint a single Technical Lead to oversee all diagnostic and remediation efforts for the affected service.",
+        "isCorrect": true
+      },
+      {
+        "label": "Merge all team communication channels into a single, high-volume channel for maximum visibility.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "During a critical incident, a core data processing pipeline is showing significant latency spikes, impacting downstream reporting and analytics. Team A is focused on optimizing database queries, while Team B is investigating potential network bottlenecks. What is the most effective immediate action to gain a clearer picture of the system's behavior?",
+    "explanation": "Establishing a centralized, real-time visualization of key pipeline metrics (latency, throughput, error rates) allows all teams to see the impact of their changes and understand the overall system state. This promotes collaborative diagnosis and prevents teams from working in silos.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Instruct Team A to immediately roll back their recent database query optimizations.",
+        "isCorrect": false
+      },
+      {
+        "label": "Configure extensive, detailed logging across all components of the data pipeline for later analysis.",
+        "isCorrect": false
+      },
+      {
+        "label": "Create a shared dashboard displaying end-to-end latency, throughput, and error rates for the pipeline in real-time.",
+        "isCorrect": true
+      },
+      {
+        "label": "Ask each team to provide a detailed status update every 15 minutes in a separate, asynchronous channel.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "During a critical incident, a surge in user traffic causes a database connection pool to exhaust, leading to intermittent service unavailability. Multiple services are affected. What is the MOST effective IMMEDIATE action to mitigate the issue and stabilize the system?",
+    "explanation": "Temporarily throttling or rejecting new incoming requests is the most effective immediate action. This reduces the load on the exhausted connection pool, allowing it to recover and preventing further cascading failures. While other actions might be necessary long-term, this directly addresses the immediate resource exhaustion.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Immediately scale up the database instances.",
+        "isCorrect": false
+      },
+      {
+        "label": "Begin a root cause analysis to understand the traffic surge.",
+        "isCorrect": false
+      },
+      {
+        "label": "Implement an aggressive rate-limiting or request-dropping strategy at the ingress layer.",
+        "isCorrect": true
+      },
+      {
+        "label": "Restart the affected database cluster.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "During a critical incident, you've identified a service degradation that is impacting user sign-ups by 30%. The suspected cause is a configuration drift in a recently deployed feature. Rolling back the feature will take 15 minutes and might temporarily affect other non-critical user flows. What is the most prudent immediate action?",
+    "explanation": "Prioritizing the most critical user flow (sign-ups) is key. Initiating a targeted rollback of the problematic feature, even with minor temporary side effects, directly addresses the primary impact and buys time for a more thorough investigation. This minimizes the blast radius of the current issue.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Immediately roll back the recently deployed feature.",
+        "isCorrect": true
+      },
+      {
+        "label": "Continue investigating the logs for 30 minutes to pinpoint the exact configuration parameter.",
+        "isCorrect": false
+      },
+      {
+        "label": "Notify all affected user groups about the ongoing issue and potential impact.",
+        "isCorrect": false
+      },
+      {
+        "label": "Attempt to manually correct the configuration parameters without a full rollback.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "During an incident, a critical service is intermittently failing while team members are actively investigating. You have a feature flag system that can partially disable newer, less critical features within this service. What is the most appropriate immediate action to take?",
+    "explanation": "Disabling non-essential features via feature flags can reduce the load and complexity on the critical service, potentially stabilizing it. This buys crucial investigation time without a full service rollback or disruption of core functionality.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Immediately roll back the most recent deployment of the critical service.",
+        "isCorrect": false
+      },
+      {
+        "label": "Start an immediate, full-scale incident retrospective to identify the root cause.",
+        "isCorrect": false
+      },
+      {
+        "label": "Use the feature flag system to disable recently deployed, non-critical features within the affected service.",
+        "isCorrect": true
+      },
+      {
+        "label": "Scale up all instances of the critical service by 500% to absorb the load.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "During a critical incident, a key latency metric for a core service spikes dramatically. The on-call engineer is unsure if the issue is upstream, downstream, or within the service itself. What is the most effective initial step to isolate the problem domain?",
+    "explanation": "Isolating the problem domain is crucial for efficient incident response. By checking upstream and downstream dependencies first, you can quickly rule out external factors and focus investigation efforts on the service itself, significantly reducing the search space.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Immediately restart the affected service to see if latency returns to normal.",
+        "isCorrect": false
+      },
+      {
+        "label": "Analyze detailed request traces for the last hour to identify slow requests within the service.",
+        "isCorrect": false
+      },
+      {
+        "label": "Check the health and latency metrics of immediately upstream and downstream services.",
+        "isCorrect": true
+      },
+      {
+        "label": "Roll back the last deployment to the affected service.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "During a sophisticated cyber-attack that is causing widespread service degradation, you identify that a particular third-party API integration, while not the primary attack vector, is critically overloaded by malicious traffic. Disabling this integration will buy the security team valuable time to mitigate the attack but will also disable a core feature for 15% of your users. What is the most prudent immediate operational tradeoff?",
+    "explanation": "Prioritizing stabilization and mitigation of the primary threat is crucial during an active attack. Disabling the overloaded integration, despite user impact, allows precious time for security teams to address the root cause, preventing potentially greater system-wide failure.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Continue to monitor the third-party API and hope traffic subsides.",
+        "isCorrect": false
+      },
+      {
+        "label": "Immediately disable the third-party API integration to reduce load and facilitate security team's response.",
+        "isCorrect": true
+      },
+      {
+        "label": "Attempt to rapidly scale up resources for the third-party API integration to handle the malicious traffic.",
+        "isCorrect": false
+      },
+      {
+        "label": "Focus solely on blocking the primary attack vector, disregarding the overloaded integration.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "During a critical incident, a primary database cluster is experiencing severe performance degradation, causing widespread service disruption. A potential workaround involves rerouting traffic to a secondary, read-only replica that has not been tested under write load. This workaround would restore some functionality but might lead to data inconsistencies. What is the most prudent operational tradeoff to make in this immediate situation?",
+    "explanation": "Prioritizing service availability over immediate data consistency is often the best approach during a critical incident. Rerouting to a read-only replica restores partial functionality and buys time for a more stable fix, even if it introduces temporary data issues. Data reconciliation can be addressed post-incident.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Attempt to directly fix the performance issues on the primary cluster, accepting extended downtime.",
+        "isCorrect": false
+      },
+      {
+        "label": "Reroute traffic to the secondary read-only replica, accepting potential data inconsistencies initially.",
+        "isCorrect": true
+      },
+      {
+        "label": "Gracefully degrade service by informing users of the outage and waiting for the primary cluster to recover.",
+        "isCorrect": false
+      },
+      {
+        "label": "Initiate a full cluster failover to a cold standby, knowing this will take several hours.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A critical microservice is experiencing intermittent 5xx errors, impacting user experience. Initial investigation suggests it might be related to recent changes in a shared dependency library. Rolling back the dependency is possible but would require a full service restart, leading to a brief outage for all users. What is the most appropriate immediate action?",
+    "explanation": "The immediate priority is to mitigate the user impact. While investigating the dependency is crucial, a swift rollback avoids further user disruption. A brief, planned outage for a rollback is often preferable to intermittent errors impacting a larger user base.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Immediately roll back the shared dependency, accepting a brief, planned outage.",
+        "isCorrect": true
+      },
+      {
+        "label": "Continue detailed log analysis to pinpoint the exact code change in the dependency.",
+        "isCorrect": false
+      },
+      {
+        "label": "Implement aggressive rate limiting on the affected microservice to reduce error rates.",
+        "isCorrect": false
+      },
+      {
+        "label": "Deploy a new version of the microservice with a hotfix for the potential dependency issue.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "During a critical incident, alerts for high CPU utilization are firing on a stateless web server fleet. The team has confirmed user-facing impact. Initial troubleshooting points to a recent code deployment. What is the most effective immediate action to mitigate the user impact?",
+    "explanation": "Rolling back the recent deployment directly addresses the most probable cause of the high CPU and subsequent user impact. This action is faster than deeper investigation and aims to restore service quickly.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Initiate an immediate rollback of the latest code deployment.",
+        "isCorrect": true
+      },
+      {
+        "label": "Scale up the web server fleet vertically by adding more CPU resources.",
+        "isCorrect": false
+      },
+      {
+        "label": "Begin a deep dive into application logs to find the specific error.",
+        "isCorrect": false
+      },
+      {
+        "label": "Notify all downstream services about potential performance degradation.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "During a critical incident, a core search service is experiencing intermittent timeouts, impacting a significant portion of user requests. Preliminary reviews show increased latency in downstream dependent services, but also potential resource exhaustion within the search service itself. What is the most effective immediate step to take to isolate the problem domain and reduce blast radius?",
+    "explanation": "Isolating the problem domain is crucial in complex incidents. By temporarily disabling non-essential features that heavily rely on the search service, you reduce its load and limit the blast radius. This allows for a more focused investigation into the search service and its direct dependencies.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Immediately restart the search service to clear any potential resource exhaustion.",
+        "isCorrect": false
+      },
+      {
+        "label": "Temporarily disable non-essential features that heavily rely on the search service.",
+        "isCorrect": true
+      },
+      {
+        "label": "Begin a deep dive into the logs of all downstream dependent services simultaneously.",
+        "isCorrect": false
+      },
+      {
+        "label": "Attempt to scale up all resources for the search service and its dependencies proactively.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "During a critical incident, a core component serving user requests begins to experience intermittent timeouts and elevated error rates. Initial diagnostics show no obvious resource exhaustion. You have the ability to temporarily route a small percentage of traffic (e.g., 1%) to a newly deployed, identical instance running the latest code to observe its behavior under live load without impacting the majority of users. What is the most prudent immediate action?",
+    "explanation": "This is a classic canary release strategy for incident mitigation. Routing a small percentage of traffic allows for real-time observation of the new instance's performance under live conditions, helping to quickly validate or invalidate the hypothesis that the new code is the cause of the problem. If the canary instance performs well, it suggests the issue lies elsewhere or in the interaction with existing infrastructure. If it fails, it strongly indicates a problem with the new deployment.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Immediately roll back the latest deployment to all instances to stabilize the system.",
+        "isCorrect": false
+      },
+      {
+        "label": "Direct all traffic to a known stable, older version of the component while initiating a deep dive into the current version's logs.",
+        "isCorrect": false
+      },
+      {
+        "label": "Route a small percentage of traffic to a new instance running the latest code to observe its behavior under live load (canary deployment).",
+        "isCorrect": true
+      },
+      {
+        "label": "Scale up the existing instances significantly to absorb any potential load-related issues.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "During a critical incident, cascading failures are occurring across multiple services, and the root cause is unknown. Alert fatigue is high, and teams are struggling to prioritize actions. What is the MOST effective immediate step to regain control of the situation?",
+    "explanation": "Identifying and stabilizing a single critical service, even if it's not the ultimate root cause, provides a fixed point to investigate from. This reduces the blast radius of ongoing investigation and allows for more focused troubleshooting. It aims to stop the bleeding before finding the exact source of the infection.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Immediately restart all services in a presumed order of dependency.",
+        "isCorrect": false
+      },
+      {
+        "label": "Disable all non-essential features across the entire platform.",
+        "isCorrect": false
+      },
+      {
+        "label": "Select one critical, user-facing service, stabilize it to a known good state through rollback or restart, and use it as an anchor point for further investigation.",
+        "isCorrect": true
+      },
+      {
+        "label": "Wait for the automated monitoring system to identify the true root cause before taking any action.",
+        "isCorrect": false
+      }
+    ]
+  }
+]

@@ -12,8 +12,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
-    "db:seed": "node scripts/seed-communities.mjs",
-    "db:seed:categories": "node scripts/seed-categories.mjs"
+    "seed": "node scripts/seed/index.mjs",
+    "seed:generate": "tsx scripts/generate-seed-data.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1052.0",
@@ -25,7 +25,9 @@
     "jose": "^6.2.3",
     "next": "16.2.6",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "seedrandom": "^3.0.5",
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -33,6 +35,8 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/seedrandom": "^3.0.8",
+    "@types/uuid": "^10.0.0",
     "drizzle-kit": "^0.31.10",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",

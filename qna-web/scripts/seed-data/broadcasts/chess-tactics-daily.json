@@ -1,0 +1,22 @@
+[
+  {
+    "theme": "welcome",
+    "body": "Welcome to Chess Tactics Daily! We're thrilled to have you join our community of tactical enthusiasts. Our goal is simple: one challenging chess puzzle posted every single day to sharpen your game. You'll find a new puzzle at roughly the same time each day, giving you plenty of time to work it out.\n\nOnce you submit your move, the discussion board unlocks, allowing you to see and discuss other members' lines. It's a fantastic way to learn from each other's thought processes and discover solutions you might have missed. We encourage respectful engagement and a shared passion for improving our chess.\n\nHappy calculating, and we look forward to seeing your insights and improvements!"
+  },
+  {
+    "theme": "weekly_recap",
+    "body": "Another week of sharp tactics is in the books! We saw some brilliant combinations and clever defensive moves. The toughest puzzle of the week involved a seemingly quiet position where a hidden queen sacrifice opened up forced lines. Many of us overlooked the delicate zwischenzug, prioritizing immediate checks over positional maneuvering. It's a great reminder that often the most potent tactics arise from calm calculation.\n\nDon't forget to review the solutions and explanations to solidify your understanding. Keep that tactical eye sharp, and we'll see you tomorrow for a fresh challenge!"
+  },
+  {
+    "theme": "resource",
+    "body": "This week, we're highlighting some fantastic resources that can supercharge your tactical training. Today, let's talk about one of my favorite free online archives: Chessable's free tactics courses. They have a comprehensive range of courses covering everything from basic checkmates to advanced sacrifices, often built around classic texts or grandmaster games. The interactive nature of Chessable means you're not just passively watching or reading; you're actively solving positions and getting feedback, which is exactly what we aim for here at Chess Tactics Daily. \n\nI particularly recommend their courses based on books like 'Winning Chess Tactics' by Seirawan or collections of Morphy's games. The repetition and spaced learning built into the Chessable platform are incredibly effective for memorizing patterns, which is the bedrock of strong tactical play. It's a great way to supplement your daily puzzle solving and build a deeper understanding of tactical motifs. You can find them by browsing their 'Free Courses' section."
+  },
+  {
+    "theme": "winner",
+    "body": "Congratulations to last week's top scorer, @top_scorer! Your tactical prowess shone brightly, and you navigated the puzzles with impressive accuracy. We love seeing such dedication to sharpening those chess skills.\n\nKeep the momentum going, everyone! The board is always set for new challenges, and your next brilliant combination could be just around the corner. Let's see who claims the top spot this week. Dive into today's puzzle and make your mark!\n\nRemember, the discussion unlocks once you've submitted your line, so don't hesitate to share your thought process and learn from others after you've made your move."
+  },
+  {
+    "theme": "milestone",
+    "body": "We've hit a huge milestone: Chess Tactics Daily is now one year old! \n\nIt's been an incredible journey solving puzzles, analyzing lines, and learning from each other. Thank you all for being part of this growing community and for your dedication to improving your game. The discussions have been insightful, and the tactical prowess on display is truly inspiring.\n\nHere's to many more years of challenging positions and sharp play! We're excited to continue this journey with all of you."
+  }
+]

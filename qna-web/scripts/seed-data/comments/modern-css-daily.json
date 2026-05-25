@@ -1,0 +1,227 @@
+[
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "I admit, I almost picked counter-increment by mistake. It's so easy to get those two mixed up in my head, especially when you're deep in a numbering scheme. Had to do a quick mental shuffle before I committed to my answer."
+    },
+    "reply": {
+      "body": "Totally feel that. The names are so similar it's practically a trap! I always have to remember that 'increment' is for adding to the number, and 'reset' is for, well, resetting it. Glad I'm not the only one who struggles with that distinction."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "I definitely went with 'contain' first. It feels more intuitive for showing the whole image. Then I re-read and remembered the 'entire object visible' part of the prompt which made me switch to 'cover'. Super easy to mix them up!"
+    },
+    "reply": {
+      "body": "Totally get that! 'Contain' makes sense for fitting everything in, but 'cover' is the one that forces the aspect ratio while still filling the space. I always have to picture a background video to remember which one is which."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "I almost picked 'fr' units. They're so good at distributing space but don't really account for the parent grid's tracks directly. Subgrid feels like a more advanced concept for aligning nested elements to the parent's flow."
+    },
+    "reply": {
+      "body": "Totally! The difference is subtle but crucial. 'fr' distributes available space *within* its own grid context, while subgrid makes a child grid *inherit* the parent's track sizing. It's like having a shared ruler for nested layouts."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "Got this one right! I always forget about ::first-line compared to ::first-letter. I've used it a few times for book-like layouts where you want that opening line to pop a bit stylistically. Seems like such an old school selector but still super useful."
+    },
+    "reply": {
+      "body": "Yeah, I almost picked ::first-letter out of habit. Good reminder that they do different things! I saw someone use ::first-line to create a sort of drop cap effect, but just on the first line instead of the whole first letter. Pretty neat trick."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "Chose grid-column, felt like the obvious choice but got momentarily distracted by grid-row's similar function. It's so satisfying when you nail the grid placement, though! Makes complex layouts feel so much more manageable."
+    },
+    "reply": {
+      "body": "Totally. I always have to pause for a second to remember if it's .column or .row I need for spanning. The naming convention makes sense once you're in the zone, but that initial split-second doubt is real!"
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "Okay, definitely got tripped up by this one. I initially thought it was justify-items, but that's for the inline axis, right? Had to stare at the explanation for a sec to remember align-items is the block axis one. My brain keeps mixing those two up."
+    },
+    "reply": {
+      "body": "I feel you! They sound so similar. I usually try to remember that 'align' sounds like 'altitude', which is vertical (block axis). 'Justify' feels more horizontal to me, like justifying text. Still not perfect, but it helps sometimes."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "I always mix up 'perspective' and 'perspective-origin'. For a second there I thought it was about where the vanishing point was. Glad they separated them out, makes more sense for 3D transforms."
+    },
+    "reply": {
+      "body": "Totally! It's easy to get tangled. I usually set perspective-origin right after perspective itself to keep it straight in my head. Feels like setting up the camera for a shot."
+    }
+  },
+  {
+    "questionIndex": 7,
+    "topLevel": {
+      "body": "Chose A, the double hyphen. It's so ingrained now it feels natural, but I remember how weird it looked when custom properties first started popping up. Totally a game-changer for theming and dynamic styles."
+    },
+    "reply": {
+      "body": "Right? The `--` prefix is key. It's almost like a secret handshake for CSS variables. Nice to see how much calmer things feel now that it's standard."
+    }
+  },
+  {
+    "questionIndex": 8,
+    "topLevel": {
+      "body": "Okay, I went with clamp() because I’ve seen it used for this exact purpose before, but I almost chose calc(). It’s so easy to get those two confused when you’re thinking about fluid scaling. Clamp() definitely feels more direct for setting explicit min/max bounds."
+    },
+    "reply": {
+      "body": "Totally. Calc() is great for the preferred value part, like vw units or a mix of rem and vw, but clamp() is the magic wrapper that keeps it from getting too wild. It’s such a fundamental tool for modern responsive design these days."
+    }
+  },
+  {
+    "questionIndex": 9,
+    "topLevel": {
+      "body": "I almost picked grid column gap, because I've used that to achieve a similar effect before. Glad I double-checked the options though! Masonry is so cool for image galleries."
+    },
+    "reply": {
+      "body": "Totally. I find myself constantly looking for ways to avoid `float` for this kind of thing. Masonry feels like the modern, sane approach. Still a bit of a niche property though, not as widely supported as flex or grid yet."
+    }
+  },
+  {
+    "questionIndex": 10,
+    "topLevel": {
+      "body": "I definitely picked shape-outside. I was initially confused because float is still so common for this pattern, but the question specifically asked about *fine-grained control* beyond simple rectangular wraps. This property feels like the modern evolution of that old float trick."
+    },
+    "reply": {
+      "body": "Totally agree. `shape-outside` is so powerful for creating those non-rectangular text flows around images or complex shapes. It's like saying goodbye to the limitations of basic floats for anything aesthetically interesting. Nice prompt!"
+    }
+  },
+  {
+    "questionIndex": 11,
+    "topLevel": {
+      "body": "I almost went with justify-content there. Totally tricked myself thinking about the main axis for a second. It's easy to mix up align-items and justify-content, especially when you're working with both flex and grid so much these days."
+    },
+    "reply": {
+      "body": "Oh yeah, that's a common pitfall! I usually just remember that 'align' relates to vertical (cross-axis) and 'justify' relates to horizontal (main-axis) in flexbox. Grid is a bit more flexible with that, but the principle holds for the container alignment."
+    }
+  },
+  {
+    "questionIndex": 12,
+    "topLevel": {
+      "body": "I almost picked `z-index` because it often feels like the go-to for stacking things, but then I remembered the phrasing about 'flow of elements relative to other content'. That really steered me towards the correct answer. It's so easy to default to `z-index` for overlap issues!"
+    },
+    "reply": {
+      "body": "Totally! `z-index` is the first thing my brain screams when I see anything layered. But yeah, the question was specifically about how content *flows* around an element, not just which one sits on top. `shape-outside` is surprisingly powerful for creating asymmetrical text wraps."
+    }
+  },
+  {
+    "questionIndex": 13,
+    "topLevel": {
+      "body": "Okay, I admit I picked list-style: none; at first. I always thought that was the only way to get rid of bullets. The subtlety with the marker space is something I definitely need to keep in mind for future layouts, especially when dealing with dynamic content where shifts could be more noticeable."
+    },
+    "reply": {
+      "body": "Yeah, list-style: none; is the default for most of us! I learned the hard way about the collapsing space issue when I was trying to align custom list items. Using ::marker { content: ''; } was my go-to for a while until I saw the ::marker { display: none; } trick. Much cleaner."
+    }
+  },
+  {
+    "questionIndex": 14,
+    "topLevel": {
+      "body": "Chose :selected initially, but that felt too generic. Glad I double checked the options. :checked makes so much more sense for checkboxes and radio buttons specifically. Had a weird bug on a project last month where I forgot to style the unchecked state and it looked broken."
+    },
+    "reply": {
+      "body": "Oh, :selected tripped me up too! That one is for <option> elements in select dropdowns, right? Easy to mix them up if you're not careful. Good point about the unchecked state, it's easy to overlook that visual cue."
+    }
+  },
+  {
+    "questionIndex": 15,
+    "topLevel": {
+      "body": "Went with overflow-x and overflow-y, felt like the most direct way to handle specific axes without messing up the whole flow. Definitely caught myself second-guessing if the base overflow property would clip everything by default though. It's easy to overthink when there are multiple options."
+    },
+    "reply": {
+      "body": "Same here! I almost picked just 'overflow: hidden' but then remembered the prompt specifically mentioned controlling it 'in a specific direction.' That made me lean towards the axis-specific properties. Glad to know others found that distinction important too."
+    }
+  },
+  {
+    "questionIndex": 16,
+    "topLevel": {
+      "body": "I totally picked :first-of-type initially because I was overthinking it. My brain immediately jumped to \"what if there are other elements before it?\" Glad I reread the options and remembered :first-child applies even if there are preceding siblings of different element types."
+    },
+    "reply": {
+      "body": "Same! :first-of-type definitely trips me up sometimes. But yeah, the question specifically asked about the *first child* regardless of type, which makes :first-child the only correct answer. Good to have these refreshers."
+    }
+  },
+  {
+    "questionIndex": 17,
+    "topLevel": {
+      "body": "Okay, I initially thought 'grid-gap' was the answer since it used to control both row and column gaps. Glad they separated them out to 'row-gap' and 'column-gap'. It makes the intent so much clearer."
+    },
+    "reply": {
+      "body": "Totally agree! Using 'grid-gap' felt like a bit of a hack when you only wanted to affect one dimension. Having specific properties for row and column gaps is much more semantic and easier to manage in complex grids."
+    }
+  },
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "Went with `counter-reset`. Initially, I was confused and thought maybe `counter-increment` could somehow do it, but then realized that only increases the value. Resetting felt like a distinct operation."
+    },
+    "reply": {
+      "body": "I picked `counter-reset` too! It makes sense conceptually. Increment is for adding, reset is for... well, resetting. I did have to look up the exact syntax for setting a specific value other than zero, though."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "I almost went with 'contain' because that sounds like it contains the whole thing, but then I remembered the part about filling the container and not leaving empty space, which made me switch to 'cover'. Definitely a tricky one to recall without looking it up."
+    },
+    "reply": {
+      "body": "Totally! 'Contain' is so intuitive for keeping the whole image, but it's 'cover' that actually fills the box while trying its best not to distort. The explanation really hammered home the difference between fitting the element vs. fitting the content."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "I almost went with auto-fit/fill, but then re-read the question about expanding and contracting based on available space. That made me rethink and land on subgrid. It's so subtle how it works with parent grids that it tripped me up for a second."
+    },
+    "reply": {
+      "body": "Totally get that! subgrid feels a bit like magic when you first encounter it. The key is it's not defining its *own* layout in isolation, but rather syncing up with the parent. Automatic tracks are for fitting within a container, subgrid is for syncing *to* a parent's defined tracks."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "I almost went with ::first-letter because it's so similar, but remembered that the question specified the entire first line. Definitely glad I re-read carefully. This is useful for book chapters or articles where you want that opening sentence to stand out."
+    },
+    "reply": {
+      "body": "Oh yeah, easy to mix those up! ::first-letter is great for drop caps though. But you're right, ::first-line is way better for a whole introductory sentence or phrase. I've used it for a couple of simple blog layouts."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "I almost picked grid-template-columns, but then I remembered that's for defining the grid itself, not placing items *in* it! Spent a minute staring at the options trying to recall the item-specific one."
+    },
+    "reply": {
+      "body": "Right? That distinction trips me up every time. `grid-template-columns` for the structure, `grid-column` for the content. Easy to mix up."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "I almost went with justify-items, but remembered that controls the inline axis. align-items is definitely the one for the block axis when working with grid items. It feels intuitive once you get past the naming convention confusion."
+    },
+    "reply": {
+      "body": "Right? The naming is so similar to flexbox properties it can really throw you off on the first pass. Glad they clarified succinctly. align-items is key for making sure things don't bunch up at the top of their cells."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "Okay, I definitely got tripped up on this one! I was so focused on the `transform` property itself that I almost picked `transform-style` or something related. Glad I re-read the options carefully. The `perspective` property feels like it belongs IN the transform itself, but it's separate. Interesting."
+    },
+    "reply": {
+      "body": "I hear you! It's easy to think of `perspective` as part of the `transform` shorthand. But making it a separate property for the *container* or the *parent* element that establishes the 3D space makes more sense when you think about how it affects all children. It's a neat little separation of concerns."
+    }
+  }
+]

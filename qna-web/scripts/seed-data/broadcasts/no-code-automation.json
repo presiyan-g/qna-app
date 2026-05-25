@@ -1,0 +1,22 @@
+[
+  {
+    "theme": "welcome",
+    "body": "Welcome to the No-Code Automation community! We're thrilled to have you join us as we explore creative solutions to everyday workflow puzzles. Our goal is to empower everyone to build useful automations, even without a dedicated engineering team. \n\nExpect a new workflow puzzle to drop into the channel every weekday. Dive in, try to solve it using your no-code tools, and share your approach. We love seeing different strategies and clever hacks! Don't be shy about asking questions or discussing techniques – that's what this community is all about. \n\nWe're building something great together, one automation at a time. Get ready to learn, share, and level up your workflow game!"
+  },
+  {
+    "theme": "weekly_recap",
+    "body": "Last week saw some fantastic workflow puzzles tackled! We had a great discussion around a particularly tricky scenario involving conditional logic across multiple disparate platforms. The challenge wasn't just the complexity of the conditions themselves, but also mapping the unique data structures and triggers from each tool into a cohesive automated flow. Many members contributed insightful approaches, highlighting the creative problem-solving that happens when we're not limited by code.\n\nIt's a great reminder that often the most elegant automation solutions come from understanding the core business process and then finding the best no-code tools to bridge the gaps. Great work everyone for diving deep into those workflow puzzles!"
+  },
+  {
+    "theme": "resource",
+    "body": "This week, I've been revisiting the excellent \"Incredible No-Code Automations\" course from Zapier. If you're looking to level up your automation game, whether you're just starting out or have been building for a while, this is a fantastic, free resource. It goes beyond just the basic \"how-to\" and dives into strategic thinking about workflow design, common automation pitfalls, and how to scale your automations effectively. It's presented in digestible video modules, making it easy to fit into your busy schedule and apply directly to the workflow puzzles you're tackling daily.\n\nWhether you're an aspiring no-coder or a seasoned pro, there's always something new to learn or a fresh perspective to gain. Highly recommend carving out some time to go through it!"
+  },
+  {
+    "theme": "winner",
+    "body": "Huge congratulations to @top_scorer for an incredible week of no-code automation! Your consistent problem-solving and innovative solutions have truly set the bar.\n\nWe're always inspired by the ingenuity shown in tackling those daily workflow puzzles. Keep up the fantastic work solving challenges without a full engineering team!\n\nLooking forward to seeing what everyone builds next week!"
+  },
+  {
+    "theme": "milestone",
+    "body": "We've hit a big one! Our community has officially crossed the 200-member mark. It's incredible to see so many of you dedicating time to solve workflow puzzles and build useful automations without a full engineering team. Your passion for no-code solutions is what makes this space so vibrant and helpful.\n\nThank you to every single one of you for contributing, asking questions, sharing insights, and helping to lift everyone's skills. This milestone is a testament to the power of collaborative learning and the growing accessibility of powerful automation tools.\n\nAs we continue to grow, let's keep the momentum going! Bring on the next workflow challenge, the next clever automation, and the next helpful conversation. Here's to building even more awesome things together!"
+  }
+]

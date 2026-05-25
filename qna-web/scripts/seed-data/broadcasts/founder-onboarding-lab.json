@@ -1,0 +1,22 @@
+[
+  {
+    "theme": "welcome",
+    "body": "Hey everyone, and welcome to the Founder Onboarding Lab! So glad to have you here. This is your space to sharpen your skills in making sure new users stick around and love our products from day one.\n\nWe'll be dropping a new case study every day to explore activation, retention, and those crucial first-run product moments. Jump in, share your thoughts, and let's learn from each other. Your insights are what make this lab tick! There's no pressure, just a chance to get better together.\n\nWe'll be posting a new case around the same time each weekday. Feel free to discuss your solutions and ideas in the main chat. We're all about collaboration here, so don't hesitate to share your approach, ask questions, and build on what others are saying. Looking forward to seeing your brilliant takes!"
+  },
+  {
+    "theme": "weekly_recap",
+    "body": "Last week in the Founder Onboarding Lab, we dove deep into optimizing those critical first-run product experiences.\n\nWe saw some fantastic engagement with our cases, particularly around understanding user intent at the moment of signup. The trickiest question this past week involved diagnosing a drop-off in a freemium model that looked superficially healthy but masked a hidden retention issue. It was challenging because the surface-level metrics didn't tell the whole story, requiring us to think critically about user behavior beyond simple activation numbers and consider the long-term value signals.\n\nKeep bringing your sharp insights as we continue to refine onboarding for better activation and retention!"
+  },
+  {
+    "theme": "resource",
+    "body": "This week, dive into \"The Mom Test\" by Rob Fitzpatrick. It's a compact, actionable guide to talk to customers and learn if your business idea is worth pursuing. Fitzpatrick emphasizes asking specific, unbiased questions that uncover real user needs rather than just getting validation for your existing assumptions. It's invaluable for anyone building a product, especially in the early stages. Learning to ask the right questions upfront can save countless hours and resources down the line, directly impacting those crucial first-run product moments you're all working on.\n\nUnderstanding your user deeply prevents building something nobody wants. This book provides the framework to get that genuine understanding efficiently. It's a cornerstone for anyone serious about improving activation and retention by ensuring product-market fit from day one."
+  },
+  {
+    "theme": "winner",
+    "body": "Congratulations to @top_scorer, our top performer this past week in the Founder Onboarding Lab! Your dedication to tackling the daily cases and consistently finding effective solutions for activation, retention, and first-run product moments is truly inspiring.\n\nWe're thrilled to see such commitment to optimizing the founder journey. Keep up the fantastic work – your insights are invaluable to our community's collective learning and success. Let's all give @top_scorer a virtual round of applause!"
+  },
+  {
+    "theme": "milestone",
+    "body": "Huge congratulations to the Founder Onboarding Lab community! Today we hit a significant milestone: 100 user-generated questions answered! This achievement is a testament to the collective effort and willingness of our members to share their challenges and insights. Every question asked and answered contributes directly to improving activation, retention, and those critical first-run product moments for founders everywhere.\n\nThank you to everyone who has contributed so far. Whether you've asked a question, provided an answer, or simply engaged with the discussions, you've played a vital role in building this valuable resource. We're excited to see what insights and solutions we can uncover together as we continue to grow.\n\nLet's keep the momentum going! Continue sharing your onboarding challenges and expertise to help fellow founders succeed. Here's to the next 100 questions and beyond!"
+  }
+]

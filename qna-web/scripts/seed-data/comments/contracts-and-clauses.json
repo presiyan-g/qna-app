@@ -1,0 +1,224 @@
+[
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "Went with 'allows the non-affected party to make alternative arrangements'. It felt like the most direct consequence. But the official explanation makes a strong case for 'risk mitigation'. The notice really is about giving the other side a heads-up so they don't get blindsided."
+    },
+    "reply": {
+      "body": "I picked 'risk mitigation' too. It feels like the broader goal. The alternative arrangements are part of that, sure, but the notice itself is about managing the overall risk of disruption from the force majeure event. Good point though, it's definitely a practical step for the other party."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "I picked 'allocate responsibility for potential future damages'. It felt like the most encompassing aspect of shifting risk. I almost went with 'define the scope of liability' but that felt a bit too narrow for what an indemnity is supposed to do."
+    },
+    "reply": {
+      "body": "Good call. I struggled between those two as well. For me, the 'potential future damages' phrasing really hit the core of risk transfer. Allocating responsibility is key but the *reason* for that allocation is the potential for that future loss."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "Went with A. Totally forgot about lost profits being consequential. Had to reread the definition to make sure I wasn't confusing it with direct losses like wasted materials. It's easy to gloss over these clauses until you actually have a dispute."
+    },
+    "reply": {
+      "body": "Yeah, that distinction trips me up too. The key is that consequential damages often flow from the breach itself, not just the immediate cost of fixing the problem. It's all about anticipating downstream effects."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "I chose D, but I had a moment of doubt. The 'without consent' part of the question really threw me. I usually see 'with consent' as the default, so specifying it as 'without' felt counter-intuitive for certain actions. It makes sense in hindsight for M&A, but it wasn't my first instinct."
+    },
+    "reply": {
+      "body": "Totally felt that. My brain was stuck on the idea of needing consent for assignments generally. The clarification about business events like mergers is key. It's like, the contract needs to acknowledge that the *entity* might change hands, but the underlying obligations should still flow smoothly without a consent bottleneck."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "I picked C, the 'entire agreement' part. It seemed pretty straightforward that the written contract is supposed to be the final word on everything. Though I could see how some might try to pull in earlier email chains if this wasn't explicit."
+    },
+    "reply": {
+      "body": "Totally agree, C was the obvious one.  I've seen so many disputes arise because someone thought an earlier email or a verbal"
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "I almost picked the option about limiting liability. It's related, for sure, but the core purpose is about who can actually *sue*. It's easy to conflate, especially when you think about how these clauses often function: by restricting who can sue, you also indirectly limit who can bring a claim against you, thus limiting liability. Glad I reread the question carefully."
+    },
+    "reply": {
+      "body": "Totally get that. The overlap is there. But yeah, the key is enforcement rights. It's about defining the boundaries of who has 'standing' under the contract itself. Forcing non-parties to rely on tort or other claims if they feel wronged, rather than contract provision."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "I picked 'to prevent ambiguity and ensure understanding'. It feels like the most direct answer, though honestly, some of the phrasing in the options was so similar I almost second-guessed myself."
+    },
+    "reply": {
+      "body": "Totally. I found myself rereading option B ('to establish the scope of obligations') several times. It's such a close call, but I agree that defining it directly addresses the ambiguity part."
+    }
+  },
+  {
+    "questionIndex": 7,
+    "topLevel": {
+      "body": "Went with 'clarity for uncured breaches.' I always worry about exactly which obligations survive if we don't spell it out. Had a weird situation last year where the other side tried to argue a warranty survived for years when it clearly shouldn't have. This question definitely hit home."
+    },
+    "reply": {
+      "body": "Totally get that. My main concern is usually around indemnification and IP ownership provisions. Those are the ones that I absolutely need to remain effective post-termination, regardless of how the contract ends. Clarity is key, like you said."
+    }
+  },
+  {
+    "questionIndex": 8,
+    "topLevel": {
+      "body": "I picked 'certainty and predictability' because that's what seems most important when you're trying to avoid future headaches. The other options felt a bit too specific to a single type of dispute, whereas this felt broader."
+    },
+    "reply": {
+      "body": "That's exactly right. If you don't specify, you could end up with a messy conflicts of law analysis that could dramatically change your rights and obligations depending on where the dispute lands. Much better to define it upfront."
+    }
+  },
+  {
+    "questionIndex": 9,
+    "topLevel": {
+      "body": "Definitely went with the 'prevent disputes' option. I've seen too many disagreements bubble up because someone thought a handshake agreement to change something later was binding. It felt like the most practical, real-world consequence being addressed."
+    },
+    "reply": {
+      "body": "Same here. It's less about the formality itself and more about creating a clear audit trail. Imagine trying to enforce a change when the only 'proof' is one person's memory versus another's."
+    }
+  },
+  {
+    "questionIndex": 10,
+    "topLevel": {
+      "body": "Chose C. I always get hung up on whether the contract is just asking for the *what* or the *how*. It's amazing how many disputes seem to boil down to someone saying 'I never got that email!' when it was sent to the wrong address or just general counsel instead of the designated contracts person."
+    },
+    "reply": {
+      "body": "Totally. And it goes both ways, right? If the notice is *too* specific, like requiring registered mail to a single person who might be on vacation, it can become impractical. Finding that balance between certainty and feasibility is key. Glad they highlighted the audit trail aspect."
+    }
+  },
+  {
+    "questionIndex": 11,
+    "topLevel": {
+      "body": "I almost picked answer C, focusing on avoiding ambiguity. But the explanation for B really clicked; it's all about keeping risk contained to the direct impact of the failure, not some downstream ripple effect. That makes sense for a vendor trying not to get crushed by unforeseen business impacts."
+    },
+    "reply": {
+      "body": "Totally agree with option B. It's not just about ambiguity, it's about predictability. If you can't predict the indirect losses, you can't price for them or insure against them. Excluding them is a common risk management technique, especially for service providers."
+    }
+  },
+  {
+    "questionIndex": 12,
+    "topLevel": {
+      "body": "Chose 'predictability' for sure. Almost got tripped up by the wording on 'ease of enforcement' but realized that's more of a secondary benefit. It's all about knowing where you stand if things go sideways."
+    },
+    "reply": {
+      "body": "Yeah, predictability felt like the core. You don't want to be stuck arguing about *which* law applies, on top of whatever dispute you already have."
+    }
+  },
+  {
+    "questionIndex": 13,
+    "topLevel": {
+      "body": "I picked B, assuming that the parties' intent was to leave some room for interpretation regarding 'unforeseeable circumstances.' I figured that a rigid list would defeat the purpose of having a catch-all phrase. It's easy to see how that could backfire though."
+    },
+    "reply": {
+      "body": "I totally get that line of thinking. The 'intent vs. certainty' trade-off is always the trickiest part of drafting. I leaned towards specificity because I've seen too many fights over what 'unforeseeable' actually means in practice. Better to define it upfront, even if it means a slightly less flexible clause."
+    }
+  },
+  {
+    "questionIndex": 14,
+    "topLevel": {
+      "body": "I went with C, limiting the indemnifying party's risk. It just seemed like the obvious point of an indemnity clause in the first place. Although I did hesitate for a second wondering if clarifying what's NOT covered was more the point, but decided against it."
+    },
+    "reply": {
+      "body": "Totally agree. It's all about setting boundaries so no one gets surprised later. If the language is fuzzy, that's just asking for a fight down the road. Defining what's in the sandbox is key before anyone starts playing."
+    }
+  },
+  {
+    "questionIndex": 15,
+    "topLevel": {
+      "body": "I almost picked the option about encouraging timely performance. It's a common consequence, but the explanation makes it clear the *primary* purpose centers on enforceability. It's easy to get caught up in the practical effect rather than the legal backbone."
+    },
+    "reply": {
+      "body": "Totally. It's a fine line between a helpful nudge and an unenforceable threat. I remember seeing a construction contract with a massive daily penalty, and the court just threw it out. Buyer beware on those high numbers!"
+    }
+  },
+  {
+    "questionIndex": 16,
+    "topLevel": {
+      "body": "Chose A. Washed over me a bit because I'm used to boilerplate, but thinking about it practically, not having this language would be a nightmare for brand new contracts. Imagine missing one late payment and suddenly that's the new normal?"
+    },
+    "reply": {
+      "body": "Totally. It's all about 'course of dealing' issues. Without that specific language, a court might infer a modification or abandonment of the right based on a pattern of non-enforcement, even if unintended. Good point about new contracts."
+    }
+  },
+  {
+    "questionIndex": 17,
+    "topLevel": {
+      "body": "I picked 'maintain the existing relationship.' It felt like the most common sense reason when you're dealing with, say, a service contract. I don't want some random new company taking over if the original provider decides to offload their obligations. It’s all about who you’re actually dealing with."
+    }
+  },
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "I picked B, thinking it was about preserving legal remedies. The 'planning' aspect of the explanation makes sense though. It's easy to overthink these clauses and focus on the *what* rather than the *how* (the process)."
+    },
+    "reply": {
+      "body": "The planning part got me too. It highlights how important clear communication is in contracts, not just the legalese. Good reminder to always include that notice provision."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "Went with B - allocating responsibility for potential future claims. I almost picked C about disclosing liabilities, but it felt a bit too narrow. Indemnity feels more about what happens *after* a claim arises, rather than just telling someone about it beforehand."
+    },
+    "reply": {
+      "body": "Totally agree. The distinction between conveying information and promising to cover costs is key. The wording around 'defense' and 'compensation' in the official explanation really drove that home for me. It's about the active handling of a claim, not just passive notice."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "Chose A, but tripped up a bit on the wording. I always think of consequential damages as the big scary ones that can sink a deal, so the distinction felt intuitive. Just wanted to make sure I wasn't missing some subtle interplay."
+    },
+    "reply": {
+      "body": "Yeah, the phrasing can be tricky. I often see it coupled with specific carve-outs for things like data loss too, which isn't strictly direct or consequential in the pure sense but is a major risk."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "I went with B, 'to facilitate corporate transactions'. It felt like the most direct reason why you'd want to carve out exceptions to consent. Had a moment of doubt though, thinking maybe it was more about protecting the assignor's rights initially, but the explanation clarifies it's about the assignee's ability to take over during major changes."
+    },
+    "reply": {
+      "body": "Definitely B for me too. The 'without consent' part is key. It's like saying for these specific big events, the other party doesn't get a say, which makes sense for M&A stuff where the whole entity is shifting."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "I picked C because I always hear about 'parol evidence' in my corporate law class. It felt like the obvious choice. The wording about 'sole source of truth' makes sense in hindsight. Glad that concept was clarified."
+    },
+    "reply": {
+      "body": "Yes! Parol evidence rule is exactly what this is designed to protect. Smart connection. It’s a fundamental protection for written agreements, really.”"
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "I initially picked the wrong answer on this one. I thought it was about avoiding *liability* to people outside the contract, but it's really about controlling *who can sue* under it. Definitely a subtle but important distinction for enforcement."
+    },
+    "reply": {
+      "body": "Good point! It's easy to conflate 'liability' and 'enforceability.' This clause makes it clear that even if a non-party technically *suffers* from a breach, they can't jump into court to fix it unless the contract explicitly gives them that right. Protects the original parties' ability to manage their own dispute resolution."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "I picked option B, focused on limiting liability. I thought defining it narrowly would prevent a breach claim over something minor. Makes sense now that clarity is key, though. I've definitely seen some overly broad definitions cause headaches before."
+    },
+    "reply": {
+      "body": "Totally get that impulse for limiting liability. It's a balancing act, right? Too broad and it's unworkable, too narrow and you miss actual sensitive stuff. The definition is supposed to draw that line clearly so you don't have to guess."
+    }
+  }
+]

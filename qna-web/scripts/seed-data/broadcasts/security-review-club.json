@@ -1,0 +1,22 @@
+[
+  {
+    "theme": "welcome",
+    "body": "Hey everyone, and a huge welcome to the Security Review Club! We're stoked to have you join our daily dive into security review scenarios. Get ready to sharpen those threat-modeling instincts as we tackle real-world challenges together.\n\nExpect a new scenario posted every weekday. We'll gauge responses based on thoroughness, creative thinking, and practical security insights. Keep an eye out for our weekly wrap-ups summarizing the best approaches and highlighting top contributors. All the action and discussion happens right here in the main feed, so jump in!\n\nThis is your space to learn, share, and grow as a more security-aware app builder. Looking forward to seeing your perspectives!"
+  },
+  {
+    "theme": "weekly_recap",
+    "body": "Last week's scenarios kept us on our toes! We dove into various threat models, from subtle data leakage risks to more overt access control weaknesses. The trickiest question involved a multi-faceted attack vector that required understanding how seemingly unrelated components could be chained together for maximum impact. Many found it challenging to pinpoint the exact point of failure, as the vulnerability wasn't in a single piece of code but in the *interaction* between systems. This is a great reminder that robust security isn't just about individual defenses, but their integration and the emergent risks that arise. Keep sharpening those instincts!"
+  },
+  {
+    "theme": "resource",
+    "body": "Hey Security Review Club!\n\nToday's resource is OWASP's \"Threat Modeling\" page: https://owasp.org/www-community/Threat_Modeling.\n\nThis is a fantastic jumping-off point for anyone looking to solidify their threat modeling skills. It covers the fundamental concepts, different methodologies like STRIDE and PASTA, and provides links to further reading and tools. Understanding these basics is crucial for building secure applications. Spend some time here to sharpen those instincts before we dive into tomorrow's scenario!"
+  },
+  {
+    "theme": "winner",
+    "body": "Big congratulations to @top_scorer for an outstanding performance in this past week's Security Review Club challenges! Your sharp threat-modeling instincts clearly shone through, and you've earned the top spot.\n\nKeep up the great work, everyone! The challenges are designed to sharpen all our skills, and your continued participation is what makes this community so valuable. Let's see who can bring their A-game next week.\n\nReady for today's scenario? Dive in and let's continue building those security review muscles together."
+  },
+  {
+    "theme": "milestone",
+    "body": "Amazing news, Security Review Club! We've officially hit our first year anniversary! It's been an incredible journey of sharp threat-modeling, insightful discussions, and a shared commitment to building more secure applications. Thank you to everyone who has participated, asked questions, and shared their expertise. Here's to many more years of honing our security instincts together!"
+  }
+]

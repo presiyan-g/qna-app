@@ -1,0 +1,462 @@
+[
+  {
+    "prompt": "Which sentence best avoids nominalization for a more active and direct writing style?",
+    "explanation": "Nominalizations (verbs turned into nouns) can weaken sentences. This option uses 'decided' (verb) instead of 'made a decision' (noun phrase).",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "The committee made a decision about the budget.",
+        "isCorrect": false
+      },
+      {
+        "label": "The committee's decision regarding the budget was significant.",
+        "isCorrect": false
+      },
+      {
+        "label": "The committee decided on the budget.",
+        "isCorrect": true
+      },
+      {
+        "label": "There was a decision made by the committee concerning the budget.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which of these sentences demonstrates the most effective use of parallel structure to create a balanced and rhythmic flow?",
+    "explanation": "Parallel structure repeats grammatical forms for related ideas. This creates a satisfying rhythm and emphasizes the connection between the elements.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "The team celebrated, strategized, and they went home.",
+        "isCorrect": false
+      },
+      {
+        "label": "She enjoyed hiking, to swim, and biking.",
+        "isCorrect": false
+      },
+      {
+        "label": "He wanted to buy apples, oranges, and bananas.",
+        "isCorrect": true
+      },
+      {
+        "label": "Not only did he deliver the speech, but also he answered questions.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which of the following sentences most effectively uses concrete language to provide a vivid and specific image for the reader, rather than relying on abstract terms?",
+    "explanation": "Concrete language replaces vague concepts with tangible details, allowing readers to visualize the scene more clearly. This sentence paints a specific picture, engaging the reader's senses and senses.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "The situation became increasingly difficult.",
+        "isCorrect": false
+      },
+      {
+        "label": "He felt a great sense of unease.",
+        "isCorrect": false
+      },
+      {
+        "label": "The icy wind whipped snow against the windowpanes, rattling them in their frames.",
+        "isCorrect": true
+      },
+      {
+        "label": "Fear was a primary emotion.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which sentence effectively uses a misplaced modifier to create an unintentionally humorous or awkward image?",
+    "explanation": "The correct sentence contains a misplaced modifier, where the descriptive phrase is placed too far from the noun it's intended to modify. This distance creates an absurd and unintended image for the reader. The other options demonstrate clear and logical sentence construction.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Running quickly, the race was won by Sarah.",
+        "isCorrect": false
+      },
+      {
+        "label": "After mowing the lawn, the wet grass was all over the car.",
+        "isCorrect": true
+      },
+      {
+        "label": "The book, which was written by a famous author, sat on the shelf.",
+        "isCorrect": false
+      },
+      {
+        "label": "He saw the dog walking down the street with a long tail.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which sentence demonstrates the most effective use of a caesura to create a deliberate pause and emphasize specific words or ideas?",
+    "explanation": "A caesura is a pause within a line of poetry or a sentence, often indicated by punctuation. This sentence uses a dash to create a strong pause, highlighting the concise truth that follows. The pause allows the reader to absorb the impact of the final word.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "The long, arduous journey was finally over, and the weary travelers collapsed in relief.",
+        "isCorrect": false
+      },
+      {
+        "label": "She spoke with a quiet, measured tone, each word carefully chosen for maximum impact.",
+        "isCorrect": false
+      },
+      {
+        "label": "He reached the summit, and then—exhausted but exhilarated—he knew it was worth it.",
+        "isCorrect": true
+      },
+      {
+        "label": "Despite the challenges, they persevered, demonstrating remarkable resilience throughout the ordeal.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which sentence most effectively employs anaphora for rhetorical impact and emphasis?",
+    "explanation": "Anaphora, the repetition of a word or phrase at the beginning of successive clauses, sentences, or lines, creates a powerful rhythmic and emphatic effect. This sentence uses it to build intensity.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "The situation was dire; the options were few; the outcome was uncertain.",
+        "isCorrect": true
+      },
+      {
+        "label": "Because the situation was dire, the options were few and the outcome was uncertain.",
+        "isCorrect": false
+      },
+      {
+        "label": "The dire situation, the limited options, and the uncertain outcome all contributed to the problem.",
+        "isCorrect": false
+      },
+      {
+        "label": "Uncertainty about the outcome stemmed from the dire situation and the few options available.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which sentence below most effectively uses a periodic sentence structure to build suspense and emphasize the final clause?",
+    "explanation": "A periodic sentence delays the main idea until the end, which is precisely what choice C does. This structure builds anticipation and gives the final statement more impact. The other sentences present their main ideas earlier, diminishing the suspense.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "The rain poured down, soaking the city with a relentless, cold fury, and the wind howled like a banshee through the deserted streets.",
+        "isCorrect": false
+      },
+      {
+        "label": "Despite the encroaching darkness, the cheerful glow of the campfire, a beacon of warmth and hope, illuminated the faces of the weary travelers.",
+        "isCorrect": false
+      },
+      {
+        "label": "For hours, through treacherous terrain and worsening weather, battling exhaustion and dwindling supplies, the expedition pushed onward, driven by a singular, unwavering purpose.",
+        "isCorrect": true
+      },
+      {
+        "label": "The ancient oak, with its gnarled branches reaching towards the sky like skeletal fingers, stood as a silent sentinel over the forgotten graveyard.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which sentence most effectively uses concession to acknowledge opposing viewpoints before presenting a stronger argument, thereby strengthening its persuasive power?",
+    "explanation": "The correct answer uses 'While' to introduce a concession, acknowledging a potential counterargument before pivoting to the main point. This structure demonstrates a more nuanced and persuasive approach to argumentation.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "The economy is booming, and unemployment is at an all-time low.",
+        "isCorrect": false
+      },
+      {
+        "label": "While some argue that the new policy will stifle innovation, the long-term benefits for societal well-being are undeniable.",
+        "isCorrect": true
+      },
+      {
+        "label": "We must implement the new policy immediately to address the pressing issues.",
+        "isCorrect": false
+      },
+      {
+        "label": "The policy has significant drawbacks that cannot be ignored.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which sentence employs a cumulative sentence structure to deliver its main idea early and then elaborate with modifying phrases and clauses?",
+    "explanation": "A cumulative sentence presents the main clause first, followed by a series of modifying phrases and subordinate clauses that add detail and context. This structure allows the core message to be understood upfront, with subsequent information enriching it.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "The ancient forest, thick with mist and echoing with unseen life, held secrets thousands of years old.",
+        "isCorrect": true
+      },
+      {
+        "label": "Because the storm raged with unparalleled fury, the ships, battered and broken, limped back to harbor.",
+        "isCorrect": false
+      },
+      {
+        "label": "He ran quickly, his heart pounding, his breath short, reaching the finish line just in time.",
+        "isCorrect": false
+      },
+      {
+        "label": "To understand the universe, we must study the stars, the galaxies, and the cosmic background radiation.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which sentence most effectively uses polysyndeton to create a sense of overwhelm or a long, flowing list?",
+    "explanation": "Polysyndeton uses multiple conjunctions (like 'and,' 'or,' 'but') in close succession, often where they would normally be omitted. This technique can create a feeling of abundance, momentum, or even a breathless, overwhelming quality.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "The baker carefully measured the flour, sugar, eggs, and milk.",
+        "isCorrect": false
+      },
+      {
+        "label": "She had toiled for years, and she had saved and she had sacrificed and she had endured.",
+        "isCorrect": true
+      },
+      {
+        "label": "He ran down the street, jumped over the fence, and slid into home.",
+        "isCorrect": false
+      },
+      {
+        "label": "The project required research, planning, execution, and review.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which sentence most effectively uses a zeugma to create a clever or surprising connection between two disparate ideas or objects?",
+    "explanation": "Zeugma employs a single word, often a verb or adjective, to apply to two or more other words in a sentence in different senses. This allows for a concise yet impactful construction that can be witty or profound.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "The athlete trained rigorously, eating and sleeping with fierce dedication.",
+        "isCorrect": false
+      },
+      {
+        "label": "She arrived at the party, filled with joy and a plate of cookies.",
+        "isCorrect": true
+      },
+      {
+        "label": "He was surprised by the news, but he quickly recovered.",
+        "isCorrect": false
+      },
+      {
+        "label": "The speaker discussed the economy, politics, and the weather to a captivated audience.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which sentence effectively uses a rhetorical question to engage the reader and prompt reflection without explicitly demanding an answer?",
+    "explanation": "This sentence uses a question that doesn't require a direct response but encourages the reader to consider the implications and themes presented. It serves to deepen engagement and provoke thought on the subject matter.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "The sun beat down relentlessly, and the air hung thick and still, making every breath a labor.",
+        "isCorrect": false
+      },
+      {
+        "label": "Wasn't the sunset a breathtaking spectacle of fiery oranges and soft purples painting the vast canvas of the sky?",
+        "isCorrect": true
+      },
+      {
+        "label": "The old library, filled with the scent of aging paper and forgotten stories, beckoned her inside.",
+        "isCorrect": false
+      },
+      {
+        "label": "He meticulously organized the documents, ensuring every piece of information was accounted for.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which sentence effectively employs asyndeton to create a forceful, rapid, or unrestrained impression?",
+    "explanation": "Asyndeton omits conjunctions between words, phrases, or clauses, creating a sense of speed and urgency. This lack of connective tissue can make the list feel more impactful or overwhelming.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "She packed her bags, her passport, her ticket, and her hopes.",
+        "isCorrect": false
+      },
+      {
+        "label": "He ran, he jumped, he scrambled, he reached the summit.",
+        "isCorrect": true
+      },
+      {
+        "label": "The market was bustling with vendors selling fruits, vegetables, and spices.",
+        "isCorrect": false
+      },
+      {
+        "label": "To succeed, one needs talent, hard work, and a bit of luck.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which sentence effectively uses a litotes to create understatement and convey a nuanced or ironic meaning?",
+    "explanation": "Litotes is a form of understatement where an affirmative is expressed by negating its opposite. Option B correctly uses 'not the worst' to imply something is actually quite good, employing understatement for effect.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "The chef prepared a meal that was not the worst I have ever tasted.",
+        "isCorrect": true
+      },
+      {
+        "label": "He ran as fast as he could towards the finish line.",
+        "isCorrect": false
+      },
+      {
+        "label": "The weather was incredibly beautiful and the sun shone brightly.",
+        "isCorrect": false
+      },
+      {
+        "label": "She felt a deep sadness after hearing the news.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which sentence best demonstrates effective parallelism, ensuring that grammatically similar elements in a series or comparison are structured alike for clarity and rhythm?",
+    "explanation": "A, B, and C all have structural inconsistencies in their lists or comparisons, disrupting the expected rhythm and flow. D maintains a consistent grammatical structure (gerund + object) for each item in the list, creating a balanced and clear sentence.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "The team celebrated by high-fiving, toasting with champagne, and singing loudly.",
+        "isCorrect": false
+      },
+      {
+        "label": "She enjoyed hiking in the mountains, to swim in the ocean, and exploring new cities.",
+        "isCorrect": false
+      },
+      {
+        "label": "He wanted to be a doctor, to have a family, and achieving financial success.",
+        "isCorrect": false
+      },
+      {
+        "label": "The new marketing strategy focused on increasing brand awareness, generating qualified leads, and improving customer retention.",
+        "isCorrect": true
+      }
+    ]
+  },
+  {
+    "prompt": "Which sentence effectively uses chiasmus, a deliberate reversal of grammatical structures or ideas in successive phrases or clauses, for a memorable and impactful statement?",
+    "explanation": "This sentence uses chiasmus by reversing the order of the concepts 'brains' and 'brawn' in the second clause ('your brawn, not your brains, must be good for your money'). This creates a memorable, balanced, and emphatic structure.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "To succeed, your brains, not your brawn, must be good for your money; your brawn, not your brains, must be good for your work.",
+        "isCorrect": true
+      },
+      {
+        "label": "Hard work and dedication are essential; also, talent and creativity play a significant role in achieving success.",
+        "isCorrect": false
+      },
+      {
+        "label": "I think, therefore I am, which is a philosophical statement about existence and consciousness.",
+        "isCorrect": false
+      },
+      {
+        "label": "The project was extremely difficult, requiring immense effort and time, but ultimately yielding satisfactory results.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which of the following sentences most effectively uses apostrophe to directly address an absent person, abstract idea, or inanimate object for emotional emphasis?",
+    "explanation": "Apostrophe directly addresses something absent or inanimate, adding emotional intensity. This sentence uses it to speak to 'O, world,' amplifying the speaker's despair.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "The weather, a fickle friend, changed from sunshine to torrential rain without warning.",
+        "isCorrect": false
+      },
+      {
+        "label": "Sleep, that knits up the ravell'd sleave of care, is a balm for the weary soul.",
+        "isCorrect": false
+      },
+      {
+        "label": "O, world, I cannot take your cruelties any longer; they have broken my spirit!",
+        "isCorrect": true
+      },
+      {
+        "label": "The old house stood on a hill, its windows like vacant eyes staring out at the sea.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which sentence most effectively utilizes an epistrophe to emphasize a key idea through repetition at the end of successive clauses?",
+    "explanation": "Epistrophe is the repetition of a word or phrase at the end of successive clauses. Sentence C uses the repetition of 'never forget' to drive home the significance of the experience.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "The storm raged outside, a tempest of wind and rain, and it seemed the world itself was weeping.",
+        "isCorrect": false
+      },
+      {
+        "label": "He promised to be there, he promised to help, he promised a solution.",
+        "isCorrect": false
+      },
+      {
+        "label": "That was the day we learned about resilience, the day we discovered our strength, the day we would never forget, never forget.",
+        "isCorrect": true
+      },
+      {
+        "label": "She walked into the room, her presence commanding, her smile radiant, her intentions unclear.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which sentence most effectively uses an anadiplosis, where the last word or phrase of one clause is repeated at the beginning of the next clause, to create a smooth, flowing, and interconnected series of thoughts?",
+    "explanation": "Anadiplosis creates a strong narrative or logical link between clauses by echoing the end of one phrase with the beginning of the next. This technique enhances flow and emphasizes the progression of ideas. Choice B masterfully employs this device, linking 'fear' to 'fear itself'.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "The storm raged with incredible fury, unleashing its wrath upon the unsuspecting town.",
+        "isCorrect": false
+      },
+      {
+        "label": "Our policy is to fight first against the most dangerous enemy: fear itself, fear that paralyzes needed efforts.",
+        "isCorrect": true
+      },
+      {
+        "label": "He walked through the dark forest, the trees looming like silent sentinels.",
+        "isCorrect": false
+      },
+      {
+        "label": "She spoke eloquently about the need for change, but her audience remained unconvinced.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which sentence effectively employs a periodic sentence structure, delaying the main clause until the end for emphasis and suspense?",
+    "explanation": "A periodic sentence builds suspense by providing subordinate elements before the main subject and verb appear. This structure grants the final thought significant weight and impact.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Because the rain poured, the wind howled, and the thunder cracked, the hikers decided to turn back.",
+        "isCorrect": false
+      },
+      {
+        "label": "The ancient, crumbling castle, perched precariously on the cliff's edge, overlooking the turbulent sea, was a testament to a bygone era.",
+        "isCorrect": true
+      },
+      {
+        "label": "She loves reading books, watching movies, and listening to music.",
+        "isCorrect": false
+      },
+      {
+        "label": "Running quickly, he reached the station just as the train pulled away.",
+        "isCorrect": false
+      }
+    ]
+  }
+]

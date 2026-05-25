@@ -1,0 +1,22 @@
+[
+  {
+    "theme": "welcome",
+    "body": "Hey everyone, and a massive welcome to our little corner of indie game design! We're so glad you've joined us. This community is all about honing our craft through small, daily prompts covering everything from game mechanics and level design to pacing and player motivation. Think of it as a fun, low-stakes way to spark new ideas and explore different facets of game creation.\n\nExpect a new prompt to drop each day, usually in the morning. Feel free to share your thoughts, brainstorm with others, or even post quick sketches or prototypes related to the prompt. There's no formal scoring or competition here, just a space to learn and grow together. The main discussion happens right here in the main feed. Jump in, say hi, and let's design some awesome games!\n\nIf you have any questions about how things work, don't hesitate to ask. We're a friendly bunch, and we're all here to support each other. Welcome aboard!"
+  },
+  {
+    "theme": "weekly_recap",
+    "body": "Hope you all had a good week of designing! Last week's prompts touched on player momentum in combat, the subtle art of tutorialization, and how to avoid common pitfalls in puzzle design. We saw some really creative takes on how to guide players without holding their hand, especially when it came to introducing complex mechanics.\n\nThe trickiest question we tackled was about **balancing player agency with curated pacing**. People found it hard because the two concepts often feel at odds. Giving players too much freedom can disrupt the intended experience, while too much control can feel restrictive. It sparks a great debate about where that line truly lies in different genres and for different types of games."
+  },
+  {
+    "theme": "resource",
+    "body": "Today's resource focus is on player motivation, specifically how to keep players engaged over the long haul. I'd like to share \"Level Up Your Game: The Ultimate Guide to Game Design\" by Scott Robert Austin. This book offers a fantastic breakdown of core game design principles, with a significant portion dedicated to understanding player psychology and motivation.\n\nAustin delves into various psychological triggers that encourage continued play, from reward schedules and goal setting to narrative hooks and social dynamics. It's packed with actionable advice that's directly applicable to indie game development, helping you think critically about how your mechanics and pacing contribute to sustained player interest. If you're looking to make players *want* to keep coming back, this is an invaluable read."
+  },
+  {
+    "theme": "winner",
+    "body": "Big congratulations to @top_scorer for taking the top spot on our weekly leaderboard! Your dedication to mastering these design challenges is truly inspiring.\n\nKeep up the fantastic work, and for everyone else, let's see who can climb the ranks this week. The daily prompts are live now, so dive in and let's keep honing those indie game design skills together."
+  },
+  {
+    "theme": "milestone",
+    "body": "We've hit a fantastic milestone – 200 members strong in our Indie Game Design community! It’s incredible to see so many passionate designers sharing their insights and asking thoughtful questions. This space is growing because of you, and we can't wait to see what we learn and build together.\n\nThank you to everyone who has contributed, shared ideas, and helped foster such a supportive environment. Whether you're just starting or have years of experience, your presence makes a difference. Let's keep the momentum going and continue to push the boundaries of what's possible in indie game development.\n\nHere's to many more milestones ahead as we explore mechanics, pacing, level design, and player motivation. Keep those ideas flowing!"
+  }
+]

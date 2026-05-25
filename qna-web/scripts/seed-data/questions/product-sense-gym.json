@@ -1,0 +1,462 @@
+[
+  {
+    "prompt": "A new SaaS product for remote teams has low user activation. Should the company prioritize investing in a more polished onboarding flow or add a highly requested, complex feature?",
+    "explanation": "Focusing on activation through a better onboarding flow is crucial for SaaS success. It ensures users understand the value proposition and can successfully use the product, leading to higher retention and long-term growth before adding more complexity.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Invest in a more polished onboarding flow to improve user activation and retention.",
+        "isCorrect": true
+      },
+      {
+        "label": "Add the highly requested, complex feature to immediately satisfy power users.",
+        "isCorrect": false
+      },
+      {
+        "label": "Implement both simultaneously to address all user needs at once.",
+        "isCorrect": false
+      },
+      {
+        "label": "Conduct extensive user research to determine the root cause of low activation.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A popular mobile game with a subscription tier is seeing a significant drop-off in renewals after the first month. Should the company focus on improving the retention mechanics of the core game loop or drastically overhauling the subscription benefits?",
+    "explanation": "Focusing on the core game loop and retention mechanics is more fundamental. If the core experience isn't engaging enough to keep players around, even the best subscription benefits will eventually feel less valuable, leading to churn.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Overhaul the subscription benefits to offer more perceived value.",
+        "isCorrect": false
+      },
+      {
+        "label": "Improve the retention mechanics of the core game loop.",
+        "isCorrect": true
+      },
+      {
+        "label": "Introduce more aggressive in-app purchase offers to offset subscription churn.",
+        "isCorrect": false
+      },
+      {
+        "label": "Lower the subscription price to make renewal more accessible.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A new expense management tool for small businesses is struggling with adoption. Trial users report the UI is cluttered and difficult to navigate, while competitors offer simpler, more intuitive interfaces. Should the company prioritize a complete UI redesign or focus on building out more advanced reporting features that users have requested?",
+    "explanation": "Prioritizing a UI redesign addresses the core usability issues hindering adoption. A cluttered interface prevents users from discovering or effectively using existing features, making advanced reporting irrelevant. Fixing the fundamental user experience will likely lead to greater long-term success and feature adoption.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Invest in a complete UI redesign to improve usability and reduce friction.",
+        "isCorrect": true
+      },
+      {
+        "label": "Focus on building more advanced reporting features to meet user requests.",
+        "isCorrect": false
+      },
+      {
+        "label": "Offer more comprehensive training materials and tutorials for the current UI.",
+        "isCorrect": false
+      },
+      {
+        "label": "Implement a tiered pricing structure based on feature access.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A freemium B2B analytics tool has a high conversion rate from free to paid but a surprisingly low average revenue per user (ARPU) for its paid tier. Which of the following trade-offs is most critical to evaluate to improve ARPU?",
+    "explanation": "Focusing on the value proposition for higher-tier features ensures that customers who upgrade perceive a significant increase in utility. This attracts users willing to pay more for advanced capabilities, directly impacting ARPU.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Reducing the price of the paid tier to attract more users, even if ARPU decreases.",
+        "isCorrect": false
+      },
+      {
+        "label": "Enhancing the free tier to increase overall user acquisition, regardless of monetization.",
+        "isCorrect": false
+      },
+      {
+        "label": "Strengthening the value proposition and feature differentiation for higher-priced paid tiers.",
+        "isCorrect": true
+      },
+      {
+        "label": "Improving the onboarding experience for free users to encourage early adoption.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A new productivity app has excellent core functionality but struggles to retain users after the first week. Should the team focus on adding more advanced features or on improving the initial onboarding experience to highlight existing value?",
+    "explanation": "A strong onboarding experience is crucial for demonstrating the core value of a product early on. If users don't understand or experience the immediate benefits, they are unlikely to stick around long enough to discover or need advanced features. Therefore, improving onboarding is the most critical first step to increase retention.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Add more advanced features to cater to power users.",
+        "isCorrect": false
+      },
+      {
+        "label": "Invest heavily in improving the initial user onboarding flow.",
+        "isCorrect": true
+      },
+      {
+        "label": "Develop a referral program to incentivize existing users.",
+        "isCorrect": false
+      },
+      {
+        "label": "Increase marketing spend to acquire more users.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A new AI-powered writing assistant for marketers has a strong free tier but a low conversion rate to its paid plan, which unlocks advanced features like competitor analysis. The team is considering either making the competitor analysis feature free or adding a simpler, more valuable feature to the paid tier.",
+    "explanation": "Focusing on adding a simpler, more valuable feature to the paid tier is more likely to directly address the low conversion rate. Making a complex feature free might cannibalize potential upgrades, while a new, clearly valuable feature can create a stronger incentive to pay.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Make the competitor analysis feature free to increase overall usage.",
+        "isCorrect": false
+      },
+      {
+        "label": "Add a simpler, more immediately valuable feature or benefit exclusively to the paid tier.",
+        "isCorrect": true
+      },
+      {
+        "label": "Invest more heavily in marketing the existing advanced features.",
+        "isCorrect": false
+      },
+      {
+        "label": "Reduce the price of the current paid tier significantly.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A new project management tool for freelancers has a great core feature set but is struggling to convert free trial users to paid subscriptions. User feedback indicates that while the tool is functional, it lacks a 'wow' factor or clear differentiator compared to established competitors. Should the company prioritize adding niche, advanced features or improving the immediate perceived value and ease of use in the trial experience?",
+    "explanation": "Improving the immediate perceived value and ease of use during the trial is more critical. The goal is to demonstrate core value and address the 'lack of wow factor' feedback before users even consider paid features. Niche features might only appeal to a subset of users and won't solve the broader conversion problem.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Prioritize adding niche, advanced features for specific user segments.",
+        "isCorrect": false
+      },
+      {
+        "label": "Focus on improving the trial experience to highlight existing value and create a stronger first impression.",
+        "isCorrect": true
+      },
+      {
+        "label": "Conduct more user research to identify entirely new feature categories.",
+        "isCorrect": false
+      },
+      {
+        "label": "Offer a significant discount on the first month's subscription to incentivize conversion.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A new B2B SaaS tool helping sales teams automate outreach has a free trial that offers full access for 14 days. Conversion rates are low, and feedback suggests users don't fully grasp the long-term value or get enough initial wins to justify the cost before the trial ends. Should the company focus on extending the trial length or redesigning the trial to offer a more guided, value-demonstrating experience from day one?",
+    "explanation": "Redesigning the trial to demonstrate immediate value and guide users towards an 'aha!' moment is more critical. A longer trial doesn't fix the core issue if users still don't see the product's benefit within that extended period.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Extend the free trial duration from 14 days to 30 days.",
+        "isCorrect": false
+      },
+      {
+        "label": "Implement a guided onboarding flow within the trial that highlights quick wins and core value propositions.",
+        "isCorrect": true
+      },
+      {
+        "label": "Add more advanced automation features to the trial that are currently only in the paid version.",
+        "isCorrect": false
+      },
+      {
+        "label": "Introduce a new pricing tier with fewer features to capture price-sensitive users.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A new B2B SaaS tool for managing employee benefits has an alarming churn rate for new customers within their first 90 days. Initial onboarding is automated and self-serve. Should the company prioritize developing a premium, high-touch onboarding service or adding more complex reporting features requested by existing users?",
+    "explanation": "High churn within the first 90 days indicates a fundamental problem with initial value realization or user adoption. Addressing this with a premium onboarding service directly tackles the likely cause, ensuring new users can successfully leverage the product before churning.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Develop a premium, high-touch onboarding service for new customers.",
+        "isCorrect": true
+      },
+      {
+        "label": "Add more complex reporting features requested by existing users.",
+        "isCorrect": false
+      },
+      {
+        "label": "Increase marketing spend to attract more new users.",
+        "isCorrect": false
+      },
+      {
+        "label": "Reduce the price of the subscription tier.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A new collaboration tool for distributed design teams has high initial engagement but a sharp drop-off after the first week of use. What is the most critical trade-off to consider for improving long-term retention?",
+    "explanation": "Focusing on identifying and reinforcing the 'aha!' moment is crucial. If users don't experience significant value early on, they are unlikely to stick around. Addressing this core value perception is more impactful than incremental feature additions or broad user research at this stage.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Invest in user research to understand the broader needs of the design team market.",
+        "isCorrect": false
+      },
+      {
+        "label": "Add more advanced features to compete with established enterprise tools.",
+        "isCorrect": false
+      },
+      {
+        "label": "Identify and amplify the core 'aha!' moment that demonstrates immediate, unique value.",
+        "isCorrect": true
+      },
+      {
+        "label": "Offer a significant discount on the annual subscription plan.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A new AI-powered real estate listing description generator has a free tier that generates basic descriptions but a paid tier that offers advanced SEO optimization and market trend analysis. Paid conversions are low. Should the company offer a limited free trial of the advanced features or add a simpler, more compelling feature to the free tier?",
+    "explanation": "Offering a limited free trial of the advanced features directly exposes users to their value proposition. This is a more direct path to demonstrating the paid tier's benefits than adding a new feature to the free tier, which might not effectively drive paid conversions.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Offer a limited free trial of the advanced SEO and market trend analysis features.",
+        "isCorrect": true
+      },
+      {
+        "label": "Add a simpler, more compelling feature (e.g., one-click social media sharing) to the free tier.",
+        "isCorrect": false
+      },
+      {
+        "label": "Increase the number of free basic descriptions allowed per month.",
+        "isCorrect": false
+      },
+      {
+        "label": "Focus solely on improving the quality of the basic descriptions generated for free users.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A new AI-powered chatbot for customer support has a free tier offering basic FAQs and a paid tier with advanced sentiment analysis and automated ticket routing. The team wants to increase paid conversions but is unsure whether to introduce a limited free trial of the paid features or add a new, simpler feature to the free tier.",
+    "explanation": "Introducing a limited free trial of the paid features directly exposes users to the value of the advanced capabilities. This hands-on experience is often more compelling than simply adding more to the free tier, which might not showcase the unique selling points of the paid product effectively.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Offer a 7-day free trial of the advanced sentiment analysis and automated ticket routing features.",
+        "isCorrect": true
+      },
+      {
+        "label": "Add a new feature to the free tier that provides basic customer interaction summaries.",
+        "isCorrect": false
+      },
+      {
+        "label": "Increase the limits on the free tier's basic FAQ responses.",
+        "isCorrect": false
+      },
+      {
+        "label": "Lower the price of the paid tier significantly without changing features.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A new online learning platform offers a free tier with access to introductory courses and a paid tier with advanced courses and personalized feedback. They have high sign-ups but low conversion to paid. What is the most critical trade-off to evaluate?",
+    "explanation": "Focusing on the perceived value of the paid tier is crucial. If the advanced courses or feedback aren't clearly superior or demonstrably valuable enough to justify the cost difference, users won't upgrade. This addresses the core reason for low conversion.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Significantly increasing the number of free courses to attract more users.",
+        "isCorrect": false
+      },
+      {
+        "label": "Improving the marketing copy to better highlight the benefits of the paid tier.",
+        "isCorrect": false
+      },
+      {
+        "label": "Evaluating if the advanced courses and personalized feedback offer sufficient unique value to justify the upgrade cost.",
+        "isCorrect": true
+      },
+      {
+        "label": "Reducing the price of the paid tier to make it more accessible.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A new AI-powered resume builder has a free tier offering basic templates and a paid tier with advanced AI-driven suggestions for content and optimization. Despite strong user acquisition, paid conversions are low. What trade-off is most critical to evaluate to improve paid conversions?",
+    "explanation": "Focusing on enhancing the core value proposition of the paid tier is crucial. If the 'advanced AI suggestions' are not perceived as significantly more valuable than what's offered for free, users won't upgrade.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Enhance the perceived value and effectiveness of the AI-driven suggestions in the paid tier.",
+        "isCorrect": true
+      },
+      {
+        "label": "Offer a free trial of the paid tier's advanced features.",
+        "isCorrect": false
+      },
+      {
+        "label": "Add more basic templates to the free tier to increase overall user engagement.",
+        "isCorrect": false
+      },
+      {
+        "label": "Reduce the price of the paid tier significantly.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A new AI music generation tool offers a free tier with limited track length and basic generation styles, while the paid tier unlocks unlimited length and advanced genre-blending. Paid conversions are low. What prioritization trade-off is most critical at this stage?",
+    "explanation": "The core issue is likely that free users aren't experiencing enough of the tool's potential to see value in upgrading. Focusing on improving the free tier's appeal first will broaden the user base and create more opportunities to convert those who genuinely benefit from the advanced features.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Enhance the free tier with more creative options and slightly longer tracks to showcase potential.",
+        "isCorrect": true
+      },
+      {
+        "label": "Offer a time-limited free trial of the full premium features.",
+        "isCorrect": false
+      },
+      {
+        "label": "Add more granular controls to the paid tier, even if the free tier remains limited.",
+        "isCorrect": false
+      },
+      {
+        "label": "Focus marketing efforts solely on attracting users who specifically need unlimited track length.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A new B2B SaaS platform for remote team collaboration has a strong daily active user (DAU) count, but a high number of users are only using the basic messaging feature, not the advanced project management or document co-editing tools. What trade-off is most critical for the product team to evaluate?",
+    "explanation": "Focusing on discoverability and integration of advanced features addresses the core problem of underutilization. The advanced features are likely where the true value proposition lies for driving deeper engagement and potential paid upgrades, making their visibility and ease of access paramount.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Investing heavily in marketing to attract even more users to the platform.",
+        "isCorrect": false
+      },
+      {
+        "label": "Improving the discoverability and user experience of the advanced project management and co-editing features.",
+        "isCorrect": true
+      },
+      {
+        "label": "Adding more basic communication features to cater to the existing user base.",
+        "isCorrect": false
+      },
+      {
+        "label": "Reducing the complexity of the existing messaging feature to simplify the user interface.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A new journaling app has a free tier with basic text entry and a paid tier unlocked by a subscription that offers AI-powered sentiment analysis and trend visualization. Despite good initial downloads, paid conversions are very low. What trade-off is most critical at this stage?",
+    "explanation": "Focusing on improving the free tier's core value proposition is crucial when paid conversions are low. If the free offering isn't compelling enough on its own, users won't see the long-term benefit of paying for premium features.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Enhance the AI sentiment analysis and trend visualization to be more sophisticated and accurate.",
+        "isCorrect": false
+      },
+      {
+        "label": "Develop a limited-time free trial of the premium features to demonstrate their value.",
+        "isCorrect": false
+      },
+      {
+        "label": "Add more unique and engaging journaling prompts and reflection exercises to the free tier.",
+        "isCorrect": true
+      },
+      {
+        "label": "Reduce the price of the premium subscription to make it more accessible.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A new coding bootcamp platform offers a free tier with introductory modules and a paid tier with live instructor support and project reviews. They have high initial sign-ups for the free tier but very low conversion to paid subscriptions. What trade-off is most critical to evaluate?",
+    "explanation": "The team needs to understand if the free tier is too generous, making the paid tier seem unnecessary, or if the perceived value of paid features isn't clear. Focusing on demonstrating value and differentiating the paid offering is key.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Making all live instructor support free to boost initial engagement.",
+        "isCorrect": false
+      },
+      {
+        "label": "Adding more free introductory modules to attract an even wider audience.",
+        "isCorrect": false
+      },
+      {
+        "label": "Clearly demonstrating the ROI and unique benefits of paid features vs. free.",
+        "isCorrect": true
+      },
+      {
+        "label": "Reducing the number of free modules to create scarcity.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A new AI writing assistant for novelists has a free tier offering basic sentence suggestions and a paid subscription for advanced plot generation and character arc development. Despite high initial adoption, paid conversions are low. What trade-off is most critical to evaluate?",
+    "explanation": "The core issue is likely a perceived lack of indispensable value in the free tier that compels users to upgrade. Demonstrating the advanced features' unique benefits and impact on the core user problem (writing a novel) is crucial for conversion.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Enhance the free tier with more basic writing tools to attract a larger user base.",
+        "isCorrect": false
+      },
+      {
+        "label": "Focus on demonstrating the unique, high-value outcomes of the paid features within the existing trial or onboarding.",
+        "isCorrect": true
+      },
+      {
+        "label": "Increase the marketing spend on acquiring new free users to eventually convert a small percentage.",
+        "isCorrect": false
+      },
+      {
+        "label": "Add a mid-tier subscription with slightly improved features to capture users unwilling to pay full price.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A new productivity app offers a free tier with basic task management features. The paid tier, unlocked by a subscription, adds advanced calendar integration and AI-powered task prioritization. Despite strong initial user acquisition, paid conversions are significantly low. What trade-off is most critical to evaluate to improve paid conversions?",
+    "explanation": "The team needs to understand if the core value proposition of the paid tier is compelling enough. Focusing on demonstrating the unique value of AI prioritization and seamless calendar integration to free users will be key to driving conversions, rather than just adding more features.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Optimizing the onboarding flow for the free tier to better showcase advanced features.",
+        "isCorrect": false
+      },
+      {
+        "label": "Increasing marketing spend to acquire more free users who might eventually convert.",
+        "isCorrect": false
+      },
+      {
+        "label": "Enhancing the value and discoverability of the paid features within the free user experience.",
+        "isCorrect": true
+      },
+      {
+        "label": "Reducing the price of the paid subscription to make it more accessible.",
+        "isCorrect": false
+      }
+    ]
+  }
+]

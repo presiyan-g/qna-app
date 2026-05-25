@@ -1,0 +1,462 @@
+[
+  {
+    "prompt": "You're building a no-code integration to sync customer data between your CRM and email marketing platform. Both platforms have unique IDs for each customer. Which is the BEST strategy to ensure data integrity when updating records?",
+    "explanation": "Mapping by a unique identifier like email address or a dedicated customer ID ensures that you are updating the correct record across both systems, preventing duplicates or incorrect data overwrites.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Always create a new record in the target system.",
+        "isCorrect": false
+      },
+      {
+        "label": "Map records using a unique identifier such as email address or a CRM-generated ID.",
+        "isCorrect": true
+      },
+      {
+        "label": "Manually review each record before syncing.",
+        "isCorrect": false
+      },
+      {
+        "label": "Use the last modified timestamp to decide which record is newer.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You're setting up a multi-step no-code automation to process incoming leads. Step 1 sends the lead to a Slack channel, and Step 2 adds them to a Google Sheet. If the Slack notification fails, what's the most robust way to ensure the lead isn't lost and the process can be retried?",
+    "explanation": "Using a 'wait' step and error handling branches allows the automation to pause and then branch to a specific error-handling path if an issue occurs. This prevents the lead from being lost and enables a retry mechanism.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Immediately retry the Slack step and continue to Google Sheets.",
+        "isCorrect": false
+      },
+      {
+        "label": "Log the error to a separate file and stop the automation.",
+        "isCorrect": false
+      },
+      {
+        "label": "Implement a 'wait' step with an error-handling branch that retries the Slack step/logs the error, then proceeds to the Google Sheet step.",
+        "isCorrect": true
+      },
+      {
+        "label": "Send an email notification to yourself and manually resume the automation.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your no-code automation needs to dynamically fetch a list of active users from an API and then send a personalized email to each. What's the most efficient way to handle this list processing within most no-code platforms?",
+    "explanation": "Looping or iteration steps are specifically designed to process each item in a list sequentially. This allows for applying actions to every user without manual intervention or complex conditional branching for each individual.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Use a webhook to trigger a new automation run for each user.",
+        "isCorrect": false
+      },
+      {
+        "label": "Manually copy and paste user data into separate email templates.",
+        "isCorrect": false
+      },
+      {
+        "label": "Employ a 'Loop' or 'For Each' step to process the user list.",
+        "isCorrect": true
+      },
+      {
+        "label": "Fetch only the first user from the API to send a single test email.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your no-code automation needs to parse unstructured text from customer feedback forms to categorize common issues. What's the most effective method to achieve this without complex coding?",
+    "explanation": "Leveraging built-in Natural Language Processing (NLP) modules or AI text analysis tools within your no-code platform is the most direct and efficient way to categorize unstructured text. These tools are designed to understand and classify text data without requiring manual rule creation or custom code.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Building a complex series of IF/THEN/ELSE statements for every possible keyword.",
+        "isCorrect": false
+      },
+      {
+        "label": "Using dedicated AI or NLP features within the no-code platform for text analysis.",
+        "isCorrect": true
+      },
+      {
+        "label": "Manually reviewing and tagging each feedback entry after submission.",
+        "isCorrect": false
+      },
+      {
+        "label": "Exporting all data to a spreadsheet and using VLOOKUP to find keywords.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You're automating the approval process for expense reports using a no-code tool. Requests trigger an email to a manager, who can respond with 'Approve' or 'Reject'. Your automation needs to reliably capture this response, even if the manager adds extra text. What's the most robust way to handle this specific text input?",
+    "explanation": "Using the 'contains' operator is the most robust method because it accurately identifies the manager's intent ('Approve' or 'Reject') regardless of any additional text they might include. This prevents automation failures due to minor variations in user input.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Exact match for the entire email body. (isCorrect: false)",
+        "isCorrect": false
+      },
+      {
+        "label": "Exact match for a specific keyword like 'Approve' or 'Reject'. (isCorrect: false)",
+        "isCorrect": false
+      },
+      {
+        "label": "Check if the email body 'contains' the word 'Approve' or 'Reject'. (isCorrect: true)",
+        "isCorrect": true
+      },
+      {
+        "label": "Use a regular expression to find the first word in the email. (isCorrect: false)",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You're building a no-code integration to send daily performance summaries from a project management tool to a specific Slack channel. The tool provides data in JSON format. What's the most efficient no-code approach to extract and format specific fields (like 'task_name', 'assignee', 'due_date') for the Slack message?",
+    "explanation": "Mapping specific JSON fields directly to output variables allows you to easily select and reformat the exact data points needed for your Slack message. This avoids unnecessary complexity or the need for custom code.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Manually copy-pasting each required data point into the Slack message action.",
+        "isCorrect": false
+      },
+      {
+        "label": "Using a custom code step to parse the JSON and construct the message.",
+        "isCorrect": false
+      },
+      {
+        "label": "Configuring the JSON parser within the no-code tool to map desired fields to variables for the Slack message.",
+        "isCorrect": true
+      },
+      {
+        "label": "Storing the entire JSON payload as a single text block in the Slack message.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You're setting up a no-code automation that needs to process a batch of orders from a spreadsheet. Each row represents an order, and you need to send a confirmation email for each. What's the most efficient way to ensure each order is processed individually and reliably within a no-code platform?",
+    "explanation": "Using a 'Loop' or 'Iterate' function is the standard no-code method to process individual records from a list or spreadsheet. This ensures each order is handled independently, allowing for retries on specific failures.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Send all emails at once in a single batch action.",
+        "isCorrect": false
+      },
+      {
+        "label": "Manually trigger the email send for each order after reviewing.",
+        "isCorrect": false
+      },
+      {
+        "label": "Utilize a 'Loop' or 'Iterate over rows' action to process each order one by one.",
+        "isCorrect": true
+      },
+      {
+        "label": "Create a separate automation for each order row in the spreadsheet.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You are automating the process of onboarding new clients. After collecting their details in a form, you need to create a new project folder for them in Google Drive and generate a welcome document template within that folder. What's the most efficient no-code approach to handle these sequential file operations?",
+    "explanation": "Triggering the creation of the folder first, and then using the newly created folder's ID in a subsequent step to create the document, ensures the document is placed in the correct location. This sequential dependency is crucial for organizing related files.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Create the document first, then attempt to move it to a folder named after the client.",
+        "isCorrect": false
+      },
+      {
+        "label": "Use a 'Create Folder' action, and then immediately use the output (folder ID) of that action in a 'Create Document' action.",
+        "isCorrect": true
+      },
+      {
+        "label": "Create both the folder and the document simultaneously in separate, disconnected steps.",
+        "isCorrect": false
+      },
+      {
+        "label": "Manually create the folder after the automation runs and only automate the document creation.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You're building a no-code automation to clean up duplicate entries in a Google Sheet. You need to identify rows that are identical based on a specific 'Email' column. What's the most efficient no-code approach to achieve this?",
+    "explanation": "Using a 'Find Duplicate Rows' action (or similar functionality provided by the no-code tool) that specifically targets the 'Email' column is the most direct and efficient method. This allows the tool to internally compare records without requiring complex custom filtering logic.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Manually sort the sheet by email and visually inspect for duplicates.",
+        "isCorrect": false
+      },
+      {
+        "label": "Use a 'Find Duplicate Rows' action, configuring it to check for uniqueness based on the 'Email' column.",
+        "isCorrect": true
+      },
+      {
+        "label": "Export the sheet to CSV, write a custom script to find duplicates, and re-import.",
+        "isCorrect": false
+      },
+      {
+        "label": "Create a filter view for each unique email address to see if it appears more than once.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You are building a no-code automation to send personalized follow-up emails to webinar attendees. The attendee list is in a Google Sheet, and you need to include a unique discount code for each person. How can you best generate and assign these unique codes within your no-code workflow?",
+    "explanation": "Using a hidden sheet or a separate lookup table to generate and store unique codes, which are then pulled into the main workflow, ensures each attendee gets a distinct code. This is more scalable and manageable than generating them on the fly for each email.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Generate a new random code for each email directly within the email sending step.",
+        "isCorrect": false
+      },
+      {
+        "label": "Manually input a unique discount code for every attendee in the Google Sheet beforehand.",
+        "isCorrect": false
+      },
+      {
+        "label": "Use a separate sheet or table to manage a pool of unique codes and assign them as attendees are processed.",
+        "isCorrect": true
+      },
+      {
+        "label": "Embed the discount code generation logic within the target email marketing platform's API.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You're building a no-code automation to handle event registrations. When a new registration form is submitted, you need to check if the registrant is already in your customer database. If they are, update their existing record; otherwise, create a new one. What's the most efficient no-code strategy for this conditional logic?",
+    "explanation": "Using a 'Find Record' or 'Search' action before updating or creating ensures you first check for an existing entry. This prevents duplicates and streamlines the process by allowing conditional paths (update if found, create if not). Other methods would either create duplicates or require more complex branching.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Immediately create a new record and then attempt to find and update it.",
+        "isCorrect": false
+      },
+      {
+        "label": "Use a 'Find Record' or 'Search' action first, then use conditional logic (e.g., 'if found') to decide whether to update or create.",
+        "isCorrect": true
+      },
+      {
+        "label": "Create a new record every time and rely on a separate de-duplication process later.",
+        "isCorrect": false
+      },
+      {
+        "label": "Send the data to a webhook and have a separate script handle the check and update/create.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You're building a no-code automation to manage recurring tasks, like sending monthly reports. The automation needs to trigger automatically on a specific schedule (e.g., the first Monday of every month). What is the most effective no-code trigger type for this scenario?",
+    "explanation": "Scheduled triggers are specifically designed to initiate automations at predefined intervals or on specific dates. This makes them ideal for managing recurring tasks without manual intervention.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Webhook Trigger: Listens for incoming data from another application.",
+        "isCorrect": false
+      },
+      {
+        "label": "Form Submission Trigger: Starts when a user submits a form.",
+        "isCorrect": false
+      },
+      {
+        "label": "Scheduled Trigger: Runs the automation at a set time and date.",
+        "isCorrect": true
+      },
+      {
+        "label": "Manual Trigger: Requires a user to initiate the automation.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You're building a no-code automation to manage inventory levels. When a product sells, you need to decrement its quantity in a spreadsheet. If the quantity drops below a predefined threshold, you need to trigger an alert. What's the most efficient way to handle the quantity check and alert logic after the decrement operation?",
+    "explanation": "Using a filter or condition step immediately after the decrement allows you to check the new quantity against the threshold. If the condition is met, the automation can then proceed to send the alert.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Add a separate step to read the quantity again and then use a condition.",
+        "isCorrect": false
+      },
+      {
+        "label": "Include a condition step directly after the decrement to check the new quantity and branch the workflow if the threshold is met.",
+        "isCorrect": true
+      },
+      {
+        "label": "Trigger a webhook and have an external service check the quantity and send an alert.",
+        "isCorrect": false
+      },
+      {
+        "label": "Only update the quantity. The alert will be handled by a separate, scheduled check.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You're building a no-code automation to process customer support tickets from an email inbox. Your goal is to categorize tickets based on keywords in the subject line (e.g., 'Billing Issue', 'Feature Request'). What's the most suitable no-code tool or method for implementing this keyword-based categorization?",
+    "explanation": "A 'Filter' or 'Conditional Logic' step allows you to check for specific keywords in the subject line and route the ticket to different branches of your automation. This is the core functionality needed for keyword-based categorization.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Using a 'Delay' step to wait for user input.",
+        "isCorrect": false
+      },
+      {
+        "label": "Implementing a 'Filter' or 'Conditional Logic' step based on subject line keywords.",
+        "isCorrect": true
+      },
+      {
+        "label": "Adding a 'Human Approval' step for manual review of every ticket.",
+        "isCorrect": false
+      },
+      {
+        "label": "Utilizing a 'Web Request' to an external AI service for simple keyword matching.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You're building a no-code automation to send out personalized survey invitations to your customers. The customer list is in a CRM, and each customer has a unique 'customer_id'. You need to use this ID to track responses without building custom code for each customer. What's the most effective no-code method to achieve this?",
+    "explanation": "Using a URL parameter allows you to append the unique 'customer_id' directly to the survey link. This makes the ID available to the survey tool for tracking. This is a common and efficient no-code technique for personalization and tracking.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Manually edit each survey link before sending.",
+        "isCorrect": false
+      },
+      {
+        "label": "Embed the customer_id as a hidden field within the email body.",
+        "isCorrect": false
+      },
+      {
+        "label": "Append the customer_id as a URL parameter in the survey invitation link.",
+        "isCorrect": true
+      },
+      {
+        "label": "Create a separate automation for each customer.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your no-code automation needs to send personalized thank-you notes after a successful online purchase. The note should include the customer's name and the specific product they bought, pulled from the e-commerce platform's webhook data. What's the most effective no-code approach for accessing and using this dynamic data?",
+    "explanation": "Webhook data provides real-time information about events, such as purchases. No-code platforms can parse this data directly in the automation trigger to access fields like customer name and product details. Manual data entry or database lookups would be unnecessary and less efficient.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Manually enter the customer name and product into a new email template.",
+        "isCorrect": false
+      },
+      {
+        "label": "Configure the automation trigger to directly parse the incoming webhook data.",
+        "isCorrect": true
+      },
+      {
+        "label": "Perform a database lookup for each customer using their email address before sending the note.",
+        "isCorrect": false
+      },
+      {
+        "label": "Create a separate spreadsheet to log purchase data and then import it into the email tool.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You are automating lead qualification. A new lead comes in via a form, and you need to check if their company domain is on an 'approved vendor' list (stored in a separate spreadsheet). If it is, the lead gets high priority. What's the most efficient no-code way to perform this lookup?",
+    "explanation": "Using a lookup or merge step allows your automation to directly search for the lead's company domain within your approved vendor spreadsheet. This is far more efficient than manually processing each entry or trying to embed complex logic.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Manually review each lead and add a priority tag.",
+        "isCorrect": false
+      },
+      {
+        "label": "Use a 'Lookup' or 'Merge' step to find the domain in the vendor list.",
+        "isCorrect": true
+      },
+      {
+        "label": "Send an email to yourself for every lead to manually check the domain.",
+        "isCorrect": false
+      },
+      {
+        "label": "Build a custom script to compare domains.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You're building a no-code automation to sync customer data between your CRM and an email marketing platform. When a new customer is added to the CRM, you need to automatically create a corresponding contact in the email platform. What's the most robust no-code method to ensure this data sync happens accurately and reliably?",
+    "explanation": "Using a webhook trigger in your CRM that pushes data to the email marketing platform directly is the most real-time and reliable method. This ensures that as soon as a new customer is added, the data is immediately sent for processing. Scheduled data pulls might miss new customers added between intervals and manual CSV exports are inefficient for continuous syncing.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Manually export customer lists from the CRM and import them into the email platform daily.",
+        "isCorrect": false
+      },
+      {
+        "label": "Set up a scheduled data pull from the CRM to the email platform every hour.",
+        "isCorrect": false
+      },
+      {
+        "label": "Configure a webhook trigger in the CRM to send new customer data to the email marketing platform's API.",
+        "isCorrect": true
+      },
+      {
+        "label": "Use a third-party data connector tool that requires weekly manual updates.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You are automating lead nurturing. After a lead interacts with a specific piece of content, you want to add a tag to their profile in your CRM. How can you most efficiently trigger this tagging action in a no-code workflow based on content interaction?",
+    "explanation": "Webhooks are the most direct and real-time way to get data from a content platform to your automation. This allows for immediate tagging as soon as the interaction occurs, ensuring timely lead management.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Periodically polling the content platform for new interaction data.",
+        "isCorrect": false
+      },
+      {
+        "label": "Manually reviewing interaction logs and updating the CRM.",
+        "isCorrect": false
+      },
+      {
+        "label": "Using a webhook from the content platform to push data to your automation tool.",
+        "isCorrect": true
+      },
+      {
+        "label": "Integrating your CRM directly with the content platform via a native integration.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You're automating the process of sending out personalized thank-you notes after a successful online purchase. The note should include the customer's name and the specific product they bought, pulled from the e-commerce platform's webhook data. What's the most effective no-code approach for accessing and using this dynamic data?",
+    "explanation": "Webhook data is inherently dynamic and contains specific payload information about the event. Parsers or data transformation steps within your no-code tool allow you to extract and use these specific fields like customer name and product. Manual configuration or simple text matching wouldn't leverage the structured data provided by the webhook.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Manually entering each customer's name and product into a template after the purchase.",
+        "isCorrect": false
+      },
+      {
+        "label": "Using a data parser or transformation block within your no-code platform to access fields from the webhook payload.",
+        "isCorrect": true
+      },
+      {
+        "label": "Creating a separate form to collect customer name and product details after the webhook trigger.",
+        "isCorrect": false
+      },
+      {
+        "label": "Searching a separate database for customer names and product details using a common identifier.",
+        "isCorrect": false
+      }
+    ]
+  }
+]

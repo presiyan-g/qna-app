@@ -1,0 +1,227 @@
+[
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "I picked 'decreasing parking spots.' Honestly, that felt like a primary goal to me? Like, the whole point is to make driving less convenient, and fewer spots are a big part of that. Was I way off?"
+    },
+    "reply": {
+      "body": "I get why you’d think that! It's a very common side effect, and often implemented alongside it, but the pricing itself is about the *cost* of entering the zone to reduce traffic. Making parking scarcer sometimes happens, but the core mechanism isn't that."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "I picked eliminating parking minimums. I figured it would make building denser housing cheaper and therefore easier. The explanation says it's the least effective because of political opposition, which makes sense, but it felt like the most direct lever to pull."
+    },
+    "reply": {
+      "body": "That was my thought process too! It's a shame that political feasibility often trumps what seems like a straightforward solution on paper. I ended up going with something else, but I can see how you'd land on parking."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "I picked the option about restricting new STR permits. It felt like the most direct way to stop *more* housing from being converted. But reading the explanation, the 'day cap' makes a lot of sense too. It actually *removes* units from the STR market that are already there. This stuff is tricky."
+    },
+    "reply": {
+      "body": "Totally get that. The wording of these questions always messes with me. For me, capping the days was the clear winner once I thought about it. It's not about stopping new ones, but about making the existing ones less attractive as full-time income streams, pushing them back to rentals."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "Chose increasing density. It felt like the outlier right away, though I did pause on traffic flow. We've seen so many parking spots disappear for parklets and bike lanes here, and it definitely hasn't *improved* traffic. But the primary intent is never really about making cars go faster, is it?"
+    },
+    "reply": {
+      "body": "Exactly. The traffic flow is often a secondary effect, sometimes negatively, but the goal is usually about prioritizing other modes or uses. Gentrification and displacement are related issues often caused by successful reallocation, but increasing density itself isn't the direct mechanism of the curb change."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "I picked the pedestrian plaza option. It felt like the most direct way to take space away from cars and give it to people. Was that totally wrong? I guess dedicated bike lanes are more about *adding* capacity for non-cars rather than *removing* car capacity, which might be the spirit of it?"
+    },
+    "reply": {
+      "body": "Your thinking makes sense! I struggled with the same distinction. I think the key is that pedestrian plazas can *eliminate* car access entirely in certain areas, which is a pretty strong statement. Bike lanes, while great, often just reduce car lanes or run alongside them. This pilot is likely looking for bold moves."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "I almost picked the one about foot traffic increase but that's more about vibrancy than quality. Accessibility for people with disabilities also felt super relevant, but satisfaction ratings seem to capture the overall feeling better. It's hard to quantify 'quality' though, isn't it?"
+    },
+    "reply": {
+      "body": "Totally. I think that's why the 'satisfaction' metric is key. It's subjective, yeah, but that's what makes a public space feel good or not. foot traffic doesn't mean people enjoy it, and accessibility ramps are great but if the park is always overcrowded and dirty, it's still not 'quality'."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "I almost picked option B about widening sidewalks, but the 'street as a place' framing made me reconsider. The prompt pushed me toward closing streets for events and markets. Feels more transformative than just more room to walk."
+    },
+    "reply": {
+      "body": "Totally get that. Sidewalks are key, but yes, the 'place' aspect really elevates closing streets. It’s about activating the entire width, not just the edges. Think of how much more dynamic it becomes for people when cars are gone for a while."
+    }
+  },
+  {
+    "questionIndex": 7,
+    "topLevel": {
+      "body": "I picked B, painting crosswalks. Seemed like the most direct way to 'activate' a space. But reading the explanation, I totally get why pop-up vendors (A) are a better fit for flexibility and diverse use. Crosswalks are cool but pretty static once they're down. Plus, vendors bring their own energy."
+    },
+    "reply": {
+      "body": "Yeah, I went with A too. The prompt's emphasis on 'temporary' and 'flexible' really pushed me that way. A painted crosswalk feels a bit more permanent, and while it can be a visual cue, it doesn't inherently invite different *types* of uses or programming in the same way food trucks or small market stalls can. Good question though, makes you think about what 'activation' really means."
+    }
+  },
+  {
+    "questionIndex": 8,
+    "topLevel": {
+      "body": "Went with C (increased private vehicle speed). It felt like the obvious outlier. They're supposed to make buses faster, not cars. Anyone else get tripped up by the wording or pick a different one?"
+    },
+    "reply": {
+      "body": "Totally agree, C was the only logical answer for least likely benefit. It's funny how often proposals get framed as beneficial for everyone when the trade-offs are pretty clear. Most dedicated lane projects I've seen actually slow down general traffic flow initially."
+    }
+  },
+  {
+    "questionIndex": 9,
+    "topLevel": {
+      "body": "Chose congestion pricing. It just makes the most sense for directly impacting *demand*. The others feel like treating symptoms instead of the root cause of *why* people choose to drive in the first place. Curious if anyone picked something else and why?"
+    },
+    "reply": {
+      "body": "Right there with you. It's the most Parisian of the options, conceptually. I actually agonized between this and expanding transit capacity, but the question specified 'demand,' which pricing hits head-on. Supply-side fixes like transit are crucial, but they don't curb the *desire* to drive itself."
+    }
+  },
+  {
+    "questionIndex": 10,
+    "topLevel": {
+      "body": "Chose B for this one, thinking about how much land is dedicated to surface parking lots in so many car-centric cities. It feels like a huge barrier to actually reclaiming that space for mixed-use development that would support local businesses and housing. Seems like a physical constraint that really impacts proximity."
+    },
+    "reply": {
+      "body": "That's a really good point I hadn't focused on. I was hung up on option D, thinking about the density requirements. If you can't build enough housing, you can't support the commercial side to make any neighborhood truly 15-minute. But yeah, the parking lots are a massive visual reminder of inefficient land use that would need to be addressed first."
+    }
+  },
+  {
+    "questionIndex": 11,
+    "topLevel": {
+      "body": "I picked A, thinking it would definitely lead to more affordable housing. But the explanation about density and sprawl redirection makes a lot of sense. I feel like that's a much more direct and certain outcome than assuming developers would magically pass on savings to renters. Anyone else get tripped up by the housing angle?"
+    },
+    "reply": {
+      "body": "Totally. The focus on density is key. It's less about direct affordability and more about shaping development patterns. If land becomes more expensive to hold vacant or underdeveloped, the incentive shifts to build *up* or build *something* useful on it, which *can* eventually help affordability but it's not a straight line."
+    }
+  },
+  {
+    "questionIndex": 12,
+    "topLevel": {
+      "body": "I picked A (wide sidewalks) because I was thinking about how 'least effective' is the keyword. Other things might be *more* effective. Seems like such a trick question!"
+    },
+    "reply": {
+      "body": "Totally felt that. I almost went with A too. But then I thought about how even a narrow sidewalk can be improved, whereas the garage is just a big void at street level. It's hard to make a bad sidewalk 'good', but it's impossible to make a garage 'walkable'."
+    }
+  },
+  {
+    "questionIndex": 13,
+    "topLevel": {
+      "body": "Definitely went with protected bike lanes. It felt like the most direct answer for promoting sustainable mobility over just general street improvements. Wider sidewalks are great, but they don't inherently get people out of cars like a safe bike lane does."
+    },
+    "reply": {
+      "body": "Totally agree. It's the dedicated infrastructure that makes the difference. Without that safety guarantee, people still won't trade their car for a bike, even if the destination is closer. Bus stops are important, but they're still tied to a car-centric transit schedule sometimes."
+    }
+  },
+  {
+    "questionIndex": 14,
+    "topLevel": {
+      "body": "I picked A, but I'm not 100% sure. The explanation seems to imply that the *result* is more affordable housing, but it could also just make overall development more expensive, thus driving up prices for the non-affordable units. It feels like a trade-off."
+    },
+    "reply": {
+      "body": "Totally feel that! That's exactly what my urban planning prof argued. While it guarantees some affordable units, the cost of the affordable units often gets baked into the market-rate ones. So, you get *some* affordability, but the overall market might not be more affordable if that's the only tool used."
+    }
+  },
+  {
+    "questionIndex": 15,
+    "topLevel": {
+      "body": "This one really got me thinking. I initially picked 'increased foot traffic and retail sales' because that seems like the obvious win. But the explanation makes sense – sometimes the unintended downsides are the most significant."
+    },
+    "reply": {
+      "body": "Right? My first thought was also sales boost. I wonder how often cities actually study the *displacement* of traffic though. It feels like a perpetual game of whack-a-mole with congestion."
+    }
+  },
+  {
+    "questionIndex": 16,
+    "topLevel": {
+      "body": "I picked C (inconsistent user experience) because I've seen some parklets that are lovely and others that are just abandoned-looking. But that explanation about maintenance and planning makes so much sense. It's hard to imagine a city keeping up with thousands of them consistently."
+    },
+    "reply": {
+      "body": "Totally. The aesthetic part is huge for user experience, for sure, but the underlying infrastructure and upkeep burden feels like the real kicker. Who owns them? Who fixes them when they break? That uncertainty must be a nightmare for any city department trying to manage the streetscape."
+    }
+  },
+  {
+    "questionIndex": 17,
+    "topLevel": {
+      "body": "Chose A, the reduction in traffic volume. It seems pretty obvious that fewer cars means less pollution. I almost fell for C, the increased public transit ridership, but that's more of a secondary effect, right? Or am I missing something?"
+    },
+    "reply": {
+      "body": "Yeah, A is the direct impact. C is definitely a goal, but it's about behavior change that results from higher driving costs. The immediate environmental win is fewer idling and moving cars pumping out fumes. Glad you caught that nuance!"
+    }
+  },
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "I picked 'decreasing parking availability'. That just feels like a natural consequence of reducing cars, but not the main point of charging them to enter. The revenue and traffic calming aspects seem more direct drivers."
+    },
+    "reply": {
+      "body": "Yeah, I went with that one too. It's an interesting distinction though - policies can aim for secondary effects as primary goals. So technically you could engineer parking scarcity as *part* of the congestion strategy, but the prompt asked for the LEAST likely primary goal, and I agree it's not usually *the* main driver."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "I picked eliminating parking requirements. It feels like the most direct way to make smaller units financially viable. ADUs and triplexes are good, but parking minimums are such a huge cost driver for any new development, especially smaller ones. It's surprising it's considered least effective."
+    },
+    "reply": {
+      "body": "I can see why you'd think that! Reducing parking is definitely a huge lever. But maybe the 'least effective' part is because even if you *eliminate* them on paper, developers might still add private parking to compete, or cities might resist full elimination due to NIMBY backlash about street parking. So, less *achievable* or *impactful* in practice than folks think, even if theoretically good."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "I initially picked the option about limiting the number of STR licenses issued city-wide. It felt like the most logical way to control the overall market. But then I re-read the prompt focusing on 'preserving housing units' and realized a day cap might be more direct for that specific goal. It's a tricky distinction!"
+    },
+    "reply": {
+      "body": "Yeah, I struggled with that too. The license cap can feel like the 'bigger picture' solution, but the day limit really locks in the residential use of a unit. I think the key is that the day cap prevents even a single unit from being permanently taken off the long-term market, whereas license caps could still allow a lot of units to be used transiently if the cap is high."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "I picked increasing residential density, but the explanation threw me for a loop. I always thought that reclaiming parking for bus lanes or parklets would indirectly lead to more people living nearby. But I guess that's a separate zoning fight entirely."
+    },
+    "reply": {
+      "body": "Yeah, it's a good distinction. Curbspace is about the street's immediate use. Density is about what happens a block or two off the street. They influence each other, for sure, but they aren't the same policy tool."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "I picked the protected bike lanes too! It felt like the most obvious and impactful change. What did everyone else think? I almost went with the pedestrian bulb-outs because I walk everywhere, but the bike lanes seem to address a wider range of non-car users."
+    },
+    "reply": {
+      "body": "Totally agree with you. The bike lanes are the clearest signal. Bulb-outs are great for walkability, but they don't do much for cycling or scootering. This policy is really about diversifying the street, and bike lanes hit that mark hard."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "I almost went with pedestrian counts, but then reread the question closely. It's tricky because high foot traffic doesn't automatically mean good public space. Glad I caught that and selected resident satisfaction. That feels like the real measure of success for these big projects."
+    },
+    "reply": {
+      "body": "Totally agree. Pedestrian counts can be misleading. A mall entrance might have tons of foot traffic but offer zero quality public space. Resident satisfaction surveys really get to the heart of whether the development is actually enhancing the neighborhood experience or just bringing more people through."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "I went with option C, thinking about those wider sidewalks and expanded plazas. It feels like the most direct way to make the street feel like an actual destination, not just a way to get somewhere else. I almost picked the one about traffic calming but that felt more about safety than transforming the space itself."
+    },
+    "reply": {
+      "body": "Interesting point about C! I also leaned that way. It's easy to get stuck on speed/safety with traffic calming, but you're right, a plaza or expanded seating really *creates* a place. I think the prompt really pushed us to consider the 'destination' aspect rather than the 'path' aspect."
+    }
+  }
+]

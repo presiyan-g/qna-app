@@ -1,0 +1,462 @@
+[
+  {
+    "prompt": "When designing an AI agent for complex task execution, which architectural pattern is most suitable for breaking down a high-level goal into smaller, manageable sub-tasks and coordinating their sequential or parallel execution?",
+    "explanation": "A hierarchical task network (HTN) allows for the decomposition of complex goals into a tree of sub-tasks, making it ideal for planning and executing multi-step actions. This structure directly supports the creation of agents that can manage intricate workflows.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "State Machine",
+        "isCorrect": false
+      },
+      {
+        "label": "Behavior Tree",
+        "isCorrect": false
+      },
+      {
+        "label": "Hierarchical Task Network (HTN)",
+        "isCorrect": true
+      },
+      {
+        "label": "Finite Automaton",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When integrating multiple specialized AI models into a single agent for a complex workflow, which architectural approach is most effective for managing data flow, error handling, and orchestrating the sequence of model interactions?",
+    "explanation": "A pipeline architecture allows for the sequential or parallel processing of data through distinct AI models. It excels at managing data flow between stages and implementing robust error handling for each step.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Microservices Architecture",
+        "isCorrect": false
+      },
+      {
+        "label": "Monolithic Architecture",
+        "isCorrect": false
+      },
+      {
+        "label": "Event-Driven Architecture",
+        "isCorrect": false
+      },
+      {
+        "label": "Pipeline Architecture",
+        "isCorrect": true
+      }
+    ]
+  },
+  {
+    "prompt": "When building an AI agent that needs to maintain context and a coherent conversational history across multiple turns, what architectural pattern is crucial for managing and retrieving relevant past information?",
+    "explanation": "A memory module is essential for AI agents to recall previous interactions and maintain context. This allows for more coherent and personalized conversations, enabling the agent to build upon past dialogue.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "A stateless processing unit",
+        "isCorrect": false
+      },
+      {
+        "label": "A distributed caching layer",
+        "isCorrect": false
+      },
+      {
+        "label": "An integrated memory module",
+        "isCorrect": true
+      },
+      {
+        "label": "A real-time data stream synchronizer",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When an AI agent needs to interact with external systems or access real-world information (like APIs, databases, or web services) to fulfill a user's request, what architectural component is primarily responsible for managing these outbound connections and data transformations?",
+    "explanation": "A Tool Use or Function Calling module acts as the bridge between the AI's reasoning and external capabilities. It handles the selection of appropriate tools, formatting inputs for them, and processing their outputs for the AI to use.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Memory Module",
+        "isCorrect": false
+      },
+      {
+        "label": "Planning Module",
+        "isCorrect": false
+      },
+      {
+        "label": "Tool Use / Function Calling Module",
+        "isCorrect": true
+      },
+      {
+        "label": "Reasoning Engine",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When your AI agent needs to access and process structured data from external sources like databases or APIs, what architectural pattern is most commonly employed to manage the retrieval, parsing, and transformation of this data before it's fed to the AI model?",
+    "explanation": "The Adapter pattern is used to allow systems with incompatible interfaces to communicate. In AI, it's employed to bridge the gap between external data sources and the AI agent's internal processing logic.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Observer Pattern",
+        "isCorrect": false
+      },
+      {
+        "label": "Adapter Pattern",
+        "isCorrect": true
+      },
+      {
+        "label": "Singleton Pattern",
+        "isCorrect": false
+      },
+      {
+        "label": "Factory Pattern",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When building an AI agent that needs to learn and adapt its behavior over time based on new data or user feedback, which architectural principle is most critical for enabling this dynamic evolution without requiring a complete system overhaul?",
+    "explanation": "Reinforcement Learning (RL) is the core principle that allows agents to learn from interactions and feedback. By defining reward signals and state transitions, the agent can iteratively improve its decision-making policies.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Modular Design",
+        "isCorrect": false
+      },
+      {
+        "label": "Reinforcement Learning (RL) Loop",
+        "isCorrect": true
+      },
+      {
+        "label": "Agent-based Simulation",
+        "isCorrect": false
+      },
+      {
+        "label": "Abstract Syntax Trees (ASTs)",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When building an AI agent that needs to recover from errors or unexpected outcomes during task execution, which architectural concept is most critical for ensuring resilience and robustness?",
+    "explanation": "Error handling strategies and fallback mechanisms are crucial for an agent's resilience. This allows the agent to gracefully manage unexpected situations, retry operations, or switch to alternative approaches, preventing complete task failure.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Decoupled microservices architecture",
+        "isCorrect": false
+      },
+      {
+        "label": "State management patterns",
+        "isCorrect": false
+      },
+      {
+        "label": "Robust error handling and fallback mechanisms",
+        "isCorrect": true
+      },
+      {
+        "label": "Asynchronous task queuing",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When designing an AI agent that needs to reason about and select the best tool or function to use for a given task, what architectural pattern or component is primarily responsible for this decision-making process?",
+    "explanation": "The Tool or Function Selector is the architectural component specifically designed to analyze the user's request or the agent's current state and determine the most appropriate tool or function to invoke. It acts as a routing mechanism based on reasoning capabilities.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Memory Management Module",
+        "isCorrect": false
+      },
+      {
+        "label": "User Interface Handler",
+        "isCorrect": false
+      },
+      {
+        "label": "Tool or Function Selector",
+        "isCorrect": true
+      },
+      {
+        "label": "Output Formatting Layer",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When developing an AI agent that needs to act as an intermediary between a user and multiple independent services or APIs, what architectural pattern is most effective for abstracting away the complexities of these underlying services and providing a unified interface?",
+    "explanation": "The Facade pattern provides a simplified, unified interface to a complex subsystem. This is ideal for an AI agent acting as an intermediary, as it hides the intricacies of multiple APIs while presenting a coherent interface to the user.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Microservices Architecture",
+        "isCorrect": false
+      },
+      {
+        "label": "Event-Driven Architecture",
+        "isCorrect": false
+      },
+      {
+        "label": "Facade Pattern",
+        "isCorrect": true
+      },
+      {
+        "label": "Layered Architecture",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When designing an AI agent that needs to handle a continuous stream of incoming data and perform real-time processing or actions, which architectural pattern is most effective for managing this flow without overwhelming system resources?",
+    "explanation": "Event-driven architecture is ideal for handling continuous data streams. It allows agents to react to incoming events asynchronously, processing them as they arrive without needing to constantly poll or maintain open connections, thus preventing resource exhaustion.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Microservices Architecture",
+        "isCorrect": false
+      },
+      {
+        "label": "Event-Driven Architecture",
+        "isCorrect": true
+      },
+      {
+        "label": "Layered Architecture",
+        "isCorrect": false
+      },
+      {
+        "label": "Monolithic Architecture",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When an AI agent needs to dynamically update its knowledge base or operational parameters based on real-time events or new information without requiring a full retraining cycle, what architectural approach is most applicable?",
+    "explanation": "For dynamic updates, a stateful architecture that allows for incremental learning or modular knowledge updates is key. This enables the agent to incorporate new information efficiently, rather than relying on complete system restarts or retraining.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Stateless request-response processing",
+        "isCorrect": false
+      },
+      {
+        "label": "Microservices with immutable deployments",
+        "isCorrect": false
+      },
+      {
+        "label": "Event-driven architecture with modular state management",
+        "isCorrect": true
+      },
+      {
+        "label": "Batch processing of all incoming data",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When designing an AI agent that needs to perform a series of actions that depend on the outcome of previous actions, often involving external tools or APIs, what architectural pattern best describes this reactive, step-by-step execution flow?",
+    "explanation": "Chained execution patterns, often implemented via state machines or simple sequential processing, are ideal for scenarios where each step's output directly influences the next step. This ensures actions are performed in a logical, dependent order.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Event-driven architecture",
+        "isCorrect": false
+      },
+      {
+        "label": "Chained execution pattern",
+        "isCorrect": true
+      },
+      {
+        "label": "Microservices architecture",
+        "isCorrect": false
+      },
+      {
+        "label": "Publish-subscribe pattern",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When designing an AI agent that needs to interpret unstructured text and extract specific entities or sentiments, what architectural pattern is most effective for its core natural language understanding (NLU) processing?",
+    "explanation": "The Transformer architecture, particularly models like BERT or GPT variations, excels at understanding context and nuances in text. This makes it highly suitable for NLU tasks like entity extraction and sentiment analysis.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Recurrent Neural Networks (RNNs) with LSTMs/GRUs",
+        "isCorrect": false
+      },
+      {
+        "label": "Convolutional Neural Networks (CNNs) for text classification",
+        "isCorrect": false
+      },
+      {
+        "label": "Transformer-based architectures (e.g., BERT, GPT)",
+        "isCorrect": true
+      },
+      {
+        "label": "Symbolic AI / Rule-based systems",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When designing an AI agent that needs to make decisions, plan sequences of actions, and potentially explore different paths to achieve a goal, what architectural paradigm is most suited for managing its long-term strategic thinking and problem-solving capabilities?",
+    "explanation": "Hierarchical Reinforcement Learning (HRL) is ideal for complex, long-horizon tasks. It breaks down a large goal into smaller sub-goals, allowing for more efficient learning and planning at different levels of abstraction, mimicking strategic thinking.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Reactive Agent Architecture",
+        "isCorrect": false
+      },
+      {
+        "label": "Hierarchical Reinforcement Learning (HRL)",
+        "isCorrect": true
+      },
+      {
+        "label": "Simple Feed-Forward Neural Networks",
+        "isCorrect": false
+      },
+      {
+        "label": "Blackboard System Architecture",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When an AI agent needs to process long documents or large datasets, and the model has a limited context window, what architectural strategy is typically employed to allow the agent to effectively reason over the entire information corpus?",
+    "explanation": "Retrieval Augmented Generation (RAG) is the key architectural strategy. It allows an agent to retrieve relevant chunks of information from a larger corpus and inject them into the model's limited context window for processing. This enables reasoning over information that would otherwise be inaccessible.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Implementing a feedback loop with reinforcement learning.",
+        "isCorrect": false
+      },
+      {
+        "label": "Utilizing Retrieval Augmented Generation (RAG) to fetch relevant information.",
+        "isCorrect": true
+      },
+      {
+        "label": "Employing a memory replay buffer for sequential data.",
+        "isCorrect": false
+      },
+      {
+        "label": "Implementing a distributed caching mechanism.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When an AI agent needs to maintain a persistent memory of past interactions, learned facts, or user preferences across multiple sessions, which architectural pattern is most crucial for storing and retrieving this contextual information effectively?",
+    "explanation": "A Knowledge Graph allows for the structured storage and querying of entities and their relationships, making it ideal for building persistent memory for AI agents. It enables efficient retrieval of complex contextual information over time.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Short-term cache",
+        "isCorrect": false
+      },
+      {
+        "label": "Knowledge Graph",
+        "isCorrect": true
+      },
+      {
+        "label": "Event Sourcing Log",
+        "isCorrect": false
+      },
+      {
+        "label": "Vector Database",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When developing an AI agent that needs to perform complex, multi-step tasks requiring conditional logic and dynamic task sequencing, which architectural concept is most fundamental for managing the overall workflow and control flow?",
+    "explanation": "A state machine defines a set of states and transitions between them, making it ideal for managing complex workflows and conditional logic in AI agents. It provides a clear structure for executing tasks sequentially or conditionally based on outcomes.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Event-Driven Architecture",
+        "isCorrect": false
+      },
+      {
+        "label": "State Machine",
+        "isCorrect": true
+      },
+      {
+        "label": "Microservices Architecture",
+        "isCorrect": false
+      },
+      {
+        "label": "Data Pipeline",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When designing an AI agent that needs to perform a task requiring multiple independent function calls in sequence, where the output of one function becomes the input for the next, what architectural pattern is best suited for managing this coordinated execution?",
+    "explanation": "Orchestration defines a central controller that manages the sequence of operations, ensuring that each step is executed correctly and that data flows between them. This is crucial for multi-step, dependent tasks.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Event-Driven Architecture",
+        "isCorrect": false
+      },
+      {
+        "label": "Microservices Architecture",
+        "isCorrect": false
+      },
+      {
+        "label": "Orchestration Pattern",
+        "isCorrect": true
+      },
+      {
+        "label": "Publish-Subscribe Pattern",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When building an AI agent that needs to understand and respond to user requests by generating creative text formats, like poems, code, scripts, musical pieces, email, letters, etc., what core architectural component is most responsible for the fluent and contextually relevant generation of this content?",
+    "explanation": "A large language model (LLM) serves as the primary engine for generating diverse and creative text formats. Its training on vast datasets allows it to understand context, style, and intricate patterns necessary for generating various types of content.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "A Vector Database for semantic similarity search",
+        "isCorrect": false
+      },
+      {
+        "label": "A Rule-based system for predefined content structures",
+        "isCorrect": false
+      },
+      {
+        "label": "A Large Language Model (LLM) for generative text capabilities",
+        "isCorrect": true
+      },
+      {
+        "label": "An API Gateway for managing external service integrations",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When building an AI agent that needs to access and process external knowledge from various sources (like web pages, documents, or databases) to inform its decisions or responses, which architectural approach is most critical for managing and retrieving this external information efficiently and effectively?",
+    "explanation": "Retrieval-Augmented Generation (RAG) is the architectural pattern designed to integrate external knowledge sources into the generation process. It allows the agent to retrieve relevant information before formulating a response, enhancing accuracy and context. While other components like LLMs and vector databases are involved, RAG specifically addresses the integration of external knowledge.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Fine-tuning a large language model (LLM) on a custom dataset.",
+        "isCorrect": false
+      },
+      {
+        "label": "Implementing a Retrieval-Augmented Generation (RAG) pipeline.",
+        "isCorrect": true
+      },
+      {
+        "label": "Using a complex multi-agent orchestration system.",
+        "isCorrect": false
+      },
+      {
+        "label": "Employing a state machine for deterministic workflow control.",
+        "isCorrect": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "theme": "welcome",
+    "body": "Welcome to Data Viz Daily!\n\nSo glad you're here. Our goal is simple: one chart critique or visualization decision each day to help us all become clearer analytical storytellers. Expect a new post daily, encouraging discussion and learning. Our scoring system is a bit playful – think of it as a nod to good-effort critiques and insightful comments. The more you engage, the better we all get.\n\nWe encourage you to jump into the discussions! Share your thoughts, ask follow-up questions, and offer your own takes. This is a space for collaborative learning, so let's build better visualizations together."
+  },
+  {
+    "theme": "weekly_recap",
+    "body": "Last week was a flurry of insightful critiques and thoughtful discussions. We saw a great range of chart types and data challenges, from tracking complex website user journeys to visualizing the impact of a new feature. \n\nThe trickiest question of the week involved determining the best way to represent time-series data with multiple discontinuous points and significant outliers. Finding a visualization that simultaneously highlighted trends, individual event impacts, and the gaps between them without becoming overly cluttered proved a real puzzle. It highlighted that clear storytelling often requires balancing detail with readability, and sometimes, a single chart isn't enough.\n\nKeep those questions coming – the more complex, the more we all learn! See you this week for more data viz clarity."
+  },
+  {
+    "theme": "resource",
+    "body": "This week, I'm sharing a fantastic resource that's been a consistent go-to for me: the blog \"The Functional Art\" by Alberto Cairo. While not strictly daily, each post offers deep dives into visualization principles, case studies, and practical advice that's incredibly relevant to our daily quest for clearer analytical storytelling. Cairo's ability to dissect complex design decisions and explain the 'why' behind effective charts makes this a must-read for anyone looking to elevate their data visualization skills. It's particularly strong on the ethical considerations and the cognitive aspects of how people perceive visual information.\n\nIf you're looking to go beyond basic chart types and truly understand the craft of visual communication, exploring his archives is time well spent. It’s a great place to find inspiration and solidify those foundational concepts that make a good visualization great."
+  },
+  {
+    "theme": "winner",
+    "body": "A huge congratulations to @top_scorer for an outstanding week of insightful contributions to Data Viz Daily! Your analyses and critiques consistently pushed our understanding of analytical storytelling forward.\n\nWe're always looking for clarity and impact in our data visualizations, and @top_scorer truly embodied those principles this past week. Keep up the fantastic work – you're setting a high bar for us all. \n\nWe appreciate everyone who shared their expertise and engaged in discussions. Let's continue to learn and grow together!"
+  },
+  {
+    "theme": "milestone",
+    "body": "Wow, Data Viz Daily! We've officially crossed the 200-member mark! It's inspiring to see so many folks dedicated to improving their analytical storytelling, one chart at a time.\n\nThis milestone is a testament to the power of focused learning and constructive feedback. The quality of discussions and critiques shared here is truly exceptional, and it's exciting to see our community grow with such engaged individuals.\n\nLet's keep the momentum going! Share your latest viz, ask those tough questions, and help us reach even greater heights together. Here's to making data visualization clearer and more impactful for everyone."
+  }
+]

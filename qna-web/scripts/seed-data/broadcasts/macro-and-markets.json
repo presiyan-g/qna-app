@@ -1,0 +1,22 @@
+[
+  {
+    "theme": "welcome",
+    "body": "Welcome to Macro & Markets! Glad to have you join the discussion on rates, inflation, business cycles, and all the fascinating signals shaping market narratives. We aim to drop a fresh question each day to keep the insights flowing.\n\nYour answers will be scored based on accuracy and insight, with the top performer highlighted periodically. Feel free to jump into any ongoing threads or start your own analysis. A great place to dive deeper is our [discussion channel](link-to-discussion-channel) – let's keep the conversation vibrant!"
+  },
+  {
+    "theme": "weekly_recap",
+    "body": "Last week saw a surge of activity around forward guidance and its effectiveness in influencing market expectations. Several questions revolved around the precise channels through which central bank communication impacts asset prices, particularly in the face of conflicting economic signals.\n\nThe trickiest question this week involved dissecting the interplay between long-term inflation expectations and short-term rate hike probabilities. Many debated whether current market pricing of future rate cuts accurately reflected the underlying inflation dynamics or if it was more a reaction to perceived shifts in central bank hawkishness. The difficulty lay in disentangling noise from signal, and determining which narrative – persistent inflation or a policy pivot – held more sway.\n\nIt was a great week for challenging discussions. Looking forward to seeing how these themes develop in the coming days."
+  },
+  {
+    "theme": "resource",
+    "body": "For those interested in the interplay of economic data and market sentiment, I highly recommend checking out the St. Louis Fed's FRED blog. It often features accessible explanations of complex economic indicators and their potential market implications, moving beyond simple data releases to explore the underlying narratives.\n\nThis resource is particularly valuable for its ability to connect the dots between various economic metrics. Whether it's dissecting inflation components or tracing the nuances of the business cycle, FRED often provides historical context and clear visual aids that deepen understanding without requiring an advanced economics degree. It's a consistent source of well-researched insights that can sharpen your interpretation of daily market movements and policy discussions."
+  },
+  {
+    "theme": "winner",
+    "body": "Congratulations to @top_scorer for leading the pack this past week! Your sharp insights into the latest inflation prints and shifting business cycle signals really stood out. Keep up the excellent analysis.\n\nWe love seeing the community engage with complex topics like interest rate differentials and the underlying narratives driving market moves. The discussion this week was particularly robust, with many thoughtful contributions.\n\nKeep those questions coming throughout the week as we navigate the ever-evolving macro landscape together."
+  },
+  {
+    "theme": "milestone",
+    "body": "Huge milestone! We've officially answered our 100th question in Macro & Markets. This community is rapidly becoming a go-to hub for dissecting rates, inflation nuances, and the ever-evolving business cycle narratives. The depth of discussion and the quality of insights shared have been phenomenal.\n\nThanks to everyone who has contributed, whether by asking a sharp question or providing a thoughtful answer. Keep the market signals coming – we're just getting started here and excited for the next hundred!"
+  }
+]

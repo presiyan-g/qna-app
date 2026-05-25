@@ -7,6 +7,7 @@ import {
   SafetyBlockedError,
   TimeoutError,
   UpstreamError,
+  stripCodeFences,
 } from './provider';
 
 const ENV = {
@@ -204,5 +205,32 @@ describe('generateStructured', () => {
     assert.ok(caught instanceof InvalidJsonError);
     assert.equal(caught.inputTokens, 7);
     assert.equal(caught.outputTokens, 3);
+  });
+});
+
+describe('stripCodeFences', () => {
+  it('passes through bare JSON unchanged', () => {
+    const input = '{"a":1}';
+    assert.equal(stripCodeFences(input), input);
+  });
+
+  it('strips ```json ... ``` wrappers', () => {
+    const input = '```json\n{"a":1}\n```';
+    assert.equal(stripCodeFences(input), '{"a":1}');
+  });
+
+  it('strips bare ``` ... ``` wrappers', () => {
+    const input = '```\n{"a":1}\n```';
+    assert.equal(stripCodeFences(input), '{"a":1}');
+  });
+
+  it('handles trailing whitespace after the closing fence', () => {
+    const input = '```json\n{"a":1}\n```   \n';
+    assert.equal(stripCodeFences(input), '{"a":1}');
+  });
+
+  it('leaves content that merely contains backticks alone', () => {
+    const input = '{"a":"```"}';
+    assert.equal(stripCodeFences(input), input);
   });
 });

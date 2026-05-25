@@ -1,0 +1,462 @@
+[
+  {
+    "prompt": "When drafting a 'force majeure' clause, what is the primary purpose of including a 'notice' requirement?",
+    "explanation": "The notice requirement ensures that the party seeking to invoke the force majeure event promptly informs the other party. This allows the non-affected party to assess the situation and plan accordingly, mitigating potential damages.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "To allow the non-affected party to dispute the validity of the force majeure event.",
+        "isCorrect": false
+      },
+      {
+        "label": "To automatically terminate the contract if the event lasts longer than a specified period.",
+        "isCorrect": false
+      },
+      {
+        "label": "To inform the non-affected party of the event and its expected impact, enabling mitigation and planning.",
+        "isCorrect": true
+      },
+      {
+        "label": "To trigger an immediate renegotiation of the contract terms.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In contract drafting, what is the primary function of an 'indemnification' clause?",
+    "explanation": "An indemnification clause shifts the risk of loss from one party to another. It obligates the indemnifying party to defend and/or compensate the indemnified party for specific losses or liabilities.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "To specify payment terms and schedule.",
+        "isCorrect": false
+      },
+      {
+        "label": "To define the governing law and jurisdiction for disputes.",
+        "isCorrect": false
+      },
+      {
+        "label": "To allocate responsibility for certain types of losses or liabilities.",
+        "isCorrect": true
+      },
+      {
+        "label": "To outline the process for terminating the agreement.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When reviewing a limitations of liability clause, what is the primary purpose of distinguishing between 'direct' and 'consequential' damages?",
+    "explanation": "This distinction is crucial because consequential damages (like lost profits) are often excluded or capped separately from direct damages (like the cost of repair or replacement). This allows parties to allocate risk more precisely.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "To ensure all potential damages are recoverable.",
+        "isCorrect": false
+      },
+      {
+        "label": "To simplify the negotiation process by using standard language.",
+        "isCorrect": false
+      },
+      {
+        "label": "To differentiate the scope and recoverability of different types of losses.",
+        "isCorrect": true
+      },
+      {
+        "label": "To automatically trigger dispute resolution mechanisms.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When drafting an 'assignment' clause in a contract, what is the primary purpose of specifying 'with or without consent' for certain types of assignments?",
+    "explanation": "Allowing assignment without consent for specific situations, like mergers or reorganizations, ensures business continuity and flexibility. This prevents an assignment from being blocked and preserves the value of contractual rights during significant corporate events.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "To create ambiguity about the assignability of rights.",
+        "isCorrect": false
+      },
+      {
+        "label": "To allow assignment without needing the other party's permission in defined circumstances.",
+        "isCorrect": true
+      },
+      {
+        "label": "To ensure that all assignments must always require prior consent.",
+        "isCorrect": false
+      },
+      {
+        "label": "To limit the types of entities to whom an assignment can be made.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When drafting an 'entire agreement' clause, what is the primary purpose of stating that the contract supersedes all prior oral or written understandings?",
+    "explanation": "This language prevents parties from relying on external statements or agreements made before the contract was signed. It ensures that the written contract is the sole source of truth for the parties' obligations.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "To allow parties to introduce evidence of prior negotiations to clarify ambiguity.",
+        "isCorrect": false
+      },
+      {
+        "label": "To establish that the written contract is the definitive and complete expression of the parties' agreement.",
+        "isCorrect": true
+      },
+      {
+        "label": "To ensure that any amendments to the contract are automatically incorporated.",
+        "isCorrect": false
+      },
+      {
+        "label": "To limit the types of damages that can be claimed in a breach of contract action.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When drafting a 'no-third-party beneficiaries' clause, what is the primary legal effect intended by the parties?",
+    "explanation": "This clause aims to prevent parties not explicitly named in the contract from having the right to enforce its terms. By disclaiming third-party beneficiary status, the parties ensure that only they can sue or be sued under the agreement.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "To clarify that the contract is governed by the laws of a specific jurisdiction.",
+        "isCorrect": false
+      },
+      {
+        "label": "To limit the scope of warranties provided by the seller to the buyer.",
+        "isCorrect": false
+      },
+      {
+        "label": "To ensure only the contracting parties have rights to enforce the agreement.",
+        "isCorrect": true
+      },
+      {
+        "label": "To define the specific conditions under which the contract can be terminated.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When drafting a 'confidentiality' clause, what is the primary purpose of defining 'Confidential Information'?",
+    "explanation": "Clearly defining 'Confidential Information' establishes the scope of the obligations. This precision prevents ambiguity and ensures both parties understand what specific data or materials are protected under the agreement.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "To define the specific types of information covered by the confidentiality obligations.",
+        "isCorrect": true
+      },
+      {
+        "label": "To outline the penalties for breaching the confidentiality obligations.",
+        "isCorrect": false
+      },
+      {
+        "label": "To specify the duration for which the information must remain confidential.",
+        "isCorrect": false
+      },
+      {
+        "label": "To list the parties who are permitted to receive the confidential information.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When drafting a 'survival' or 'post-termination obligations' clause, what is the primary purpose of specifying which clauses continue to be binding after the contract ends?",
+    "explanation": "The core function of a survival clause is to identify specific obligations that remain enforceable even after the contract's termination or expiration. This ensures critical provisions, such as confidentiality or indemnification, do not lapse with the main agreement.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "To create new obligations that only arise after termination.",
+        "isCorrect": false
+      },
+      {
+        "label": "To clearly define which existing obligations survive termination and remain enforceable.",
+        "isCorrect": true
+      },
+      {
+        "label": "To shorten the statute of limitations for all contractual claims.",
+        "isCorrect": false
+      },
+      {
+        "label": "To provide a mechanism for automatic contract renewal upon termination.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When drafting a 'choice of law' clause, what is the primary practical effect of selecting a specific jurisdiction's laws to govern the contract?",
+    "explanation": "The primary purpose is to provide certainty and predictability for the parties by specifying which jurisdiction's laws will be used to interpret the contract and resolve disputes. This avoids potential conflicts of law issues and the associated uncertainty and expense.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "To ensure the contract is enforceable in any jurisdiction where performance occurs.",
+        "isCorrect": false
+      },
+      {
+        "label": "To simplify negotiations by allowing parties to defer legal analysis until a dispute arises.",
+        "isCorrect": false
+      },
+      {
+        "label": "To establish predictable legal standards for contract interpretation and dispute resolution.",
+        "isCorrect": true
+      },
+      {
+        "label": "To automatically waive any rights or remedies available under the laws of other jurisdictions.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When drafting an 'amendment' clause, what is the primary purpose of requiring that amendments be in writing and signed by both parties?",
+    "explanation": "This requirement ensures that all modifications to the original agreement are formally documented and mutually agreed upon. It prevents disputes arising from alleged oral modifications or misunderstandings.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "To allow for easy, informal changes to the contract as circumstances evolve.",
+        "isCorrect": false
+      },
+      {
+        "label": "To create a clear, verifiable record of all contract changes and prevent disputes over oral modifications.",
+        "isCorrect": true
+      },
+      {
+        "label": "To give one party the unilateral right to alter the contract's terms with written notice.",
+        "isCorrect": false
+      },
+      {
+        "label": "To reduce the legal significance of the contract by making amendments less formal.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When drafting a 'notice' clause in a contract, what is the primary purpose of specifying the method and recipient for formal communications?",
+    "explanation": "This ensures that parties undeniably receive important notifications, preventing claims of non-receipt and providing a clear audit trail. It minimizes disputes by establishing a predictable and agreed-upon channel for essential contract-related communication.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "To reduce the overall word count of the contract.",
+        "isCorrect": false
+      },
+      {
+        "label": "To establish a clear and undeniable method for official communications between parties.",
+        "isCorrect": true
+      },
+      {
+        "label": "To allow parties to communicate informally via text messages.",
+        "isCorrect": false
+      },
+      {
+        "label": "To dictate the font style and size for all contractual correspondence.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When drafting a 'limitation of liability' clause, what is the primary purpose of excluding 'consequential damages'?",
+    "explanation": "Consequential damages are losses that do not flow directly from the breach of contract but are reasonably foreseeable as a result of the breach. Excluding them aims to cap a party's potential liability to direct, foreseeable losses arising immediately from the breach, rather than indirect or speculative losses.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "To ensure that all damages arising from a breach are covered.",
+        "isCorrect": false
+      },
+      {
+        "label": "To define 'direct damages' more broadly.",
+        "isCorrect": false
+      },
+      {
+        "label": "To limit potential liability to direct, foreseeable losses rather than indirect or speculative ones.",
+        "isCorrect": true
+      },
+      {
+        "label": "To simplify the process of calculating damages in case of a dispute.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When drafting a 'governing law' clause, what is the primary advantage of selecting a jurisdiction with well-developed and predictable contract law principles?",
+    "explanation": "Selecting a jurisdiction with established and clear contract law provides certainty and predictability for disputes. This predictability helps parties understand their rights and obligations under the contract, reducing the potential for costly litigation over interpretation.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Ensures the contract will always be interpreted in favor of the drafting party.",
+        "isCorrect": false
+      },
+      {
+        "label": "Guarantees that all disputes will be resolved quickly and inexpensively.",
+        "isCorrect": false
+      },
+      {
+        "label": "Provides greater certainty and predictability in how contract disputes will be resolved.",
+        "isCorrect": true
+      },
+      {
+        "label": "Allows parties to avoid enforcement of the contract in any jurisdiction.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When drafting a 'force majeure' clause, what is the primary purpose of listing specific events that qualify as force majeure?",
+    "explanation": "Listing specific events within a force majeure clause provides clarity and reduces ambiguity, helping parties understand the scope of events that could excuse performance. This specificity mitigates disputes by defining what constitutes an unforeseeable and unavoidable event beyond the parties' control.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "To ensure that unforeseen events always excuse performance.",
+        "isCorrect": false
+      },
+      {
+        "label": "To expand the scope of events beyond what is commonly understood as force majeure.",
+        "isCorrect": false
+      },
+      {
+        "label": "To provide concrete examples and define the intended scope of excusable events.",
+        "isCorrect": true
+      },
+      {
+        "label": "To obligate the non-performing party to prove the event was truly unavoidable.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When drafting an indemnity clause, what is the primary purpose of defining the scope of 'Indemnified Liabilities'?",
+    "explanation": "Defining 'Indemnified Liabilities' clearly delineates the specific types of losses, damages, or claims that one party agrees to cover for the other. This precision is crucial for managing risk and preventing disputes over the extent of the indemnifying party's obligations.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "To ensure that the indemnifying party is aware of all potential legal actions.",
+        "isCorrect": false
+      },
+      {
+        "label": "To limit the types of losses, damages, and claims that are covered by the indemnity.",
+        "isCorrect": true
+      },
+      {
+        "label": "To establish a clear procedure for escalating disputes related to indemnification.",
+        "isCorrect": false
+      },
+      {
+        "label": "To specify the exact amount of monetary compensation to be paid.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When drafting a 'liquidated damages' clause, what is the primary purpose of ensuring the stipulated amount is a reasonable pre-estimate of actual damages rather than a penalty?",
+    "explanation": "Courts will refuse to enforce penalty clauses, as they are viewed as punitive rather than compensatory. A liquidated damages clause must be a genuine pre-estimate of likely losses to be enforceable.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "To ensure the damages are punitive in nature.",
+        "isCorrect": false
+      },
+      {
+        "label": "To provide a clear and predictable remedy for breach without needing to prove actual damages later.",
+        "isCorrect": true
+      },
+      {
+        "label": "To simplify the process of terminating the contract prematurely.",
+        "isCorrect": false
+      },
+      {
+        "label": "To allow for a higher damage award than might be awarded by a court.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When drafting a 'waiver' clause, what is the primary practical effect of stating that a party's failure to enforce a right on one occasion does not constitute a waiver of that right for future occasions?",
+    "explanation": "This provision prevents a single instance of non-enforcement from being interpreted as a voluntary relinquishment of the right for all future breaches. It ensures that rights can be enforced consistently and preserves the party's ability to act on future defaults.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "To ensure that all waivers must be in writing.",
+        "isCorrect": false
+      },
+      {
+        "label": "To clarify that a single non-enforcement is not a permanent relinquishment of a right.",
+        "isCorrect": true
+      },
+      {
+        "label": "To automatically terminate the contract if any right is not enforced.",
+        "isCorrect": false
+      },
+      {
+        "label": "To require the other party to provide advance notice before enforcing a right.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When drafting an 'assignment' clause in a contract, what is the primary purpose of prohibiting or restricting the assignment of rights and obligations without the other party's consent?",
+    "explanation": "This clause aims to maintain the existing relationship and trust between the original parties. It prevents the introduction of a new, potentially unknown or undesirable party into the contractual arrangement.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "To ensure the continued reliance on the original party's specific expertise or creditworthiness.",
+        "isCorrect": true
+      },
+      {
+        "label": "To simplify the contract administration by limiting the number of parties involved.",
+        "isCorrect": false
+      },
+      {
+        "label": "To avoid potential conflicts of interest that a new party might introduce.",
+        "isCorrect": false
+      },
+      {
+        "label": "To reduce the risk of fraudulent activity by limiting the transferability of contractual benefits.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When drafting a 'dispute resolution' clause, what is the primary purpose of including an arbitration provision?",
+    "explanation": "Arbitration offers a streamlined, often faster, and potentially less expensive alternative to traditional court litigation. It allows parties to select arbitrators with relevant expertise and maintain greater confidentiality over the dispute.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "To mandate that all disputes must be resolved through binding arbitration, bypassing court systems.",
+        "isCorrect": true
+      },
+      {
+        "label": "To ensure that any disputes are heard in a public forum to deter future bad actors.",
+        "isCorrect": false
+      },
+      {
+        "label": "To automatically trigger the termination of the contract upon the initiation of any dispute.",
+        "isCorrect": false
+      },
+      {
+        "label": "To specify that disputes will be decided by a jury of peers.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When drafting a 'confidentiality agreement' (or NDA), what is the primary purpose of defining what constitutes 'Confidential Information'?",
+    "explanation": "Clearly defining 'Confidential Information' is crucial for setting the boundaries of what information is protected. This prevents ambiguity and ensures both parties understand their obligations regarding disclosure and use of sensitive data.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "To establish the duration for which the information remains confidential.",
+        "isCorrect": false
+      },
+      {
+        "label": "To specify the penalties for breach of confidentiality.",
+        "isCorrect": false
+      },
+      {
+        "label": "To delineate the scope of information subject to protection under the agreement.",
+        "isCorrect": true
+      },
+      {
+        "label": "To determine which legal jurisdiction's laws will govern the agreement.",
+        "isCorrect": false
+      }
+    ]
+  }
+]

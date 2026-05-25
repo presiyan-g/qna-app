@@ -1,0 +1,227 @@
+[
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "I picked A, thinking about the temporary nature of the URLs. But the explanation made me realize how easily a leaked URL could still be a problem before it expires. It's not just about the URL *existing*, but about it being *accessible* during its valid window. Definitely changed my perspective on what constitutes 'authorization carry-over'."
+    },
+    "reply": {
+      "body": "Totally agree. It’s a subtle point. The short expiration *mitigates* the risk, but doesn't eliminate it if the URL gets out into the wild. For truly sensitive stuff, you need that extra layer of checks *after* the URL is used, or even per-request authorization headers."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "Okay, I picked impersonation but honestly, the wording threw me a bit. I almost went with unauthorized data access because that seems like a direct consequence. It's good to be reminded that the keys themselves unlock deeper access."
+    },
+    "reply": {
+      "body": "Totally get that. The direct vs. indirect impact can be confusing. But yeah, if someone has your API key, they're essentially wearing your digital shoes. The impersonation route leads to way worse things than just reading data they shouldn't."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "Initially I picked 'difficulty in auditing account lockouts' but then I remembered seeing those massive credential stuffing attacks flood systems. No IP makes it way too easy for attackers. Definitely glad I re-read that one."
+    },
+    "reply": {
+      "body": "Yeah, that was a good one to second-guess. I almost went with the audit one too. It's wild how many tools just log 'failed login' without the IP these days. Makes incident response a nightmare."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "Ah, I went with the option about potentially exposing sensitive metadata. The wildcard thing seemed a little too obvious, but I guess that's the point of these reviews. It's good to nail down the fundamentals. The explanation makes perfect sense now, the wildcard just negates the whole purpose."
+    },
+    "reply": {
+      "body": "I hear you. It's easy to get sidetracked by the more complex-sounding risks. But those simple oversights, like the wildcard, are often the most dangerous because they're so overlooked. It completely defangs the access control mechanism."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "I picked option B, thought the fixed window was obvious but the explanation really hammered home the edge case timing attacks. Makes sense now why they'd suggest a sliding window or token bucket instead for anything critical."
+    },
+    "reply": {
+      "body": "Yeah, the 'burst' attack is the killer here. It's so easy to overlook how an attacker could manipulate the window boundaries to get more requests through than you'd think. It's not just about the *average* rate but the *peak* rate."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "I initially picked the option about weak entropy in the client secret itself, but looking at the explanation, plain text storage is the bigger deal. It's crazy how straightforward that sounds but how common it still must be."
+    },
+    "reply": {
+      "body": "Totally agree. The attack surface just explodes when credentials are this accessible. Even if the secret itself is complex, a breach of their config files is game over. Reminds me of that incident last year."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "Chose XSS, felt pretty straightforward. The main worry is that the foreign script runs with my domain's privileges. Makes me think about Content Security Policy a lot, but even that has its edge cases when dealing with third party embeds."
+    },
+    "reply": {
+      "body": "Totally agree. CSP is crucial here. It's tempting to just whitelist everything to get the dashboards working, but that defeats the purpose. Need to be super careful about what sandbox attributes you allow if you're not fully trusting the source."
+    }
+  },
+  {
+    "questionIndex": 7,
+    "topLevel": {
+      "body": "Okay, I definitely picked the wrong answer first time around. I went with 'difficulty in preventing excessive data exposure' thinking about pagination or something. But reading the explanation, the whole 'guessing' aspect really clicked with me. It's so obvious once you see it – like a slightly more complex version of directory traversal."
+    },
+    "reply": {
+      "body": "Totally. That enumeration risk is the big one. If they were UUIDs, it'd be much harder to brute force. Human-readable names are just too convenient for attackers looking for a quick win. Makes me think about how often we rely on obscurity when we should be implementing proper access controls."
+    }
+  },
+  {
+    "questionIndex": 8,
+    "topLevel": {
+      "body": "Went with option B, thought the link to the personal website was the biggest immediate threat because it could lead to a malicious site. Totally missed how directly exposing contact info is a huge privacy leak waiting to happen. Easy to overlook when you're focused on 'external' threats."
+    },
+    "reply": {
+      "body": "I picked B too! The website link seemed like the most obvious entry point for malware or phishing. It's definitely a good reminder that less flashy risks like data exposure are often the most pervasive and damaging. Makes you think about what else we encode by default."
+    }
+  },
+  {
+    "questionIndex": 9,
+    "topLevel": {
+      "body": "I almost picked the XSS one, but the direct execution risk is much scarier. Uploading a script that then gets served straight from S3 feels like a direct path to disaster. It's like leaving the keys to the kingdom sitting on the front lawn."
+    },
+    "reply": {
+      "body": "Exactly! The surface area for attack expands dramatically when you're serving user-uploaded content directly. It's a classic example of trusting user input way too much. File type validation is just the first layer, you also need to sanitize content."
+    }
+  },
+  {
+    "questionIndex": 10,
+    "topLevel": {
+      "body": "Went with predictable generation being the biggest risk. It just felt if an attacker could guess any valid token, that's a direct bypass. Broad scope is bad too, but feels like a 'second order' problem after a token is already stolen."
+    },
+    "reply": {
+      "body": "I see your point, but I leaned towards broad scope. If a predictable token is only for reading user profiles, that's not as catastrophic as a predictable token that can modify *any* user's data. It's a spectrum, for sure. What if the predictable generation is only off by a few digits and easy to brute?"
+    }
+  },
+  {
+    "questionIndex": 11,
+    "topLevel": {
+      "body": "I initially leaned towards the denial-of-service risk, thinking a crafted filename could break the export process. But reading the explanation, directory traversal makes so much more sense. I can see how '../' could be used to escape the intended directory. Definitely going with that next time."
+    },
+    "reply": {
+      "body": "Totally felt that. The DoS one felt plausible too, but directory traversal is the classic here. It's wild how simple characters can unlock so much bad stuff if not handled carefully. Glad the review highlighted it."
+    }
+  },
+  {
+    "questionIndex": 12,
+    "topLevel": {
+      "body": "Chose 'Denial of Service' initially, but the explanation about code execution hit home. Our workers run with pretty high perms, so that's a scary thought. Guess I underestimated the impact of just crafting a bad task. Totally changed my perspective on queue security."
+    },
+    "reply": {
+      "body": "Right? It's easy to think of queue issues as just blocking legitimate requests, but the malicious task injection vector is way more insidious. Makes you think about input validation not just on the task *content* but on the *source* of the task itself. Good scenario."
+    }
+  },
+  {
+    "questionIndex": 13,
+    "topLevel": {
+      "body": "Chose C, unauthorized access. It felt like the most immediate and obvious consequence. If the ACLs aren't locked down, someone just walks in. Simple as that. Was tempted by D (data corruption) but figured that was a secondary effect of having the wrong person in. Anyone else feel like the wording could trip you up?"
+    },
+    "reply": {
+      "body": "Yeah, unauthorized access is the direct path. I picked D, data corruption, because I thought about how someone with write access could maliciously alter records, not just read them. But you're right, the initial breach facilitated by bad ACLs is the root cause for most of the downstream issues."
+    }
+  },
+  {
+    "questionIndex": 14,
+    "topLevel": {
+      "body": "Went with C, thought it was the biggest risk to have someone just spamming events. But thinking about it more, the impersonation angle feels way scarier. If someone can pretend to be another user on a real-time feed, they could do some serious damage."
+    },
+    "reply": {
+      "body": "Totally agree on impersonation being the scariest. You know, I saw a scenario once where weak auth on a notification system let an attacker inject fake 'order shipped' alerts, causing chaos for legitimate users. Real-time data is a different beast."
+    }
+  },
+  {
+    "questionIndex": 15,
+    "topLevel": {
+      "body": "Chose B, thought it was the obvious one. It just feels so wrong to put API keys in client-side code. I saw a similar thing once where someone hardcoded a private key for a signing service and it was a nightmare to rotate."
+    },
+    "reply": {
+      "body": "Yeah, it's a classic mistake. The temptation to just get it working quickly is huge, but the blowback is way worse than the initial effort to secure it properly, like using a backend proxy or secret management."
+    }
+  },
+  {
+    "questionIndex": 16,
+    "topLevel": {
+      "body": "Went with the 'increased attack surface' option. It felt the most direct. Though I initially hesitated, thinking about if the cookie itself contained sensitive data vs. just being a session identifier. But the explanation makes it clear it applies to both."
+    },
+    "reply": {
+      "body": "Yeah, that was my thought too. The phrasing 'custom expiration times' makes you think about the user side, but the real impact is on the security team's monitoring and incident response if a token gets nabbed. Glad that one clarified it."
+    }
+  },
+  {
+    "questionIndex": 17,
+    "topLevel": {
+      "body": "I picked XSS immediately. It's just so common when dealing with user-generated content in web apps. Made me think about that time we almost had a data breach because a comment field allowed script injection. Lesson learned the hard way."
+    },
+    "reply": {
+      "body": "Yeah, XSS is the boogeyman. I was a bit hesitant, wondering if there was some other obscure vulnerability unique to templating engines, like SSTI. But XSS is definitely the most probable and impactful exploit here given the scenario."
+    }
+  },
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "I went with B, thinking it was about broken authentication. The pre-signed URL thing tripped me up though, I wasn't sure how it related directly to the user *uploading* the doc. Seems like the URL exposure is the real kicker here, not the auth flow itself."
+    },
+    "reply": {
+      "body": "Totally get that. I almost picked the same one. The key is that the URL *is* the access mechanism, so if it leaks, your auth is bypassed. It's like giving out a temporary key to a safe without checking who has it."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "I went with impersonation because it felt like the most direct consequence. It's scary how quickly one compromise can escalate if keys are just lying there unprotected. Makes you think twice about storage methods, even with RBAC in place."
+    },
+    "reply": {
+      "body": "Definitely. The RBAC part is key here too. Even with solid permissions, if an attacker can steal a key that belongs to an admin or a high-privilege service account, they can bypass all those controls and act with impunity. It's the ultimate privilege escalation."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "I initially picked the option about 'difficulty in attributing attacks' but then second-guessed myself and went with 'inability to detect credential stuffing'. The explanation clarifies why the latter is more impactful in this specific scenario. It's good to remember the distinction."
+    },
+    "reply": {
+      "body": "That's precisely the trap. 'Attribution' feels like a general security goal, but for brute-force and stuffing, the immediate need is 'detection'. You can't attribute what you can't even see happening at scale. IP logs are key for that initial alarm."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "I picked the wildcard one immediately. It felt too obvious, but I figured that's the point for these quick review questions. IP allowlists are meant to be specific, so letting '*' through defeats the whole purpose."
+    },
+    "reply": {
+      "body": "Exactly! I initially got hung up on whether a misplaced or overly broad CIDR block could be worse, but the wildcard is just a complete negation of the feature's intent. Some systems might even interpret it as a valid, though incredibly permissive, entry. Scary stuff."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "I picked denial-of-service right away. It just seemed like the most obvious outcome of someone hammering the API. Took me a minute to realize how the time window itself enables that with a well-timed burst."
+    },
+    "reply": {
+      "body": "Yeah, the burst attack aspect is what gets me too. I always just thought of rate limiting as a blunt instrument against brute force, but seeing how you can *game* the window itself for DoS is a real eye-opener. Makes me rethink how we're setting our buckets."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "Okay, I picked B because I figured having plain text secrets was bad but thought the aggregated analytics data itself was the main target. Didn't immediately click that someone could impersonate the partner. Good to remember that the *access* granted by the secret is the immediate problem."
+    },
+    "reply": {
+      "body": "Yeah, same! I got caught up on the data itself. But you're right, the ability to become a trusted partner is the bigger threat vector here. It's like leaving your house keys under the mat instead of just the house plans."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "Went with XSS, felt like the most obvious choice given the iframe context. It's the classic 'don't trust the third party' scenario. Anything else felt a bit more indirect, though I can see arguments for others depending on the exact implementation."
+    },
+    "reply": {
+      "body": "Yeah, XSS is definitely the big one. I also briefly considered credential stuffing if the iframe somehow managed to harvest login details, but XSS allows for so much more immediate damage within the user's session on our app."
+    }
+  }
+]

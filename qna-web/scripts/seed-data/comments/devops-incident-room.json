@@ -1,0 +1,224 @@
+[
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "I chose 'Designate a single incident commander'. My reasoning was that someone needs to be in charge to cut through the noise and direct efforts. The 'Situation Room generating noise' part really got me thinking about a bottleneck in decision-making and communication. It felt like the most direct way to bring order."
+    },
+    "reply": {
+      "body": "Totally get that. My concern with 'incident commander' is that it sounds like a pre-defined role. What if there isn't one immediately obvious or available? 'Single point of contact for updates' might be more achievable in the moment, even if it's not the full scope of an IC. It's about getting the info flowing reliably first."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "I almost picked the option about documenting the exact sequence of events more thoroughly. But realizing how often we get tripped up by our own on-call runbooks NOT being updated, I went with the system/process gaps one. Feels like that's where the real pain point usually hides, behind the immediate technical issue."
+    },
+    "reply": {
+      "body": "Totally agree. The event sequence is important for the timeline, but unless you identify *why* the process broke down (e.g., access issues, no clear escalation path, outdated tooling), you'll just repeat the same reactive chaos next time. It's the 'blameless' but still 'accountable' part that's hard."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "I almost picked total disablement but that explanation about 20% impact really made me rethink. The blast radius concept hits hard here. It's tough when the 'ideal' fix causes secondary pain."
+    },
+    "reply": {
+      "body": "Exactly. It's that classic tradeoff between immediate severity and user impact. Sometimes the 'least bad' option involves a bit of calculated risk or a more complex mitigation than a simple on/off switch."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "I picked option C - isolate the new feature to a subset of users. It feels less drastic than a full rollback and still allows for limited testing while gathering data. Rolling back feels like admitting defeat before we even have confirmation. Is this approach not usually considered?"
+    },
+    "reply": {
+      "body": "I see your point about the 'defeat' feeling of a rollback, but with impact 'moderate but growing,' that isolation approach could still be letting the fire spread, just slower. Rollback is really about stopping the bleeding fast, even if you don't know the exact wound yet. Investigation can then happen from a stable baseline."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "I picked the option about establishing roles, but honestly, the idea of designated update times seemed so practical too. It's almost a toss-up. I've definitely been in those situations where everyone's talking at once and you just get noise instead of signal. We tried a 'write-only' Slack channel for updates once, but that had its own issues with people not reading it."
+    },
+    "reply": {
+      "body": "Yeah, the designated times approach is tempting for its simplicity. What we found that worked well was actually a combination. We assigned a specific person to be the 'Comms Lead' whose *only* job was to relay information from the working group into the main channel. It smoothed things out considerably without requiring everyone to track specific time slots."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "I hesitated between isolating the service and just scaling up resources. My gut went with isolation because scaling might just amplify the problem if the underlying issue isn't resource contention. Interesting how often these intermittent issues lead to a blast radius panic."
+    },
+    "reply": {
+      "body": "Totally feel that. Scaling can mask things or even make it worse if the bottleneck is elsewhere. Isolation feels like the 'stop the bleeding' first step before you even try to figure out the best way to start healing."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "I initially leaned towards 'scale up the database instances' but the explanation for promoting a replica makes so much sense. My immediate thought is always scale, scale, scale. But then you're just throwing more resources at a potentially complex underlying issue without stabilizing first. Good point about the primary admin being offline too, that pushes the decision-making on the spot."
+    },
+    "reply": {
+      "body": "Exactly! Scaling might just mask the problem or even exacerbate it if it's a logical issue like a bad query or locking. Promoting a read replica gives you breathing room and a known-good (or at least functioning) state to debug from. Reminds me of a time we had to do this mid-incident myself. Painful but effective."
+    }
+  },
+  {
+    "questionIndex": 7,
+    "topLevel": {
+      "body": "Tough one. I almost picked 'document everything strictly.' My reasoning was speed vs. coordination, but then I remembered that without a clear leader, 'everything' can become another layer of chaos. The 'Incident Commander' idea makes the most sense for immediate triage."
+    },
+    "reply": {
+      "body": "Yeah, documenting *is* crucial, but that's more for the post-mortem or slightly later planning. In the heat of the moment, having that single decision-maker is what stops multiple chefs from ruining the soup. I've seen bad outcomes from that exact scenario."
+    }
+  },
+  {
+    "questionIndex": 8,
+    "topLevel": {
+      "body": "I picked the option about centralizing metrics. Initially, I was leaning towards the database optimization because that's usually the culprit for data processing issues, but the prompt mentioned *spikes* which made me think broader. Glad the explanation confirmed that a unified view is key, prevents teams from chasing ghosts."
+    },
+    "reply": {
+      "body": "Totally agree. The siloed approach is so dangerous in critical incidents. When you have multiple teams working on different hypotheses without a shared dashboard, you can end up fixing the wrong thing or worse, introducing new problems while trying to solve the old one. Seeing the impact of database query changes on network traffic, or vice versa, is invaluable."
+    }
+  },
+  {
+    "questionIndex": 9,
+    "topLevel": {
+      "body": "I picked scaling up the database replicas. It felt like the obvious fix for traffic, but of course, that takes too long during an incident. The explanation about throttling requests makes sense for immediate relief, though. Always a trade-off."
+    },
+    "reply": {
+      "body": "Totally feel that. Scaling up is the go-to instinct, but you're right, it's not fast enough when the pool is already hammered. Throttling buys you breathing room for everything else, including scaling or even restarting services if need be. It's a painful lesson learned."
+    }
+  },
+  {
+    "questionIndex": 10,
+    "topLevel": {
+      "body": "I picked the rollback option. The 15 minute delay seemed like a reasonable trade-off to stop the bleeding on sign-ups, especially since it was a config drift. I hesitated for a second about the 'other non-critical user flows' impacting, but sign-ups are king for revenue right now."
+    },
+    "reply": {
+      "body": "Yeah, that was my thinking too. Immediate impact mitigation is usually the priority in severity 1s. The key is quantifying those 'non-critical' impacts and having a separate thread ready to address them if they turn out to be worse than expected."
+    }
+  },
+  {
+    "questionIndex": 11,
+    "topLevel": {
+      "body": "Chose A. Felt like the obvious first step given the option. Rolling back the whole service feels heavy-handed if it's just intermittent and we don't know the root cause yet. Plus, we don't want to admit defeat on the new stuff if it's not related."
+    },
+    "reply": {
+      "body": "Yeah, it's a good point. I always worry about accidentally disabling something more critical than I thought when I'm flagging things off. Need to be super sure about the 'less critical' designation during a real P1."
+    }
+  },
+  {
+    "questionIndex": 12,
+    "topLevel": {
+      "body": "Tempted to dive straight into logs for the service itself, but that feels like it could be a black hole. I picked checking dependencies. It's good to eliminate the obvious external factors first. So many times it's been just a proxy or a database reporting issues."
+    },
+    "reply": {
+      "body": "Exactly! My first instinct is always to look at what *we* control, but that's often the wrong path early on. Checking upstream is so much faster when it's an external problem. You can save yourself hours of digging."
+    }
+  },
+  {
+    "questionIndex": 13,
+    "topLevel": {
+      "body": "Went with disabling the integration. That 15% user impact felt really high, but the thought of the whole system going down during a cyber-attack made it seem like the lesser of two evils. Hope the security team acted fast enough."
+    },
+    "reply": {
+      "body": "Yeah, tough call. The phrasing about 'critical time' and 'mitigation' really pushed me to disable it too. I kept thinking about the blast radius if that overload spread. Still, that 15% is a lot of unhappy users to deal with post-incident."
+    }
+  },
+  {
+    "questionIndex": 14,
+    "topLevel": {
+      "body": "Went with the read-only replica option, although the data inconsistency risk really spooked me. In my last incident, we tried to take the system fully offline to ensure perfect data integrity, and that ended up being way worse. Users were furious about zero availability for hours."
+    },
+    "reply": {
+      "body": "Totally agree. Sometimes you just have to stop the bleeding, even if it means a messy cleanup later. The key is to have a solid plan for that cleanup. We always assume we'll have to reconcile data post-failover, so it's baked into our incident response playbook."
+    }
+  },
+  {
+    "questionIndex": 15,
+    "topLevel": {
+      "body": "Ugh, this one got me. I picked the 'investigate dependency without rollback first' option. Logically, I wanted to avoid any outage, but the explanation makes sense. Intermittent errors are way worse for user experience than a planned, short downtime."
+    },
+    "reply": {
+      "body": "I went with the rollback too. The thought of those 5xxs just piling up and users complaining was too much. It's a tough call because you never want to cause an outage, but sometimes it's the lesser of two evils. Glad the explanation reinforced that thinking."
+    }
+  },
+  {
+    "questionIndex": 16,
+    "topLevel": {
+      "body": "I totally picked rollback. It just makes sense, right? If something breaks right after you change it, undo the change. But I hesitated for a second thinking about whether we should scale up first to buy time. Glad to know rollback is the go-to."
+    },
+    "reply": {
+      "body": "Scaling up feels like the intuitive first step to stop the bleeding, but it doesn't address the root cause. If the new code is that inefficient, scaling might just mask the problem or even accelerate resource exhaustion if the fix is a simple revert."
+    }
+  },
+  {
+    "questionIndex": 17,
+    "topLevel": {
+      "body": "I picked A, reroute traffic. Seemed like the fastest way to stop the bleeding for users. But reading the explanation, disabling features makes more sense for diagnostics. Rerouting might just hide the underlying issue or stress other systems."
+    }
+  },
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "I picked 'Establish a single point of contact for all communications'. The noise in the situation room was specifically called out, and that felt like the most direct lever to pull. Sometimes I think people go straight to technical solutions when the process is the bigger immediate problem."
+    },
+    "reply": {
+      "body": "Totally agree. It's so easy to get lost in the weeds of error logs when better signal to noise ratio on the comms front would probably get you to the right people faster. I've seen incidents flare up *because* of duplicated efforts and bad info flowing everywhere."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "I picked the 'systemic contributors' option. Honestly, the last postmortem we did felt like a fishing expedition trying to find one specific commit. It ended up being a confluence of a few things, and honestly, our deployment pipeline needed work anyway. It’s just easier said than done to actually get that prioritized though."
+    },
+    "reply": {
+      "body": "Totally. That feeling of chasing one bug when you know deep down it's more complex is the worst. Getting buy-in for process improvements over quick fixes is a constant battle. We started using a pre-mortem checklist before releases, hoping to catch some of those systemic issues proactively."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "I hesitated for a minute on this one. My gut said pull the plug immediately, but the 20% user impact is scary. I ended up choosing the phased approach. It feels like the most realistic middle ground when you can't afford complete outage."
+    },
+    "reply": {
+      "body": "Yeah, that 20% is the kicker. My team had a similar situation last month where we had to do a 'partial disable' on a feature flag. It bought us time to fix the dependency without nuking everyone's experience."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "Went with 'isolate the service' on this one. My thinking was that rolling back might be too disruptive if the performance issue is intermittent or only affects a subset of users, and we still need to understand the full scope. But reading the explanation, rolling back makes so much sense for a growing impact. Definitely a tough tradeoff in the moment."
+    },
+    "reply": {
+      "body": "I hear you on isolating the service. It feels more surgical. But the 'growing impact' part is the kicker, right? If it's spreading, you have to assume it's going to get worse fast. Rollback is the blunt instrument, but often the fastest way to stop the bleeding when you can't afford to wait for more data."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "Definitely chose the structured update approach.  The description of people talking over each other is way too real for some of our past incidents.  Makes me think we need to formalize our on-call runbooks more around communication roles, not just technical steps."
+    },
+    "reply": {
+      "body": "I picked that one too. We've tried 'just let everyone talk' and it never ends well. The key is having someone (or a small group) responsible for synthesizing and broadcasting the actionable info, rather than everyone shouting their own piece."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "I struggled with this one. My instinct was to dive deep into the logs, which is where the team was already stuck. It took me a minute to realize they're asking for the *initial* step to contain, not solve. Felt like a bit of a trick question, or at least one that tests priorities under pressure."
+    },
+    "reply": {
+      "body": "Totally get that! The allure of finding the smoking gun in the logs is strong, especially when things are on fire. But you're right, buying time by isolating is the key. It's like putting a band-aid on before starting the surgery, just to stop the bleeding."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "Went with promoting the replica immediately. The thought of the primary DB admin being offline during a major incident made me panic slightly. I second-guessed myself thinking there might be some catch, like data inconsistency, but it felt like the only way to stop the bleeding without more context."
+    },
+    "reply": {
+      "body": "Totally get that. The data inconsistency is a valid concern, but in a critical outage, getting some level of service back ASAP is usually the priority. You can always deal with reconciling minor lag later. The real challenge is when you don't have a functioning replica ready to go!"
+    }
+  }
+]

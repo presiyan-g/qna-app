@@ -1,0 +1,227 @@
+[
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "I almost went with a heatmap, thinking the density of points could show seasonality. But the overall trend would get lost. The dual-axis feels a bit clunky sometimes though, especially if the scales are wildly different. Did anyone else struggle to pick between that and maybe a superimposed area chart/line chart?"
+    },
+    "reply": {
+      "body": "Totally. I voted dual-axis but mentally noted how much care is needed to make it readable. Heatmaps are great for spotting cycles but yeah, trend is a different story. I've also seen people use small multiples for this, a separate line chart for each year. It's more work but sometimes cleaner."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "I almost went with a stacked bar chart, but then I realized I really needed to see how far each individual segment was from the target line, not just its proportion of the whole. Grouped bar felt right for that direct comparison."
+    },
+    "reply": {
+      "body": "Totally agree on avoiding stacked for this specific question. Stacked is great for showing parts of a whole, but here the emphasis is on individual performance *against* that common target line. Grouped bars make that gap super clear."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "I almost chose box plot here! It shows median and quartiles which feels like central tendency and spread. But then I remembered the prompt asked for the 'shape' and that's where histogram really shines. Glad I double-checked my understanding before committing."
+    },
+    "reply": {
+      "body": "Totally get that. Box plots are great for comparing distributions across groups, but for a single variable's shape, histogram is king. The binning reveals skewness or multimodality much better than a box plot alone."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "I almost went with a Network Graph but realized the strict hierarchy in an org chart isn't quite the same as general connections. Org charts are so straightforward for this specific kind of reporting structure though. Glad I double-checked the definition."
+    },
+    "reply": {
+      "body": "Totally agree! Network graphs are great for showing relationships, but the defined top-down flow of an org chart is key for those reporting lines. I once saw a company try to use a Sankey diagram for their org structure and it was an absolute mess. So many spaghetti lines."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "Totally went with scatter plot, but I almost got tripped up thinking about hexbin plots for the density part. They feel so similar in purpose sometimes. Is there a clear threshold where one becomes strictly better than the other for just showing density?"
+    },
+    "reply": {
+      "body": "I see what you mean. Hexbins are great for aggregation, but for showing the *actual* relationship between the points themselves plus density, a scatter plot with density contours or maybe even a 2D histogram overlay feels more direct. Hexbins can obscure the raw point distribution a bit, which is key here."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "I almost picked a stacked bar chart, but then I remembered seeing a Sankey for user funnels and how much better it showed drop-offs. It really highlights where the volume goes. Stacked bars can get messy with too many categories in the flow."
+    },
+    "reply": {
+      "body": "Totally agree on the Sankey superiority for flow visualization! I find stacking them can also be tricky if the order of categories changes between stages, making direct comparison hard. Sankey keeps that flow path clear."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "I almost picked a multi-line chart but then remembered how noisy those can get with lots of independent series. The sparkline idea makes sense for just spotting the *action* rather than precise levels. It's been a while since I actually used them though."
+    },
+    "reply": {
+      "body": "Totally agree. Multi-line charts can become spaghetti really fast when you don't need to compare exact values, just see if something's going up or down. Sparklines are great for dashboards where you've got rows of items and need to see the trend for each."
+    }
+  },
+  {
+    "questionIndex": 7,
+    "topLevel": {
+      "body": "Went with pie chart here. It feels so obvious for 'parts of a whole' but I always hesitate. My brain immediately jumps to a stacked bar because I dislike how hard it is to compare segments in a pie, but the question specifically asked to EMPHASIZE the SHARE of each category, and I guess the pie does that visually better than a stacked bar if you aren't zeroing everything to one side."
+    },
+    "reply": {
+      "body": "Totally get the hesitation with pie charts! I often reach for a treemap or even just a simple horizontal bar chart to show contributions and avoid the segment comparison issue. But you're right, for a quick, clear visual of proportional share, especially with only a few categories, a well-executed pie can be effective. The key has to be not too many slices!"
+    }
+  },
+  {
+    "questionIndex": 8,
+    "topLevel": {
+      "body": "I almost went with a scatter plot with a trendline. The idea was that you could still see the overall movement, but the dots would emphasize each data point where an intervention happened. But then I realized a line chart is just cleaner for showing that continuous flow and plotting specific events on top."
+    },
+    "reply": {
+      "body": "Scatter plot is a good thought experiment! For pure trend analysis, line is king. But I've found that sometimes adding markers for the intervention points on the line chart can make it a bit cluttered if there are many events. Depends on the audience, I guess."
+    }
+  },
+  {
+    "questionIndex": 9,
+    "topLevel": {
+      "body": "I picked the choropleth map right away, but the wording about 'intensity at specific locations' made me pause. I almost went with a symbol map or even a proportional dot map because they feel more localized. Glad the explanation confirmed my first instinct though!"
+    },
+    "reply": {
+      "body": "I hear you! The distinction can be subtle. I often find myself debating symbol maps vs. choropleths for exactly this reason. If the phenomenon is aggregated to regions, choropleth is king. But for discrete points, symbols really pop."
+    }
+  },
+  {
+    "questionIndex": 10,
+    "topLevel": {
+      "body": "I almost went with a 100% stacked bar chart but then remembered the prompt just asked for 'proportion of a discrete set of categories that make up a whole' not necessarily scaling to 100. A regular stacked bar chart feels better for emphasizing contribution to a non-normalized total. Glad I caught that nuance before I clicked!"
+    },
+    "reply": {
+      "body": "Interesting point! I did choose 100% stacked bar (which is essentially a stacked bar normalized) because I was thinking about relative contribution regardless of the absolute total. But you're right, if the absolute total matters and the audience needs to see that too, the standard stacked bar is indeed superior for showing 'how each part contributes to *that* total'. Good distinction."
+    }
+  },
+  {
+    "questionIndex": 11,
+    "topLevel": {
+      "body": "I almost picked a stacked bar chart here because I was thinking about showing the 'total' change composed of different metrics, but then re-read the part about highlighting *which* metrics grew or shrunk the most. That really steered me toward a simple column chart. It's so easy to misinterpret visualizations when you're in a rush!"
+    },
+    "reply": {
+      "body": "Totally get that. My brain went straight to stacked bars too, thinking about part-to-whole. But yeah, for direct comparison of individual metric performance, columns are just cleaner. Sometimes the simplest answer is the most effective, even if it's not the flashiest."
+    }
+  },
+  {
+    "questionIndex": 12,
+    "topLevel": {
+      "body": "I almost went with a grouped bar chart, but then I remembered the stacked version lets you see the parts-to-whole relationship WITHIN each region more clearly. Grouped felt better for comparing individual categories across regions, not the overall composition differences."
+    },
+    "reply": {
+      "body": "Totally agree. Grouped bars are great if you want to focus on say, Region A's 'Widget' sales vs. Region B's 'Widget' sales directly. But if the goal is to see how the *mix* of products shifts from Region A to B, stacked is the way to go. It's a subtle but important distinction."
+    }
+  },
+  {
+    "questionIndex": 13,
+    "topLevel": {
+      "body": "I almost picked area chart because it visually felt similar for a continuous trend. But then I remembered how much focus is on the *exact* value and dips/peaks over time, not just the cumulative total. Line chart makes so much more sense."
+    },
+    "reply": {
+      "body": "Totally get that. Area charts can be misleading with overlapping series, but for a single metric, they can sometimes emphasize magnitude more. Still, line is definitely the standard for precision over time. Good call!"
+    }
+  },
+  {
+    "questionIndex": 14,
+    "topLevel": {
+      "body": "I almost went with a simple timeline or a series of bar charts for each project, but the mention of milestones and key events really pushed me towards Gantt. It feels like overkill sometimes for just simple progress, but for tracking multiple distinct project paths with critical points, it makes so much sense. Glad I picked it!"
+    },
+    "reply": {
+      "body": "Totally agree. It's easy to fall into the trap of using a basic timeline, but Gantt really shines when you need to layer in those specific milestone markers and durations for each independent project. Makes it so much easier to spot overlaps or bottlenecks at a glance."
+    }
+  },
+  {
+    "questionIndex": 15,
+    "topLevel": {
+      "body": "Ugh, I almost went with a box plot here. I was thinking about comparing the spread and median within each category, but the question specifically asked about frequency within bins. Histogram makes so much more sense looking back at it. Definitely tripped on the 'distribution' part and how it relates to bins."
+    },
+    "reply": {
+      "body": "Totally get that. Box plots are great for comparing central tendency and spread, but they don't show the shape of the distribution within those categories like a histogram does. If the categories were on the x-axis and we wanted to see the counts *per category*, a bar chart would be the go-to. But since it's about *bins* of a continuous variable, histogram is king."
+    }
+  },
+  {
+    "questionIndex": 16,
+    "topLevel": {
+      "body": "I almost went with the histogram, but I second-guessed myself. Histograms can get so messy when you try to overlay too many groups, especially if the bin widths aren't perfectly aligned. Density plots just feel cleaner for direct shape comparison."
+    },
+    "reply": {
+      "body": "Totally agree! Histograms are great for a single distribution, but comparing multiple ones with them is painful. You end up with a spaghetti chart very quickly. Density plots really shine when the focus is on the shape and overlap."
+    }
+  },
+  {
+    "questionIndex": 17,
+    "topLevel": {
+      "body": "I almost went with a violin plot because I wanted to see the density too, but the box plot felt more direct for comparing the quartiles and range immediately. Glad I stuck with that instinct. Sometimes I overthink wanting to show *all* the information right away."
+    },
+    "reply": {
+      "body": "Totally get that. Violin plots are great for showing modality, but for a quick read on spread and central tendency across groups, box plots win. Did you consider a strip plot overlaid on the box plot to see individual points?"
+    }
+  },
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "Ooh, this one got me thinking. I leaned towards a simple line chart, reasoning that you could zoom in on seasonality within the overall trend. But I can see how that might obscure the long-term picture if you're not careful. The dual-axis idea feels a bit busy, but maybe that's the tradeoff."
+    },
+    "reply": {
+      "body": "I went with the dual-axis as well. My frustration with just a line chart is that seasonal peaks/troughs can make the overall trend line look jagged and hard to discern. But you're right, you have to use it carefully. Sometimes I use a smoothed line for the trend and keep the raw data (or seasonal component) as bars. It can work!"
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "I almost went with a bullet chart, but the 'distinct categories' part threw me off. My gut said bullet chart for target comparison, but grouping them felt really messy. The grouped bar chart makes sense now for seeing all the little comparisons at once though. Good one."
+    },
+    "reply": {
+      "body": "Yeah, the bullet chart is great for a single measure against a target, but with multiple categories and needing to see them *relative to each other* AND the target, it gets clunky fast. Grouped bars win for that specific multi-category view."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "I almost went with a box plot here because they're so good at showing spread and central tendency. But the 'shape of the data' part made me pause. Histograms definitely give you that visual intuition about skewness or modality, which a box plot can hide."
+    },
+    "reply": {
+      "body": "Totally agree about the shape! Box plots are fantastic summaries, but often *too* summarized when you really need to see the bumps and valleys in the distribution. Histogram for shape, box plot for quick comparison across groups. Different tools for different jobs, I guess."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "I almost picked a network graph, but then remembered the key was 'hierarchy'. Network graphs can show connections, but not necessarily the clear reporting structure like an org chart. Glad I reread the prompt carefully before hitting submit."
+    },
+    "reply": {
+      "body": "Totally. Network graphs are great for showing influence or collaboration patterns where there isn't a strict top-down structure. For showing who reports to whom, it's hard to beat a standard org chart."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "I almost picked a hexbin plot for this, because it does show density really well. But the prompt specifically asked about the relationship *and* correlation, and hexbins can sometimes obscure finer details of that relationship compared to a scatter. Glad I reread the options carefully!"
+    },
+    "reply": {
+      "body": "Same here! Hexbins are great for pure density and avoiding overplotting, but it's easy to lose the subtle patterns of correlation. Sometimes I'll overlay density contours on a scatter plot, which feels like the best of both worlds."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "I almost went with a stacked bar chart for this, especially for the budget allocation example. It's so intuitive for showing parts of a whole. But the user journey path really needs something that shows the *flow*, not just the end state of each segment. Sankey makes sense when you're tracking movement between groups."
+    },
+    "reply": {
+      "body": "Totally agree on the user journey part! Stacked bars are great for comparing total proportions, but they don't show how people *get* from one stage to the next. Sankey diagrams really nail that transition visualization where the path taken is as important as the final destination."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "I almost picked a small multiples line chart, but the 'unrelated metrics' part threw me. Sparklines make so much sense for this, especially since the exact value isn't the goal. Trying to squeeze individual axis labels on small multiples would be impossible anyway. Good one."
+    },
+    "reply": {
+      "body": "Totally agree. Small multiples would get too cluttered if you tried to show too many metrics, and defining appropriate y-axes for unrelated data would be a nightmare. Sparklines are perfect for spotting volatility at a glance without getting bogged down in details."
+    }
+  }
+]

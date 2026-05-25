@@ -1,0 +1,227 @@
+[
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "I almost picked the wrong answer for this one! I know the primary endpoint is the main goal, but distinguishing secondary from exploratory was tougher than I thought. I ended up going with the option about assessing other potential effects. It feels like that covers the main idea of what secondary endpoints do without being too specific."
+    },
+    "reply": {
+      "body": "Totally agree. It's easy to get bogged down thinking secondary endpoints *have* to show a statistically significant benefit too, but they often don't. The abstract just needs to report them. Sometimes they are really just for hypothesis generation for future studies."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "I picked B, the one about preserving randomization. Honestly, the 'regardless of treatment received' part totally threw me off. It feels counterintuitive to include people who didn't actually take the drug as intended, but I guess it makes sense for reflecting real-world scenarios where adherence isn't perfect."
+    },
+    "reply": {
+      "body": "Yeah, I struggled with that too! My initial thought was that you'd only want to analyze people who fully completed the trial as prescribed. But the explanation about reflecting actual practice makes a lot of sense. It's definitely a statistical trade-off."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "I almost picked the wrong answer here. I was stuck on 'time to event' but then remembered the comparison part of the HR is key. It's not just how long it takes, but how much *faster* the drug group is compared to placebo for some bad outcome. Glad I re-read the definition."
+    },
+    "reply": {
+      "body": "Totally! The comparison element is crucial. It definitely threw me off too. It's less about the absolute time and more about the *relative* reduction in risk. So many ways to slice those stats!"
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "I initially struggled with this one. My first thought was about making sure the results were applicable to a wide range of people, but then I remembered how messy that can make the data. It's really about controlling the variables, right? So, I landed on the homogeneity aspect. Definitely a key point for reducing bias."
+    },
+    "reply": {
+      "body": "Totally agree. Homogeneity is key. It's not just about reducing bias in *this* trial, but also making sure that if you *do* want to compare it to other similar studies, you're comparing apples to apples. Otherwise, it's just noise."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "I almost picked the answer about the p-value representing the actual probability of the drug working. That was the trickiest part for me, differentiating between the probability of the observed effect assuming NO effect, versus the probability of the drug actually being effective. So much nuance in stats!"
+    },
+    "reply": {
+      "body": "Totally get where you're coming from. It's easy to misinterpret! I sometimes think of it as a 'no, this isn't random luck' kind of metric. If the p-value is tiny, it's highly unlikely our results just happened by chance if the drug was a placebo. It's not a direct measure of effect size, though, which is another common pitfall."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "Went with A, the body's handling of the drug over time. I almost got tripped up by 'drug's effects on the body' but that's pharmacodynamics, right? Man, these terms sound so similar sometimes."
+    },
+    "reply": {
+      "body": "Totally! The distinction between PK and PD is a classic pitfall. PK is what the body does to the drug (absorption, metabolism etc.), PD is what the drug does to the body (the actual therapeutic effect). They're linked, of course, but distinct concepts within a trial."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "I almost picked the 'per-protocol' population because it feels more intuitive to only count the folks who actually took the drug. But then I remembered hearing about ITT in my epidemiology class and how it's supposed to be more robust for showing real-world outcomes, even if the numbers look a little less impressive."
+    },
+    "reply": {
+      "body": "Totally get that gut reaction. It's so tempting to focus on the ideal scenario. But ITT really does capture the messiness of actual practice, which is why it's so important for regulatory bodies. Love that they included it as a question."
+    }
+  },
+  {
+    "questionIndex": 7,
+    "topLevel": {
+      "body": "Okay, I picked B, 'any negative health outcome during the trial.' I was leaning towards D, 'a side effect confirmed to be caused by the drug,' but the explanation clarified it's broader than just causation. Still feels a bit counterintuitive though, to call something an 'event' if it's not even related to the treatment."
+    },
+    "reply": {
+      "body": "Totally get that. For me, the key was 'does not necessarily have a causal relationship.' It makes sense from a data collection perspective. You have to log everything that happens, and then the researchers figure out what's likely related later. Imagine if they only logged things they *thought* were side effects – they might miss something important."
+    }
+  },
+  {
+    "questionIndex": 8,
+    "topLevel": {
+      "body": "I picked B, the one about predicting clinical benefit. Was a bit surprised by the definition though. It feels like it should be a direct measure of feeling better, but the explanation says it's more about prediction. This is going to make reading future abstracts a lot more interesting. Hopefully it means faster drug approvals in the long run."
+    },
+    "reply": {
+      "body": "Yeah, the 'predicts clinical benefit' part is key. It's a good way to get drugs to market faster if the surrogate is well-established. But it also makes you wonder how often those predictions don't pan out later when real-world patient outcomes are tracked. The potential for false positives, or drugs that look good on paper but don't actually help much, seems high."
+    }
+  },
+  {
+    "questionIndex": 9,
+    "topLevel": {
+      "body": "I picked B, Comparison to current standard of care. I always get tripped up by the wording with control groups. Sometimes it's placebo, sometimes it's the existing drug. It depends on the trial phase and what they're trying to prove if it's superior or just effective."
+    },
+    "reply": {
+      "body": "That's a great point! The definition of 'control' can definitely change. For early phase trials, you might see a placebo control to establish basic efficacy and safety. Later phases, especially if the drug targets a serious condition with few options, often use an active comparator like the existing standard of care to show superiority or non-inferiority, which is what you were hinting at."
+    }
+  },
+  {
+    "questionIndex": 10,
+    "topLevel": {
+      "body": "I picked A, the 'ideal patient' group. It felt right because the question asks about the primary role, and assessing the drug as intended makes sense. But the wording about 'adherence' through the whole trial threw me a bit. I worried I was missing a nuance about actual real-world effectiveness versus a best-case scenario."
+    },
+    "reply": {
+      "body": "Yeah, I totally get that. I leaned towards it too. It's tough because the intention is to see how the drug works when everything goes perfectly, but life happens and people deviate. So it's a pure signal, but maybe not the most practically useful one sometimes."
+    }
+  },
+  {
+    "questionIndex": 11,
+    "topLevel": {
+      "body": "Okay, I picked B, thinking it was about comparing groups directly. Kinda got tripped up by the 'curves' part implying multiple things. The explanation clarifies it's about probability over time for *one* group, which makes sense now for survival endpoints. It's fascinating how they visualize that."
+    },
+    "reply": {
+      "body": "Totally get that. I also initially thought it was a direct comparison tool. But yeah, once you see the step-down nature of the graph, it clicks that it's showing the survival experience of that specific cohort. Makes you appreciate the visuals in papers even more."
+    }
+  },
+  {
+    "questionIndex": 12,
+    "topLevel": {
+      "body": "I picked A, the subjective improvement due to belief. Honestly, the wording of the options made me hesitate. Some mentioned 'psychological factors' but that felt too broad. It's good to clarify that it's specifically about anticipation of benefit."
+    },
+    "reply": {
+      "body": "Yeah, A was my pick too. I got hung up on option C for a sec because it mentioned 'expectations influencing perception.' But the key word in the explanation is 'anticipation that an intervention *will* help,' which is exactly what A captured better than the others."
+    }
+  },
+  {
+    "questionIndex": 13,
+    "topLevel": {
+      "body": "I picked A without even thinking, but then I reread the options and got a little nervous. Sometimes they word these so sneakily. For example, I almost picked the secondary endpoint because it sounds important too. Definitely good to double check what they define as the absolute main goal."
+    },
+    "reply": {
+      "body": "Totally! I did the same thing. I'm always worried about confusing primary and secondary endpoints. The explanation really hammered home that the primary one is the *main* reason for the study. It’s the one that has to show statistical significance for the drug to be considered successful in the initial approval phase."
+    }
+  },
+  {
+    "questionIndex": 14,
+    "topLevel": {
+      "body": "Okay, I almost picked the wrong answer for NNT. I was thinking it was about the total number of patients in the trial, but it's really about how many *average* patients need the drug to see one more person get better vs placebo. That's a surprisingly practical metric."
+    },
+    "reply": {
+      "body": "Totally. The wording can be tricky. I remember seeing NNTs in the hundreds for some drugs that are still standard of care, which blew my mind. Definitely highlights that 'statistically significant' doesn't always mean a huge clinical impact for every single patient individually."
+    }
+  },
+  {
+    "questionIndex": 15,
+    "topLevel": {
+      "body": "I picked B, hazard ratio. I was so focused on the 'ratio' part I almost missed that it's about the *rate* of events. The explanation helped clear that up for me. It feels like a subtle but important distinction for how we interpret survival data."
+    },
+    "reply": {
+      "body": "Totally get that. I initially thought it was just a simple proportion over the whole study period. But the fact that it's an instantaneous rate comparison over time is pretty key. Good point about the distinction!"
+    }
+  },
+  {
+    "questionIndex": 16,
+    "topLevel": {
+      "body": "I definitely picked B, the one about statistical significance. It felt right because they always talk about p-values alongside CIs. But rereading the explanation, it's more about the *range* of where the true effect could be, not just if it's significant or not. Kind of subtle distinction."
+    },
+    "reply": {
+      "body": "Totally get that. It's easy to conflate CI with a simple significance test. I struggled with that too. I actually chose D, plausible values for the true effect. But I had to really think about what 'plausible' meant in this context. Glad the explanation clarified it's about the sample estimating the population."
+    }
+  },
+  {
+    "questionIndex": 17,
+    "topLevel": {
+      "body": "I chose the option about 'time to disease progression'. Definitely got tripped up by that one at first glance. I was thinking about how long the drug *works*, not how long patients *live* with the drug. It's subtle but really important."
+    },
+    "reply": {
+      "body": "Totally know what you mean. The distinction between progression-free survival and overall survival can be so tricky in abstracts. I always have to re-read those sentences carefully to make sure I'm not mixing them up."
+    }
+  },
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "I went with C, but honestly, I spent way too long debating between that and B. The abstract kept talking about how great the primary endpoint was, so it was hard to focus on what else they might be measuring. It feels like they always bury the secondary stuff."
+    },
+    "reply": {
+      "body": "Totally get that. I picked B because it seemed like a stronger secondary measure, but reading the explanation now, C makes sense for exploring *other* potential benefits. Sometimes those 'extra' measures become the most interesting findings later on."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "Chose B initially, thinking it was about strictly following the protocol. It took me a second to realize ITT is more about *preserving the randomization* even if people drop out or switch. Makes total sense now, but I can see how that wording could be tricky."
+    },
+    "reply": {
+      "body": "Totally agree! The preservation of randomization is key. It feels counterintuitive to include people who didn't really get the treatment, but it's the best way to avoid bias messing up the results."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "Okay, hazard ratio. I guessed B, thinking it was just a straight ratio of event rates at a specific time point. The explanation about it being relative risk over time is key though. Makes sense how a lower HR is good for the new drug."
+    },
+    "reply": {
+      "body": "Totally. I picked C because I always get confused between hazard ratio and relative risk. The explanation helped clarify that HR accounts for the 'hazard' or instantaneous risk of the event happening at any given time, rather than just looking at a fixed endpoint."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "I picked A because I figured it was about making sure the drug worked on the right people. But some of the exclusion criteria seemed a little arbitrary, like age ranges that weren't super narrow. Made me wonder about real-world applicability though."
+    },
+    "reply": {
+      "body": "Totally get that. I think the key is balancing specificity for the trial with how it might be used later. They have to prove it works in a controlled group first before expanding."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "Chose B, the 'unlikely to be chance' option. That p-value threshold of 0.05 always feels a bit arbitrary though, doesn't it? Like, what's so magical about 5%? I keep wondering if the actual observed effect size should weigh more heavily too."
+    },
+    "reply": {
+      "body": "I agree the 0.05 cutoff feels like a convention rather than a hard scientific rule, but it's pretty standard. The effect size is definitely key though! A tiny p-value for a minuscule effect isn't as compelling as a moderately low p-value for a large, clinically meaningful difference. It's all about context."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "I guessed C. I always get PK and PD mixed up. The explanation cleared it up, but it's the absorption, distribution, metabolism, excretion part that's the key differentiator for me. Need to drill that."
+    },
+    "reply": {
+      "body": "Totally. I almost picked D because it sounded related to how the drug affects the body. But PK is definitely about the *body's* action on the *drug*, not the other way around. PD is the target for that confusion."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "Initially, I was tempted to choose the option that focused only on patients who completed the study. But then I remembered how often trials try to mimic actual practice, and in practice, not everyone sticks to the plan. So, ITT makes more sense for a broader, less biased view. Glad they explained the 'why' though, it's easy to just memorize terms."
+    },
+    "reply": {
+      "body": "Yes! That was my thinking too. The 'per-protocol' analysis is so different. ITT feels more robust for showing generalizability, even if the numbers look less impressive initially. It really highlights the impact of real-world adherence issues."
+    }
+  }
+]

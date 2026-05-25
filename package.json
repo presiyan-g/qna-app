@@ -14,6 +14,8 @@
   "scripts": {
     "build": "node scripts/run-workspaces.mjs build",
     "dev": "node scripts/run-workspaces.mjs dev",
-    "test": "npm run test -w qna-web"
+    "test": "npm run test -w qna-web",
+    "seed": "npm run seed -w qna-web",
+    "seed:generate": "npm run seed:generate -w qna-web"
   }
 }

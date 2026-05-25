@@ -1,0 +1,462 @@
+[
+  {
+    "prompt": "What is the primary role of the hippocampus in memory formation?",
+    "explanation": "The hippocampus is crucial for consolidating short-term memories into long-term memories. It plays a vital role in spatial navigation and the formation of new episodic memories.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Encoding procedural (skill-based) memories",
+        "isCorrect": false
+      },
+      {
+        "label": "Processing emotional aspects of memory in the amygdala",
+        "isCorrect": false
+      },
+      {
+        "label": "Forming and consolidating new declarative (episodic and semantic) memories",
+        "isCorrect": true
+      },
+      {
+        "label": "Retrieving pre-existing long-term memories from the cortex",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the context of behavioral neuroscience, which neurotransmitter system is most critically implicated in the regulation of attention and executive functions, often impacted in conditions like ADHD?",
+    "explanation": "The dopamine system plays a crucial role in modulating attention, motivation, and executive functions. Dysregulation within this system is a key factor in the neurobiology of ADHD.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Serotonin",
+        "isCorrect": false
+      },
+      {
+        "label": "GABA",
+        "isCorrect": false
+      },
+      {
+        "label": "Dopamine",
+        "isCorrect": true
+      },
+      {
+        "label": "Acetylcholine",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the study of sleep and memory consolidation, which stage of sleep is most strongly associated with the processing and strengthening of declarative memories (facts and events)?",
+    "explanation": "Slow-wave sleep (SWS), characterized by high-amplitude, low-frequency delta waves, plays a crucial role in the consolidation of declarative memories. During SWS, the brain replays and reorganizes neural patterns associated with recent experiences, facilitating their transfer to long-term storage.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "REM (Rapid Eye Movement) sleep",
+        "isCorrect": false
+      },
+      {
+        "label": "Stage 1 sleep (N1)",
+        "isCorrect": false
+      },
+      {
+        "label": "Slow-wave sleep (SWS or N3)",
+        "isCorrect": true
+      },
+      {
+        "label": "Wakefulness",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Research into neuroplasticity has highlighted the brain's ability to reorganize its structure and function. Which of the following best describes activity-dependent synaptic plasticity?",
+    "explanation": "Activity-dependent synaptic plasticity refers to the phenomenon where the strength of synaptic connections between neurons changes based on their recent patterns of activity. This is a fundamental mechanism underlying learning and memory.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Changes in neuronal structure due to genetic programming, independent of experience.",
+        "isCorrect": false
+      },
+      {
+        "label": "The strengthening or weakening of synaptic connections based on the patterns of neuronal activity.",
+        "isCorrect": true
+      },
+      {
+        "label": "The growth of new neurons in the adult brain, irrespective of synaptic activity.",
+        "isCorrect": false
+      },
+      {
+        "label": "The formation of new glial cells to support neuronal function without regard to specific signaling.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the realm of cognitive neuroscience, the concept of 'priming' refers to a phenomenon where exposure to one stimulus influences the response to a subsequent stimulus. Which type of memory system is primarily involved in this non-conscious form of learning and memory?",
+    "explanation": "Implicit memory, also known as procedural or non-declarative memory, is responsible for unconscious learning and skill acquisition, which includes priming effects. Explicit memory, on the other hand, involves conscious recall of facts and events.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Explicit memory (episodic and semantic)",
+        "isCorrect": false
+      },
+      {
+        "label": "Working memory",
+        "isCorrect": false
+      },
+      {
+        "label": "Implicit memory (procedural, priming, conditioning)",
+        "isCorrect": true
+      },
+      {
+        "label": "Sensory memory",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the study of working memory, Baddeley's model proposes several components. Which component is primarily responsible for temporarily holding and manipulating auditory and verbal information?",
+    "explanation": "The phonological loop is the component of Baddeley's working memory model specifically designed to store and rehearse auditory and verbal information. It allows us to keep spoken words or numbers in mind and process them.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Visuospatial sketchpad",
+        "isCorrect": false
+      },
+      {
+        "label": "Central executive",
+        "isCorrect": false
+      },
+      {
+        "label": "Episodic buffer",
+        "isCorrect": false
+      },
+      {
+        "label": "Phonological loop",
+        "isCorrect": true
+      }
+    ]
+  },
+  {
+    "prompt": "In the study of fear conditioning, which brain structure plays a crucial role in associating neutral stimuli with fearful events, leading to the learned fear response?",
+    "explanation": "The amygdala is a key structure in processing emotions, particularly fear. It is essential for forming and retrieving memories associated with fear conditioning by linking neutral cues with aversive outcomes.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Cerebellum",
+        "isCorrect": false
+      },
+      {
+        "label": "Hippocampus",
+        "isCorrect": false
+      },
+      {
+        "label": "Amygdala",
+        "isCorrect": true
+      },
+      {
+        "label": "Prefrontal Cortex",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the context of long-term potentiation (LTP), what is the primary mechanism by which synaptic strength is enhanced?",
+    "explanation": "LTP involves a persistent strengthening of synapses based on recent patterns of activity. This strengthening is typically achieved through an increase in the number of neurotransmitter receptors or enhanced neurotransmitter release at the synapse.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Temporary increase in neurotransmitter reuptake",
+        "isCorrect": false
+      },
+      {
+        "label": "Decrease in postsynaptic receptor sensitivity",
+        "isCorrect": false
+      },
+      {
+        "label": "Persistent increase in neurotransmitter release and/or postsynaptic receptor efficacy",
+        "isCorrect": true
+      },
+      {
+        "label": "Formation of new inhibitory synapses",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the study of decision-making and reward processing, which brain region is recognized as a key component of the mesolimbic pathway, crucial for motivation, pleasure, and reinforcement learning?",
+    "explanation": "The nucleus accumbens is a central hub in the brain's reward system, receiving dopamine input and playing a vital role in motivated behaviors and learning associations between actions and rewards.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Amygdala",
+        "isCorrect": false
+      },
+      {
+        "label": "Cerebellum",
+        "isCorrect": false
+      },
+      {
+        "label": "Nucleus Accumbens",
+        "isCorrect": true
+      },
+      {
+        "label": "Thalamus",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the study of attention, the 'attentional blink' is a phenomenon where a brief period of impaired conscious perception of a target stimulus occurs when it immediately follows another attended target. Which of the following best describes the neurological basis of this phenomenon?",
+    "explanation": "The attentional blink is thought to arise from the brain's limited capacity for processing attended stimuli. During the blink, the attentional system is occupied with the first target, making it difficult to encode a second, closely following target.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "A failure of sensory receptors to detect the second stimulus.",
+        "isCorrect": false
+      },
+      {
+        "label": "A temporary overload or refractory period in the neural mechanisms responsible for attentional selection and awareness.",
+        "isCorrect": true
+      },
+      {
+        "label": "Rapid decay of sensory information for the second stimulus before it can be processed.",
+        "isCorrect": false
+      },
+      {
+        "label": "The brain actively inhibiting the perception of the second stimulus to conserve cognitive resources.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the study of attention, the 'cocktail party effect' refers to our ability to selectively attend to one auditory stream among many. Which cognitive mechanism is most central to this phenomenon?",
+    "explanation": "The cocktail party effect relies heavily on selective auditory attention, which allows us to filter out irrelevant sounds and focus on a specific conversation or sound source. This involves top-down attentional control that prioritizes certain sensory inputs over others.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Sensory gating",
+        "isCorrect": false
+      },
+      {
+        "label": "Selective auditory attention",
+        "isCorrect": true
+      },
+      {
+        "label": "Bottom-up stimulus capture",
+        "isCorrect": false
+      },
+      {
+        "label": "Implicit memory retrieval",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the context of memory, the concept of 'encoding specificity' suggests that retrieval of information is improved when the conditions at retrieval match the conditions under which the information was encoded. Which of the following is the most direct implication of this principle for learning and memory?",
+    "explanation": "Encoding specificity highlights that the context matters for memory retrieval. Therefore, studying in an environment similar to the one where the test will take place can improve recall.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Memorizing information through rote repetition is the most effective way to ensure long-term retention.",
+        "isCorrect": false
+      },
+      {
+        "label": "Memory retrieval is independent of the environmental and internal states present during initial learning.",
+        "isCorrect": false
+      },
+      {
+        "label": "Learning is enhanced when study conditions match the conditions present during the actual test or recall situation.",
+        "isCorrect": true
+      },
+      {
+        "label": "Emotional states during encoding have no significant impact on the ability to retrieve memories later.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the study of attention, which cognitive bias describes the tendency to focus on information that confirms pre-existing beliefs or hypotheses, even when contradictory evidence is available?",
+    "explanation": "Confirmation bias is the tendency to seek, interpret, and recall information in a way that affirms one's prior beliefs. This cognitive bias can selectively filter incoming sensory information, impacting what we attend to and how we process it, thus influencing our perception of reality.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Attentional Blink",
+        "isCorrect": false
+      },
+      {
+        "label": "Change Blindness",
+        "isCorrect": false
+      },
+      {
+        "label": "Confirmation Bias",
+        "isCorrect": true
+      },
+      {
+        "label": "Inattentional Blindness",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the study of memory retrieval, the 'tip-of-the-tongue' (TOT) phenomenon describes the experience of recalling a word or name. Which cognitive process is most central to overcoming this temporary retrieval failure?",
+    "explanation": "The tip-of-the-tongue phenomenon involves a failure in spontaneous retrieval, but the memory is still believed to be stored. Successful recall typically involves a more deliberate search process, often guided by semantic or phonological cues, to access the stored information.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Priming the relevant neural network through repeated exposure.",
+        "isCorrect": false
+      },
+      {
+        "label": "Activating the prefrontal cortex to initiate a strategic search for the target information.",
+        "isCorrect": true
+      },
+      {
+        "label": "Consolidating the memory trace through REM sleep.",
+        "isCorrect": false
+      },
+      {
+        "label": "Engaging the amygdala to increase emotional urgency for recall.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the study of learning and memory, the concept of 'latent inhibition' refers to a phenomenon where prior exposure to a stimulus without consequence makes it harder to later form an association with that stimulus. Which type of associative learning is primarily demonstrated by latent inhibition?",
+    "explanation": "Latent inhibition is a classic example of associative learning, specifically classical conditioning. It shows that the brain learns to ignore familiar, irrelevant stimuli, which is a crucial aspect of efficient learning and adaptation.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Operant Conditioning",
+        "isCorrect": false
+      },
+      {
+        "label": "Classical Conditioning",
+        "isCorrect": true
+      },
+      {
+        "label": "Observational Learning",
+        "isCorrect": false
+      },
+      {
+        "label": "Habituation",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the study of learning and memory, the concept of 'habituation' describes a fundamental form of non-associative learning. Which of the following best characterizes habituation?",
+    "explanation": "Habituation is a decrease in response to a stimulus after repeated presentations. This occurs because the organism learns to ignore the stimulus as it becomes familiar and non-threatening, demonstrating a basic form of adaptation in neural circuits.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "An increase in response to a noxious stimulus over time.",
+        "isCorrect": false
+      },
+      {
+        "label": "A decrease in response to a stimulus after repeated presentations.",
+        "isCorrect": true
+      },
+      {
+        "label": "The formation of an association between two previously unrelated stimuli.",
+        "isCorrect": false
+      },
+      {
+        "label": "A change in behavior due to the reinforcing effects of consequences.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the study of executive functions, the ability to suppress irrelevant information or stimuli and focus on goal-relevant information is a critical component. Which specific executive function is most directly associated with this cognitive control?",
+    "explanation": "Inhibition, also known as inhibitory control, is the executive function most directly related to suppressing unwanted thoughts or actions and filtering out distractions. It allows us to override habitual responses and maintain focus on our goals.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Working memory",
+        "isCorrect": false
+      },
+      {
+        "label": "Cognitive flexibility",
+        "isCorrect": false
+      },
+      {
+        "label": "Inhibition",
+        "isCorrect": true
+      },
+      {
+        "label": "Planning",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the study of neuroplasticity, Hebbian learning is often summarized by the phrase 'neurons that fire together, wire together.' This principle is a foundational concept for understanding how synaptic connections are strengthened through coordinated activity. Which of the following best describes the primary mechanism proposed by Hebbian learning?",
+    "explanation": "Hebbian learning posits that if a presynaptic neuron repeatedly or persistently takes part in firing an action potential that stimulates a postsynaptic neuron, the synaptic connection between them is strengthened. This coordinated activity leads to changes in synaptic efficacy, making the connection more robust.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Synaptic connections weaken when neurons consistently fail to fire together.",
+        "isCorrect": false
+      },
+      {
+        "label": "Synaptic connections are strengthened when pre- and postsynaptic neurons are simultaneously active.",
+        "isCorrect": true
+      },
+      {
+        "label": "Synaptic connections are primarily shaped by genetic predisposition, independent of neural activity.",
+        "isCorrect": false
+      },
+      {
+        "label": "Synaptic connections are strengthened only when a postsynaptic neuron fires independently of presynaptic input.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the study of attention, researchers often use tasks that require participants to monitor for specific targets amidst distractors. Which of the following task paradigms is MOST commonly used to investigate sustained attention, a core component of vigilance?",
+    "explanation": "The Continuous Performance Task (CPT) is a standard paradigm designed specifically to measure sustained attention and vigilance. Participants must remain alert and respond to infrequent targets over extended periods, making it ideal for assessing the ability to maintain focus and detect signals amidst distractors.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Stroop Task",
+        "isCorrect": false
+      },
+      {
+        "label": "Go/No-Go Task",
+        "isCorrect": false
+      },
+      {
+        "label": "Continuous Performance Task (CPT)",
+        "isCorrect": true
+      },
+      {
+        "label": "N-Back Task",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In cognitive neuroscience, the concept of 'working memory' is often described as a system for temporarily holding and manipulating information. Which of the following components, as proposed by Baddeley's model, is primarily responsible for the manipulation and updating of information within working memory?",
+    "explanation": "The central executive is the control center of working memory, responsible for directing attention, coordinating the slave systems, and performing manipulation and updating of information. It is crucial for tasks requiring planning, decision-making, and problem-solving.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "The phonological loop",
+        "isCorrect": false
+      },
+      {
+        "label": "The visuospatial sketchpad",
+        "isCorrect": false
+      },
+      {
+        "label": "The episodic buffer",
+        "isCorrect": false
+      },
+      {
+        "label": "The central executive",
+        "isCorrect": true
+      }
+    ]
+  }
+]

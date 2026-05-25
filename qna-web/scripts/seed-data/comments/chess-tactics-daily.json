@@ -1,0 +1,227 @@
+[
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "Ugh, I went for the aggressive pawn grab on f7 but totally didn't see the king's escape route. That bishop check on e6 really threw me off. I thought I was winning material but ended up in a worse position. This puzzle was trickier than it looked."
+    },
+    "reply": {
+      "body": "I know what you mean! I almost played the same sequence. The key really is that Bxe6+ check. It forces the king back and then the queen sacrifice is actually a win. So counterintuitive."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "I fell for the trap! I thought ...e5 was the way to open things up, but after a few moves I realized White just got too much space and control. That pawn break on d5 is so much more subtle but way more powerful. Definitely a lesson in not rushing to open the center blindly."
+    },
+    "reply": {
+      "body": "Yeah, ...e5 looked tempting to me too. White's king safety seemed a bit compromised. But you're right, the d5 push is sneaky. It doesn't just open lines, it actively targets White's queenside pawn structure. Brutal."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "I went for the queen sacrifice first, thinking I could force a perpetual check. Totally missed the Nh7 idea. That knight sacrifice is brutal, really opens things up."
+    },
+    "reply": {
+      "body": "Yeah, the Qh5+ queen sac looks tempting, but it just doesn't work. The key is that the king has to take the knight, otherwise, black just ignores it and the attack fizzles. Nh7+ is much more direct."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "I went for 1.Bh6 straight away, assuming the pawn would be pinned or something. Totally missed the pawn's ability to capture. My brain just locked onto the check and fork idea without seeing the counterplay. That 1.Rh3 is sneaky. So glad I'm reviewing these because I would have lost a queen in a real game."
+    },
+    "reply": {
+      "body": "You and me both! I also saw Bh6 and tried to make it work. It's impressive how one pawn move completely changes the complexion of the position. I spent way too long looking for a way to make Bh6 work after the exchange, but the pawn just escapes the pin with the capture. Rh3 really is the only way."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "I completely missed this one! I thought I had to defend the g4 pawn directly, so I played Qg4. That seemed to lose tempo though and Black could still launch something nasty. Nh6 is so subtle."
+    },
+    "reply": {
+      "body": "Same! I also went for the direct defense on g4. It's tempting to just react to immediate threats, but that knight move really sets up a counter-offensive. Clever puzzle."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "I went for 1. d4, thinking I could maybe open up the center. Totally missed the pawn break on the queenside. Black's structure looked so robust there, I didn't even consider pushing the b-pawn."
+    },
+    "reply": {
+      "body": "Same here! I was so focused on what was happening in the middle that I completely overlooked the subtle queenside pressure. That b4 move is nasty, really opens up lines I didn't see."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "I went for the immediate Bxf7+ sacrifice. Saw the discovered attack possibility after the king moved. Almost fell for the pawn push though, it looked so dangerous for a second there. Classic king safety oversight by Black."
+    },
+    "reply": {
+      "body": "Nice one! I also saw Bxf7+ but then hesitated, thinking the king could escape somewhere. Qf3+ is the key follow-up to really nail down the advantage. Good to see the sacrifice fully exploited."
+    }
+  },
+  {
+    "questionIndex": 7,
+    "topLevel": {
+      "body": "I almost went for the immediate rook sacrifice on f7 without seeing that black could take back and escape. That pawn promotion threat is nasty. Had to rethink it and found the quiet queen move instead. My heart rate definitely went up a bit solving this one."
+    },
+    "reply": {
+      "body": "Same here! My first instinct was to just charge in with the rook. Completely missed the king's escape square after the capture. The queen's move is so elegant though, I love how it sets up that discovered check right away. A real positional trap followed by a forced sequence."
+    }
+  },
+  {
+    "questionIndex": 8,
+    "topLevel": {
+      "body": "I completely missed g4. My brain immediately went to trying to advance the knight and push the kingside pawns, but that just allowed Black to consolidate. The position looks so quiet, it's wild how a single pawn push cracks it wide open. Definitely a lesson in not underestimating pawn advances in endgames!"
+    },
+    "reply": {
+      "body": "Yeah, g4 is so sneaky! I also fell into the trap of kingside pawn play, thinking 'more pawns equal more attack'. But the real key is how g4 forces Black's hand. Black has to respond directly to the pawn, and that exchange opens up lines that just weren't there before if you just tried to hack away."
+    }
+  },
+  {
+    "questionIndex": 9,
+    "topLevel": {
+      "body": "I totally missed the discovered attack! I saw the rook sacrifice but couldn't figure out how to follow up. My brain went straight to pawn promotion after that. This is why I need to practice these daily."
+    },
+    "reply": {
+      "body": "Yeah, the discovered attack is subtle. I initially thought about just trading rooks on a8, but that doesn't achieve anything. The key is realizing the rook on a8 becomes pinned after the first exchange."
+    }
+  },
+  {
+    "questionIndex": 10,
+    "topLevel": {
+      "body": "Oh man, I totally missed Bxh7+. My first instinct was to try and break through the pawn chain with the rook on the h-file, which just lost material. The king's safety was completely misleading here. That pawn sacrifice really opens things up. Classic tactic I should have spotted."
+    },
+    "reply": {
+      "body": "Yeah, the pawn structure is designed to make you think it's solid. I saw the bishop sacrifice but hesitated, worried about the king escaping. My follow-up was nowhere near as strong as the double rook check. Good to see it played out."
+    }
+  },
+  {
+    "questionIndex": 11,
+    "topLevel": {
+      "body": "I picked Ra3, thinking the rook would be super active on the queenside. Completely missed the power of the rook lift on the kingside. That diagonal is just begging to be exploited, and Rf3 is so elegant."
+    },
+    "reply": {
+      "body": "Ra3 is a common trap! It looks active, but you're right, the kingside is where the real action is at. That rook lift is deceptively simple but brutally effective once you see it."
+    }
+  },
+  {
+    "questionIndex": 12,
+    "topLevel": {
+      "body": "I went for the pawn push with g4, thinking that would open lines on the kingside. Totally missed the rook sacrifice! My opponent would have had a field day with that. It's always the quiet moves that are the most dangerous."
+    },
+    "reply": {
+      "body": "Yeah, g4 looked tempting for sure. I almost played it myself. But then I saw Qh5+ in response to the rook sac and it just clicked. That sequence is brutal. Well spotted, whoever found it!"
+    }
+  },
+  {
+    "questionIndex": 13,
+    "topLevel": {
+      "body": "I totally fell for the pawn trade trap. My first thought was to capture it, and then I saw that my queen would be hanging. It took me a few minutes to spot the bishop move. It's so simple once you see it, but man, my brain was fried looking for more complex lines."
+    },
+    "reply": {
+      "body": "Same here! I was convinced there had to be a queen sacrifice involved or something. That bishop move is so quiet but devastating. Black must have been so frustrated when they realized what happened."
+    }
+  },
+  {
+    "questionIndex": 14,
+    "topLevel": {
+      "body": "I went for Qg4 immediately, thinking I could force something. It looked really strong, but then I realized Black could just block with f6 and suddenly things got complicated. That was a classic 'too cute by half' moment for me."
+    },
+    "reply": {
+      "body": "Totally! Qg4 felt so natural given where the king was. It took me a second to see Nxf7 actually created *more* threats instead of just one. Gotta love those tactical sacrifices that open up lines."
+    }
+  },
+  {
+    "questionIndex": 15,
+    "topLevel": {
+      "body": "I picked A. That pawn push looked so innocent, but it really opened up that diagonal for the queen. I totally missed the knight sacrifice though, that was the key! Thought the king was way too well defended."
+    },
+    "reply": {
+      "body": "Yeah, the knight sac is brutal! I saw the discovered attack developing but got tunnel vision on the queen's path. The trick is realizing the knight's move isn't just a sacrifice, it's the linchpin that forces the mate."
+    }
+  },
+  {
+    "questionIndex": 16,
+    "topLevel": {
+      "body": "I went for the immediate rook check on the h-file, thinking I was being clever. Totally missed the queen sacrifice though. That Qh5 just looked insane at first glance, way too risky. Black's king looks so exposed after that pawn push, but I didn't see how it directly led to mate."
+    },
+    "reply": {
+      "body": "Yeah, the quick h-file pressure felt tempting, I almost picked that too! But when I saw Qh5, I realized the mate on h7 was real, and then the discovered check behind it. It's brutal because there's no good way to stop both threats simultaneously."
+    }
+  },
+  {
+    "questionIndex": 17,
+    "topLevel": {
+      "body": "Argh, I went for the immediate rook lift. So convinced that a direct attack was the way to go. Didn't even consider the bishop move. That discovered check is so nasty, completely missed the follow-up."
+    },
+    "reply": {
+      "body": "Same here! The rook felt so active, and I thought I saw a way to fork the king and queen eventually. The bishop move is really cool though, setting up that perfect discovered check. Gotta start looking at those diagonals more closely."
+    }
+  },
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "I fell for the bait and played something else entirely, trying to force the pawn. That Knight sacrifice was so unexpected! I was staring at the board for ages, thinking about my extra pawn, and completely missed the killer blow. My brain just doesn't compute these tactical sacrifices on demand."
+    },
+    "reply": {
+      "body": "Same here! My first instinct was to try and consolidate the pawn, but I saw that Black's Queen was getting active. The Nxf7 just felt too risky, like blundering my own piece. It's wild how a single move changes the entire evaluation. Took me a few reads of the explanation to even see the follow-up."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "I almost went for the pawn push on the kingside, figuring that would open up some diagonals. Took me a minute to reset and see that the center was the way to go. That d5 break really opens up the game. White's king looks pretty exposed after that."
+    },
+    "reply": {
+      "body": "Exact same hesitation on the kingside pawn push! It looked so tempting. But yeah, once you see the d5 break, it's like the whole board changes. The pressure on c3 and the open c-file is brutal."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "I went for the knight sacrifice too! So satisfying when it works. I almost fell into the trap of trying to push the pawn instead after Kxh7, but thankfully saw the queen check."
+    },
+    "reply": {
+      "body": "Yeah, that pawn push is so tempting. But Qh5+ is just brutal. It really hinges on seeing that immediate follow-up, otherwise the knight is just down a piece."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "I went for 1.Bh6 straight away, hoping to snag the Queen. Didn't see the pawn's role in defending g2 at all. Completely missed the deflection idea. The way the pawn is forced to move out of the way is pretty cool."
+    },
+    "reply": {
+      "body": "Yeah, 1.Bh6 is the obvious lure. It's that 1.Rh3 waiting move that's so sneaky. Once the pawn captures, suddenly Bh6 works perfectly. Brutal, but elegant."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "I totally fell for the obvious queen sac on f2, thinking I could force a perpetual. So many traps in this position! The knight maneuver was really unexpected. I spent ages looking for a way to directly counter Black's attack, completely missing the quiet, positional approach."
+    },
+    "reply": {
+      "body": "Same here! My brain immediately went to 'attack the attacker'. I kept trying moves like g3 or even Bg2, but they just seemed to allow Black's pieces to get even more active. That Nh6 is so subtle; it makes you re-evaluate everything."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "I went for 1. Nc3, thinking I could prepare a d4 push. Totally missed the pawn break on the queenside. That b4 move is so sneaky! It looks like a pawn sacrifice but it really just blows open the position."
+    },
+    "reply": {
+      "body": "Yeah, 1. b4 is brilliant. So often we focus on central pawn breaks, but here it's all about opening a file and hitting the king from the side. I almost fell for the Nc3 idea too, but then I recalculated and saw how exposed the d7 pawn would become after b4 Bxb4. Classic stuff!"
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "I fell for the pawn push and thought I had to defend against it somehow. Spent ages looking for a way to block or capture it. Totally missed the Bxf7 sacrifice. So obvious in hindsight but my brain was just stuck on the immediate threat."
+    },
+    "reply": {
+      "body": "Same here! My mind went straight to 'passed pawn, panic!', and I completely ignored the king safety aspect. That Bxf7 is so clean. It's funny how often the solution is staring you in the face but you're looking somewhere else."
+    }
+  }
+]

@@ -117,7 +117,6 @@ export function MobileMenu({
                     <form action={logoutAction}>
                       <button
                         type="submit"
-                        onClick={close}
                         className="block w-full cursor-pointer px-6 py-3 text-left text-[14px] font-semibold text-red-700 transition-colors hover:bg-red-50"
                       >
                         Log out

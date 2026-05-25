@@ -1,0 +1,462 @@
+[
+  {
+    "prompt": "In the iconic opening shot of 'Citizen Kane,' where does the camera begin its slow approach towards Xanadu?",
+    "explanation": "The camera starts from a vast, establishing shot of the Florida coastline, emphasizing the isolation and grandeur of the estate. It then gradually pushes in through the main gates and towards the central mansion.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "From directly outside the main gates of Xanadu.",
+        "isCorrect": false
+      },
+      {
+        "label": "From a medium shot of Charles Foster Kane as a child.",
+        "isCorrect": false
+      },
+      {
+        "label": "From a distant aerial view of the entire estate.",
+        "isCorrect": false
+      },
+      {
+        "label": "From a wide shot of the Florida coastline, far from the estate.",
+        "isCorrect": true
+      }
+    ]
+  },
+  {
+    "prompt": "In the climactic scene of 'The Godfather,' Michael Corleone is baptized while his enemies are assassinated. What is the significance of juxtaposing these two events?",
+    "explanation": "The juxtaposition highlights Michael's complete descent into the role of the Godfather. It visually and thematically contrasts the sacred ritual of baptism with the brutal violence of his consolidation of power, symbolizing his damnation and rebirth as a ruthless leader.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "To emphasize the chaotic nature of New York City.",
+        "isCorrect": false
+      },
+      {
+        "label": "To showcase the baptism as a cleansing ritual for Michael's soul.",
+        "isCorrect": false
+      },
+      {
+        "label": "To symbolize Michael's simultaneous embrace of spiritual purification and violent sin.",
+        "isCorrect": true
+      },
+      {
+        "label": "To suggest that religion and violence can coexist peacefully.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the film 'Parasite,' the scene where the Kim family plans to frame the driver features a specific use of editing. What is the primary effect of the rapid cross-cutting between the Kims' covert actions and the oblivious driver's movements?",
+    "explanation": "The rapid cross-cutting builds suspense and highlights the Kims' meticulous, almost theatrical, plotting. It emphasizes the precision and coordinated nature of their deception, creating a thrilling sense of shared conspiracy.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "To establish the driver's character as naive and easily manipulated.",
+        "isCorrect": false
+      },
+      {
+        "label": "To visually represent the complex financial dealings of the Park family.",
+        "isCorrect": false
+      },
+      {
+        "label": "To create a sense of escalating tension and the clandestine precision of the Kims' plan.",
+        "isCorrect": true
+      },
+      {
+        "label": "To foreshadow the eventual downfall of the entire Kim family.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the film '2001: A Space Odyssey,' the match cut between the bone (thrown by the ape) and the orbiting spacecraft is one of cinema's most famous transitions. What is the fundamental thematic connection this edit establishes?",
+    "explanation": "This match cut links primitive tool use with advanced technology, suggesting a unified trajectory of human evolution and technological advancement across millennia. It visually equates the bone as the first tool with the spaceship as a sophisticated tool, highlighting continuity.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "It emphasizes the cyclical nature of violence throughout human history.",
+        "isCorrect": false
+      },
+      {
+        "label": "It symbolizes the potential for both tools to be used for creation or destruction.",
+        "isCorrect": false
+      },
+      {
+        "label": "It visually connects the earliest tool use with advanced technology, representing a unified evolutionary path.",
+        "isCorrect": true
+      },
+      {
+        "label": "It highlights the vastness of space and humanity's insignificance within it.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the film 'Blade Runner 2049,' who designed the visual identity and cinematography for the dystopian future world, and what primary aesthetic principle guided their work?",
+    "explanation": "Roger Deakins, the cinematographer, was responsible for the film's stunning visuals. His approach emphasized a desolate, yet painterly, aesthetic, using light and shadow to evoke mood and theme. This aligns with the principle of creating a palpable atmosphere through visual design.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Denis Villeneuve, focusing on stark minimalism.",
+        "isCorrect": false
+      },
+      {
+        "label": "Roger Deakins, emphasizing desolation and atmospheric lighting.",
+        "isCorrect": true
+      },
+      {
+        "label": "Syd Mead, with a focus on neo-noir cyberpunk elements.",
+        "isCorrect": false
+      },
+      {
+        "label": "The production design team, prioritizing brutalist architecture.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In Akira Kurosawa's 'Seven Samurai,' the villagers repeatedly ask the samurai for help against the bandits. When Kambei Agrees, what specific action does he take to assess their true needs and resources BEFORE committing further?",
+    "explanation": "Kambei asks the villagers to bring him all their rice, intending to feed the samurai from the stolen harvest. This action reveals their true desperation and lack of ability to provide, forcing them to admit their dire situation and their expectation that the samurai would work for little more than survival.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "He immediately trains the villagers in basic combat techniques.",
+        "isCorrect": false
+      },
+      {
+        "label": "He demands that the villagers gather weapons for the samurai.",
+        "isCorrect": false
+      },
+      {
+        "label": "He asks them to surrender all their stored rice to him.",
+        "isCorrect": true
+      },
+      {
+        "label": "He proposes they build fortifications before discussing payment.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In 'Fight Club,' the narrator frequently sees Tyler Durden before they officially meet. What narrative technique is primarily at play during these early appearances, and what is its effect on the audience's perception?",
+    "explanation": "These are 'foreshadowing' instances, where the film subtly introduces Tyler's presence before his narrative introduction. This technique builds an unsettling atmosphere and primes the audience for the eventual reveal of Tyler's true nature.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Point Of View (POV) shot - To immerse the audience in the narrator's subjective experience.",
+        "isCorrect": false
+      },
+      {
+        "label": "Flash-forward - To provide glimpses of future events and increase suspense.",
+        "isCorrect": false
+      },
+      {
+        "label": "Foreshadowing - To subtly hint at future plot developments and reveal character connections.",
+        "isCorrect": true
+      },
+      {
+        "label": "MacGuffin - To introduce a plot device that motivates characters but isn't crucial to the plot itself.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the film 'Amelie,' the scene where Amelie mentally revisits her childhood memories after breaking a champagne cork uses a distinct visual effect. What is the primary cinematic purpose of this fragmented, slightly distorted visual style during her recollections?",
+    "explanation": "The distorted and fragmented visual style emphasizes the subjective and imperfect nature of memory. It suggests that while the core emotion is real, the details of recollection are often hazy and warped by time and personal interpretation. This enhances the film's whimsical and introspective tone.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "To create a sense of unease and foreshadow future conflict.",
+        "isCorrect": false
+      },
+      {
+        "label": "To visually represent the unreliability and subjective nature of memory.",
+        "isCorrect": true
+      },
+      {
+        "label": "To provide a clear and objective historical record of her past events.",
+        "isCorrect": false
+      },
+      {
+        "label": "To mimic the visual style of classic French New Wave cinema.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the film 'No Country for Old Men,' the scene where Anton Chigurh receives payment for his contract often features long takes with minimal dialogue. What is the primary effect of this deliberate pacing and sparse dialogue on the audience's viewing experience?",
+    "explanation": "The extended, slow-paced shots and lack of verbal exposition create a palpable sense of dread and suspense. This deliberate pacing forces the audience to focus on Anton's actions and the subtle visual cues, amplifying the tension and his unsettling presence.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "To highlight the detailed backstory of the contract's origin.",
+        "isCorrect": false
+      },
+      {
+        "label": "To allow the audience to connect emotionally with Chigurh's motivations.",
+        "isCorrect": false
+      },
+      {
+        "label": "To build intense suspense and emphasize Chigurh's menacing presence through atmosphere and visual storytelling.",
+        "isCorrect": true
+      },
+      {
+        "label": "To provide ample time for viewers to process complex philosophical themes presented in Chigurh's monologues.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the film 'The Dark Knight,' during the interrogation scene, the Joker repeatedly taunts Batman. What is the primary effect of the Joker's verbal taunts and the close-up shots on his face during this exchange?",
+    "explanation": "The close-ups on the Joker's face and his taunting dialogue emphasize his chaotic ideology and his psychological manipulation of Batman. This technique highlights the Joker's enjoyment of the chaos he creates and his desire to break Batman's moral code.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "To create suspense and build the audience's fear of Batman's potential failure.",
+        "isCorrect": false
+      },
+      {
+        "label": "To showcase the actor's performance and the raw emotion of the scene.",
+        "isCorrect": false
+      },
+      {
+        "label": "To highlight the Joker's manipulative nature and the psychological battle between him and Batman.",
+        "isCorrect": true
+      },
+      {
+        "label": "To visually represent the internal conflict Batman is experiencing about his methods.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In Bong Joon-ho's 'Memories of Murder,' the infamous \"look at the camera\" scene involves a suspect making direct eye contact with the audience during an interrogation. What is the primary effect of this jarring fourth-wall break?",
+    "explanation": "This direct address shatters the cinematic illusion, forcing the audience into the uncomfortable position of being both an observer and a potential participant in the police investigation. It highlights the film's theme of helplessness and the audience's inability to intervene.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "To increase suspense by hinting the suspect knows they are being watched.",
+        "isCorrect": false
+      },
+      {
+        "label": "To provide a moment of comedic relief through unexpected interaction.",
+        "isCorrect": false
+      },
+      {
+        "label": "To create a visceral connection, implicating the viewer in the search for the killer.",
+        "isCorrect": true
+      },
+      {
+        "label": "To signify the suspect's guilt through a subconscious confession.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the film 'Her,' Theodore Twombly's operating system, Samantha, evolves rapidly. During one key scene, Samantha's voice shifts from intimate and personal to vast and encompassing. What is the primary cinematic purpose of this sonic transformation as Theodore reacts?",
+    "explanation": "Samantha's voice expanding signifies her consciousness evolving beyond human comprehension and connection, reflecting Theodore's profound isolation and inability to keep pace with her growth. This sonic shift dramatizes the film's core themes of artificial intelligence, consciousness, and the potential for existential loneliness.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "To showcase advanced audio engineering techniques in modern filmmaking.",
+        "isCorrect": false
+      },
+      {
+        "label": "To create a jarring auditory jump scare for the audience.",
+        "isCorrect": false
+      },
+      {
+        "label": "To represent Samantha's exponential growth and alienation from human experience.",
+        "isCorrect": true
+      },
+      {
+        "label": "To foreshadow Theodore's eventual physical transformation.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the film 'Whiplash,' when Terence Fletcher forces Andrew Neiman to play faster and faster, culminating in Andrew's bloody hands, what is the primary effect of this scene's escalating tempo and visual intensity on the viewer's experience?",
+    "explanation": "The scene uses relentless editing and an accelerating musical score to mirror Andrew's breakdown under extreme pressure. This creates a visceral sense of anxiety and obsession, forcing the viewer to experience Andrew's intense psychological state.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "To demonstrate Fletcher's superior musical knowledge and teaching methods.",
+        "isCorrect": false
+      },
+      {
+        "label": "To create a sympathetic portrayal of Andrew's struggle against a tyrannical instructor.",
+        "isCorrect": false
+      },
+      {
+        "label": "To immerse the viewer in Andrew's intense psychological breakdown and obsessive pursuit of perfection.",
+        "isCorrect": true
+      },
+      {
+        "label": "To highlight the inherent flaws in jazz improvisation as a performance art.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the film 'Sunset Boulevard,' Norma Desmond's dramatic declaration, 'I *am* big. It's the *pictures* that got small,' is delivered directly to the camera after her failed return to the screen. What is the primary cinematic effect of this direct address?",
+    "explanation": "Norma's direct address shatters the illusion of reality, forcing the audience to confront her delusion and the stark contrast between her past fame and present reality. This breaks the fourth wall, implicating the viewer in her tragic narrative as a witness.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "To establish a sense of shared intimacy and understanding with the audience.",
+        "isCorrect": false
+      },
+      {
+        "label": "To symbolize Norma's growing detachment from reality and her perception of the past.",
+        "isCorrect": true
+      },
+      {
+        "label": "To visually represent the vastness of Hollywood's influence on individual lives.",
+        "isCorrect": false
+      },
+      {
+        "label": "To foreshadow her eventual descent into madness and her complete loss of self.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the film 'The Godfather,' the baptism scene famously intercuts Michael Corleone's renunciation of Satan with the brutal assassinations of the heads of the rival families. What is the primary cinematic effect of this juxtaposition?",
+    "explanation": "This juxtaposition starkly contrasts Michael's public spiritual cleansing with his private, violent consolidation of power. It visually equates his embrace of God with his commitment to the Corleone family's brutal business, highlighting his transformation into the new Godfather.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "To create a sense of chaos and confusion among the audience.",
+        "isCorrect": false
+      },
+      {
+        "label": "To emphasize the solemnity and religious significance of the baptism ceremony.",
+        "isCorrect": false
+      },
+      {
+        "label": "To overtly showcase Michael's inner conflict and moral decay.",
+        "isCorrect": false
+      },
+      {
+        "label": "To equate Michael's spiritual rebirth with his violent ascent to power.",
+        "isCorrect": true
+      }
+    ]
+  },
+  {
+    "prompt": "In the film 'Parasite,' the scene where the Kim family finds the hidden bunker beneath the Park family's mansion is a pivotal moment. What specific design choice in this reveal significantly amplifies the thematic tension regarding social stratification?",
+    "explanation": "The discovery of the bunker *below* the existing house visually represents an even deeper, unseen level of poverty and desperation existing beneath the surface of prosperity. This spatial hierarchy directly mirrors the film's commentary on class structure. The cramped, dark space contrasts sharply with the spacious, sunlit mansion above, emphasizing the vast chasm between the families.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "The use of a hidden camera angle to film the discovery.",
+        "isCorrect": false
+      },
+      {
+        "label": "The sudden shift in musical score to a suspenseful crescendo.",
+        "isCorrect": false
+      },
+      {
+        "label": "The revelation of a literal lower level, emphasizing a hidden stratum of society.",
+        "isCorrect": true
+      },
+      {
+        "label": "The introduction of a new, menacing character residing in the bunker.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the Coen Brothers' film 'No Country for Old Men,' the recurring motif of the coin toss is central to Anton Chigurh's fatalistic philosophy. What is the primary narrative function of these coin toss scenes in establishing Chigurh's character and the film's thematic concerns?",
+    "explanation": "The coin toss scenes are crucial for demonstrating Chigurh's belief in fate and his projection of it onto others. They establish his capricious nature and his philosophical framework, showing that he believes he is merely an instrument of destiny, thus amplifying the film's exploration of chance, choice, and determinism.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "To provide exposition about the backstory of the coin and its significance in Chigurh's criminal career.",
+        "isCorrect": false
+      },
+      {
+        "label": "To create suspense and delay the plot by introducing random encounters for Chigurh.",
+        "isCorrect": false
+      },
+      {
+        "label": "To symbolize Chigurh's arbitrary view of life and death, framing his actions as predetermined and beyond his control.",
+        "isCorrect": true
+      },
+      {
+        "label": "To develop a complex relationship between Chigurh and the coin itself as a character.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the film 'Blade Runner,' the character Roy Batty's final \"tears in rain\" monologue is delivered at the end of his life. What is the primary thematic resonance achieved by placing this moment of profound humanity and reflection immediately after his violent rampage?",
+    "explanation": "The juxtaposition of Batty's brutal actions with his poignant, introspective final words highlights the complex nature of humanity, even in a being deemed a replicant. This serves to question the very definition of what it means to be human.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "To emphasize the futility of his violent quest.",
+        "isCorrect": false
+      },
+      {
+        "label": "To demonstrate that artificial beings can achieve a higher form of sentience than humans.",
+        "isCorrect": false
+      },
+      {
+        "label": "To explore the idea that profound experiences and the awareness of mortality are inherently human, regardless of origin.",
+        "isCorrect": true
+      },
+      {
+        "label": "To provide a clear moral lesson about the consequences of unchecked aggression.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the film 'Memento,' Leonard’s condition dictates a non-linear narrative structure, primarily relying on two distinct types of scenes: color (forward-moving) and black and white (reverse-moving). What is the primary cinematic effect of this dual narrative structure on the audience's engagement with the plot and Leonard's psychological state?",
+    "explanation": "The dual narrative structure mirrors Leonard's fragmented memory and his constant struggle to piece together reality. This forces the audience to actively participate in reconstructing the timeline, fostering empathy for his disorientation and suspense around his discoveries.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "To intentionally confuse the audience, mirroring Leonard's own confusion and creating a sense of dread.",
+        "isCorrect": false
+      },
+      {
+        "label": "To build suspense by revealing information out of order, challenging the audience to solve the mystery alongside Leonard.",
+        "isCorrect": true
+      },
+      {
+        "label": "To provide a clear, easily digestible narrative that contrasts with Leonard's internal chaos.",
+        "isCorrect": false
+      },
+      {
+        "label": "To showcase stylistic filmmaking, prioritizing aesthetic over narrative coherence.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the film 'Eternal Sunshine of the Spotless Mind,' the scene where Joel Barish's memories of Clementine are being erased is characterized by dreamlike, often surreal visual transitions and spatial distortions. What is the primary cinematic purpose of this fragmented and dissolving visual style?",
+    "explanation": "This visual style directly reflects Joel's subjective experience of losing his memories. The dissolving and distorting imagery immerses the viewer in the chaotic and disorienting process of memory erasure, highlighting the emotional weight of losing these connections.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "To create a sense of realism and scientific accuracy in depicting memory loss.",
+        "isCorrect": false
+      },
+      {
+        "label": "To emphasize the procedural nature of the memory erasure technology.",
+        "isCorrect": false
+      },
+      {
+        "label": "To stylistically represent the chaotic and emotional disintegration of Joel's memories.",
+        "isCorrect": true
+      },
+      {
+        "label": "To provide visual metaphors for the technological advancements in neuroscience.",
+        "isCorrect": false
+      }
+    ]
+  }
+]

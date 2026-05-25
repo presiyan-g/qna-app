@@ -63,6 +63,20 @@ export type GenerateStructuredResult<T> = {
 
 const DEFAULT_BASE_URL = 'https://openrouter.ai/api/v1';
 
+// Some models (notably Gemini routed via OpenRouter) ignore response_format:json_schema
+// and wrap the JSON object in ```json ... ``` fences, or in a bare ``` block. Strip
+// those before parsing so the structured-output contract still holds. If the content
+// has no fence, return it unchanged.
+export function stripCodeFences(content: string): string {
+  const trimmed = content.trim();
+  if (!trimmed.startsWith('```')) return content;
+  // Remove the opening fence + optional language tag (```json, ```)
+  let stripped = trimmed.replace(/^```[a-zA-Z0-9_-]*\s*\n?/, '');
+  // Remove the trailing fence
+  stripped = stripped.replace(/\n?```\s*$/, '');
+  return stripped;
+}
+
 export async function generateStructured<T>(
   args: GenerateStructuredArgs<T>,
 ): Promise<GenerateStructuredResult<T>> {
@@ -142,7 +156,7 @@ export async function generateStructured<T>(
 
   let raw: unknown;
   try {
-    raw = JSON.parse(content);
+    raw = JSON.parse(stripCodeFences(content));
   } catch {
     throw new InvalidJsonError('content is not JSON');
   }

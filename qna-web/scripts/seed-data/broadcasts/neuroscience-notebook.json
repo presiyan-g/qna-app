@@ -1,0 +1,22 @@
+[
+  {
+    "theme": "welcome",
+    "body": "Welcome to Neuroscience Notebook! We're thrilled to have you join our community focused on the fascinating world of memory, attention, behavior, and brain science. Here, we dive into readable research and spark discussion around intriguing questions.\n\nYou can expect a new question to drop twice a week, Monday and Thursday. Submissions are open for a few days, and then we'll vote on the best answers. The top-voted answer gets bragging rights and a temporary highlight!\n\nFeel free to jump into the discussion for any question, share your thoughts, and ask follow-up queries. This is your space to explore and learn together. We're excited to see your contributions!"
+  },
+  {
+    "theme": "weekly_recap",
+    "body": "Last week's Neuroscience Notebook was a deep dive into the fascinating world of memory consolidation. We explored how sleep plays a crucial role, but the most engaging discussion revolved around the phenomenon of \"deja vu.\" What made this question particularly tricky was its elusive nature in controlled lab settings. Unlike studying sleep-dependent memory, we can't easily induce deja vu, forcing us to rely on self-reporting and correlational studies. This highlights a common challenge in cognitive neuroscience: bridging the gap between subjective experience and objective measurement. It's these complex questions that make our community so vibrant and insightful!"
+  },
+  {
+    "theme": "resource",
+    "body": "For those interested in the intricate world of memory, I highly recommend checking out the \"Memory & Learning\" playlist on Science Insider's YouTube channel. While they cover a broad range of scientific topics, their videos on memory consolidation, the science of forgetting, and even the impact of music on learning are exceptionally well-produced and grounded in current research.\n\nThese short, engaging videos are perfect for breaking down complex neuroscience concepts into digestible and fascinating insights. They often feature interviews with researchers and clearly explain the experimental evidence behind their findings. It's a fantastic, accessible resource to supplement our discussions and deepen our understanding of how our brains store and retrieve information."
+  },
+  {
+    "theme": "winner",
+    "body": "A huge congratulations to @top_scorer for taking the top spot in our weekly quiz! Your keen understanding of memory and attention research is truly impressive. It's fantastic to see the community's engagement and learning in action, and @top_scorer's performance is a great example.\n\nKeep those questions coming and the discussions lively as we continue to explore the fascinating world of brain science together. We look forward to seeing who will have the winning insights next week!"
+  },
+  {
+    "theme": "milestone",
+    "body": "Big news, Neuroscience Notebook community! We've officially hit 200 members! It's been incredible to see this space grow into a lively hub for discussing memory, attention, behavior, and brain science. Thank you to everyone who has joined, asked questions, and shared insights. Your curiosity is what makes this community thrive.\n\nThis milestone is a testament to our shared passion for understanding the brain. We're looking forward to continued engaging conversations and dive into even more fascinating research together. Keep the questions coming and the discoveries flowing!\n\nHere's to the next 200 members and beyond!"
+  }
+]

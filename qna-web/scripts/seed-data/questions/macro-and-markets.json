@@ -1,0 +1,462 @@
+[
+  {
+    "prompt": "Which of the following key economic indicators is most sensitive to shifts in investor sentiment and often leads market movements during periods of uncertainty?",
+    "explanation": "Consumer confidence surveys directly reflect how households feel about the current and future economic outlook. This sentiment often translates into spending patterns, which then influences corporate earnings and, consequently, market valuations. Therefore, consumer confidence can be a leading indicator for market movements.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Producer Price Index (PPI)",
+        "isCorrect": false
+      },
+      {
+        "label": "Consumer Confidence Index (CCI)",
+        "isCorrect": true
+      },
+      {
+        "label": "Nonfarm Payrolls",
+        "isCorrect": false
+      },
+      {
+        "label": "Housing Starts",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which of the following factors typically exerts the most significant influence on the Federal Reserve's decisions regarding the target range for the federal funds rate in the short to medium term?",
+    "explanation": "The Federal Reserve primarily targets inflation and employment levels when setting monetary policy. While other factors are considered, these dual mandates are the most critical drivers of rate decisions.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "The daily fluctuations of the stock market",
+        "isCorrect": false
+      },
+      {
+        "label": "Consumer confidence surveys",
+        "isCorrect": false
+      },
+      {
+        "label": "Inflationary pressures and labor market conditions",
+        "isCorrect": true
+      },
+      {
+        "label": "Geopolitical events in emerging markets",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the context of monetary policy transmission, which of the following mechanisms is most directly impacted by changes in the central bank's reserve requirements?",
+    "explanation": "Changes in reserve requirements directly alter the amount of funds banks must hold in reserve, impacting their lending capacity and the overall money supply. This mechanism is a primary tool for influencing credit availability and economic activity.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "The exchange rate channel",
+        "isCorrect": false
+      },
+      {
+        "label": "The asset price channel",
+        "isCorrect": false
+      },
+      {
+        "label": "The credit channel",
+        "isCorrect": true
+      },
+      {
+        "label": "The expectations channel",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When analyzing the relationship between real interest rates and inflation expectations, which of the following relationships is most commonly observed and considered a primary driver of investment decisions?",
+    "explanation": "Higher inflation expectations, holding nominal rates constant, lead to lower real interest rates, incentivizing borrowing and investment. Conversely, falling inflation expectations tend to increase real rates, potentially dampening economic activity.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "As inflation expectations rise, real interest rates tend to fall, stimulating economic growth.",
+        "isCorrect": true
+      },
+      {
+        "label": "Real interest rates are largely independent of inflation expectations due to central bank interventions.",
+        "isCorrect": false
+      },
+      {
+        "label": "Increases in inflation expectations directly lead to higher real interest rates as lenders demand compensation.",
+        "isCorrect": false
+      },
+      {
+        "label": "The relationship between real interest rates and inflation expectations is statistically insignificant in modern economies.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the realm of central banking, which of the following tools is primarily used by the Federal Reserve to manage liquidity in the banking system and influence short-term interest rates indirectly?",
+    "explanation": "Open market operations, specifically the buying and selling of government securities, is the Fed's primary tool for managing the money supply and influencing the federal funds rate. By injecting or withdrawing reserves, the Fed can steer short-term rates toward its target.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Reserve Requirements",
+        "isCorrect": false
+      },
+      {
+        "label": "Discount Rate",
+        "isCorrect": false
+      },
+      {
+        "label": "Open Market Operations",
+        "isCorrect": true
+      },
+      {
+        "label": "Forward Guidance",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which of the following forward-looking economic indicators is most closely watched by central bankers for early signs of a potential turning point in the business cycle and inflationary pressures?",
+    "explanation": "The Purchasing Managers' Index (PMI) surveys businesses about new orders, production, and employment, providing a timely and forward-looking view of economic activity. Significant shifts in PMI readings often precede changes in official macroeconomic data and are closely monitored for inflation and cyclical turning points.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Consumer Price Index (CPI)",
+        "isCorrect": false
+      },
+      {
+        "label": "Purchasing Managers' Index (PMI)",
+        "isCorrect": true
+      },
+      {
+        "label": "Unemployment Rate",
+        "isCorrect": false
+      },
+      {
+        "label": "Gross Domestic Product (GDP) Growth Rate",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the context of analyzing financial market narratives, which of the following phenomena describes the tendency for investors to overreact to recent information, leading to price movements that overshoot fundamental values?",
+    "explanation": "Herding behavior describes the tendency for investors to follow the actions of a larger group, contributing to overshooting. Availability bias or recency bias focuses on overweighting recent information, which is directly related to overreacting. Confirmation bias involves seeking information that confirms existing beliefs.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Confirmation Bias",
+        "isCorrect": false
+      },
+      {
+        "label": "Anchoring Effect",
+        "isCorrect": false
+      },
+      {
+        "label": "Availability Heuristic / Recency Bias",
+        "isCorrect": true
+      },
+      {
+        "label": "Representativeness Heuristic",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When central banks aim to cool an overheating economy and combat inflation, which of the following policy actions directly tightens credit conditions and reduces the money supply by making borrowing more expensive?",
+    "explanation": "Raising the policy interest rate increases the cost of borrowing for commercial banks, which in turn pass these higher costs onto consumers and businesses. This discourages spending and investment, thereby reducing aggregate demand and inflationary pressures.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Reducing the reserve requirement ratio",
+        "isCorrect": false
+      },
+      {
+        "label": "Increasing the discount rate or policy rate",
+        "isCorrect": true
+      },
+      {
+        "label": "Engaging in quantitative easing (QE)",
+        "isCorrect": false
+      },
+      {
+        "label": "Selling government securities on the open market (Open Market Sales)",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which of the following actions by a central bank is most directly aimed at increasing the money supply and stimulating economic activity through quantitative easing?",
+    "explanation": "Quantitative easing involves a central bank purchasing long-term government bonds and other securities from the open market. This injects liquidity into the financial system, thereby increasing the money supply and lowering long-term interest rates.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Raising the reserve requirement for commercial banks",
+        "isCorrect": false
+      },
+      {
+        "label": "Selling government securities on the open market",
+        "isCorrect": false
+      },
+      {
+        "label": "Purchasing government securities and other assets",
+        "isCorrect": true
+      },
+      {
+        "label": "Increasing the discount rate for interbank lending",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When assessing the potential for stagflation, which combination of economic conditions poses the most significant challenge for policymakers aiming to restore price stability and promote sustainable growth?",
+    "explanation": "Stagflation is characterized by the simultaneous occurrence of high inflation and stagnant economic growth (recession). This combination makes traditional policy responses difficult, as stimulus measures could worsen inflation, while contractionary measures could deepen the recession.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Falling inflation with rising unemployment",
+        "isCorrect": false
+      },
+      {
+        "label": "Rising inflation with robust economic growth",
+        "isCorrect": false
+      },
+      {
+        "label": "High inflation and stagnant economic growth",
+        "isCorrect": true
+      },
+      {
+        "label": "Deflationary pressures with increasing GDP",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which of the following scenarios most accurately describes a 'liquidity trap' in macroeconomics, characterized by ineffective monetary policy?",
+    "explanation": "A liquidity trap occurs when nominal interest rates are close to zero, and individuals and businesses hoard cash rather than invest, rendering conventional monetary policy (like lowering rates further) ineffective. This happens because people expect deflation or economic stagnation, diminishing the incentive to lend or spend.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "A period of rapidly rising inflation causing central banks to aggressively hike interest rates.",
+        "isCorrect": false
+      },
+      {
+        "label": "Economic growth is robust, and the central bank is gradually raising interest rates to prevent overheating.",
+        "isCorrect": false
+      },
+      {
+        "label": "Interest rates are near zero, and people prefer holding cash despite increased money supply, negating policy effects.",
+        "isCorrect": true
+      },
+      {
+        "label": "A sudden increase in consumer spending leading to a contraction in the money supply.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which of the following aspects of government debt issuance is most closely linked to 'crowding out' effects on private investment, potentially impacting interest rates and capital formation?",
+    "explanation": "When governments issue large amounts of debt, it increases the demand for loanable funds. This increased demand, assuming supply remains constant or grows slower, tends to push up interest rates, making it more expensive for private businesses to borrow for investment.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "The maturity structure of outstanding government bonds.",
+        "isCorrect": false
+      },
+      {
+        "label": "The pace and scale of net new debt issuance by the Treasury.",
+        "isCorrect": true
+      },
+      {
+        "label": "The frequency of interest payments on existing government debt.",
+        "isCorrect": false
+      },
+      {
+        "label": "The regulatory oversight of secondary bond markets.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which of the following terms best describes the situation where rising aggregate demand persistently outpaces the economy's ability to supply goods and services, leading to sustained increases in the price level?",
+    "explanation": "Demand-pull inflation occurs when there's too much money chasing too few goods. This scenario describes aggregate demand exceeding aggregate supply, causing a general rise in prices.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Cost-push inflation",
+        "isCorrect": false
+      },
+      {
+        "label": "Demand-pull inflation",
+        "isCorrect": true
+      },
+      {
+        "label": "Stagflation",
+        "isCorrect": false
+      },
+      {
+        "label": "Built-in inflation",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When analyzing the real yields on government bonds, which of the following represents the most direct impact of a central bank's commitment to maintaining historically low interest rates for an extended period, even as inflation pressures begin to emerge?",
+    "explanation": "When a central bank commits to keeping nominal interest rates low while inflation begins to rise, the real yield (nominal yield minus inflation expectations) will naturally decrease. This persistence in low nominal rates, despite rising inflation, is a key characteristic of such a policy stance.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "A significant increase in real yields due to discounted future cash flows.",
+        "isCorrect": false
+      },
+      {
+        "label": "A decrease in real yields as nominal rates lag behind rising inflation expectations.",
+        "isCorrect": true
+      },
+      {
+        "label": "Real yields remaining stable as bond markets anticipate future policy normalization.",
+        "isCorrect": false
+      },
+      {
+        "label": "A sharp decline in bond prices, leading to a temporary spike in real yields.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the context of bond markets, which of the following refers to the observed phenomenon where longer-term bonds typically offer higher yields than shorter-term bonds as compensation for increased duration risk and uncertainty?",
+    "explanation": "The term structure of interest rates, also known as the yield curve, describes the relationship between the interest rates (or yields) and the time to maturity of debt. A normal yield curve slopes upward, indicating that longer maturities have higher yields.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "The Fisher Effect",
+        "isCorrect": false
+      },
+      {
+        "label": "The Term Premium",
+        "isCorrect": true
+      },
+      {
+        "label": "Theliquidity Preference Theory",
+        "isCorrect": false
+      },
+      {
+        "label": "The Expectations Hypothesis",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When considering the Phillips Curve and its relationship to inflation, which of the following best describes the short-run trade-off central bankers often face between unemployment and inflation?",
+    "explanation": "The short-run Phillips curve suggests an inverse relationship: lower unemployment is typically associated with higher inflation, and vice versa. This presents a trade-off for policymakers who aim to achieve both maximum employment and price stability simultaneously.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "A stable, long-term trade-off where unemployment can be permanently reduced by accepting higher inflation.",
+        "isCorrect": false
+      },
+      {
+        "label": "An inverse relationship where a decrease in unemployment generally leads to an increase in inflation in the short run.",
+        "isCorrect": true
+      },
+      {
+        "label": "A direct relationship where lower unemployment leads to lower inflation due to increased production efficiency.",
+        "isCorrect": false
+      },
+      {
+        "label": "No discernible relationship; unemployment and inflation are driven by entirely separate economic factors.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the context of central bank communication, what is meant by 'forward guidance' and its impact on market expectations?",
+    "explanation": "Forward guidance refers to a central bank's explicit communication about its future policy intentions. By signaling future interest rate paths or asset purchase plans, central banks aim to influence current market expectations and thereby affect longer-term interest rates and economic activity.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "The current policy rate set by the central bank.",
+        "isCorrect": false
+      },
+      {
+        "label": "A central bank's communication on its future policy intentions to influence expectations.",
+        "isCorrect": true
+      },
+      {
+        "label": "The central bank's balance sheet size and composition.",
+        "isCorrect": false
+      },
+      {
+        "label": "The minutes of the most recent Federal Open Market Committee meeting.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When analyzing global economic conditions, which of the following scenarios best describes a situation where a country's domestic currency depreciates significantly due to persistent trade deficits and capital outflows, impacting import costs and inflation?",
+    "explanation": "A currency crisis occurs when a speculative attack on the country's currency leads to a sharp depreciation. This is often driven by unsustainable economic policies, large current account deficits, and a loss of confidence, leading to higher import prices and inflation.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Deleveraging Cycle",
+        "isCorrect": false
+      },
+      {
+        "label": "Sovereign Debt Default",
+        "isCorrect": false
+      },
+      {
+        "label": "Currency Crisis",
+        "isCorrect": true
+      },
+      {
+        "label": "Balance of Payments Imbalance Correction",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which economic indicator is most commonly used by central banks as a primary target for monetary policy decisions aimed at maintaining price stability?",
+    "explanation": "The Consumer Price Index (CPI) is the most widely used measure of inflation, directly reflecting changes in the cost of goods and services. Central banks target low and stable inflation, typically measured by CPI or similar metrics, to achieve their price stability mandate.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Gross Domestic Product (GDP) growth rate",
+        "isCorrect": false
+      },
+      {
+        "label": "Unemployment rate",
+        "isCorrect": false
+      },
+      {
+        "label": "Consumer Price Index (CPI)",
+        "isCorrect": true
+      },
+      {
+        "label": "Trade balance",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In macroeconomics, what does the term 'headline inflation' most accurately refer to concerning the measurement of price changes?",
+    "explanation": "Headline inflation measures the total inflation rate for a basket of goods and services, including volatile components like energy and food. Core inflation, in contrast, excludes these volatile items to provide a smoother underlying trend.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Inflation rate excluding volatile components like food and energy",
+        "isCorrect": false
+      },
+      {
+        "label": "The inflation rate for a broad basket of goods and services, including all components",
+        "isCorrect": true
+      },
+      {
+        "label": "Inflation measured solely by the Consumer Price Index (CPI)",
+        "isCorrect": false
+      },
+      {
+        "label": "Inflation rate specific to the services sector of the economy",
+        "isCorrect": false
+      }
+    ]
+  }
+]

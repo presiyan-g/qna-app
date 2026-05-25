@@ -1,0 +1,22 @@
+[
+  {
+    "theme": "welcome",
+    "body": "Welcome to the Biotech Reading Club! We're so glad to have you here. Our goal is to demystify the complex world of biotech research, one paper at a time. Think of us as your friendly guides through the jargon, helping you confidently read trials, abstracts, endpoints, and understand biotech claims.\n\nWe post a new challenge about once a week. When you participate, you'll earn points based on the accuracy and insight of your answers. These points help track your progress and celebrate your understanding. All discussions about the challenges, your answers, and general Q&A happen right here in the main feed, so feel free to jump in and ask questions!\n\nWe're excited to build a supportive space where everyone can improve their biotech literacy. Don't hesitate to share your thoughts, even if you're unsure – that's how we learn together. Let's get reading!"
+  },
+  {
+    "theme": "weekly_recap",
+    "body": "Last week's discussion dug deep into a complex Phase 3 trial for a novel oncology therapeutic. The team did a fantastic job dissecting the primary and secondary endpoints, really honing in on what constitutes a clinically meaningful benefit. The trickiest question revolved around interpreting the subgroup analyses – specifically, how to weigh the findings from a smaller, potentially less powered segment of the patient population without overstating their significance. It's a common pitfall, and we had a great back-and-forth on the statistical considerations versus clinical judgment."
+  },
+  {
+    "theme": "resource",
+    "body": "This week’s resource is the FDA’s new guidance document on digital health technologies (DHTs) for remote data acquisition. It’s a game-changer for understanding how regulators are thinking about the data underpinning many new biotech innovations, from wearables to sensors collecting patient vitals. \n\nNavigating the nuances of data integrity, validation, and security for these technologies can be complex, and this document offers clear pathways and considerations. By familiarizing ourselves with this guidance, we can better interpret clinical trial designs incorporating DHTs and critically assess the claims made about their efficacy and reliability. It’s essential reading for anyone looking beyond traditional wet lab and human trial data.\n\nYou can find the full guidance here: https://www.fda.gov/medical-devices/digital-health-center-excellence/digital-health-technologies-remote-data-acquisition"
+  },
+  {
+    "theme": "winner",
+    "body": "Big congratulations to @top_scorer for absolutely crushing it this past week! Your insightful contributions and razor-sharp analysis of the latest trial data really stood out. It’s members like you who make our Biotech Reading Club the fantastic learning environment it is.\n\nKeep up the great work! We're excited to see what breakthroughs you help us collectively uncover in the weeks to come. If you missed it, be sure to check out @top_scorer's recent posts on [link to recent discussion/paper] – they're a masterclass in deconstructing complex biotech claims.\n\nAnd to everyone else, let this be inspiration! The challenge is always there to dig deeper, ask the tough questions, and refine your understanding of the field. We're all here to learn and grow together."
+  },
+  {
+    "theme": "milestone",
+    "body": "We've hit a huge milestone: the Biotech Reading Club is now 200 members strong! It's fantastic to see so many of you dedicating time to dissecting complex biotech information and honing your skills in understanding trials, abstracts, and claims. This community is growing because of your engagement and willingness to tackle jargon head-on.\n\nTo celebrate, let's keep the momentum going! Share your latest 'aha!' moment from a recent paper or ask that question you've been pondering. The more we discuss, the clearer these complex topics become for everyone. Thank you for being a part of this journey to demystify biotech research together!"
+  }
+]

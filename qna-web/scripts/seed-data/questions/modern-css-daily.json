@@ -1,0 +1,462 @@
+[
+  {
+    "prompt": "When using CSS `counters`, which property is used to reset a counter to its default value in a specific element or a descendant?",
+    "explanation": "The `counter-reset` property is used to set the value of a counter. By default, it resets the counter to 0. You can also reset nested counters to a custom value.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "counter-increment",
+        "isCorrect": false
+      },
+      {
+        "label": "counter-set",
+        "isCorrect": false
+      },
+      {
+        "label": "counter-reset",
+        "isCorrect": true
+      },
+      {
+        "label": "counter-value",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS, the `object-fit` property dictates how a replaced element's content should be resized to fit its container. Which value is specifically designed to maintain the aspect ratio of the content while ensuring the entire object is visible, potentially cropping it if necessary?",
+    "explanation": "The `object-fit: cover` value scales the content to maintain its aspect ratio while filling the element's entire content box. The object will be clipped to fit. `contain` would ensure the entire object is visible, but might leave empty space.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "fill",
+        "isCorrect": false
+      },
+      {
+        "label": "contain",
+        "isCorrect": false
+      },
+      {
+        "label": "cover",
+        "isCorrect": true
+      },
+      {
+        "label": "scale-down",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS, when dealing with grid layouts, which property is specifically used to define arbitrarily sized grids by allowing rows or columns to expand and contract based on available space?",
+    "explanation": "The `subgrid` value for `grid-template-rows` or `grid-template-columns` allows an item to align its grid tracks with its parent's grid tracks. This enables nested grids to inherit and participate in the parent grid's sizing.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "grid-auto-flow",
+        "isCorrect": false
+      },
+      {
+        "label": "subgrid",
+        "isCorrect": true
+      },
+      {
+        "label": "repeat-context",
+        "isCorrect": false
+      },
+      {
+        "label": "auto-fit",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Which modern CSS pseudo-element is specifically designed to select the first line of a block-level element, allowing for unique styling of that initial line?",
+    "explanation": "The `::first-line` pseudo-element targets the first line of text within a block-level element. This allows for distinct styling, like making the first line a different color or font.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "::first-letter",
+        "isCorrect": false
+      },
+      {
+        "label": "::before",
+        "isCorrect": false
+      },
+      {
+        "label": "::first-line",
+        "isCorrect": true
+      },
+      {
+        "label": "::after",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS, which property allows an element to span a specific number of grid rows or columns, providing a way to control its placement and size within a grid layout?",
+    "explanation": "The `grid-column` property is used to specify which grid column(s) an element should span. It can take a number, a name, or a range to define its placement and span across multiple columns.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "grid-row-end",
+        "isCorrect": false
+      },
+      {
+        "label": "grid-column",
+        "isCorrect": true
+      },
+      {
+        "label": "grid-area",
+        "isCorrect": false
+      },
+      {
+        "label": "grid-template-columns",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS, which property is used to control the alignment of grid items along the block (column) axis within their grid area?",
+    "explanation": "The `align-items` property controls the alignment of grid items along the block axis. It specifies how much space should be distributed within the grid row and vertically centers the item.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "justify-items",
+        "isCorrect": false
+      },
+      {
+        "label": "align-content",
+        "isCorrect": false
+      },
+      {
+        "label": "align-self",
+        "isCorrect": false
+      },
+      {
+        "label": "align-items",
+        "isCorrect": true
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS, when applying transformations, which property is specifically used to apply a 3D perspective to the elements, essentially making them appear farther or closer based on their Z-axis position?",
+    "explanation": "The `perspective` property defines the distance between the z=0 plane and the user, affecting 3D transformations. It creates a sense of depth for elements positioned in 3D space.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "transform",
+        "isCorrect": false
+      },
+      {
+        "label": "perspective",
+        "isCorrect": true
+      },
+      {
+        "label": "transform-style",
+        "isCorrect": false
+      },
+      {
+        "label": "perspective-origin",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS, when using custom properties (variables), which syntax is used to define a custom property on an element, making it available to that element and its descendants?",
+    "explanation": "The `--` prefix is used to define a custom property, like `--main-color: blue;`. This syntax indicates that `main-color` is a custom property associated with the current element.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "$main-color: blue;",
+        "isCorrect": false
+      },
+      {
+        "label": "--main-color: blue;",
+        "isCorrect": true
+      },
+      {
+        "label": "custom-property: main-color blue;",
+        "isCorrect": false
+      },
+      {
+        "label": "var(--main-color, blue);",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS for responsive typography, which CSS function allows you to define a font size range that scales fluidly between a minimum and maximum value based on the viewport width?",
+    "explanation": "The `clamp()` CSS function is perfect for fluid typography. It takes three arguments: a minimum value, a preferred value (which is often a calculation based on viewport width), and a maximum value. The browser will ensure the font size stays within the minimum and maximum bounds.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "min()",
+        "isCorrect": false
+      },
+      {
+        "label": "max()",
+        "isCorrect": false
+      },
+      {
+        "label": "clamp()",
+        "isCorrect": true
+      },
+      {
+        "label": "calc()",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS, which property is used to create a masonry layout, arranging items in a staggered, column-like fashion similar to a brick wall?",
+    "explanation": "The `display: masonry` value, when applied to a container, enables a masonry layout. This allows items to flow into the next available space in a column based on their height, creating a visually appealing, non-uniform grid.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "display: grid",
+        "isCorrect": false
+      },
+      {
+        "label": "display: flex",
+        "isCorrect": false
+      },
+      {
+        "label": "display: masonry",
+        "isCorrect": true
+      },
+      {
+        "label": "display: column",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS, when you want to define a flow of content that wraps around certain elements, which property provides fine-grained control over how that wrapping occurs, especially for floating elements?",
+    "explanation": "The `shape-outside` property allows you to define a clipping path or shape around an element that influences the flow of adjacent inline content. This goes beyond simple rectangular wrapping, enabling more complex layouts.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "float",
+        "isCorrect": false
+      },
+      {
+        "label": "clear",
+        "isCorrect": false
+      },
+      {
+        "label": "shape-outside",
+        "isCorrect": true
+      },
+      {
+        "label": "wrap-flow",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS, what is the primary property used to define the baseline alignment for items within a flex or grid container along the cross axis?",
+    "explanation": "The `align-items` property is used to set the default alignment for items in a flex or grid container along the cross axis. It dictates how items are positioned when they do not take up the full length of their container's cross-axis.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "justify-content",
+        "isCorrect": false
+      },
+      {
+        "label": "align-content",
+        "isCorrect": false
+      },
+      {
+        "label": "align-items",
+        "isCorrect": true
+      },
+      {
+        "label": "flex-basis",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS, which property is specifically used to control the order and flow of absolutely positioned or floated elements relative to other content, ensuring they don't overlap in an undesirable way?",
+    "explanation": "The `shape-outside` property is used to define a non-rectangular shape for the flow of inline content around an element. This allows for more complex layouts than simple floats.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "order",
+        "isCorrect": false
+      },
+      {
+        "label": "shape-outside",
+        "isCorrect": true
+      },
+      {
+        "label": "float-wrap",
+        "isCorrect": false
+      },
+      {
+        "label": "clear-fix",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS, when you need to create a list of items that should not be displayed with their default list-style markers (like bullets or numbers) but still retain their semantic meaning as a list, which property is specifically used to set the marker to be invisible while still allowing it to take up space?",
+    "explanation": "The `list-style: none;` declaration removes all list markers and outside. However, `::marker { display: none; }` makes the marker invisible but preserves its space, preventing layout shifts.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "`display: none;` on the `li` element",
+        "isCorrect": false
+      },
+      {
+        "label": "`list-style: none;` on the `ul` or `ol` element",
+        "isCorrect": false
+      },
+      {
+        "label": "`::marker { display: none; }` on the list item",
+        "isCorrect": true
+      },
+      {
+        "label": "`content: \"\";` on the `::before` pseudo-element",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS, when styling form elements, which pseudo-class is used to select an input element that has been checked or selected?",
+    "explanation": "The `:checked` pseudo-class is specifically designed to target checkboxes and radio buttons that have been selected by the user. It's crucial for styling form states and providing visual feedback.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": ":selected",
+        "isCorrect": false
+      },
+      {
+        "label": ":active",
+        "isCorrect": false
+      },
+      {
+        "label": ":checked",
+        "isCorrect": true
+      },
+      {
+        "label": ":focus",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS, when dealing with complex layouts and wanting to prevent elements from overflowing their containers in a specific direction without affecting other parts of the layout, which property is used to control the clipping of an element's content?",
+    "explanation": "The `overflow` property controls how content that is too large to fit its container should be handled. While `visible` allows content to spill out, `hidden` clips it, and `scroll` or `auto` add scrollbars. Using `overflow-x` or `overflow-y` allows for fine-grained control over a single axis.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "clip-path",
+        "isCorrect": false
+      },
+      {
+        "label": "overflow-y",
+        "isCorrect": true
+      },
+      {
+        "label": "text-overflow",
+        "isCorrect": false
+      },
+      {
+        "label": "visibility",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS, when working with complex selectors, which pseudo-class is used to select an element that is the first child of its parent, regardless of the element's type?",
+    "explanation": "The :first-child pseudo-class selects any element that is the first child of its parent. This is useful for applying unique styles to the very first item in a list or container.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": ":first-of-type",
+        "isCorrect": false
+      },
+      {
+        "label": ":first-child",
+        "isCorrect": true
+      },
+      {
+        "label": ":nth-child(1)",
+        "isCorrect": false
+      },
+      {
+        "label": ":prepend",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS, when you need to define the space between grid rows, which property is specifically used for this purpose?",
+    "explanation": "The `row-gap` property in CSS Grid Layout is used to control the space between adjacent grid rows. It's a dedicated property for managing vertical spacing within the grid structure.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "column-gap",
+        "isCorrect": false
+      },
+      {
+        "label": "grid-gap",
+        "isCorrect": false
+      },
+      {
+        "label": "row-gap",
+        "isCorrect": true
+      },
+      {
+        "label": "gap",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS, when trying to create a layout where items are placed in columns and can",
+    "explanation": "The `column-gap` property is specifically designed to control the space between columns in a multi-column layout. It provides a direct and semantic way to manage this spacing, unlike padding or margin on individual columns which can be less predictable.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "gap",
+        "isCorrect": false
+      },
+      {
+        "label": "column-gap",
+        "isCorrect": true
+      },
+      {
+        "label": "gutter",
+        "isCorrect": false
+      },
+      {
+        "label": "column-margin",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In modern CSS, when you need to style an element based on the state of a *previous* sibling element, which powerful selector can be used, offering more flexibility than older methods?",
+    "explanation": "The `:has()` pseudo-class is a relatively new but incredibly powerful addition to CSS. It allows you to select a parent or ancestor element based on its descendants or other related elements, effectively enabling styling based on the state of preceding or sibling elements.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": ":has()",
+        "isCorrect": true
+      },
+      {
+        "label": ":is()",
+        "isCorrect": false
+      },
+      {
+        "label": ":where()",
+        "isCorrect": false
+      },
+      {
+        "label": ":not()",
+        "isCorrect": false
+      }
+    ]
+  }
+]

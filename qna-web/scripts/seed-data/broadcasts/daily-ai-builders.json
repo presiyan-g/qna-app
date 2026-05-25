@@ -1,0 +1,22 @@
+[
+  {
+    "theme": "welcome",
+    "body": "Welcome to Daily AI Builders! We're stoked to have you join our community of practical AI enthusiasts. Our mission is simple: one applied AI architecture question each day to help you build better agents, automations, and tools. Think of it as a daily mental workout for your AI-building muscles.\n\nQuestions drop every day, and we'll be keeping score based on the quality and creativity of your answers. The best solutions will be highlighted, and we encourage everyone to jump into the discussion threads to share insights, ask follow-ups, and learn from each other. Let's get building!\n\nThis is a space for hands-on learning and collaboration. Don't be afraid to share your thoughts, even if they're not fully formed. The best ideas often come from that messy middle. Looking forward to seeing what you create!"
+  },
+  {
+    "theme": "weekly_recap",
+    "body": "Last week's architecture questions focused on the challenges of real-time data processing for agentic systems and robust error handling in complex automation workflows. The trickiest question likely revolved around managing state and ensuring idempotency when dealing with asynchronous API calls, especially when external services might intermittently fail or return unexpected data. This is a classic problem in distributed systems, and applying it to the agentic context, where actions can have cascading effects, really highlighted the architectural considerations needed for building reliable AI tools.\n\nWe explored various patterns for handling these scenarios, from implementing retry mechanisms with exponential backoff to designing for eventual consistency. It’s fascinating to see how these fundamental software engineering principles are essential for creating truly useful and dependable AI agents and automations. Keep building!"
+  },
+  {
+    "theme": "resource",
+    "body": "For today's resource, I wanted to share \"The Illustrated Transformer\" by Jay Alammar. Even if you're not directly building large language models, understanding the core architecture of transformers is incredibly valuable. This post breaks down the attention mechanism and overall structure in a highly visual and intuitive way, making complex concepts much more accessible.\n\nIt's a fantastic primer if you're looking to dive deeper into how many of the modern AI tools and agents you're building actually work under the hood. Knowing the fundamentals can spark new ideas for creating more efficient and powerful applications. Check it out here: https://jalammar.github.io/illustrated-transformer/"
+  },
+  {
+    "theme": "winner",
+    "body": "Big congratulations to @top_scorer for an outstanding week of AI architecture problem-solving! Your insights and solutions have been particularly impressive, setting a high bar for the rest of the community.\n\nWe saw some fantastic work from so many of you this past week, tackling complex agent design and automation challenges. Keep bringing that energy and building those useful AI tools!\n\nLet's see who steps up this coming week. Keep those questions coming and keep building!"
+  },
+  {
+    "theme": "milestone",
+    "body": "Big news, Daily AI Builders! We've officially hit 200 members. It's incredible to see this community grow with so many people focused on building practical AI tools and agents. \n\nThis milestone is a testament to everyone's curiosity and willingness to tackle real-world AI architecture challenges. Keep those questions coming and keep sharing your insights – you're all part of making this a valuable resource for applied AI development. \n\nThanks for being here and building with us!"
+  }
+]

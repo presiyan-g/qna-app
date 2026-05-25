@@ -1,0 +1,462 @@
+[
+  {
+    "prompt": "In a clinical trial abstract discussing a new therapy for Alzheimer's, what does the term 'secondary endpoint' typically refer to?",
+    "explanation": "Secondary endpoints are measures in a clinical trial that are not the primary focus but provide additional information. They are often used to explore other potential benefits or effects of the treatment.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "The main measure of treatment success defined before the trial began.",
+        "isCorrect": false
+      },
+      {
+        "label": "Measures that assess additional effects or benefits of the therapy, beyond the main outcome.",
+        "isCorrect": true
+      },
+      {
+        "label": "A measure used to determine patient eligibility for the trial.",
+        "isCorrect": false
+      },
+      {
+        "label": "The statistical method used to analyze the primary endpoint data.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech clinical trial report, what is the primary purpose of the 'Intention-to-Treat' (ITT) analysis principle?",
+    "explanation": "The Intention-to-Treat principle ensures that all randomized patients are analyzed as they were originally assigned, regardless of whether they received the treatment or adhered to the protocol. This preserves the benefits of randomization and provides a more realistic estimate of treatment effects in clinical practice.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "To analyze only patients who fully adhered to the treatment protocol.",
+        "isCorrect": false
+      },
+      {
+        "label": "To assess the efficacy of the treatment in an idealized scenario with perfect adherence.",
+        "isCorrect": false
+      },
+      {
+        "label": "To include all randomized patients in the primary analysis, regardless of treatment received or adherence.",
+        "isCorrect": true
+      },
+      {
+        "label": "To stratify patients based on their baseline disease severity for subgroup analysis.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech research paper describing a Phase 3 clinical trial, what does the term 'hazard ratio' (HR) typically measure when evaluating a new cancer drug?",
+    "explanation": "The hazard ratio quantifies the relative risk of an event (like disease progression or death) occurring in one treatment group compared to another. An HR of less than 1 generally indicates a reduced risk in the treatment group.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "The absolute percentage of patients who experienced a side effect.",
+        "isCorrect": false
+      },
+      {
+        "label": "The likelihood of a patient responding to the drug over time, compared to a control group.",
+        "isCorrect": true
+      },
+      {
+        "label": "The total number of participants who completed the trial.",
+        "isCorrect": false
+      },
+      {
+        "label": "The average duration of treatment for all patients.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech clinical trial report, what is the primary purpose of defining 'inclusion and exclusion criteria'?",
+    "explanation": "Inclusion and exclusion criteria define the specific characteristics that participants must meet (inclusion) or must not have (exclusion) to be enrolled in a study. This ensures the study population is homogeneous and relevant to the research question, leading to more reliable and generalizable results.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "To determine the drug's manufacturing cost.",
+        "isCorrect": false
+      },
+      {
+        "label": "To identify potential side effects of the drug.",
+        "isCorrect": false
+      },
+      {
+        "label": "To ensure the study participants are representative of the target patient population and to minimize confounding factors.",
+        "isCorrect": true
+      },
+      {
+        "label": "To decide on the dosage regimen for the drug.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech clinical trial report, what is the significance of the 'p-value' when assessing a drug's efficacy?",
+    "explanation": "The p-value indicates the probability of observing the trial results (or more extreme results) if the drug had no effect. A low p-value (typically < 0.05) suggests that the observed effect is unlikely due to chance, providing statistical evidence for the drug's efficacy.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "It measures the size or magnitude of the treatment effect.",
+        "isCorrect": false
+      },
+      {
+        "label": "It represents the proportion of patients who responded to the treatment.",
+        "isCorrect": false
+      },
+      {
+        "label": "It quantifies the statistical significance of the observed treatment effect.",
+        "isCorrect": true
+      },
+      {
+        "label": "It indicates the duration of the treatment regimen required for effectiveness.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech clinical trial abstract, what does 'pharmacokinetics' (PK) primarily describe?",
+    "explanation": "Pharmacokinetics refers to how the body processes a drug, including absorption, distribution, metabolism, and excretion. This helps understand a drug's behavior within the patient.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "The drug's effectiveness in treating the disease.",
+        "isCorrect": false
+      },
+      {
+        "label": "How the drug is absorbed, distributed, metabolized, and excreted by the body.",
+        "isCorrect": true
+      },
+      {
+        "label": "The frequency and severity of adverse side effects.",
+        "isCorrect": false
+      },
+      {
+        "label": "The mechanism by which the drug interacts with cellular targets.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech clinical trial abstract, what does the term 'ITT population' commonly refer to when assessing treatment effectiveness?",
+    "explanation": "The ITT population includes all randomized patients, regardless of whether they received the treatment or adhered to the protocol. This approach provides a more conservative and realistic estimate of the treatment's effect in a real-world clinical setting.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Only patients who completed the entire study.",
+        "isCorrect": false
+      },
+      {
+        "label": "All patients who were randomly assigned to a treatment group.",
+        "isCorrect": true
+      },
+      {
+        "label": "Patients who showed a positive response to the treatment.",
+        "isCorrect": false
+      },
+      {
+        "label": "Only patients who strictly followed the study protocol.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech clinical trial abstract, what does the term 'adverse event' (AE) refer to?",
+    "explanation": "An adverse event is any untoward medical occurrence in a patient or clinical investigation subject administered a pharmaceutical product and which does not necessarily have a causal relationship with this treatment. It simply notes an event that happened during the trial for a participant.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "A specific, measurable outcome proving the drug's effectiveness.",
+        "isCorrect": false
+      },
+      {
+        "label": "Any medical issue experienced by a participant during the trial.",
+        "isCorrect": true
+      },
+      {
+        "label": "A pre-defined condition that disqualifies a participant from the study.",
+        "isCorrect": false
+      },
+      {
+        "label": "The duration for which a drug remains active in the body.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech clinical trial abstract, what does the term 'surrogate endpoint' primarily refer to?",
+    "explanation": "A surrogate endpoint is a measure that is expected to predict clinical benefit but is not itself a direct measure of how a patient feels, functions, or survives. It's often used in trials to speed up the evaluation of a new therapy's effectiveness.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "A direct measure of patient survival or quality of life.",
+        "isCorrect": false
+      },
+      {
+        "label": "A laboratory value or physical sign expected to correlate with a relevant clinical outcome.",
+        "isCorrect": true
+      },
+      {
+        "label": "The total number of participants who completed the trial.",
+        "isCorrect": false
+      },
+      {
+        "label": "The specific dose of the investigational drug administered to patients.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech clinical trial abstract discussing a new drug, what is the primary role of the 'control group'?",
+    "explanation": "The control group serves as a baseline for comparison. It helps researchers determine if the observed effects in the treatment group are due to the drug itself or other factors.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "To receive the experimental drug at the highest possible dose.",
+        "isCorrect": false
+      },
+      {
+        "label": "To provide a comparison group that does not receive the experimental treatment or receives a placebo/standard treatment.",
+        "isCorrect": true
+      },
+      {
+        "label": "To exclusively monitor for severe side effects of the experimental drug.",
+        "isCorrect": false
+      },
+      {
+        "label": "To exclusively enroll patients with the most severe form of the disease.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech clinical trial abstract, what is the primary role of the 'per-protocol' (PP) analysis population?",
+    "explanation": "The per-protocol population includes only those participants who adhered to the study protocol throughout the trial. This analysis aims to reflect the treatment effect in an ideal scenario where participants follow all study instructions.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "To include all patients who received at least one dose of the study drug.",
+        "isCorrect": false
+      },
+      {
+        "label": "To provide an unbiased estimate of treatment efficacy by including all randomized patients, regardless of protocol adherence.",
+        "isCorrect": false
+      },
+      {
+        "label": "To assess the treatment effect in participants who strictly followed the study protocol.",
+        "isCorrect": true
+      },
+      {
+        "label": "To analyze data from patients who withdrew from the study early due to adverse events.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech clinical trial abstract, especially one discussing survival analysis for oncology drugs, what does the term 'Kaplan-Meier curve' primarily illustrate?",
+    "explanation": "The Kaplan-Meier curve is a graphical method used to estimate the survival function from lifetime data. It visually represents the probability of survival over time for a given group in a study.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "The rate of disease progression in the treatment group only.",
+        "isCorrect": false
+      },
+      {
+        "label": "The cumulative incidence of a specific adverse event.",
+        "isCorrect": false
+      },
+      {
+        "label": "The estimated probability of survival or freedom from an event over time.",
+        "isCorrect": true
+      },
+      {
+        "label": "The exact number of participants still alive at each time point.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech clinical trial abstract, what does the term 'placebo effect' primarily refer to when discussing a new treatment's outcomes?",
+    "explanation": "The placebo effect describes a beneficial health outcome resulting from a person's anticipation that an intervention will help. It's a psychosomatic response, not caused by the specific therapeutic properties of the intervention itself.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "The drug's inherent chemical or biological mechanism of action.",
+        "isCorrect": false
+      },
+      {
+        "label": "Unintended side effects experienced by participants in the treatment group.",
+        "isCorrect": false
+      },
+      {
+        "label": "A beneficial outcome due to the patient's positive belief in the treatment, even if it's an inactive substance.",
+        "isCorrect": true
+      },
+      {
+        "label": "The statistical difference between the treatment group and the control group.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech clinical trial abstract, what does the term 'primary efficacy endpoint' typically represent?",
+    "explanation": "The primary efficacy endpoint is the main outcome or result that a clinical trial is designed to measure. It's the key metric used to determine if a new treatment is effective.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "The most frequent side effect observed in the study.",
+        "isCorrect": false
+      },
+      {
+        "label": "The main outcome used to assess the treatment's effectiveness.",
+        "isCorrect": true
+      },
+      {
+        "label": "The number of participants who completed the trial.",
+        "isCorrect": false
+      },
+      {
+        "label": "The cost of the new drug compared to existing treatments.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech clinical trial abstract, what does the term 'number needed to treat' (NNT) primarily quantify?",
+    "explanation": "The Number Needed to Treat (NNT) indicates how many patients would need to receive the experimental treatment for one additional patient to benefit compared to the control group. It's a measure of treatment efficacy, with lower NNT values indicating greater effectiveness.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "The total number of participants in the study.",
+        "isCorrect": false
+      },
+      {
+        "label": "The average reduction in symptoms observed in the treatment group.",
+        "isCorrect": false
+      },
+      {
+        "label": "The number of patients requiring the intervention for one additional positive outcome.",
+        "isCorrect": true
+      },
+      {
+        "label": "The frequency of adverse events in the experimental group.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech clinical trial abstract, what does the term 'hazard ratio' (HR) primarily aim to measure when evaluating a new treatment's effectiveness, especially in survival analysis?",
+    "explanation": "The hazard ratio directly compares the rate of events (like death or disease progression) between the treatment group and the control group over time. A ratio less than 1 typically suggests a lower event rate in the treatment group, indicating potential benefit.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "The overall survival rate at a specific time point.",
+        "isCorrect": false
+      },
+      {
+        "label": "The difference in side effect frequencies between groups.",
+        "isCorrect": false
+      },
+      {
+        "label": "The relative risk of an event occurring in one group compared to another at any given time.",
+        "isCorrect": true
+      },
+      {
+        "label": "The number of patients required to achieve a statistically significant outcome.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech clinical trial abstract, what does the term 'confidence interval' (CI) primarily represent when reporting results?",
+    "explanation": "The confidence interval provides a range of plausible values for the true effect size in the population, based on the sample data. A narrower interval suggests more precise estimation of the effect.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "The exact value of the effect measured in the clinical trial.",
+        "isCorrect": false
+      },
+      {
+        "label": "The statistical significance of a particular result, usually indicated by a p-value.",
+        "isCorrect": false
+      },
+      {
+        "label": "A range of values that is likely to contain the true population effect with a certain level of confidence (e.g., 95%).",
+        "isCorrect": true
+      },
+      {
+        "label": "The probability of observing the results if the null hypothesis were true.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech clinical trial abstract, what does the term 'median overall survival' (mOS) primarily indicate?",
+    "explanation": "Median overall survival represents the time point at which 50% of the patients in a study group are still alive. It's a key measure of a treatment's impact on long-term patient outcomes, especially in oncology.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "The average survival time for all patients in the trial.",
+        "isCorrect": false
+      },
+      {
+        "label": "The time it takes for a disease to progress to a specific stage.",
+        "isCorrect": false
+      },
+      {
+        "label": "The time point at which half of the patients in a study group remain alive.",
+        "isCorrect": true
+      },
+      {
+        "label": "The percentage of patients who experience a complete response to treatment.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In the context of biotech clinical trial results, what does the term 'p-value' primarily indicate?",
+    "explanation": "A p-value quantifies the probability of observing the obtained results (or more extreme results) if the null hypothesis were true. A low p-value suggests that the observed effect is unlikely to be due to random chance alone, supporting the alternative hypothesis.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "The size of the treatment effect.",
+        "isCorrect": false
+      },
+      {
+        "label": "The probability that the null hypothesis is true.",
+        "isCorrect": false
+      },
+      {
+        "label": "The probability of observing the data, or more extreme data, if the null hypothesis is true.",
+        "isCorrect": true
+      },
+      {
+        "label": "The number of participants who responded to the treatment.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "In a biotech clinical trial abstract, particularly when discussing patient-reported outcomes (PROs), what does the term 'PRO instrument' primarily refer to?",
+    "explanation": "A PRO instrument is the specific questionnaire or scale used to collect data directly from patients about their health status. This can include symptoms, functional status, or quality of life, providing valuable patient-centric data not captured by objective measures alone.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "A device used to administer medication.",
+        "isCorrect": false
+      },
+      {
+        "label": "A questionnaire or scale completed by patients to report their symptoms or quality of life.",
+        "isCorrect": true
+      },
+      {
+        "label": "The statistical method used to analyze patient data.",
+        "isCorrect": false
+      },
+      {
+        "label": "A diagnostic tool used by physicians to assess a patient's condition.",
+        "isCorrect": false
+      }
+    ]
+  }
+]

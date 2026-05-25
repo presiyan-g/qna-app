@@ -1,0 +1,462 @@
+[
+  {
+    "prompt": "A city is considering implementing a 'congestion pricing' scheme for its downtown core. Which of the following is LEAST likely to be a primary goal of such a policy?",
+    "explanation": "While congestion pricing can influence behavior, its primary aims are to reduce traffic volume, improve air quality, and generate revenue for transit. Decreasing the number of available parking spots is a potential consequence or a related policy decision, not usually a direct goal of the pricing mechanism itself.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Reducing traffic volume and gridlock during peak hours.",
+        "isCorrect": false
+      },
+      {
+        "label": "Generating revenue to fund public transportation improvements.",
+        "isCorrect": false
+      },
+      {
+        "label": "Improving air quality in the city center.",
+        "isCorrect": false
+      },
+      {
+        "label": "Directly decreasing the total number of parking spots available downtown.",
+        "isCorrect": true
+      }
+    ]
+  },
+  {
+    "prompt": "A city is revising its zoning code to encourage more 'missing middle' housing. Which of the following would be the LEAST effective strategy to achieve this?",
+    "explanation": "Zoning for accessory dwelling units (ADUs) and allowing duplexes/triplexes in more areas directly enables the creation of diverse housing types within the missing middle spectrum. While parking requirements can be reduced, eliminating them entirely might face significant political opposition and have unintended consequences, making it less likely as a primary or effective strategy.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Reducing or eliminating minimum parking requirements for new housing.",
+        "isCorrect": false
+      },
+      {
+        "label": "Allowing duplexes, triplexes, and fourplexes in more residential zones.",
+        "isCorrect": false
+      },
+      {
+        "label": "Streamlining the approval process for accessory dwelling units (ADUs).",
+        "isCorrect": false
+      },
+      {
+        "label": "Mandating the demolition of all existing single-family homes to build larger apartment blocks.",
+        "isCorrect": true
+      }
+    ]
+  },
+  {
+    "prompt": "A neighborhood association is advocating for stricter regulations on short-term rental (STR) properties, citing concerns about housing availability and neighborhood character. Which of the following actions would be MOST directly aimed at preserving housing units for long-term residents?",
+    "explanation": "Implementing a cap on the number of days a property can be rented short-term directly limits the conversion of housing stock from long-term residential use to transient accommodation. This preserves more units for people living in the community full-time. The other options may indirectly affect housing costs or neighborhood dynamics but don't directly ensure units remain available for residents.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Imposing a higher occupancy tax on all short-term rentals.",
+        "isCorrect": false
+      },
+      {
+        "label": "Requiring short-term rental hosts to obtain a special permit.",
+        "isCorrect": false
+      },
+      {
+        "label": "Limiting the number of days a property can be listed as a short-term rental each year.",
+        "isCorrect": true
+      },
+      {
+        "label": "Establishing specific zoning districts where short-term rentals are prohibited.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A city council is debating a proposal to implement 'curbspace reallocation' on a busy commercial street. What is the LEAST likely intended outcome of such a policy?",
+    "explanation": "While reallocating curb space can impact traffic flow and local business access, its primary goals are usually to enhance pedestrian experience, improve transit efficiency, or expand opportunities for active transportation like cycling. Increasing residential density is a broader zoning and land-use issue, not directly addressed by managing street-level curb functions.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Expanding sidewalk cafes and outdoor dining areas.",
+        "isCorrect": false
+      },
+      {
+        "label": "Creating dedicated bus lanes or bus bulbs.",
+        "isCorrect": false
+      },
+      {
+        "label": "Increasing residential density along the street.",
+        "isCorrect": true
+      },
+      {
+        "label": "Adding protected bicycle lanes.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A city is piloting a 'complete streets' policy. Which of the following interventions would be the MOST effective in demonstrating a commitment to prioritizing non-vehicular modes of transport?",
+    "explanation": "Dedicated bike lanes physically separate cyclists from faster-moving traffic, significantly improving safety and encouraging more people to cycle. This directly supports the 'complete streets' goal of accommodating all users.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Widening sidewalks to improve pedestrian comfort.",
+        "isCorrect": false
+      },
+      {
+        "label": "Repainting existing crosswalks for better visibility.",
+        "isCorrect": false
+      },
+      {
+        "label": "Implementing dedicated, protected bicycle lanes.",
+        "isCorrect": true
+      },
+      {
+        "label": "Adding more benches and greenery along the street.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A city is analyzing the impact of a new large-scale mixed-use development. Which of the following metrics would be MOST indicative of its effect on local public space quality and accessibility?",
+    "explanation": "The percentage of residents reporting satisfaction with nearby public spaces and their ease of access directly measures the development's impact on the quality and usability of public areas for the community. Other metrics focus on economic or environmental aspects, not directly on public space experience.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Increase in local property tax revenue generated by the development.",
+        "isCorrect": false
+      },
+      {
+        "label": "Average commute times for residents within a 2-mile radius.",
+        "isCorrect": false
+      },
+      {
+        "label": "Percentage change in local tree canopy cover.",
+        "isCorrect": false
+      },
+      {
+        "label": "Resident satisfaction survey results regarding public space quality and accessibility.",
+        "isCorrect": true
+      }
+    ]
+  },
+  {
+    "prompt": "A city is exploring options to enhance pedestrian-friendliness and reduce vehicular dominance in its downtown core. Which of the following interventions would MOST directly address the 'street as a place' concept?",
+    "explanation": "Focusing on creating a more inviting and functional public realm extends the role of the street beyond mere transit. This approach encourages people to linger, interact, and engage with the urban environment. It transforms streets from conduits for cars into destinations in themselves.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Implementing a synchronized traffic signal system to optimize vehicle flow.",
+        "isCorrect": false
+      },
+      {
+        "label": "Adding more public seating, planters, and art installations to sidewalks and street plazas.",
+        "isCorrect": true
+      },
+      {
+        "label": "Increasing the number of parking spaces available in the downtown area.",
+        "isCorrect": false
+      },
+      {
+        "label": "Expanding the capacity of existing bus routes through the downtown.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A city is considering tactical urbanism interventions to improve a disused public plaza. Which of the following actions would MOST likely introduce a temporary, flexible element that encourages diverse community use and programming?",
+    "explanation": "Pop-up vendors and food trucks offer flexible, temporary uses that can adapt to different events and times of day. This encourages a dynamic and diverse range of activities. Other options represent more permanent or less adaptable changes to the plaza's fixed infrastructure.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Installing permanent park benches and planters.",
+        "isCorrect": false
+      },
+      {
+        "label": "Repaving the entire plaza surface with new concrete.",
+        "isCorrect": false
+      },
+      {
+        "label": "Organizing a series of temporary food truck and artisan vendor stalls.",
+        "isCorrect": true
+      },
+      {
+        "label": "Commissioning a large, permanent abstract sculpture.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A municipality is debating the installation of dedicated bus lanes on a major arterial road. Which of the following is the LEAST likely intended benefit of this infrastructure change?",
+    "explanation": "Dedicated bus lanes are designed to prioritize public transit, leading to faster and more reliable bus service, reduced traffic congestion, and potentially encouraging modal shift. Increased private vehicle speed is not a primary goal and may even be negatively impacted.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Improved reliability and speed of bus services.",
+        "isCorrect": false
+      },
+      {
+        "label": "Reduced overall traffic congestion on the corridor.",
+        "isCorrect": false
+      },
+      {
+        "label": "Encouraging more residents to use public transportation.",
+        "isCorrect": false
+      },
+      {
+        "label": "Increasing the average speed of private vehicles using the road.",
+        "isCorrect": true
+      }
+    ]
+  },
+  {
+    "prompt": "A city is experiencing increased traffic congestion and is considering various interventions. Which of the following measures would MOST directly target the *demand* for automobile travel in a specific zone?",
+    "explanation": "Congestion pricing directly charges drivers for entering a designated area, thereby reducing the overall demand for driving within that zone. The other options focus on supply-side issues (transit capacity) or general street improvements rather than directly influencing the decision to drive.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Expanding subway lines to serve the downtown core.",
+        "isCorrect": false
+      },
+      {
+        "label": "Implementing a cordon charge for vehicles entering the central business district during peak hours.",
+        "isCorrect": true
+      },
+      {
+        "label": "Increasing the frequency and reliability of bus services on major corridors.",
+        "isCorrect": false
+      },
+      {
+        "label": "Creating more protected bicycle lanes throughout the city.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A city is exploring the concept of '15-minute neighborhoods,' where residents can access most daily necessities within a short walk or bike ride. Which of the following is a potential CHALLENGE to achieving this goal effectively?",
+    "explanation": "A lack of diverse housing types and affordability can limit who can live in these neighborhoods, and may push essential workers further out. This directly impedes the '15-minute' accessibility for all residents.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Increasing the number of high-rise residential buildings.",
+        "isCorrect": false
+      },
+      {
+        "label": "Implementing a comprehensive network of protected bike lanes.",
+        "isCorrect": false
+      },
+      {
+        "label": "Ensuring a mix of affordable housing options alongside market-rate units.",
+        "isCorrect": true
+      },
+      {
+        "label": "Expanding local public transit routes to connect different nodes.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A city is considering a 'land value tax' (LVT) to fund public services and discourage speculation. Which of the following is a likely secondary benefit of implementing an LVT?",
+    "explanation": "By taxing the unimproved value of land, an LVT encourages more efficient use of space, potentially leading to increased density and reduced urban sprawl. This effectively discourages land hoarding and underutilization, making better use of existing urban land.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Increased affordability of single-family homes in suburban areas",
+        "isCorrect": false
+      },
+      {
+        "label": "Discouraging development of underutilized urban parcels",
+        "isCorrect": true
+      },
+      {
+        "label": "Reduced incentive for housing construction by developers",
+        "isCorrect": false
+      },
+      {
+        "label": "A direct reduction in property taxes for all homeowners",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A city is reviewing new development proposals and wants to ensure they contribute positively to walkability. Which of the following design elements would be LEAST effective in achieving this goal?",
+    "explanation": "While all other options directly encourage pedestrian activity and reduce reliance on cars, a large, internal-only parking garage does little to enhance street-level walkability or integrate with the surrounding pedestrian environment. It often creates dead zones at street level and discourages walking to the building.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Reducing building setbacks to bring storefronts closer to the sidewalk.",
+        "isCorrect": false
+      },
+      {
+        "label": "Incorporating active ground-floor uses like retail or cafes.",
+        "isCorrect": false
+      },
+      {
+        "label": "Providing multiple, well-lit pedestrian entrances directly from the street.",
+        "isCorrect": false
+      },
+      {
+        "label": "Designing a large, multi-story parking garage located entirely within the building's interior.",
+        "isCorrect": true
+      }
+    ]
+  },
+  {
+    "prompt": "A city is redesigning a major arterial road, aiming to improve safety and accessibility for all users. Which of the following interventions would MOST directly support the principle of 'complete streets' by enhancing sustainable mobility options?",
+    "explanation": "Adding protected bike lanes directly creates safe infrastructure for cyclists, encouraging a shift away from car dependency and aligning with the core goals of a complete streets policy. While wider sidewalks and enhanced bus stops are beneficial, protected bike lanes specifically address a mode often underserved by traditional road design.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Increasing the number of on-street parking spaces.",
+        "isCorrect": false
+      },
+      {
+        "label": "Widening the existing sidewalks to improve pedestrian comfort.",
+        "isCorrect": false
+      },
+      {
+        "label": "Installing protected bicycle lanes alongside vehicular traffic.",
+        "isCorrect": true
+      },
+      {
+        "label": "Improving bus stop amenities with shelters and seating.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A city is examining the impact of new regulations that mandate a minimum percentage of affordable housing in all new residential developments. Which of the following is the MOST direct potential consequence of such inclusionary zoning policies on housing affordability?",
+    "explanation": "Inclusionary zoning directly requires developers to set aside a portion of units as affordable. This ensures a baseline of affordable housing is created within market-rate developments, rather than relying solely on broader market forces or separate subsidy programs.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Increased construction costs leading to higher prices for all units",
+        "isCorrect": false
+      },
+      {
+        "label": "Reduced overall housing supply as some developers find projects unfeasible",
+        "isCorrect": false
+      },
+      {
+        "label": "Direct creation of affordable housing units within new developments",
+        "isCorrect": true
+      },
+      {
+        "label": "A shift in demand towards existing, unsubsidized housing stock",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A city is considering the implementation of a 'car-free zone' in its historic downtown. Which of the following is the LEAST likely intended benefit for the urban fabric?",
+    "explanation": "While car-free zones often aim to reduce pollution and improve pedestrian experience, a significant increase in private vehicle traffic *around* the zone is a common, unintended consequence as drivers seek alternative routes or parking.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Enhanced pedestrian safety and comfort within the zone.",
+        "isCorrect": false
+      },
+      {
+        "label": "Reduced noise and air pollution in the immediate area.",
+        "isCorrect": false
+      },
+      {
+        "label": "Increased business for local retailers due to higher foot traffic.",
+        "isCorrect": false
+      },
+      {
+        "label": "A significant increase in private vehicle traffic on surrounding streets.",
+        "isCorrect": true
+      }
+    ]
+  },
+  {
+    "prompt": "A city is considering the installation of 'parklets' (small seating areas or green spaces replacing on-street parking). Which of the following is the MOST significant POTENTIAL downside of widespread parklet adoption for public space management?",
+    "explanation": "Parklets transform public right-of-way, requiring ongoing maintenance and potentially shifting costs and responsibilities. Their temporary or semi-permanent nature can complicate long-term planning and consistent upkeep.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Increased demand on public transit routes adjacent to parklet locations.",
+        "isCorrect": false
+      },
+      {
+        "label": "Potential for inconsistent maintenance and upkeep across different parklet installations, leading to a fragmented aesthetic.",
+        "isCorrect": true
+      },
+      {
+        "label": "Reduced visibility for on-street retail businesses due to relocated parking spaces.",
+        "isCorrect": false
+      },
+      {
+        "label": "Necessity for increased enforcement of parking regulations in surrounding blocks.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A city is considering implementing a 'congestion pricing' scheme for private vehicles entering the central business district. Which of the following is the MOST direct intended environmental benefit of such a policy?",
+    "explanation": "By making driving more expensive during peak hours, congestion pricing directly discourages the use of private vehicles. This reduction in vehicle miles traveled leads to lower tailpipe emissions and improved urban air quality.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Increased revenue for public transit improvements.",
+        "isCorrect": false
+      },
+      {
+        "label": "Reduced demand for on-street parking.",
+        "isCorrect": false
+      },
+      {
+        "label": "Lower greenhouse gas emissions and air pollutants.",
+        "isCorrect": true
+      },
+      {
+        "label": "Enhanced pedestrian safety and comfort.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "A rapidly growing city is struggling with housing affordability and increasing commute times. The city council is considering a policy to incentivize the development of Accessory Dwelling Units (ADUs). Which of the following is the MOST direct intended benefit of promoting ADUs?",
+    "explanation": "ADUs can increase the housing supply, particularly in established neighborhoods, which can help alleviate pressure on overall housing costs. They also provide more local housing options, potentially reducing the need for longer commutes.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Increased commercial development opportunities in suburban areas.",
+        "isCorrect": false
+      },
+      {
+        "label": "A direct reduction in the city's overall carbon emissions from transportation.",
+        "isCorrect": false
+      },
+      {
+        "label": "Expansion of the city's tax base through new residential units.",
+        "isCorrect": false
+      },
+      {
+        "label": "Increased housing supply and potentially improved neighborhood walkability.",
+        "isCorrect": true
+      }
+    ]
+  },
+  {
+    "prompt": "A neighborhood is experiencing significant gentrification pressures leading to displacement of long-term residents. Which zoning tool, when applied retrospectively, is MOST likely to help stabilize existing housing and prevent further displacement?",
+    "explanation": "Community land trusts (CLTs) provide long-term affordability by separating land ownership from building ownership. By owning the land in perpetuity, CLTs can maintain affordable housing stock even as property values rise, thus helping to prevent displacement.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Implementing a 'luxury' high-rise development to increase the overall tax base.",
+        "isCorrect": false
+      },
+      {
+        "label": "Establishing a community land trust (CLT) to acquire and manage existing properties.",
+        "isCorrect": true
+      },
+      {
+        "label": "Rezoning to allow for larger single-family homes on existing lots.",
+        "isCorrect": false
+      },
+      {
+        "label": "Creating new public parking structures to accommodate increased vehicular traffic.",
+        "isCorrect": false
+      }
+    ]
+  }
+]

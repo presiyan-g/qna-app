@@ -1,0 +1,462 @@
+[
+  {
+    "prompt": "Your team is implementing a new feature that allows users to upload and share private documents. Security review identifies that the current access control mechanism relies solely on pre-signed URLs with a short expiration. What is the MOST significant security risk associated with this approach for sensitive documents?",
+    "explanation": "Relying only on short-lived pre-signed URLs creates a window of opportunity for unauthorized access if a URL is leaked or shared before it expires. Proper authentication and authorization checks at the application level are crucial for sensitive data.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Denial-of-Service (DoS) attacks might become more frequent.",
+        "isCorrect": false
+      },
+      {
+        "label": "An attacker could gain unauthorized access to documents if a leaked URL is used before expiration.",
+        "isCorrect": true
+      },
+      {
+        "label": "The feature might not scale well for a large number of concurrent uploads.",
+        "isCorrect": false
+      },
+      {
+        "label": "Increased storage costs due to the temporary nature of access.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your team is building a web application that allows users to create and manage API keys. The API keys are stored directly in the database, and access is controlled by role-based permissions. What is the MOST critical vulnerability to consider if an attacker gains read access to the API key database?",
+    "explanation": "If an attacker gains read access to the API key database, they can potentially impersonate legitimate users or services. This allows them to perform actions on behalf of compromised entities without needing to bypass other authentication mechanisms.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Denial of Service (DoS) attacks by flooding the API with invalid requests.",
+        "isCorrect": false
+      },
+      {
+        "label": "Cross-Site Scripting (XSS) attacks via crafted API key values.",
+        "isCorrect": false
+      },
+      {
+        "label": "Unauthorized access and data exfiltration by using the exposed API keys.",
+        "isCorrect": true
+      },
+      {
+        "label": "SQL injection attacks to further compromise the database.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your team is developing a new identity provider (IdP) service. Reviewers found that the IdP logs user authentication attempts but does not log the source IP address for failed login attempts. What is the MOST significant security risk introduced by omitting source IP addresses for failed logins?",
+    "explanation": "Without source IP addresses for failed logins, it becomes significantly harder to detect and investigate brute-force or credential stuffing attacks. This lack of visibility hinders the ability to identify malicious actors and implement timely countermeasures.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Increased risk of denial-of-service (DoS) attacks targeting the IdP.",
+        "isCorrect": false
+      },
+      {
+        "label": "Difficulty in auditing successful login events for compliance.",
+        "isCorrect": false
+      },
+      {
+        "label": "Inability to effectively detect and respond to brute-force and credential stuffing attacks.",
+        "isCorrect": true
+      },
+      {
+        "label": "Potential for unauthorized access if session tokens are leaked.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You are reviewing a new feature that allows users to control access to their cloud storage buckets by specifying IP address allowlists. The implementation allows users to input a wildcard '*' character. What is the MOST significant security risk this feature poses?",
+    "explanation": "Allowing a wildcard '*' bypasses the intended IP restriction, effectively granting access from any IP address. This completely undermines the security control of an IP allowlist.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Denial of Service attacks can easily block legitimate users.",
+        "isCorrect": false
+      },
+      {
+        "label": "The wildcard '*' allows access from any IP address, negating the allowlist.",
+        "isCorrect": true
+      },
+      {
+        "label": "Increased complexity in managing allowlist rules.",
+        "isCorrect": false
+      },
+      {
+        "label": "Malware could be distributed through improperly configured allowlists.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your team is implementing a rate limiter for an API that exposes sensitive user data. The current implementation uses a fixed time window and a simple counter. What is the most significant security vulnerability introduced by this basic rate limiting approach?",
+    "explanation": "A fixed time window and counter are susceptible to 'rolling' or 'burst' attacks where an attacker can rapidly send requests at the boundary of the time window to exceed the intended rate limit. This can lead to denial-of-service or permit brute-force attacks.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Inability to differentiate between legitimate and malicious traffic.",
+        "isCorrect": false
+      },
+      {
+        "label": "Easy bypass through request flooding within the window boundaries.",
+        "isCorrect": true
+      },
+      {
+        "label": "High resource consumption for legitimate users.",
+        "isCorrect": false
+      },
+      {
+        "label": "Difficulty in scaling with increasing user traffic.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your team is implementing a new API that allows external partners to retrieve aggregated user analytics. The API uses OAuth 2.0 with client credentials flow for authentication. The client secrets are long, randomly generated strings but are stored in plain text configuration files on the partner's servers. What is the MOST significant security risk presented by this storage method?",
+    "explanation": "Storing client secrets in plain text configuration files makes them vulnerable to exposure if the partner's systems are compromised. An attacker gaining access to these files could impersonate legitimate partners and access sensitive user analytics data.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Weaknesses in the OAuth 2.0 client credentials flow itself.",
+        "isCorrect": false
+      },
+      {
+        "label": "Potential for denial-of-service attacks against the analytics service.",
+        "isCorrect": false
+      },
+      {
+        "label": "Exposure of client secrets leading to unauthorized access to user data.",
+        "isCorrect": true
+      },
+      {
+        "label": "Difficulty in rotating client secrets across multiple partner integrations.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your team is implementing a feature that allows users to embed interactive dashboards from external sources into your application. The application embeds these external dashboards using an iframe. What is the MOST significant security risk introduced by embedding untrusted external content within an iframe on your domain?",
+    "explanation": "Cross-Site Scripting (XSS) attacks are a primary concern. If the embedded content is malicious, it can execute scripts within the context of your domain, potentially accessing sensitive user information or performing actions on behalf of the user.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Denial-of-Service (DoS) attacks targeting the iframe's loading process.",
+        "isCorrect": false
+      },
+      {
+        "label": "Content Spoofing, where malicious actors alter the displayed dashboard content.",
+        "isCorrect": false
+      },
+      {
+        "label": "Cross-Site Scripting (XSS) attacks originating from the embedded content.",
+        "isCorrect": true
+      },
+      {
+        "label": "Information disclosure through insecure direct object references (IDOR) within the iframe's source.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your team is implementing a feature for users to collaborate on sensitive project plans. Each plan has a unique, human-readable URL (e.g., /plans/ProjectAlpha/details). The application uses these URLs to fetch plan data from the backend. What is the MOST significant security risk introduced by using human-readable IDs for sensitive resources?",
+    "explanation": "Using human-readable IDs in URLs for sensitive resources can lead to information disclosure. An attacker could enumerate or guess these IDs to access otherwise protected plans. Securing these resources requires robust authorization checks on every access attempt, not just relying on obscure IDs.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Increased susceptibility to SQL injection attacks.",
+        "isCorrect": false
+      },
+      {
+        "label": "Information disclosure through predictable or guessable resource identifiers.",
+        "isCorrect": true
+      },
+      {
+        "label": "Denial of Service (DoS) by overwhelming the ID parsing mechanism.",
+        "isCorrect": false
+      },
+      {
+        "label": "Cross-Site Scripting (XSS) vulnerabilities if IDs are not properly escaped.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your team is implementing a feature that allows users to create custom QR codes for their contact information. The QR codes encode the user's name, phone number, email, and a link to their personal website. What is the MOST significant security risk of encoding sensitive personal information directly into a QR code that might be publicly scanned?",
+    "explanation": "Information encoded in QR codes is easily readable by anyone with a QR scanner. Including sensitive personal data like phone numbers or emails directly makes this information public and vulnerable to misuse or phishing attacks. While other options present risks, direct exposure of personal data is the primary concern here.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "QR code generation process is computationally expensive, impacting performance.",
+        "isCorrect": false
+      },
+      {
+        "label": "QR codes can be easily modified with malicious links by attackers.",
+        "isCorrect": false
+      },
+      {
+        "label": "Sensitive personal information is publicly exposed and easily accessible.",
+        "isCorrect": true
+      },
+      {
+        "label": "QR codes require a stable internet connection to be scanned, limiting usability.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your team is developing a new feature that allows users to customize their profile page with uploaded images. The application serves these images directly from a cloud storage bucket using public URLs. What is the MOST significant security risk if the image upload validation is insufficient?",
+    "explanation": "If image uploads are not properly validated, an attacker could upload malicious files disguised as images (e.g., an executable file with an image extension). Serving these directly from a cloud storage bucket could lead to the execution of malicious code on a user's system or compromise the integrity of the application.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Denial of Service due to excessive storage costs.",
+        "isCorrect": false
+      },
+      {
+        "label": "Cross-Site Scripting (XSS) or Remote Code Execution (RCE) via maliciously crafted image files.",
+        "isCorrect": true
+      },
+      {
+        "label": "Data leakage if image URLs are accidentally exposed.",
+        "isCorrect": false
+      },
+      {
+        "label": "Increased bandwidth consumption impacting application performance.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your team is implementing a feature that allows users to generate unique, short-lived access tokens for specific API endpoints. These tokens are intended for trusted third-party integrations. The tokens are generated with a time-based expiration. What is the MOST significant security risk if the token generation process is predictable or if the token's scope is too broad?",
+    "explanation": "If the generated tokens are predictable, an attacker could guess valid tokens. If the token scope is too broad, a compromised token could grant excessive access. Both scenarios allow attackers to bypass intended access controls and exploit unintended functionality.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Increased risk of denial-of-service attacks against the API.",
+        "isCorrect": false
+      },
+      {
+        "label": "Difficulty in auditing and revoking access after expiration.",
+        "isCorrect": false
+      },
+      {
+        "label": "Potential for unauthorized access and escalation of privileges if tokens are guessable or scope is too wide.",
+        "isCorrect": true
+      },
+      {
+        "label": "Higher network latency due to frequent token validation.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your team is developing a feature to allow users to export their data in various formats (CSV, JSON, XML). The export process involves generating files server-side and providing a download link. What is the MOST significant security risk if the server doesn't properly sanitize user-provided filenames or export parameters?",
+    "explanation": "Improper sanitization of user-provided filenames or export parameters can lead to directory traversal attacks. An attacker could potentially craft a malicious input to access or overwrite files outside the intended export directory.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Denial of Service due to excessive file generation.",
+        "isCorrect": false
+      },
+      {
+        "label": "Cross-Site Scripting (XSS) if filenames are displayed without proper encoding.",
+        "isCorrect": false
+      },
+      {
+        "label": "Directory Traversal allowing unauthorized file access or modification.",
+        "isCorrect": true
+      },
+      {
+        "label": "Data leakage through predictable export URLs.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your team is implementing a background job processing system where tasks are queued and executed by worker services. Sensitive data might be included in task payloads. What is the MOST significant security risk if task queues are not properly secured against unauthorized access?",
+    "explanation": "If task queues are not secured, an attacker could inject malicious tasks, potentially leading to arbitrary code execution or data exfiltration if worker services process tasks with elevated privileges. This is a critical remote code execution or data breach vector.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Denial-of-service attacks by overwhelming the queue with legitimate tasks.",
+        "isCorrect": false
+      },
+      {
+        "label": "Information disclosure of tasks not yet processed by workers.",
+        "isCorrect": false
+      },
+      {
+        "label": "Unauthorized modification or injection of tasks, leading to code execution or data compromise.",
+        "isCorrect": true
+      },
+      {
+        "label": "Increased latency in task processing due to queue contention.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your team is developing a feature that allows users to configure fine-grained access controls for their shared data. Users can specify which other users or groups have read, write, or delete permissions. The access control lists (ACLs) are stored alongside the data itself. What is the MOST significant security risk if the ACLs are not properly validated or are susceptible to manipulation?",
+    "explanation": "If access control lists (ACLs) are not properly validated, an attacker could manipulate them to gain unauthorized access or elevate privileges. This could bypass intended restrictions and compromise data integrity or confidentiality.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Denial of Service (DoS) attacks by overloading the ACL database.",
+        "isCorrect": false
+      },
+      {
+        "label": "Insecure Direct Object References (IDOR) allowing unauthorized resource access.",
+        "isCorrect": false
+      },
+      {
+        "label": "Privilege Escalation and Unauthorized Data Access by manipulating ACL permissions.",
+        "isCorrect": true
+      },
+      {
+        "label": "Cross-Site Scripting (XSS) vulnerabilities through manipulated ACL entries.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your team is implementing a feature that allows users to subscribe to real-time event notifications. These notifications are delivered via WebSockets. What is the MOST significant security risk if the WebSocket connection authentication is weak or improperly handled?",
+    "explanation": "Weak authentication for WebSocket connections can allow attackers to impersonate legitimate users, send malicious events, or eavesdrop on sensitive real-time data transmissions.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Denial-of-Service attacks overwhelming the notification server.",
+        "isCorrect": false
+      },
+      {
+        "label": "Cross-Site Scripting (XSS) vulnerabilities exploitable through malformed event data.",
+        "isCorrect": false
+      },
+      {
+        "label": "Unauthorized access, data eavesdropping, and injection of malicious events.",
+        "isCorrect": true
+      },
+      {
+        "label": "Insecure Direct Object References (IDOR) allowing access to other users' notifications.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your team is building a feature that translates user-provided text in real-time. The translation service API requires an API key, which is currently hardcoded directly into the client-side JavaScript bundle. What is the MOST significant security risk of this implementation?",
+    "explanation": "Hardcoding API keys in client-side code makes them easily discoverable by any attacker viewing the application's source code. This can lead to unauthorized access and potential abuse of the translation service, incurring costs or leading to denial-of-service.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Increased latency due to client-side processing",
+        "isCorrect": false
+      },
+      {
+        "label": "Exposure of the API key, leading to potential abuse and unauthorized access",
+        "isCorrect": true
+      },
+      {
+        "label": "Difficulty in updating the translation service version",
+        "isCorrect": false
+      },
+      {
+        "label": "Potential for cross-site scripting (XSS) if user input is not sanitized",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your team is implementing a feature that allows users to configure their own cookie preferences, including setting custom expiration times for non-essential cookies. The UI allows setting expiration dates up to 5 years in the future. What is the MOST significant security risk with allowing such long cookie expirations?",
+    "explanation": "Long-lived cookies, especially for non-essential functions, increase the attack surface. If a user's session or a cookie is compromised, an attacker has a significantly longer window to exploit it. This is particularly risky for authentication tokens or session identifiers.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Increased risk of cross-site scripting (XSS) attacks if session cookies are stolen.",
+        "isCorrect": false
+      },
+      {
+        "label": "Potential for exceeding browser cookie storage limits, leading to application instability.",
+        "isCorrect": false
+      },
+      {
+        "label": "If a cookie is compromised, an attacker has a prolonged period to impersonate the user or access sensitive data.",
+        "isCorrect": true
+      },
+      {
+        "label": "Higher bandwidth consumption due to frequent cookie revalidation by the server.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your development team is building a new feature that allows users to create personalized landing pages by choosing from a library of pre-defined HTML templates. These templates can contain dynamic content inserted via template variables. What is the MOST significant security risk if user-provided content within these dynamic variables is not properly sanitized before being rendered as part of the HTML?",
+    "explanation": "If user-provided content is not sanitized within dynamic template variables, it can lead to Cross-Site Scripting (XSS) attacks. An attacker could inject malicious scripts that execute in the context of other users' browsers, potentially stealing session cookies or performing unauthorized actions.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Denial-of-Service (DoS) due to excessive resource consumption by complex templates.",
+        "isCorrect": false
+      },
+      {
+        "label": "Cross-Site Scripting (XSS) vulnerabilities allowing attackers to inject malicious scripts.",
+        "isCorrect": true
+      },
+      {
+        "label": "Exposure of sensitive server-side configuration details embedded within the templates.",
+        "isCorrect": false
+      },
+      {
+        "label": "Unauthorized access to other users' landing page content through template variable manipulation.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your team is implementing a new feature that allows users to rate and review products. These reviews can include user-uploaded images. What is the MOST significant security risk if image uploads are not properly validated to prevent malicious file types or content?",
+    "explanation": "If image uploads are not properly validated, an attacker could upload malicious files disguised as images (e.g., webshells, executables). These could then be executed by the server or other users, leading to compromise.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Denial of Service due to excessive storage consumption.",
+        "isCorrect": false
+      },
+      {
+        "label": "Cross-Site Scripting (XSS) via maliciously crafted image metadata or embedded scripts.",
+        "isCorrect": false
+      },
+      {
+        "label": "Remote Code Execution (RCE) or server-side compromise if the server processes or serves malicious image files unsafely.",
+        "isCorrect": true
+      },
+      {
+        "label": "Information disclosure if images contain sensitive EXIF data that is not stripped.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Your team is implementing an audit logging feature that records user actions, including sensitive data modifications. The logs are stored in a database and can be queried by administrators. What is the MOST significant security risk if the audit logs are not properly encrypted at rest and in transit?",
+    "explanation": "If audit logs containing sensitive data are not encrypted, unauthorized access to the database or network could expose this critical information. This could lead to data breaches, compliance violations, and reputational damage.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Increased database storage costs due to encryption overhead.",
+        "isCorrect": false
+      },
+      {
+        "label": "Slower log retrieval times impacting administrator performance.",
+        "isCorrect": false
+      },
+      {
+        "label": "Unauthorized access to sensitive user activity and data if logs are compromised.",
+        "isCorrect": true
+      },
+      {
+        "label": "Difficulty in integrating logs with third-party analysis tools.",
+        "isCorrect": false
+      }
+    ]
+  }
+]

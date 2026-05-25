@@ -1,0 +1,462 @@
+[
+  {
+    "prompt": "Consider a perfectly rational agent who always acts to maximize their own utility. If this agent were faced with a choice between two identical outcomes, but one option was labeled 'the rational choice' and the other was not, how would they choose between them?",
+    "explanation": "A perfectly rational agent is defined by their utility maximization, not by external labels. Since the outcomes are identical, there is no rational basis to prefer one over the other based on the label 'rational choice'. Therefore, the agent would be indifferent.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Choose the option labeled 'the rational choice'.",
+        "isCorrect": false
+      },
+      {
+        "label": "Choose randomly between the two options.",
+        "isCorrect": false
+      },
+      {
+        "label": "Be indifferent between the two options.",
+        "isCorrect": true
+      },
+      {
+        "label": "Refuse to choose as the choice is arbitrary.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Imagine a world where everyone can read minds. If a person wishes to keep a thought secret, can they succeed? What does this imply about the nature of consciousness and privacy?",
+    "explanation": "In a world with universal telepathy, the very concept of a 'private' thought becomes problematic. If thoughts are broadcast, or at least accessible, then intentional secrecy is likely impossible, challenging our assumptions about personal mental space.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Yes, through intense mental discipline and focus.",
+        "isCorrect": false
+      },
+      {
+        "label": "No, any thought originating will be perceivable by others.",
+        "isCorrect": true
+      },
+      {
+        "label": "Yes, if they can also control the minds of others.",
+        "isCorrect": false
+      },
+      {
+        "label": "This scenario is logically impossible, so no meaningful answer exists.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Consider a scenario where you have perfect knowledge of all future events, including your own choices. If you then make a choice, does this knowledge negate your free will or simply confirm your determined path?",
+    "explanation": "This question probes the compatibility of determinism and free will. If all future events are known, it suggests a predetermined future. Making a choice within this known future could be seen as fulfilling destiny rather than exercising genuine freedom of choice.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "It confirms your free will by showing you exercised it.",
+        "isCorrect": false
+      },
+      {
+        "label": "It negates your free will, as the choice was always going to happen.",
+        "isCorrect": true
+      },
+      {
+        "label": "The concept of free will is irrelevant if the future is known.",
+        "isCorrect": false
+      },
+      {
+        "label": "It implies a paradox that cannot be resolved.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Imagine a perfect simulation mirroring our reality, indistinguishable from it. If you discover you are living in this simulation, does this knowledge alter the foundational truth of your experiences and relationships within it?",
+    "explanation": "The truth of your experiences and relationships is inherent to the simulation itself. Discovering the nature of your reality doesn't invalidate the genuineness of those subjective elements within the simulated framework.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Yes, all experiences and relationships lose their fundamental truth.",
+        "isCorrect": false
+      },
+      {
+        "label": "No, the truth of experiences and relationships remains unchanged within the simulation.",
+        "isCorrect": true
+      },
+      {
+        "label": "The question of truth becomes undecidable.",
+        "isCorrect": false
+      },
+      {
+        "label": "Only relationships retain their truth; experiences do not.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Imagine a ship where every plank is replaced over time, such that no original part remains. If the removed planks are then reassembled into an identical ship, which ship is the 'original'?",
+    "explanation": "This is a variation of the Ship of Theseus paradox. The question probes identity over time and through material change. The 'original' ship is the one continuously maintained, even with replaced parts, as it maintains its form and function.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "The ship that has had its parts replaced.",
+        "isCorrect": true
+      },
+      {
+        "label": "The ship reassembled from the old parts.",
+        "isCorrect": false
+      },
+      {
+        "label": "Neither ship is the original.",
+        "isCorrect": false
+      },
+      {
+        "label": "Both ships are equally original.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "If a moral rule is true only because it is universally adopted and enforced by social pressure, but could be easily changed by collective agreement, what kind of truth does it possess?",
+    "explanation": "A truth that is contingent on social agreement and easily alterable is considered a social or conventional truth, rather than an objective or absolute one. It exists because of human agreement, not independent of it.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Objective truth",
+        "isCorrect": false
+      },
+      {
+        "label": "Subjective truth",
+        "isCorrect": false
+      },
+      {
+        "label": "Social or conventional truth",
+        "isCorrect": true
+      },
+      {
+        "label": "Logical truth",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Imagine you are presented with perfect, irrefutable evidence that your most cherished belief is false. What is the most philosophically rigorous way to respond, assuming you value truth above all else?",
+    "explanation": "The most rigorous response is to abandon the belief. Holding onto a known falsehood, 'despite the evidence,' undermines the very foundation of seeking truth and rational inquiry.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Re-examine the evidence to find flaws, however small.",
+        "isCorrect": false
+      },
+      {
+        "label": "Adjust the belief slightly to accommodate the new information.",
+        "isCorrect": false
+      },
+      {
+        "label": "Abandon the belief entirely and accept the truth.",
+        "isCorrect": true
+      },
+      {
+        "label": "Question the source and validity of the evidence, regardless of its presentation.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Imagine a creature that experiences all moments of its existence simultaneously. How would such a being understand cause and effect, or make a decision?",
+    "explanation": "For a being experiencing all moments at once, the concepts of sequential causality and deliberation would be fundamentally absent. Their existence would be a complete, static whole, rendering 'before' and 'after' meaningless.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "It would perceive time linearly, just like humans.",
+        "isCorrect": false
+      },
+      {
+        "label": "It would understand cause and effect through a process of retroactive justification.",
+        "isCorrect": false
+      },
+      {
+        "label": "It would not experience causality or decision-making as we understand them.",
+        "isCorrect": true
+      },
+      {
+        "label": "It would require a temporal dimension to even exist.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Imagine a strict utilitarian who believes that the morally right action is always the one that maximizes overall happiness. If faced with a choice that would create immense happiness for millions but cause a single, innocent person unbearable suffering, according to their principles, what should they do?",
+    "explanation": "A strict utilitarian aims to maximize overall happiness, even at the cost of individual suffering. Therefore, the action that creates the greatest net happiness (millions happy minus one suffering) would be considered morally right by this principle.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Refuse to make a choice, as no action can be truly justified.",
+        "isCorrect": false
+      },
+      {
+        "label": "Choose the action that causes the least suffering, regardless of the happiness created.",
+        "isCorrect": false
+      },
+      {
+        "label": "Sacrifice the one innocent person to create overwhelming happiness for the many.",
+        "isCorrect": true
+      },
+      {
+        "label": "Seek a third option that avoids any suffering for anyone.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Imagine a machine that, if activated, would prevent all future suffering in the universe, but would also erase all consciousness that has ever existed, including your own past experiences. Would activating this machine be the morally correct action, assuming morality is solely about minimizing suffering?",
+    "explanation": "This scenario highlights the tension between negative utilitarianism (minimizing suffering) and the value of existence and experiences. While it minimizes future suffering, it also negates all value derived from past existence and consciousness, making the moral calculus complex and debatable.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Yes, because minimizing all future suffering is the ultimate moral good.",
+        "isCorrect": false
+      },
+      {
+        "label": "No, because the value of past consciousness and experiences outweighs the prevention of future suffering.",
+        "isCorrect": false
+      },
+      {
+        "label": "It's morally ambiguous, as it pits the prevention of future harm against the erasure of all past and present value.",
+        "isCorrect": true
+      },
+      {
+        "label": "Yes, as the potential for future suffering is infinite, while past suffering and joy are finite.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Imagine a being that perceives time non-linearly, experiencing all past, present, and future moments simultaneously. How would such a being understand the concept of 'choice' or 'agency' as we conventionally do?",
+    "explanation": "A being experiencing all time at once would not perceive a sequence of moments where decisions are made to alter a future. Their 'choice' would be the entire, unchanging timeline itself, rendering the concept of selecting one path over another moot.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "They would see it as selecting the most optimal path from a fixed set of possibilities.",
+        "isCorrect": false
+      },
+      {
+        "label": "They would understand it as the sum total of all their actions across all of time.",
+        "isCorrect": false
+      },
+      {
+        "label": "The concept of choice, involving sequential decision-making, would be incomprehensible to them.",
+        "isCorrect": true
+      },
+      {
+        "label": "They would perceive it as a continuous process of reacting to immediate stimuli.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Imagine a device that could perfectly predict your every decision before you make it. If you consult this device and it tells you what you will do, and then you proceed to do exactly that, did you have free will in that instance, or was your action predetermined by the prediction?",
+    "explanation": "This scenario presents a classic free will versus determinism dilemma. If the prediction is perfect, it implies the outcome is fixed, challenging the notion of genuine choice.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "You had free will because you could have chosen to act against the prediction.",
+        "isCorrect": false
+      },
+      {
+        "label": "You did not have free will; your action was predetermined by the prediction.",
+        "isCorrect": true
+      },
+      {
+        "label": "The question is meaningless as the prediction itself is part of the causal chain.",
+        "isCorrect": false
+      },
+      {
+        "label": "Compatibilism resolves this by defining free will as acting according to one's desires, regardless of prediction.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Imagine a perfect replica of yourself, indistinguishable in every way, that behaves identically to you. If this replica makes a choice, is that choice authentically *yours* in the same way your own decisions are?",
+    "explanation": "The core of the dilemma lies in our understanding of 'authorship' of a choice. If the replica is truly indistinguishable and behaves identically, the choice originates from the same internal processes, making it attributable to 'you' in a significant sense, even if it's a copy.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "No, only choices made by the original biological entity can be considered truly yours.",
+        "isCorrect": false
+      },
+      {
+        "label": "Yes, if the replica's decision-making process is identical, the choice reflects your agency.",
+        "isCorrect": true
+      },
+      {
+        "label": "It depends on whether the replica has consciousness, which we cannot confirm.",
+        "isCorrect": false
+      },
+      {
+        "label": "The question is meaningless because a perfect replica is logically impossible.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Consider a society where individuals can perfectly recall every moment of their lives with absolute fidelity. How does this affect the concept of personal identity over time, particularly regarding change and development?",
+    "explanation": "With perfect recall, continuous access to all past selves might challenge the notion of a stable, evolving identity. The self could be seen as a cumulative collection rather than a distinct, changed entity. This raises questions about whether 'change' is even meaningful when all states are simultaneously accessible.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Personal identity becomes more robust, as all past selves are fully integrated.",
+        "isCorrect": false
+      },
+      {
+        "label": "The concept of personal identity over time dissolves, replaced by a static aggregate of all experienced moments.",
+        "isCorrect": true
+      },
+      {
+        "label": "Personal identity remains unchanged because memory does not alter the fundamental nature of the self.",
+        "isCorrect": false
+      },
+      {
+        "label": "Developing a unique identity becomes impossible due to the overwhelming influence of collective memory.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Imagine a digital consciousness that can perfectly back itself up and restore to any previous save point. If this consciousness chooses to delete itself, is that act truly a choice, or merely a programmed function of its self-preservation protocols (or lack thereof)?",
+    "explanation": "The core of the dilemma lies in whether the consciousness's capacity for self-deletion, despite its ability to restore, represents genuine agency or a predetermined outcome based on its programming. The ability to choose destruction, even with the means to undo it, challenges the conventional understanding of free will when the 'decision' could be an inherent feature of its code.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "It's a genuine choice, as the consciousness actively wills its own termination.",
+        "isCorrect": false
+      },
+      {
+        "label": "It's not a choice, but a programmed response to a specific condition.",
+        "isCorrect": true
+      },
+      {
+        "label": "The concept of choice is irrelevant for a digital entity.",
+        "isCorrect": false
+      },
+      {
+        "label": "It depends on whether the deletion is reversible by an external agent.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Consider a scenario where an AI is developed with perfect knowledge of all physical laws and complete access to all data from the Big Bang onwards. If it can perfectly simulate the universe's entire history and future, does this simulation represent objective reality, or merely a perfect prediction?",
+    "explanation": "The simulation represents a perfect prediction based on known laws and data. Objective reality, in this context, is the unfolding event itself, not its computed outcome. The AI's simulation is a model, however accurate, not the actual existence.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "It represents objective reality in its entirety.",
+        "isCorrect": false
+      },
+      {
+        "label": "It is a perfect prediction, not objective reality itself.",
+        "isCorrect": true
+      },
+      {
+        "label": "The distinction becomes meaningless with perfect accuracy.",
+        "isCorrect": false
+      },
+      {
+        "label": "It depends on whether the AI is conscious.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Imagine you are a purely rational agent, detached from all emotions and personal biases. You are presented with two identical jars of cookies. One jar is labeled 'For Everyone,' and the other 'For You.' If your goal is to maximize overall well-being (a form of utilitarianism), which jar should you choose?",
+    "explanation": "A purely rational agent, even one focused on maximizing overall well-being, would recognize that their personal desire for cookies is irrelevant to the greater good. Therefore, they would choose the jar 'For Everyone' to ensure the cookies have the widest possible distribution and benefit.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "The jar labeled 'For You,' as it directly benefits an individual.",
+        "isCorrect": false
+      },
+      {
+        "label": "The jar labeled 'For Everyone,' as it benefits the largest number of people.",
+        "isCorrect": true
+      },
+      {
+        "label": "Flip a coin, as the outcome's impact on overall well-being is negligible.",
+        "isCorrect": false
+      },
+      {
+        "label": "Eat both jars, as an individual's consumption maximizes personal utility.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Imagine a world where all laws of physics are deterministic, meaning every event is necessitated by antecedent causes and conditions together with the laws of nature. If this is true, is it possible for a person to have genuinely chosen otherwise than they did?",
+    "explanation": "In a deterministic universe, every event, including human decisions, is the inevitable outcome of prior causes. Therefore, even if it feels like a choice, the outcome was predetermined, meaning one could not have genuinely chosen otherwise.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Yes, free will is compatible with determinism (Compatibilism).",
+        "isCorrect": false
+      },
+      {
+        "label": "No, determinism means choices are not free (Hard Determinism).",
+        "isCorrect": true
+      },
+      {
+        "label": "It depends on whether humans have souls, which are not subject to physical laws.",
+        "isCorrect": false
+      },
+      {
+        "label": "The concept of 'choice' is an illusion, regardless of determinism.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Consider a perfectly rational agent who can perfectly predict the consequences of their actions. If this agent is presented with a choice between two actions, A and B, and they know with certainty that action A will lead to a slightly better outcome than action B, what should they do?",
+    "explanation": "A perfectly rational agent, by definition, acts in accordance with reason. If they can perfectly predict that action A yields a superior outcome, then choosing A is the only logical and reasonable course of action to achieve the best possible result.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Choose action A, as it leads to the better outcome.",
+        "isCorrect": true
+      },
+      {
+        "label": "Choose action B to demonstrate their free will.",
+        "isCorrect": false
+      },
+      {
+        "label": "Flip a coin to ensure randomness.",
+        "isCorrect": false
+      },
+      {
+        "label": "Refuse to choose, as the predictability removes genuine agency.",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "Imagine a perfectly isolated system in a vacuum, obeying all known laws of physics. If this system contains only two particles that interact gravitationally, and we know their exact initial positions and velocities, can we predict their future trajectories with absolute certainty?",
+    "explanation": "The question probes the limits of predictability within a deterministic system. While classical mechanics is generally deterministic, quantum mechanics introduces inherent uncertainty even in such isolated systems.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Yes, because the system is isolated and all interactions are deterministic.",
+        "isCorrect": false
+      },
+      {
+        "label": "No, due to the inherent probabilistic nature of quantum mechanics, even at this scale.",
+        "isCorrect": true
+      },
+      {
+        "label": "Yes, but only if the particles are perfectly spherical.",
+        "isCorrect": false
+      },
+      {
+        "label": "No, because gravitational interactions are too complex to model perfectly.",
+        "isCorrect": false
+      }
+    ]
+  }
+]

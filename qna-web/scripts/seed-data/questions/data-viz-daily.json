@@ -1,0 +1,462 @@
+[
+  {
+    "prompt": "When visualizing a trend over a long period with many data points where seasonality is also a key factor, which chart type would be most effective for highlighting both the overall trend and the cyclical patterns?",
+    "explanation": "A dual-axis chart can effectively show both the long-term trend and seasonal variations by allowing two different scales on the same plot, or by overlaying different chart types like a line for trend and bars for seasonality.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "A simple line chart",
+        "isCorrect": false
+      },
+      {
+        "label": "A stacked bar chart",
+        "isCorrect": false
+      },
+      {
+        "label": "A dual-axis chart or overlaid line and bar charts",
+        "isCorrect": true
+      },
+      {
+        "label": "A scatter plot with trendline",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When comparing the performance of multiple distinct categories against a common target, which chart type best emphasizes both individual category performance and their relative position to the target?",
+    "explanation": "A grouped bar chart is ideal here. It allows for direct comparison of each category's performance (one bar per category, per group) while also showing how each stacks up against the target. This visual parity makes relative performance easy to grasp.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Stacked Bar Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Grouped Bar Chart",
+        "isCorrect": true
+      },
+      {
+        "label": "Scatter Plot",
+        "isCorrect": false
+      },
+      {
+        "label": "Pie Chart",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When you need to illustrate the distribution of a single continuous variable, showing its central tendency, spread, and the shape of the data, which chart type is most appropriate?",
+    "explanation": "A histogram is ideal for visualizing the distribution of a continuous variable. It groups data into bins and shows the frequency of data points within each bin, clearly revealing the shape, spread, and central tendency.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Bar chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Line chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Histogram",
+        "isCorrect": true
+      },
+      {
+        "label": "Scatter plot",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When presenting the hierarchical structure of an organization, showing reporting lines and the span of control for different roles, which visualization type is most effective?",
+    "explanation": "An org chart, or organizational diagram, is specifically designed to illustrate hierarchical relationships within an organization. Its tree-like structure clearly depicts reporting lines and departmental groupings.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Sankey Diagram",
+        "isCorrect": false
+      },
+      {
+        "label": "Organizational Chart (Org Chart)",
+        "isCorrect": true
+      },
+      {
+        "label": "Network Graph",
+        "isCorrect": false
+      },
+      {
+        "label": "Treemap",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When you want to show the relationship and correlation between two continuous variables, and also highlight the density of data points in different regions of the relationship, which visualization is most effective?",
+    "explanation": "A scatter plot is ideal for showing the relationship between two continuous variables. Adding density contours or color-coding points by density further enhances the visualization by revealing areas where data points are clustered, indicating higher density.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Line Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Stacked Bar Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Scatter Plot with Density Contours",
+        "isCorrect": true
+      },
+      {
+        "label": "Heatmap",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When showcasing the flow and proportion of a whole across different stages or categories, such as website user journeys or budget allocations, which chart type is most effective at illustrating these transitions and their relative sizes?",
+    "explanation": "A Sankey diagram is ideal for this scenario because it visually represents flows and their magnitudes. The width of the connecting bands directly corresponds to the quantity or proportion being transferred, making it easy to understand both the paths and their importance.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Stacked Bar Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Sankey Diagram",
+        "isCorrect": true
+      },
+      {
+        "label": "Treemap",
+        "isCorrect": false
+      },
+      {
+        "label": "Chord Diagram",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You need to visualize real-time changes in multiple, unrelated metrics (e.g., website visitors, server load, sales) that fluctuate independently and where the precise value at any given moment is less important than spotting sudden spikes or drops. Which chart type would best suit this scenario?",
+    "explanation": "An embedded sparkline chart is ideal for showing trends or variations within a consistent dataset without explicit axes or labels. They are small, simple, and efficient for displaying multiple, independent time-series data points at a glance, allowing for quick identification of significant changes.",
+    "difficulty": "easy",
+    "choices": [
+      {
+        "label": "Stacked Bar Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Embedded Sparkline Charts",
+        "isCorrect": true
+      },
+      {
+        "label": "Bubble Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Radar Chart",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When needing to represent the contribution of individual parts to a whole, and you want to emphasize the share of each category, which chart type is most suitable, especially when dealing with a limited number of categories?",
+    "explanation": "A pie chart effectively shows parts of a whole, visually representing proportions that sum to 100%. It's best for a small number of categories to avoid visual clutter.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Line Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Scatter Plot",
+        "isCorrect": false
+      },
+      {
+        "label": "Pie Chart",
+        "isCorrect": true
+      },
+      {
+        "label": "Bar Chart",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When you need to show the change in a single key metric over time, emphasizing specific points of intervention or strategic shifts, which chart type is most effective?",
+    "explanation": "A line chart is ideal because it clearly depicts trends and continuous change over time.  Anomalies or specific points can be easily annotated or highlighted on a line chart to showcase impacts.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Scatter Plot",
+        "isCorrect": false
+      },
+      {
+        "label": "Bar Chart (Vertical)",
+        "isCorrect": false
+      },
+      {
+        "label": "Line Chart",
+        "isCorrect": true
+      },
+      {
+        "label": "Pie Chart",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When visualizing the geographic distribution of a phenomenon (e.g., sales performance, population density) and you want to emphasize the *intensity* or value at specific locations, which chart type is most appropriate?",
+    "explanation": "A choropleth map uses variations in shading or color to represent the value of a variable across geographic regions. This makes it excellent for showing intensity at specific locations and comparing values across areas.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Pie Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Scatter Plot",
+        "isCorrect": false
+      },
+      {
+        "label": "Choropleth Map",
+        "isCorrect": true
+      },
+      {
+        "label": "Line Chart",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You need to visualize the proportion of a discrete set of categories that make up a whole at a single point in time. Which chart type is most effective for emphasizing how each part contributes to the total, assuming there are more than 5 categories and the exact ranking isn't the primary goal?",
+    "explanation": "A stacked bar chart is effective here because it shows the total by summing the segments and visually represents the contribution of each category to that total. While a pie chart can show parts of a whole, it becomes difficult to compare slices accurately with more than a few categories.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Line Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Scatter Plot",
+        "isCorrect": false
+      },
+      {
+        "label": "Stacked Bar Chart",
+        "isCorrect": true
+      },
+      {
+        "label": "Pie Chart",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When comparing the percentage change of multiple different metrics over the same period, where you want to highlight which metrics grew or shrunk the most and by how much, which chart type is most effective?",
+    "explanation": "A column chart (or bar chart if the labels are long) is effective because it allows for direct comparison of the magnitude of change across different metrics. Each column represents a metric's percentage change, making it easy to see the largest increases and decreases.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Stacked Area Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Line Chart with Multiple Lines",
+        "isCorrect": false
+      },
+      {
+        "label": "Column Chart (or Bar Chart)",
+        "isCorrect": true
+      },
+      {
+        "label": "Pie Chart",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When you need to visualize the composition of a whole across multiple, distinct groups (e.g., sales composition by product category for different regions), and within each group, you want to see both the relative contribution of each part and compare these compositions across groups, which chart type is most effective?",
+    "explanation": "Stacked bar charts allow for the visualization of the total for each group (the full bar height) while also showing the proportion of each component within that total. This dual capability makes them ideal for comparing compositions across different categories.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Grouped Bar Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Stacked Bar Chart",
+        "isCorrect": true
+      },
+      {
+        "label": "Pie Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Line Chart",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When you need to display the continuous evolution of a single metric over a long period, emphasizing trends and identifying cyclical patterns or anomalies, which chart type is most effective?",
+    "explanation": "A line chart is the most effective choice for displaying continuous data over time. It excels at highlighting trends, seasonality, and spotting specific points of interest or deviation.",
+    "difficulty": "medium",
+    "choices": [
+      {
+        "label": "Bar Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Scatter Plot",
+        "isCorrect": false
+      },
+      {
+        "label": "Line Chart",
+        "isCorrect": true
+      },
+      {
+        "label": "Pie Chart",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You need to display the performance of multiple, independent projects over time, showing milestones, key events, and the overall progress of each project against its timeline. Which chart type is most effective?",
+    "explanation": "A Gantt chart is ideal for project management visualization. It clearly displays project schedules, tasks, dependencies, and progress over time, making it easy to track multiple independent timelines simultaneously.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Line Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Gantt Chart",
+        "isCorrect": true
+      },
+      {
+        "label": "Scatter Plot",
+        "isCorrect": false
+      },
+      {
+        "label": "Stacked Bar Chart",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When you need to show the distribution of a single continuous variable across different, discrete bins or categories, and you want to compare the frequency or count within each bin, which visualization type is most effective?",
+    "explanation": "A histogram is specifically designed to show the distribution of a continuous variable. It groups data into bins and displays the frequency of data points falling into each bin, making it ideal for understanding the shape and spread of the data.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Bar chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Histogram",
+        "isCorrect": true
+      },
+      {
+        "label": "Scatter plot",
+        "isCorrect": false
+      },
+      {
+        "label": "Pie chart",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You need to visualize the frequency distribution of a continuous variable and compare it with another distribution of the same variable from a different group or time period. Which chart type is most effective for this comparison?",
+    "explanation": "A density plot (or kernel density estimate plot) effectively visualizes the distribution of a continuous variable. Overlaying multiple density plots allows for direct comparison of shapes, peaks, and spread between different groups.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Histogram",
+        "isCorrect": false
+      },
+      {
+        "label": "Box Plot",
+        "isCorrect": false
+      },
+      {
+        "label": "Density Plot",
+        "isCorrect": true
+      },
+      {
+        "label": "Violin Plot",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You're analyzing customer feedback scores (on a scale of 1-10) across different product lines. You want to understand the *spread* and *concentration* of scores within each product line, not just the average, to identify which products have consistent feedback versus those with polarized opinions. What chart type is best suited for this?",
+    "explanation": "A box plot (or box-and-whisker plot) is ideal for showing the distribution and spread of data across different categories. It displays the median, quartiles, and potential outliers, allowing for a detailed comparison of score variability between product lines.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Bar chart showing average scores per product line",
+        "isCorrect": false
+      },
+      {
+        "label": "Scatter plot of individual scores against product line",
+        "isCorrect": false
+      },
+      {
+        "label": "Box plot for each product line",
+        "isCorrect": true
+      },
+      {
+        "label": "Pie chart of score frequencies for all products combined",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "You are presenting a complex hierarchical dataset where you need to show not only the parts of a whole but also the relationship and comparisons *between* different levels of that hierarchy. Which visualization would be most effective for this purpose?",
+    "explanation": "A Treemap is ideal for visualizing hierarchical data, effectively displaying the proportion of each part to the whole through area. It allows for easy comparison of categories at different levels of the hierarchy and spotting patterns within the structure.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Stacked Bar Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Pie Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Treemap",
+        "isCorrect": true
+      },
+      {
+        "label": "Scatter Plot",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "prompt": "When displaying the relationship between two continuous variables, and you want to identify patterns, clusters, and outliers, which chart type is most effective?",
+    "explanation": "A scatter plot is ideal for visualizing the relationship between two continuous variables. It allows for easy identification of correlation, clusters, and potential outliers. Other charts are better suited for different data types or relationship types.",
+    "difficulty": "hard",
+    "choices": [
+      {
+        "label": "Bar Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Scatter Plot",
+        "isCorrect": true
+      },
+      {
+        "label": "Line Chart",
+        "isCorrect": false
+      },
+      {
+        "label": "Pie Chart",
+        "isCorrect": false
+      }
+    ]
+  }
+]

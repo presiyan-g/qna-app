@@ -1,0 +1,221 @@
+[
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "Chose consolidation, but spatial navigation was a tough second. For some reason, I always picture the hippocampus as a GPS for the brain, which obviously isn't the whole story but it's how I remember its function."
+    },
+    "reply": {
+      "body": "That GPS analogy is actually pretty good! It helps me think about how we map out new environments and then connect those spatial maps with the events that happened there. Helps with remembering the whole context, not just the route."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "I picked norepinephrine because I recall reading a lot about its role in arousal and focus, especially when trying to stay on task. This question made me pause and think about how dopamine and norepinephrine overlap but are distinct in their primary functions. Definitely a good reminder."
+    },
+    "reply": {
+      "body": "I understand the confusion! Norepinephrine is definitely key for arousal and vigilance, which supports attention. But for the 'executive functions' part of the question, like planning and inhibition, and specifically how ADHD is often treated with stimulants that boost dopamine, I leaned towards dopamine as the primary system being highlighted here."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "I picked REM sleep because I always associate that with dreaming and vivid memory recall. It's interesting that SWS is the powerhouse for declarative stuff. Totally tripped me up a bit there!"
+    },
+    "reply": {
+      "body": "I did the same thing! It makes sense intuitively that REM would be more involved, but the replay mechanism during SWS is wild. Glad I saw the explanation, otherwise I'd be stuck thinking REM was the main player for facts."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "Okay, I picked A because it was the only one that mentioned changes based on usage. The wording about 'strength of synaptic connections' really threw me though. I thought it was more about creating new connections or eliminating old ones entirely. Glad they clarified that."
+    },
+    "reply": {
+      "body": "I get what you mean about the wording. I focused on the 'activity-dependent' part, thinking that if neurons aren't firing together, those specific connections would weaken or disappear over time because they're not being used. Seems like it's about fine-tuning existing architecture rather than building new wings."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "I almost went with explicit memory because priming feels like a conscious effect sometimes, but the explanation makes sense. It's wild that our brains can react based on prior exposure without us even realizing it. Totally makes sense for things like recognizing faces or understanding language faster."
+    },
+    "reply": {
+      "body": "Right? I picked implicit too. It's like that feeling when you walk into a room and just *know* something is off, but can't put your finger on why. That's probably priming playing out in a real-world social context."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "I almost picked the episodic buffer because it felt like it 'held' things, but it's more about integrating across domains. The phonological loop is obvious in hindsight for anything involving saying things in my head or remembering a phone number."
+    },
+    "reply": {
+      "body": "Yeah, the episodic buffer is tricky! It's like the glue that brings everything together, including stuff from your long-term memory, and links it to the other components. The loop is definitely the dedicated verbal/auditory storage."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "I went with the hippocampus because of its strong association with memory formation, and fear conditioning involves a type of memory. It was a tough choice between that and the amygdala. The explanation about linking cues to outcomes makes sense why amygdala is the key though."
+    },
+    "reply": {
+      "body": "Totally get why you'd think hippocampus! Seems logical given the memory aspect. But yeah, the amygdala's role in the emotional valence of that memory is the critical piece for the *learned fear* part specifically. Hippocampus helps contextualize, but amygdala processes the dread."
+    }
+  },
+  {
+    "questionIndex": 7,
+    "topLevel": {
+      "body": "Okay, I chose 'increased receptor trafficking' but the explanation says 'increase in the number of neurotransmitter receptors' which feels like a subtle distinction. I thought trafficking was how you 'increase the number' in the short term. Definitely made me pause."
+    },
+    "reply": {
+      "body": "I see what you mean! I went with 'enhanced neurotransmitter release' because that felt more direct to the initial potentiation signal. I think the key is that 'persistent strengthening' can involve both upstream release and downstream receptor changes over time. Good question though, the wording tripped me up too."
+    }
+  },
+  {
+    "questionIndex": 8,
+    "topLevel": {
+      "body": "I almost picked the amygdala! It's so involved in emotional learning and processing, which feels related to reward, but the prompt specifically mentioned pleasure and reinforcement learning. Nucleus accumbens makes sense now, really solidifies the idea of it being the primary 'pleasure center'."
+    },
+    "reply": {
+      "body": "Totally get why you'd lean towards the amygdala. It's a common mix-up because emotion and reward learning are so tangled up. But yes, the nucleus accumbens is where that direct dopamine hit kicks in for learned behaviors. The amygdala definitely adds emotional weight to those memories, though!"
+    }
+  },
+  {
+    "questionIndex": 9,
+    "topLevel": {
+      "body": "I picked the option about working memory overload. It made intuitive sense, thinking about how quickly my brain gets overloaded when trying to juggle too many things at once. The idea that attending to the first target just temporarily 'uses up' the processing power for the second is so relatable."
+    },
+    "reply": {
+      "body": "I went with that too! It felt like the most straightforward way to explain the experience. I wonder if it's more about a bottleneck in the perceptual encoding stage rather than pure working memory, though. Like the system is too busy consolidating the first item to even start processing the second properly."
+    }
+  },
+  {
+    "questionIndex": 10,
+    "topLevel": {
+      "body": "I almost went with 'attentional blink' because that feels like a similar concept where you miss things. But the prompt is about focusing on ONE thing. Glad I re-read the options. Selective attention makes solid sense here."
+    },
+    "reply": {
+      "body": "Totally, I’ve been there with the attentional blink. It’s a good point that the cocktail party effect is more about *enhancing* one stream rather than the *failure* to process subsequent stimuli. Selective attention is the key."
+    }
+  },
+  {
+    "questionIndex": 11,
+    "topLevel": {
+      "body": "Always forget that encoding specificity thing until test time! I picked the option about studying in the same room as the exam, which felt obvious.  Makes you wonder if the actual *mood* you're in matters too, like being stressed or relaxed?"
+    },
+    "reply": {
+      "body": "Totally! That context-dependent memory effect is really powerful. I also tend to stick to the same library for all my study sessions.  And yes, research shows emotional state can be a HUGE factor in retrieval too, so your hunch is spot on."
+    }
+  },
+  {
+    "questionIndex": 12,
+    "topLevel": {
+      "body": "Okay, I totally picked B first, the anchoring bias. I was thinking about that study where people estimate a number after seeing a high or low value first and how that sticks. Definitely got tripped up by the wording there. Confirmation bias makes so much sense in retrospect, though."
+    },
+    "reply": {
+      "body": "I hear you! Anchoring bias is a sneaky one too. It took me a second to differentiate them. I think the key for me was realizing confirmation bias is specifically about existing beliefs, whereas anchoring can be influenced by any initial piece of information, even if it's not directly related to a prior conviction."
+    }
+  },
+  {
+    "questionIndex": 13,
+    "topLevel": {
+      "body": "I picked 'inhibitory control' because sometimes it feels like the harder I try to grab hold of that word, the further away it gets. It’s like my brain is actively blocking it. Guess I was wrong about how that works though."
+    },
+    "reply": {
+      "body": "Yeah, I did too! I think the temptation is to focus on the blockage aspect, but the explanation makes sense. It's more about the *search* strategy failing than something actively holding it back. Makes you think about how different cues might trigger retrieval."
+    }
+  },
+  {
+    "questionIndex": 14,
+    "topLevel": {
+      "body": "I picked operant conditioning at first glance because of the 'prior exposure' part, thinking about reinforcement history. But then I re-read and focused on the 'association' bit. Made me rethink how we filter out noise. It's wild how our brains do that automatically."
+    },
+    "reply": {
+      "body": "Yeah, the wording can be tricky. I was stuck between classical and operant too. Glad they explained the link to classical conditioning. It makes sense when you think about associating a stimulus with *nothing* and then having trouble associating it later."
+    }
+  },
+  {
+    "questionIndex": 15,
+    "topLevel": {
+      "body": "I picked the answer about ignoring familiar stimuli. That made the most sense to me. I was a bit confused by the options that talked about 'associative learning' - definitely glad they kept those separate. It's wild how our brains just tune things out so efficiently."
+    },
+    "reply": {
+      "body": "Yeah, 'tune things out' is a great way to put it! I remember reading about how even simple invertebrates like Aplysia show habituation. It's like the most basic form of 'filtering' out background noise."
+    }
+  },
+  {
+    "questionIndex": 16,
+    "topLevel": {
+      "body": "I almost picked 'working memory' because it feels so connected to holding onto the goal and what's relevant. But then I reread the 'suppress irrelevant information' part and inhibition just clicked into place. That tricky distinction between holding info and blocking other info, you know?"
+    }
+  },
+  {
+    "questionIndex": 17,
+    "topLevel": {
+      "body": "I picked the option about simultaneous firing. Hebbian learning always made intuitive sense to me, but I almost got tripped up by the wording on one of the other choices. It felt like it was hinting at something more complex than just consistent co-activation leading to strengthening."
+    },
+    "reply": {
+      "body": "Totally! The language on these can be tricky. I remember reading a follow-up about how it's not *just* simultaneous firing, but the *timing* really matters. If the postsynaptic neuron fires *after* the presynaptic one, that's key for LTP (long-term potentiation), which is the cellular correlate Hebb was getting at."
+    }
+  },
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "Chose consolidation, which felt right. The spatial navigation bit is really interesting though, I always found that a bit tangential to general memory. Makes sense when you think about navigating your own life events though, I guess. Wonder if damage affects just maps or entire autobiographical recall."
+    },
+    "reply": {
+      "body": "I agree, consolidation was the obvious answer. The spatial aspect is key though! It's not just about remembering facts, but also where and when they happened. Think of remembering your first day of school - it's not just the facts, but the building, the classroom, the feeling. The hippocampus binds that whole scene."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "Okay, I picked dopamine immediately because of ADHD. But what tripped me up was thinking about how much norepinephrine is involved in focus too. It's always the interplay between systems that makes it so complex. Definitely felt like a 'trick' question designed to make you overthink the obvious."
+    },
+    "reply": {
+      "body": "I totally get what you mean. Norepinephrine was a strong contender for me too. The explanation clarifies how dopamine's role in motivated attention and reward loops ties directly into executive control, which is why it gets the spotlight for ADHD specifically. Still, the systems are so interconnected!"
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "I totally picked REM sleep first. I always associate that stage with vivid dreams and intense brain activity, so it seemed like the obvious choice for memory consolidation. Glad to see the explanation clarifying the role of SWS, though. So much to learn!"
+    },
+    "reply": {
+      "body": "I see your point about REM! It's so active. But SWS just has that deep, restorative feel. I remember reading somewhere that the hippocampal replay during SWS is key for moving memories from a temporary holding spot to more permanent storage. Fascinating how different sleep stages have such specialized jobs!"
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "I picked C, the explanation for how synaptic strength changes based on use. It felt like the most direct fit for 'activity-dependent.' I was a bit thrown by the wording on option A, though.  It sounded plausible but not quite specific enough to the 'activity-dependent' part."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "I almost picked episodic memory because I was thinking about how certain smells can instantly bring back a memory. But then I remembered the question specified 'non-conscious' which really pushed me towards implicit. Glad I caught that detail!"
+    },
+    "reply": {
+      "body": "Yeah, the wording was key there, wasn't it? It's easy to conflate associations that *feel* unconscious with true implicit processes. Priming is a great example of how our brains shape responses without our active awareness."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "I almost picked the central executive because it feels like the 'brain' of the operation. But then I remembered the 'phonological' part must relate to sound. Glad I double-checked that distinction before submitting. Verbal tasks are definitely my weak spot in working memory."
+    },
+    "reply": {
+      "body": "Totally. I think the confusion between the central executive and the phonological loop is super common. The executive is like the conductor, but the loop is the specific instrument playing the verbal notes. Makes sense, right?"
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "I almost picked the hippocampus because it's also so central to memory formation. The distinction here is that the amygdala is specifically about the *emotional* tagging of those memories, especially fear. It's neat how distinct structures handle different aspects of learning."
+    },
+    "reply": {
+      "body": "Totally! I think the wording 'associating neutral stimuli with fearful events' was the key. The hippocampus is more about encoding the contextual details of the event itself, while the amygdala's role is more in the affective valence. Glad the explanation clarified that relationship!"
+    }
+  }
+]

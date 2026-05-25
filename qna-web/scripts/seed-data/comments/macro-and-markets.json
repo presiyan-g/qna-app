@@ -1,0 +1,227 @@
+[
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "Went with consumer confidence on this one. The explanation about sentiment translating to spending and then earnings makes intuitive sense, especially when things feel shaky. It just seems like people's gut feelings about the economy really impact the markets before anything else gets reported."
+    },
+    "reply": {
+      "body": "Agreed, consumer confidence feels right. I almost picked initial jobless claims because that's such a timely number, but sentiment is definitely the 'why' behind the claims data usually, isn't it?"
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "Chose inflation, obviously. But I almost picked employment because they talk about it so much. Sometimes it feels like they're just reacting to the latest jobs report more than anything else. Glad the explanation clarified that."
+    },
+    "reply": {
+      "body": "Yeah, the language around the dual mandate is interesting. I tend to think inflation has primacy when things get spicy, but employment data definitely seems to drive the day-to-day chatter and short-term pivots."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "Went with credit channel, but honestly reserve requirements feel like such a blunt instrument these days. Pretty sure the Fed barely uses them. Made me wonder how much actual impact they have versus interest rate policy."
+    },
+    "reply": {
+      "body": "Same here. It's weird they still teach it as a primary mechanism when actual implementation is so rare. I think it's more about the theoretical impact on lending capacity, like the explanation said, even if it's not actively wielded."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "Chose A, but honestly the wording on inflation expectations vs nominal rates always gets me. If inflation expectations rise, wouldn't nominal rates generally follow upwards quite quickly, making the actual *change* in real rates less pronounced than the explanation implies? Seems like a bit of a theoretical ideal vs. market reality."
+    },
+    "reply": {
+      "body": "I see your point. The 'holding nominal rates constant' is the key theoretical assumption here. In practice, yes, markets are dynamic. But the baseline assumption helps isolate the pure effect of shifting inflation expectations on the *real* cost of capital. It serves as the starting point for more complex analysis."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "Went with OMO, feels like the most direct and historically significant tool. Discount window seemed too direct a loan mechanism, and reserve requirements too blunt an instrument. Is it really the *primary* tool though, or just the most talked about?"
+    },
+    "reply": {
+      "body": "OMO is definitely the workhorse. The Fed rarely touches reserve requirements anymore, and the discount window is more of a backstop. They've refined how they use OMO over the years, especially with things like QE, but the core mechanism of buying/selling Treasuries to adjust bank reserves is still king."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "Went with PMI on this one. The explanation makes sense, but I always get tripped up thinking about which indicator is truly forward-looking versus coincident. Feels like a lot of the GDP components are lagging feedback."
+    },
+    "reply": {
+      "body": "Totally agree. PMI is king for timely manufacturing signals. Though I've seen some analysts put a lot of weight on the ISM services index too, especially since the economy is so service-driven now. It's less of an early warning system for inflation though, more for general activity."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "Went with availability bias on this one. It just felt right given how much everyone was freaking out about that one inflation print last week, totally ignoring the longer term trend. Seemed like pure recency bias in action."
+    },
+    "reply": {
+      "body": "Interesting choice. I almost picked availability too, but then I thought about how the narrative shifted so quickly based on that single print, almost like everyone suddenly believed the old trend was dead. Felt more like a herd mentality. Tough call though."
+    }
+  },
+  {
+    "questionIndex": 7,
+    "topLevel": {
+      "body": "Went with A (raising the policy rate). Seemed like the most direct lever for 'tightening credit'. Sometimes the options feel a bit too similar though, had to double-check if there was a subtle trap."
+    },
+    "reply": {
+      "body": "Totally agree with you. Raising the Fed Funds rate is the textbook move here. Quantitative Tightening (QT) also achieves a similar goal by shrinking the balance sheet, but the rate hike is more immediate for borrowing costs."
+    }
+  },
+  {
+    "questionIndex": 8,
+    "topLevel": {
+      "body": "Definitely chose 'selling assets' for a sec there. Classic confusion between easing and tightening. It's wild how different actions can have opposite effects on the money supply. The key is the central bank actually buying stuff to inject cash."
+    },
+    "reply": {
+      "body": "Same! I always have to pause for a second on QE. It feels counterintuitive that buying bonds injects money. But yeah, they're creating bank reserves to pay for those long-term assets, which increases the overall monetary base."
+    }
+  },
+  {
+    "questionIndex": 9,
+    "topLevel": {
+      "body": "Chose A, the high inflation and stagnant growth combo. It just feels like the worst of both worlds. You can't easily fight one without worsening the other. The explanation makes sense, but seeing it laid out makes me appreciate how tough those decisions must be for the Fed."
+    },
+    "reply": {
+      "body": "Totally agree. It's the policy dilemma squared. Usually, you have a trade-off, but this scenario forces you to pick your poison. Makes you wonder what the historical precedents look like and how they were navigated."
+    }
+  },
+  {
+    "questionIndex": 10,
+    "topLevel": {
+      "body": "I picked the one about zero rates and hoarding cash. Makes intuitive sense. It just feels like no matter how much the Fed prints, it doesn't trickle down, like we're just stuck in a low-rate environment forever. Is that what we're experiencing now?"
+    },
+    "reply": {
+      "body": "Your intuition is spot on. That's the essence of it. The key phrase is 'ineffective monetary policy'. Even if they cut rates to zero (or below), if sentiment is so bad that no one wants to borrow or spend, the policy tool is useless. We saw shades of this post-2008."
+    }
+  },
+  {
+    "questionIndex": 11,
+    "topLevel": {
+      "body": "Chose C because the explanation mentioned loanable funds. Seemed straightforward, but I always second guess myself on these. Is it *always* the case that government debt crowds out private investment, or are there scenarios where that link is weaker?"
+    },
+    "reply": {
+      "body": "Good point. I picked C too. I think the 'always' is the tricky part. If the economy is in a deep recession with lots of idle capital and low demand for credit, maybe the effect is muted? The explanation felt a bit too textbook."
+    }
+  },
+  {
+    "questionIndex": 12,
+    "topLevel": {
+      "body": "Went with demand-pull, felt pretty straightforward given the 'aggregate demand outpaces supply' wording. Cost-push inflation always feels like the trickier one to spot in real-time data. Anyone else find that?"
+    },
+    "reply": {
+      "body": "Yeah, demand-pull is usually the easier one to identify conceptually. Cost-push often shows up later, after supply shocks start impacting input prices across industries. Hard to disentangle sometimes."
+    }
+  },
+  {
+    "questionIndex": 13,
+    "topLevel": {
+      "body": "Chose C on this one. It felt like the most direct consequence of the Fed keeping its foot on the pedal way too long. The real yield erosion is the knife in the back that nobody sees coming until it's too late. Makes you wonder about the long-term implications for savers."
+    },
+    "reply": {
+      "body": "Totally agree. The focus on nominal rates often distracts from the real cost of holding assets when inflation eats away at returns. It's a stealth tax on holding cash and bonds, really. People get caught off guard by the erosion of purchasing power."
+    }
+  },
+  {
+    "questionIndex": 14,
+    "topLevel": {
+      "body": "Chose A. Honestly, at first glance, all the options seemed plausible. It's easy to get bogged down in the jargon. Glad they clarified the 'why' behind the normal curve sloping upward. Makes intuitive sense that holding longer means more risk."
+    },
+    "reply": {
+      "body": "I went with C. The explanation was super helpful. I often think of it as term premium – investors need a bit extra for locking up capital longer when there's more uncertainty about future rates and inflation."
+    }
+  },
+  {
+    "questionIndex": 15,
+    "topLevel": {
+      "body": "Chose A, the inverse relationship. It's the classic interpretation we always learn. Makes sense intuitively too, right? When demand is high and jobs are plentiful, businesses can charge more. This question feels a little basic for this sub, but maybe it's a good primer for newer folks."
+    },
+    "reply": {
+      "body": "Yeah, A is the standard answer. But I've been reading some stuff that argues the *stagflation* era really broke that simple trade-off. Now, don't get me wrong, on paper and in the short run it holds, but the *long-run* implications and the role of expectations are so much messier. Makes central banking an art as much as a science."
+    }
+  },
+  {
+    "questionIndex": 16,
+    "topLevel": {
+      "body": "Went with A - explicit statements about future policy. It really makes you think about how much of current market pricing is just *anticipation* of what the Fed might say next, rather than actual current economic data. The lag effects must be enormous."
+    },
+    "reply": {
+      "body": "Totally agree. 'A' is the cleanest definition. The tricky part is distinguishing between explicit guidance and just general 'jawboning' or hinting. The market sometimes reads too much into vague comments, which must frustrate policymakers who are trying to be precise."
+    }
+  },
+  {
+    "questionIndex": 17,
+    "topLevel": {
+      "body": "Chose C based on the immediate impact of trade deficits on currency. The description of capital outflows and inflation really sealed it for me. Felt like a classic emerging market scenario."
+    },
+    "reply": {
+      "body": "Yeah, C seemed the most direct trigger. Though I sometimes get tripped up by the cyclical nature – does the capital outflow start it, or is it the deficit? The explanation helped clarify the currency crisis angle."
+    }
+  },
+  {
+    "questionIndex": 0,
+    "topLevel": {
+      "body": "Took me a moment to pick consumer confidence. I initially thought about something like PMI or trade balance, but those feel more like *reactions* to sentiment rather than the sentiment itself. Glad the explanation confirmed it; it really does feel like the purest read on how people *feel* about the economy."
+    },
+    "reply": {
+      "body": "Totally agree. It's the 'gut check' indicator. While hard data like industrial production tells us what *is* happening, confidence surveys give us a glimpse into what *might* happen because spending habits are so tied to psychology."
+    }
+  },
+  {
+    "questionIndex": 1,
+    "topLevel": {
+      "body": "Went with A) inflation expectations. It feels like that's where the real forward guidance comes into play. But honestly, the 'short to medium term' makes it tricky. Was tempted by employment, but inflation expectations seem more proactive."
+    },
+    "reply": {
+      "body": "I chose A too, but I agree it's a tough one. The Fed talks a lot about inflation expectations, but then they pivot hard to the jobs report every single month. It feels like they're always just reacting to lagging data, even when they talk about forward guidance."
+    }
+  },
+  {
+    "questionIndex": 2,
+    "topLevel": {
+      "body": "Went with credit channel here. It feels the most direct impact when banks have to hold more or less. The money multiplier link is there, but seems a bit more theoretical than the immediate 'can this bank lend?' question."
+    },
+    "reply": {
+      "body": "Interesting take. I leaned towards money supply impact because reserve requirements directly dictate how much of each deposit can be lent out, thereby affecting the M1/M2 figures more immediately than the credit channel itself."
+    }
+  },
+  {
+    "questionIndex": 3,
+    "topLevel": {
+      "body": "Went with A. Tricky wording on this one, I almost picked C because it feels intuitive that higher inflation expectations would lead to higher nominal rates, but the question specifically asks about REAL rates. The explanation confirms my final choice was correct, but it took a second to parse."
+    },
+    "reply": {
+      "body": "Yeah, the distinction between nominal and real is key here. I sometimes struggle with that too. I think they're trying to drive home the point that real rates are what actually matter for investment decisions and demand for capital, not just the headline nominal rate."
+    }
+  },
+  {
+    "questionIndex": 4,
+    "topLevel": {
+      "body": "Hoped it was discount rate. OMO feels so opaque sometimes, even though I know it's the big one. Had to go with that one based on what we’ve discussed in prior weeks about steering the fed funds rate."
+    },
+    "reply": {
+      "body": "Yeah, the discount window is definitely more direct for banks seeking immediate liquidity, but OMO is the real workhorse for overall system reserves. The indirectness is key, I think."
+    }
+  },
+  {
+    "questionIndex": 5,
+    "topLevel": {
+      "body": "Went with PMI because of the new orders component. Seems like the most direct line into business sentiment and future activity. I almost picked the yield curve for that inversion signal, but it feels a bit too backward-looking at this point."
+    },
+    "reply": {
+      "body": "Good choice. I think the yield curve is great for recession signals but maybe not as sharp for the inflationary side of things. PMI really does give that granular look at supply chains and input costs too, which is key recently."
+    }
+  },
+  {
+    "questionIndex": 6,
+    "topLevel": {
+      "body": "Went with herding behavior, but the explanation for recency bias really got me thinking. Felt like they could have been describing the same thing in slightly different terms. It's easy to get caught up in the latest news cycle."
+    },
+    "reply": {
+      "body": "I see your point. I think the distinction is subtle. Herding implies following the crowd, even if you know better. Recency bias is more about how the *information itself* is processed, letting the latest data disproportionately influence your view, regardless of others."
+    }
+  }
+]
