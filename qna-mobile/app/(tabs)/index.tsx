@@ -35,12 +35,23 @@ export default function HomeScreen() {
   const apiUrl = useRuntimeApiUrl();
   const communitiesClient = useMemo(() => createCommunitiesClient({ apiUrl }), [apiUrl]);
   const sections = useMemo(() => buildHomeCommunitySections(communities), [communities]);
+  const isAnonymous = !user;
   const isEngaged = sections.myCommunities.length > 0;
-  const heroHeading = isEngaged ? 'Welcome' : 'Today starts with a';
-  const heroAccent = isEngaged ? 'back.' : 'community.';
-  const heroBody = isEngaged
-    ? "Tap a community to answer today's question."
-    : 'Choose a room, answer the daily question, and unlock the conversation.';
+  const heroHeading = isAnonymous
+    ? 'Find your people.'
+    : isEngaged
+      ? 'Welcome'
+      : 'Today starts with a';
+  const heroAccent = isAnonymous
+    ? 'One question at a time.'
+    : isEngaged
+      ? 'back.'
+      : 'community.';
+  const heroBody = isAnonymous
+    ? 'Niche communities publish one question a day. Answer in 30 seconds, see the explanation, and unlock the discussion.'
+    : isEngaged
+      ? "Tap a community to answer today's question."
+      : 'Choose a room, answer the daily question, and unlock the conversation.';
   const statusMessage = buildHomeStatusMessage(sections.myCommunities);
   const liveQuestionCount = sections.myCommunities.reduce(
     (total, community) =>
@@ -82,24 +93,26 @@ export default function HomeScreen() {
   return (
     <Screen edges={['top', 'left', 'right', 'bottom']} padded={false}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <Pressable
-          accessibilityHint={
-            liveQuestionCount > 0
-              ? 'Opens the live questions ready for you to answer.'
-              : undefined
-          }
-          accessibilityRole={liveQuestionCount > 0 ? 'link' : 'text'}
-          disabled={liveQuestionCount === 0}
-          onPress={() => router.push('/live-questions')}
-          style={({ pressed }) => [
-            styles.statusStrip,
-            liveQuestionCount > 0 ? styles.statusStripAction : null,
-            pressed ? styles.pressed : null,
-          ]}
-        >
-          <Text style={styles.statusText}>{statusMessage}</Text>
-          {liveQuestionCount > 0 ? <Text style={styles.statusArrow}>Open</Text> : null}
-        </Pressable>
+        {isAnonymous ? null : (
+          <Pressable
+            accessibilityHint={
+              liveQuestionCount > 0
+                ? 'Opens the live questions ready for you to answer.'
+                : undefined
+            }
+            accessibilityRole={liveQuestionCount > 0 ? 'link' : 'text'}
+            disabled={liveQuestionCount === 0}
+            onPress={() => router.push('/live-questions')}
+            style={({ pressed }) => [
+              styles.statusStrip,
+              liveQuestionCount > 0 ? styles.statusStripAction : null,
+              pressed ? styles.pressed : null,
+            ]}
+          >
+            <Text style={styles.statusText}>{statusMessage}</Text>
+            {liveQuestionCount > 0 ? <Text style={styles.statusArrow}>Open</Text> : null}
+          </Pressable>
+        )}
 
         <View style={styles.hero}>
           <Heading compact accent={heroAccent}>
@@ -107,6 +120,8 @@ export default function HomeScreen() {
           </Heading>
           <BodyText>{heroBody}</BodyText>
         </View>
+
+        {isAnonymous ? <AnonymousLanding /> : null}
 
         {communitiesLoading ? (
           <StatePanel title="Loading communities..." />
@@ -124,11 +139,90 @@ export default function HomeScreen() {
                 title="My Communities"
                 communities={sections.myCommunities}
               />
+            ) : sections.discover.length > 0 ? (
+              <CommunitySection
+                emptyTitle="New communities are on the way."
+                title="Discover"
+                communities={sections.discover}
+              />
             ) : null}
           </>
         )}
       </ScrollView>
     </Screen>
+  );
+}
+
+/**
+ * Logged-out landing block: a sign-up/sign-in CTA card plus a compact
+ * "How it works" recap. Mirrors the Profile tab's anonymous pattern so the
+ * Home tab isn't an empty page for visitors who haven't signed up yet.
+ */
+function AnonymousLanding() {
+  return (
+    <View style={styles.anonStack}>
+      <View style={styles.authCard}>
+        <Eyebrow>Join Quorum</Eyebrow>
+        <Heading compact accent="here.">
+          Start answering
+        </Heading>
+        <BodyText>
+          Create a free account to join communities, answer the daily
+          question, and unlock the discussion.
+        </BodyText>
+        <View style={styles.authActions}>
+          <BrandButton variant="primary" href="/register">
+            Create account
+          </BrandButton>
+          <BrandButton variant="secondary" href="/login">
+            Sign in
+          </BrandButton>
+        </View>
+      </View>
+
+      <View style={styles.howSection}>
+        <Eyebrow>How it works</Eyebrow>
+        <View style={styles.howList}>
+          <HowItWorksRow
+            step="1"
+            title="Pick a community"
+            body="Browse niche rooms — from AI builders to chess tacticians."
+          />
+          <HowItWorksRow
+            step="2"
+            title="Answer the daily question"
+            body="One question a day. 30 seconds. See the explanation instantly."
+          />
+          <HowItWorksRow
+            step="3"
+            title="Unlock the conversation"
+            body="The discussion opens once you've taken your swing."
+          />
+        </View>
+      </View>
+    </View>
+  );
+}
+
+function HowItWorksRow({
+  step,
+  title,
+  body,
+}: {
+  step: string;
+  title: string;
+  body: string;
+}) {
+  return (
+    <View style={styles.howRow}>
+      <View style={styles.howStep}>
+        <Text style={styles.howStepText}>{step}</Text>
+      </View>
+      <View style={styles.howCopy}>
+        <Text style={styles.howTitle}>{title}</Text>
+        <Text style={styles.howBody}>{body}</Text>
+      </View>
+    </View>
   );
 }
 
@@ -213,5 +307,61 @@ const styles = StyleSheet.create({
   },
   pressed: {
     opacity: 0.72,
+  },
+  anonStack: {
+    gap: 24,
+  },
+  authCard: {
+    backgroundColor: palette.card,
+    borderColor: palette.line,
+    borderRadius: 20,
+    borderWidth: StyleSheet.hairlineWidth,
+    gap: 10,
+    padding: 22,
+  },
+  authActions: {
+    gap: 10,
+    marginTop: 12,
+  },
+  howSection: {
+    gap: 12,
+  },
+  howList: {
+    gap: 12,
+  },
+  howRow: {
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    gap: 12,
+  },
+  howStep: {
+    alignItems: 'center',
+    backgroundColor: palette.primary,
+    borderRadius: 14,
+    height: 28,
+    justifyContent: 'center',
+    width: 28,
+  },
+  howStepText: {
+    color: palette.paper,
+    fontFamily: fonts.sans,
+    fontSize: 13,
+    fontWeight: '800',
+  },
+  howCopy: {
+    flex: 1,
+    gap: 2,
+  },
+  howTitle: {
+    color: palette.ink,
+    fontFamily: fonts.sans,
+    fontSize: 15,
+    fontWeight: '700',
+  },
+  howBody: {
+    color: palette.muted,
+    fontFamily: fonts.sans,
+    fontSize: 13,
+    lineHeight: 18,
   },
 });
