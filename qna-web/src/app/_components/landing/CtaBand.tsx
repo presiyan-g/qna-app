@@ -17,16 +17,10 @@ export function CtaBand() {
           It takes 30 seconds. Tomorrow there&apos;s another one.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <Link
-            href="/communities"
-            className="rounded-full bg-accent px-[22px] py-[13px] text-sm font-semibold text-[#2A2A28]"
-          >
+          <Link href="/communities" className="q-btn q-btn-accent">
             Browse communities →
           </Link>
-          <Link
-            href="/communities/new"
-            className="rounded-full border border-paper/30 px-[22px] py-[13px] text-sm font-semibold text-paper"
-          >
+          <Link href="/communities/new" className="q-btn q-btn-ghost-dark">
             Start your own
           </Link>
         </div>

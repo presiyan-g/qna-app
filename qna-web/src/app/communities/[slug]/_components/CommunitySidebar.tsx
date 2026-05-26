@@ -2,6 +2,8 @@ import Link from 'next/link';
 import type { CommunityWithMembership } from '@/services/communities';
 import { getLatestCommunityBroadcastForCommunity } from '@/services/broadcasts';
 import { getCommunityLeaderboard } from '@/services/leaderboard';
+import { getCommunityStreakForViewer } from '@/services/profiles';
+import { CommunityStreakRibbon } from './CommunityStreakRibbon';
 
 export async function CommunitySidebar({
   community,
@@ -10,9 +12,20 @@ export async function CommunitySidebar({
   community: CommunityWithMembership;
   viewerUserId: string | null;
 }) {
-  const [latestBroadcast, leaderboard] = await Promise.all([
+  // Creators see a streak in communities they're members of, but
+  // not in communities they themselves run — they don't answer
+  // their own questions. Members get a real streak; visitors get
+  // the "Join to start a streak" teaser (no DB hit).
+  const isMember = community.currentUserRole === 'member';
+  const [latestBroadcast, leaderboard, streak] = await Promise.all([
     getLatestCommunityBroadcastForCommunity({ community, viewerUserId }),
     getCommunityLeaderboard({ slug: community.slug, window: 'all', viewerUserId }),
+    isMember && viewerUserId
+      ? getCommunityStreakForViewer({
+          communityId: community.id,
+          userId: viewerUserId,
+        })
+      : Promise.resolve(null),
   ]);
 
   return (
@@ -32,7 +45,7 @@ export async function CommunitySidebar({
             </p>
             <Link
               href={`/communities/${community.slug}/broadcasts/${latestBroadcast.id}`}
-              className="mt-3 inline-block text-sm font-semibold text-primary hover:underline"
+              className="mt-3 inline-block text-sm font-semibold text-action-lake transition-colors duration-150 ease-out hover:text-action-lake-hover hover:underline"
             >
               Open broadcast →
             </Link>
@@ -41,6 +54,17 @@ export async function CommunitySidebar({
           <p className="mt-3 text-sm text-muted">No broadcasts yet.</p>
         )}
       </div>
+
+      {/* Streak ribbon — only shown for members (or as a "join to
+          start" teaser to non-members). Creators of this community
+          hide it: they don't answer their own questions. */}
+      {community.currentUserRole !== 'creator' && (
+        <CommunityStreakRibbon
+          streak={streak}
+          isMember={isMember}
+          slug={community.slug}
+        />
+      )}
 
       <div className="rounded-lg border border-line bg-card p-5">
         <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
@@ -65,7 +89,7 @@ export async function CommunitySidebar({
         )}
         <Link
           href={`/communities/${community.slug}/leaderboard`}
-          className="mt-3 inline-block text-sm font-semibold text-primary hover:underline"
+          className="mt-3 inline-block text-sm font-semibold text-action-lake transition-colors duration-150 ease-out hover:text-action-lake-hover hover:underline"
         >
           View full leaderboard →
         </Link>

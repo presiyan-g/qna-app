@@ -49,3 +49,8 @@ export {
   QuestionNotFoundError,
   QuestionPermissionError,
 } from './errors';
+
+export {
+  computeQuestionClosesAt,
+  type CommunityCadence,
+} from './closing';

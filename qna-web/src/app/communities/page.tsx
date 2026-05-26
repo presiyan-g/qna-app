@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { Search } from 'lucide-react';
+import { EmptyState } from '@/app/_components/EmptyState';
 import { Footer } from '@/app/_components/landing/Footer';
 import { Nav } from '@/app/_components/landing/Nav';
 import { Pagination } from '@/app/_components/Pagination';
@@ -76,19 +78,26 @@ export default async function CommunitiesPage({
               Filter by category
             </label>
             <div className="flex flex-col gap-3 sm:flex-row">
-              <input
-                id="community-search"
-                name="q"
-                type="search"
-                defaultValue={query}
-                placeholder="Search by community name"
-                className="min-h-12 flex-1 rounded-lg border border-line bg-card px-4 text-sm text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary"
-              />
+              {/* Wrapper carries the q-search :focus-within rule so
+                  the icon shifts to primary when the input takes
+                  focus. The sr-only <label> above provides the
+                  accessible name; this div is purely structural. */}
+              <div className="q-search">
+                <Search size={16} strokeWidth={2} aria-hidden className="q-search-icon" />
+                <input
+                  id="community-search"
+                  name="q"
+                  type="search"
+                  defaultValue={query}
+                  placeholder="Search by community name"
+                  className="min-h-12 w-full rounded-lg border border-line bg-card pl-10 pr-4 text-sm text-ink placeholder:text-muted transition-[border-color,box-shadow] duration-200 ease-out focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/20"
+                />
+              </div>
               <select
                 id="community-category"
                 name="category"
                 defaultValue={categorySlug}
-                className="min-h-12 rounded-lg border border-line bg-card px-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-primary sm:w-56"
+                className="min-h-12 rounded-lg border border-line bg-card px-3 text-sm text-ink transition-[border-color,box-shadow] duration-200 ease-out hover:border-muted focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/20 sm:w-56"
               >
                 <option value="">All categories</option>
                 {categories.map((category) => (
@@ -97,17 +106,11 @@ export default async function CommunitiesPage({
                   </option>
                 ))}
               </select>
-              <button
-                type="submit"
-                className="rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-paper focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-              >
+              <button type="submit" className="q-btn q-btn-primary">
                 Search
               </button>
               {hasFilter ? (
-                <Link
-                  href="/communities"
-                  className="rounded-lg border border-line px-5 py-3 text-center text-sm font-semibold text-ink focus:outline-none focus:ring-2 focus:ring-primary"
-                >
+                <Link href="/communities" className="q-btn q-btn-ghost">
                   Clear
                 </Link>
               ) : null}
@@ -138,18 +141,24 @@ export default async function CommunitiesPage({
               />
             </>
           ) : (
-            <div className="rounded-lg border border-line bg-card p-8 text-center">
-              <h2 className="text-xl font-bold">
-                {hasFilter ? 'No matching communities' : 'No communities yet'}
-              </h2>
-              <p className="mt-2 text-sm text-muted">
-                {hasFilter
+            <EmptyState
+              title={hasFilter ? 'Nothing matched.' : 'No communities'}
+              titleAccent={hasFilter ? 'Try a wider net.' : 'yet.'}
+              description={
+                hasFilter
                   ? activeCategory
                     ? `Nothing in ${activeCategory.name} matches that search. Try clearing filters.`
                     : 'Try another search or browse the full community list.'
-                  : 'Create the first one and invite members to join.'}
-              </p>
-            </div>
+                  : 'Be the first to start a recurring challenge community.'
+              }
+              action={
+                hasFilter ? (
+                  <Link href="/communities" className="q-btn q-btn-ghost q-btn-md">
+                    Clear filters
+                  </Link>
+                ) : undefined
+              }
+            />
           )}
         </div>
       </section>

@@ -1,6 +1,7 @@
 import 'server-only';
 import { and, asc, count, desc, eq, ilike, sql } from 'drizzle-orm';
 import { db } from '@/db/client';
+import { isUniqueViolation } from './db-errors';
 import { AccountSuspendedError, assertUserCanMutate } from '@/services/admin';
 import { findUserStatusById } from '@/services/auth';
 import {
@@ -529,10 +530,19 @@ function toCommunityWithMembership(
   });
 }
 
-function isUniqueViolation(err: unknown): boolean {
-  const msg = err instanceof Error ? err.message : String(err);
-  return /unique|duplicate key/i.test(msg);
-}
+/**
+ * Walks the error chain looking for a Postgres unique-violation.
+ *
+ * Drizzle wraps the underlying pg error inside a DrizzleQueryError
+ * whose `message` is the formatted SQL ("Failed query: insert into…"),
+ * which means the previous message regex never matched and we leaked
+ * the raw DB failure to the page as a 500. The real signal lives on
+ * `err.cause.code === '23505'` (SQLSTATE for unique_violation) — and
+ * occasionally one level deeper depending on which driver is in play.
+ *
+ * Cap the depth so a malformed error with a self-referential cause
+ * can't make this loop forever.
+ */
 
 async function assertAccountCanMutate(userId: string): Promise<void> {
   const status = await findUserStatusById(userId);

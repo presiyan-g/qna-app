@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { EmptyState } from '@/app/_components/EmptyState';
 import { getQuestionLifecycleState, type CommunityQuestion } from '@/services/questions';
 import type { CommunityRole } from '@/services/communities';
 import { QuestionRow } from './QuestionRow';
@@ -27,7 +28,7 @@ export function QuestionsTabBody({
           </p>
           <Link
             href={`/communities/${slug}/questions/new`}
-            className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-paper hover:brightness-95"
+            className="q-btn q-btn-primary q-btn-md"
           >
             + New question
           </Link>
@@ -37,9 +38,15 @@ export function QuestionsTabBody({
       {liveQuestion && <LiveQuestionHero slug={slug} question={liveQuestion} />}
 
       {otherQuestions.length === 0 && !liveQuestion ? (
-        <div className="rounded-lg border border-line bg-card p-6 text-center text-sm text-muted">
-          No questions yet.
-        </div>
+        <EmptyState
+          title="No questions"
+          titleAccent="yet."
+          description={
+            viewerRole === 'creator'
+              ? "Draft your first one — it'll show up here the moment it's scheduled."
+              : 'Check back when the next question opens.'
+          }
+        />
       ) : (
         <ul className="grid gap-3">
           {otherQuestions.map((question) => (
@@ -69,18 +76,36 @@ function LiveQuestionHero({
   return (
     <Link
       href={`/communities/${slug}/questions/${question.id}`}
-      className="block rounded-2xl border border-primary/30 bg-gradient-to-b from-primary-soft/50 to-card p-6 transition-shadow hover:shadow-md"
+      className="q-today-card q-anim-in group block rounded-[18px] border border-line bg-card p-5 hover:border-primary hover:shadow-[0_18px_40px_-22px_rgba(31,64,50,0.28)] md:p-7"
     >
-      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
-        ● Open now {closesAt && `· Closes ${formatClosesAt(closesAt)}`}
-      </p>
-      <h2 className="mt-2 text-2xl font-bold leading-tight md:text-[28px]">
+      <div className="flex flex-wrap items-center gap-4">
+        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
+          Today&apos;s question
+        </p>
+        {closesAt ? (
+          <span className="q-pill q-pill-soft">
+            <span aria-hidden className="q-pulse-dot" />
+            Closes {formatClosesAt(closesAt)}
+          </span>
+        ) : null}
+        <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted">
+          {question.points} points
+        </span>
+      </div>
+
+      <h2 className="mt-5 text-[22px] font-bold leading-[1.25] tracking-[-0.01em] text-balance md:text-[26px]">
         {question.prompt}
       </h2>
-      <p className="mt-2 text-sm text-muted">{question.points} points</p>
-      <span className="mt-4 inline-flex rounded-full bg-primary px-5 py-2 text-sm font-semibold text-paper">
-        Answer now →
-      </span>
+
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+        <span className="text-xs text-muted">
+          <span className="serif-italic">It takes 30 seconds.</span>
+        </span>
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-primary px-[18px] py-2.5 text-sm font-semibold text-paper transition-[background-color,box-shadow,transform,gap] duration-200 ease-out group-hover:bg-primary-hover group-hover:gap-2.5 group-hover:shadow-[0_6px_16px_-8px_rgba(31,64,50,0.4)]">
+          Answer today&apos;s question
+          <span aria-hidden>→</span>
+        </span>
+      </div>
     </Link>
   );
 }

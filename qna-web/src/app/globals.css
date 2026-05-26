@@ -12,9 +12,24 @@
   --color-line: #E9E2CE;
   --color-primary: #1F4032;
   --color-primary-soft: #F4F1E3;
+  --color-primary-hover: #193428;
   --color-ink: #232220;
   --color-muted: #6B6B66;
   --color-accent: #D6A12B;
+  --color-accent-hover: #BE8C1F;
+
+  /* Action color family — clay-orange is the warm secondary action
+     used next to primary green so the two never compete for the same
+     job. Lake-blue is the tertiary / informational variant. */
+  --color-action-clay: #C2543A;
+  --color-action-clay-soft: #F8E6DE;
+  --color-action-clay-hover: #A9472F;
+  --color-action-lake: #3A6E8F;
+  --color-action-lake-soft: #E3ECF2;
+  --color-action-lake-hover: #2F5C77;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -42,4 +57,512 @@ body {
   button:not(:disabled) {
     cursor: pointer;
   }
+}
+
+/* ============================================================
+   Chip & pill family
+   ------------------------------------------------------------
+   Chips and pills are the visual vocabulary for status badges.
+   `q-chip` is the tiny uppercase-tracking-tight tag used inside
+   list rows and cards (e.g. "DAILY", "WEB & DESIGN"). `q-pill`
+   is the slightly larger labelled badge used for stateful
+   indicators ("Answered", "Closed", "+10 points").
+
+   Compose `q-chip` + a color variant (or `q-pill` + a variant).
+   Variants map to the same semantic palette as buttons — primary
+   for the brand's main signal, clay for "step away / paused",
+   lake for "informational / auxiliary", warn for late/at-risk.
+   ============================================================ */
+@utility q-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 9999px;
+  padding: 3px 9px;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@utility q-chip-primary { background: var(--color-primary-soft); color: var(--color-primary); }
+@utility q-chip-line    { background: transparent; color: var(--color-muted); border: 1px solid var(--color-line); }
+@utility q-chip-clay    { background: var(--color-action-clay-soft); color: var(--color-action-clay-hover); }
+@utility q-chip-lake    { background: var(--color-action-lake-soft); color: var(--color-action-lake-hover); }
+@utility q-chip-warn    { background: #FEF3C7; color: #92400E; }
+@utility q-chip-neutral { background: #E7E5E4; color: #44403C; }
+
+@utility q-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 9999px;
+  padding: 4px 11px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@utility q-pill-primary { background: var(--color-primary); color: var(--color-paper); }
+@utility q-pill-soft    { background: var(--color-primary-soft); color: var(--color-primary); }
+@utility q-pill-warn    { background: #FEF3C7; color: #92400E; }
+@utility q-pill-neutral { background: #E7E5E4; color: #44403C; }
+@utility q-pill-clay    { background: var(--color-action-clay-soft); color: var(--color-action-clay-hover); }
+@utility q-pill-lake    { background: var(--color-action-lake-soft); color: var(--color-action-lake-hover); }
+
+/* ---- Dropdown menu item ----
+   Used inside the UserMenu, NotificationsBellMenu, and any other
+   popover. The default state is plain ink-on-paper; on hover the
+   row fills with primary-soft and the text shifts to primary, the
+   same fill pattern as q-btn-ghost but optimized for the dense
+   inside-popover context. */
+@utility q-menuitem {
+  display: block;
+  width: 100%;
+  padding: 9px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-ink);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 150ms var(--ease-out),
+    color            150ms var(--ease-out);
+}
+.q-menuitem:hover {
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+/* ============================================================
+   Search input wrapper
+   ------------------------------------------------------------
+   Use as: <label class="q-search">
+             <Search class="q-search-icon" />
+             <input ... />
+           </label>
+
+   The wrapper owns the layout + focus contract; the input keeps
+   its own border + ring styling. We use :focus-within so the
+   icon color shift fires regardless of DOM order (peer-*
+   wouldn't work because the icon is rendered before the input).
+   ============================================================ */
+@utility q-search {
+  position: relative;
+  display: block;
+  flex: 1;
+}
+@utility q-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-muted);
+  pointer-events: none;
+  transition: color 150ms var(--ease-out);
+}
+.q-search:focus-within .q-search-icon { color: var(--color-primary); }
+
+/* ---- Inline spinner ----
+   Used inside button pending states. The SVG itself is provided
+   by app/_components/Spinner.tsx; this rule just gives the
+   element its spin. Continuous rotation, paused under
+   prefers-reduced-motion so the static arc still reads as a
+   progress hint without making anyone dizzy. */
+@keyframes q-spinner-rotate {
+  to { transform: rotate(360deg); }
+}
+@utility q-spinner {
+  animation: q-spinner-rotate 700ms linear infinite;
+  transform-origin: 50% 50%;
+}
+@media (prefers-reduced-motion: reduce) {
+  .q-spinner { animation: none; }
+}
+
+/* ============================================================
+   Entrance animations
+   ------------------------------------------------------------
+   Subtle fade-up reveals for content that "settles into place"
+   after a state transition — the result panel after submitting
+   an answer, the share modal, etc. Staggered variants (-d100,
+   -d200, -d300) let a sequence of cards arrive one beat behind
+   the last instead of popping in unison. q-anim-pop is the
+   spring scale used for celebratory beats (correct-answer
+   check mark, share open).
+
+   Honor prefers-reduced-motion — disable the animation but
+   keep the final state by skipping the keyframe entirely.
+   ============================================================ */
+@keyframes q-anim-fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes q-anim-pop {
+  0%   { transform: scale(0.6); opacity: 0; }
+  60%  { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@utility q-anim-in       { animation: q-anim-fade-up 320ms var(--ease-out) both; }
+@utility q-anim-in-d100  { animation: q-anim-fade-up 320ms var(--ease-out) 100ms both; }
+@utility q-anim-in-d200  { animation: q-anim-fade-up 320ms var(--ease-out) 200ms both; }
+@utility q-anim-in-d300  { animation: q-anim-fade-up 320ms var(--ease-out) 300ms both; }
+@utility q-anim-pop      { animation: q-anim-pop 480ms var(--ease-spring) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .q-anim-in,
+  .q-anim-in-d100,
+  .q-anim-in-d200,
+  .q-anim-in-d300,
+  .q-anim-pop { animation: none; }
+}
+
+/* ---- Brand motion ---- */
+/* Used by the live-question countdown chip on the community page. */
+@keyframes q-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.4); opacity: 0.55; }
+}
+
+@utility q-pulse-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--color-primary);
+  animation: q-pulse 1.6s ease-in-out infinite;
+}
+
+/* "Today's Question" hero card: gradient top border (primary → accent →
+   clay) used to signal the marquee item. The card keeps overflow: hidden
+   so the ::before stays clipped to the rounded corners. */
+@utility q-today-card {
+  position: relative;
+  overflow: hidden;
+  transition:
+    border-color 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out);
+}
+.q-today-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 70%,
+    var(--color-action-clay) 100%
+  );
+}
+
+/* ---- Streak ribbon ---- */
+/* 30-day activity grid used on the public profile. CSS-only hover
+   tooltip — no JS. */
+@utility q-streak {
+  display: grid;
+  gap: 4px;
+  grid-template-columns: repeat(15, 1fr);
+}
+/* Streak grid collapses to keep cells legible at smaller widths.
+   Breakpoints follow the design: 15 cols by default, 10 at tablet,
+   7 at small phones. */
+@media (max-width: 900px) {
+  .q-streak { grid-template-columns: repeat(10, 1fr); }
+}
+@media (max-width: 600px) {
+  .q-streak { grid-template-columns: repeat(7, 1fr); }
+}
+.q-streak .q-streak-cell {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  background: var(--color-line);
+  position: relative;
+  transition: transform 150ms var(--ease-out);
+}
+.q-streak .q-streak-cell:hover { transform: scale(1.4); z-index: 2; }
+.q-streak .q-streak-cell.l1 { background: #C5D6CB; }
+.q-streak .q-streak-cell.l2 { background: #7FA48E; }
+.q-streak .q-streak-cell.l3 { background: var(--color-primary); }
+/* Binary mode — community-scoped streak. "correct" lands on the
+   same primary green as l3 (semantic alias), while "late" uses
+   the warm clay-soft tint so a wrong/late attempt still reads
+   as "tried but didn't land" rather than "didn't show up". */
+.q-streak .q-streak-cell.correct { background: var(--color-primary); }
+.q-streak .q-streak-cell.late    { background: var(--color-action-clay-soft); }
+.q-streak .q-streak-cell .q-streak-tip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms var(--ease-out);
+}
+.q-streak .q-streak-cell:hover .q-streak-tip { opacity: 1; }
+
+/* ============================================================
+   Button family
+   ------------------------------------------------------------
+   Every CTA in the app should compose `q-btn` + one variant
+   (`q-btn-primary`, `q-btn-clay`, etc.) and optionally a size
+   modifier (`q-btn-sm` / `q-btn-md`). The base class owns the
+   pill shape, the transition contract, the active-press, and
+   the focus-visible ring. Variants only set their colors.
+
+   Color semantics — keep these stable so designers can reason:
+     primary  = main action (Submit, Join, Browse)
+     clay     = warm secondary or "step away" (Start your own,
+                Create, Leave community)
+     lake     = tertiary / informational (Post comment, Edit,
+                Open broadcast)
+     ghost    = low-emphasis (Cancel, View details) — line only
+     accent   = ONLY on the dark CTA band (gold-on-green)
+     soft     = subtle primary-soft pill (e.g. username chip)
+     ghost-dark = ghost variant for use on dark backgrounds
+   ============================================================ */
+@utility q-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  padding: 13px 22px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color 200ms var(--ease-out),
+    border-color     200ms var(--ease-out),
+    color            200ms var(--ease-out),
+    box-shadow       200ms var(--ease-out),
+    transform        120ms var(--ease-out);
+}
+.q-btn:active { transform: translateY(1px); }
+.q-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(31, 64, 50, 0.20);
+}
+.q-btn:disabled,
+.q-btn[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.q-btn:disabled:hover,
+.q-btn[aria-disabled="true"]:hover {
+  /* Suppress hover effects on disabled controls. */
+  background: inherit;
+  box-shadow: none;
+  transform: none;
+}
+
+@utility q-btn-md { padding: 10px 18px; font-size: 13px; }
+@utility q-btn-sm { padding: 7px 14px;  font-size: 12px; }
+
+@utility q-btn-primary {
+  background: var(--color-primary);
+  color: var(--color-paper);
+}
+.q-btn-primary:hover {
+  background: var(--color-primary-hover);
+  box-shadow: 0 6px 16px -8px rgba(31, 64, 50, 0.40);
+}
+
+@utility q-btn-clay {
+  background: var(--color-action-clay);
+  color: #ffffff;
+}
+.q-btn-clay:hover {
+  background: var(--color-action-clay-hover);
+  box-shadow: 0 6px 16px -8px rgba(194, 84, 58, 0.40);
+}
+
+@utility q-btn-lake {
+  background: var(--color-action-lake);
+  color: #ffffff;
+}
+.q-btn-lake:hover {
+  background: var(--color-action-lake-hover);
+  box-shadow: 0 6px 16px -8px rgba(58, 110, 143, 0.40);
+}
+
+@utility q-btn-ghost {
+  background: transparent;
+  color: var(--color-ink);
+  border-color: var(--color-line);
+}
+.q-btn-ghost:hover {
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+@utility q-btn-accent {
+  background: var(--color-accent);
+  color: #2a2a28;
+}
+.q-btn-accent:hover {
+  background: var(--color-accent-hover);
+  box-shadow: 0 6px 16px -8px rgba(214, 161, 43, 0.40);
+}
+
+@utility q-btn-soft {
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+.q-btn-soft:hover {
+  filter: brightness(0.95);
+}
+
+/* Ghost variant for use on dark backgrounds (CTA band, share
+   modal, etc) — the normal q-btn-ghost would invert into
+   unreadable green-on-green when the surface itself is green. */
+@utility q-btn-ghost-dark {
+  background: transparent;
+  color: var(--color-paper);
+  border-color: rgba(250, 246, 236, 0.30);
+}
+.q-btn-ghost-dark:hover {
+  background: rgba(250, 246, 236, 0.10);
+  border-color: var(--color-paper);
+  color: var(--color-paper);
+  box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.35);
+}
+
+/* Danger variant — used for irreversible destructive actions like
+   "Delete community". Distinct from clay (which signals "step
+   away / leave" but is reversible). */
+@utility q-btn-danger {
+  background: var(--color-action-clay);
+  color: #ffffff;
+}
+.q-btn-danger:hover {
+  background: var(--color-action-clay-press, #913b26);
+  box-shadow: 0 6px 16px -8px rgba(145, 59, 38, 0.45);
+}
+
+/* ---- Back link ----
+   Small primary-colored "← Back to home" affordance used on auth
+   screens. The arrow lives in a separate span so we can grow the
+   gap on hover (the design's signature micro-interaction). */
+@utility q-link-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: gap 200ms var(--ease-out), color 150ms var(--ease-out);
+}
+.q-link-back:hover { color: var(--color-primary-hover); gap: 8px; }
+
+/* ============================================================
+   Share card modal
+   ------------------------------------------------------------
+   Modal backdrop + printable-feeling share card used after a
+   correct answer. Backdrop fades in; the card itself stays
+   crisp — it's meant to feel like a finished poster, not a
+   transient UI surface. The accent gold "corner blob" lives in
+   ::after so we don't have to reach for an extra DOM node.
+   ============================================================ */
+@keyframes q-fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@utility q-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 64, 50, 0.45);
+  /* Canonical "centered scrollable modal" pattern:
+     flex container + overflow-y: auto on the backdrop. The
+     modal itself uses margin: auto 0 below — auto margins on a
+     flex child distribute leftover space, centering it when
+     there's room and collapsing to 0 when the content exceeds
+     the viewport so the page can actually scroll. flex
+     align-items: center has a well-known bug here where tall
+     items get clipped past the top instead of scrolling. */
+  display: flex;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 24px;
+  z-index: 80;
+  animation: q-fade-up 200ms var(--ease-out) both;
+}
+
+@utility q-modal {
+  background: var(--color-paper);
+  border-radius: 20px;
+  padding: 28px;
+  max-width: 520px;
+  width: 100%;
+  /* Auto cross-axis margins inside a flex parent = "center if
+     room, anchor to start if too tall to fit" — exactly what we
+     want for a scrollable modal. */
+  margin: auto 0;
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.4);
+  animation: q-fade-up 280ms var(--ease-out) both;
+}
+
+@utility q-share-card {
+  background: var(--color-primary);
+  color: var(--color-paper);
+  border-radius: 18px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.q-share-card::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -20%;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  opacity: 0.18;
+  pointer-events: none;
+}
+.q-share-card .q-share-wm {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: 18px;
+  color: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .q-modal-backdrop,
+  .q-modal { animation: none; }
+}
+
+/* ---- Vote distribution bars ---- */
+/* Used by the post-answer result panel. The bar's width is set inline
+   per-choice; the keyframe just animates from 0 → that width on mount
+   so the reveal feels alive. */
+@keyframes q-bar-fill {
+  from { width: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Skip the fill animation — bar still renders at its final width. */
+  [style*="q-bar-fill"] { animation: none !important; }
 }

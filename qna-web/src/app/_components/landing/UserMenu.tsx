@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { ChevronDown } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { logoutAction } from '@/app/actions/auth';
 import type { ListQuestionNotificationsResult } from '@/services/notifications';
@@ -38,10 +39,7 @@ export function UserMenu({
 
   return (
     <div className="flex items-center gap-2.5">
-      <Link
-        href="/dashboard"
-        className="rounded-full border border-primary/25 bg-paper px-3 py-1.5 text-[13px] font-semibold text-ink transition-colors hover:border-primary hover:bg-primary-soft hover:text-primary"
-      >
+      <Link href="/dashboard" className="q-btn q-btn-ghost q-btn-sm">
         Dashboard
       </Link>
       <NotificationsBellMenu
@@ -54,25 +52,15 @@ export function UserMenu({
           aria-haspopup="menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="flex items-center gap-1 rounded-full bg-primary-soft px-3 py-1.5 text-[13px] font-semibold text-primary hover:brightness-95"
+          className="q-btn q-btn-soft q-btn-sm"
         >
           @{username}
-          <svg
-            width="10"
-            height="10"
-            viewBox="0 0 12 12"
-            fill="none"
+          <ChevronDown
+            size={12}
+            strokeWidth={2}
             aria-hidden
-            className={`transition-transform ${open ? 'rotate-180' : ''}`}
-          >
-            <path
-              d="M3 4.5L6 7.5L9 4.5"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+            className={`transition-transform duration-200 ease-out ${open ? 'rotate-180' : ''}`}
+          />
         </button>
 
         {open ? (
@@ -84,16 +72,12 @@ export function UserMenu({
               role="menuitem"
               href={`/users/${username}`}
               onClick={() => setOpen(false)}
-              className="block px-4 py-2 font-medium text-ink hover:bg-primary-soft"
+              className="q-menuitem"
             >
               Profile
             </Link>
             <form action={logoutAction}>
-              <button
-                type="submit"
-                role="menuitem"
-                className="block w-full px-4 py-2 text-left font-medium text-ink hover:bg-primary-soft"
-              >
+              <button type="submit" role="menuitem" className="q-menuitem">
                 Log out
               </button>
             </form>

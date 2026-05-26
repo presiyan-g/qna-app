@@ -60,18 +60,12 @@ export default async function CommunityAboutPage({ params }: PageProps) {
           </p>
           {session ? (
             <form action={joinCommunityAction.bind(null, slug)}>
-              <button
-                type="submit"
-                className="mt-4 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-paper"
-              >
+              <button type="submit" className="q-btn q-btn-clay mt-4">
                 Join community
               </button>
             </form>
           ) : (
-            <Link
-              href="/login"
-              className="mt-4 inline-block rounded-full bg-primary px-6 py-3 text-sm font-semibold text-paper"
-            >
+            <Link href="/login" className="q-btn q-btn-clay mt-4">
               Sign in to join
             </Link>
           )}

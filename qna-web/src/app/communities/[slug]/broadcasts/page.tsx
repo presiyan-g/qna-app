@@ -75,7 +75,7 @@ export default async function CommunityBroadcastsPage({
         <div className="mt-8">
           <Link
             href={`/communities/${community.slug}/broadcasts?cursor=${encodeURIComponent(page.pagination.nextCursor)}`}
-            className="inline-flex rounded-full border border-line px-5 py-2.5 text-sm font-bold text-ink hover:border-primary hover:text-primary"
+            className="q-btn q-btn-ghost q-btn-md"
           >
             Older posts
           </Link>

@@ -13,16 +13,10 @@ export function CreatorForbidden() {
           creator in one.
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
-          <Link
-            href="/communities/new"
-            className="rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-paper"
-          >
+          <Link href="/communities/new" className="q-btn q-btn-primary q-btn-md">
             Create community
           </Link>
-          <Link
-            href="/communities"
-            className="rounded-full border border-line px-4 py-2.5 text-sm font-semibold text-ink"
-          >
+          <Link href="/communities" className="q-btn q-btn-ghost q-btn-md">
             Browse communities
           </Link>
         </div>

@@ -79,13 +79,16 @@ function CommunityHeaderAction({
     const leaveAction = leaveCommunityAction.bind(null, community.slug);
     return (
       <form action={leaveAction} className="flex items-center gap-2">
-        <span className="rounded-full bg-primary-soft px-5 py-2.5 text-sm font-semibold text-primary">
+        <span
+          className="q-pill q-pill-soft"
+          style={{ padding: '10px 18px', fontSize: 13 }}
+          aria-label="You have joined this community"
+        >
           ✓ Joined
         </span>
-        <button
-          type="submit"
-          className="rounded-full border border-line px-4 py-2.5 text-sm font-semibold text-ink hover:border-primary hover:text-primary"
-        >
+        {/* Leave is ghost — quiet, reversible. Joining is the
+            committing action, so the noisy color belongs there. */}
+        <button type="submit" className="q-btn q-btn-ghost q-btn-md">
           Leave
         </button>
       </form>
@@ -95,20 +98,16 @@ function CommunityHeaderAction({
     const joinAction = joinCommunityAction.bind(null, community.slug);
     return (
       <form action={joinAction}>
-        <button
-          type="submit"
-          className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-paper"
-        >
+        {/* Join is clay — a secondary positive commit that should
+            stand apart from primary "real commits" like Submit. */}
+        <button type="submit" className="q-btn q-btn-clay q-btn-md">
           Join community
         </button>
       </form>
     );
   }
   return (
-    <Link
-      href="/login"
-      className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-paper"
-    >
+    <Link href="/login" className="q-btn q-btn-clay q-btn-md">
       Sign in to join
     </Link>
   );

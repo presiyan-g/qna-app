@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useActionState } from 'react';
+import { Spinner } from '@/app/_components/Spinner';
 import { loginAction, type AuthFormState } from '@/app/actions/auth';
 
 const INITIAL: AuthFormState = { ok: false };
@@ -41,11 +42,8 @@ export function LoginForm({ nextPath }: { nextPath: string }) {
         error={state.fieldErrors?.password}
       />
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="mt-2 rounded-full bg-primary px-[22px] py-[13px] text-sm font-semibold text-paper disabled:opacity-60"
-      >
+      <button type="submit" disabled={pending} className="q-btn q-btn-primary mt-2">
+        {pending && <Spinner />}
         {pending ? 'Signing in…' : 'Sign in'}
       </button>
 
@@ -89,7 +87,7 @@ function Field({
         autoComplete={autoComplete}
         aria-invalid={error ? 'true' : undefined}
         aria-describedby={error ? `${id}-error` : undefined}
-        className="rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+        className="rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none transition-[border-color,box-shadow] duration-200 ease-out placeholder:text-muted hover:border-muted/60 focus:border-primary focus:ring-[3px] focus:ring-primary/20"
       />
       {error && (
         <p id={`${id}-error`} className="text-[12px] text-red-700">

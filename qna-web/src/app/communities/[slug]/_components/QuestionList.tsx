@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Check, X } from 'lucide-react';
 import type { ScheduledCommunityQuestion } from '@/services/questions';
 import {
   classifyChoice,
@@ -41,7 +42,7 @@ export function QuestionList({
         >
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <span className="inline-flex rounded-full bg-primary-soft px-3 py-1 text-[12px] font-semibold text-primary">
+              <span className="q-pill q-pill-soft">
                 {getQuestionState(question)}
               </span>
               <h3 className="mt-3 text-xl font-bold leading-snug">
@@ -92,7 +93,7 @@ export function QuestionList({
 
           <Link
             href={`/communities/${slug}/questions/${question.id}`}
-            className="mt-5 inline-flex rounded-full bg-primary px-4 py-2 text-sm font-bold text-paper"
+            className="q-btn q-btn-primary q-btn-md mt-5"
           >
             Open question
           </Link>
@@ -115,43 +116,13 @@ function choiceClassName(state: ChoiceClassification): string {
 
 function CheckIcon({ className }: { className?: string }) {
   return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden
-    >
-      <path
-        d="M5 12l4 4L19 6"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <Check size={16} strokeWidth={2} aria-hidden className={className} />
   );
 }
 
 function CrossIcon({ className }: { className?: string }) {
   return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden
-    >
-      <path
-        d="M6 6l12 12M18 6L6 18"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <X size={16} strokeWidth={2} aria-hidden className={className} />
   );
 }
 

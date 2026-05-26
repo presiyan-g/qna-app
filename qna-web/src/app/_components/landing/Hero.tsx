@@ -7,6 +7,11 @@ const STACK_POSITIONS = [
   "top-[175px] left-[30px] -rotate-1",
 ];
 
+// Staggered fade-up so the three cards land one beat at a time
+// rather than popping in unison. Front card (z-10) settles first,
+// then the back cards drift in.
+const STACK_ANIMS = ["q-anim-in-d100", "q-anim-in", "q-anim-in-d200"];
+
 export function Hero() {
   return (
     <section className="px-6 py-16 md:px-12 md:py-20">
@@ -26,26 +31,23 @@ export function Hero() {
             you&apos;ve taken a swing.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link
-              href="/communities"
-              className="rounded-full bg-primary px-[22px] py-[13px] text-sm font-semibold text-paper"
-            >
+            <Link href="/communities" className="q-btn q-btn-primary">
               Browse communities →
             </Link>
-            <Link
-              href="/communities/new"
-              className="rounded-full border border-line px-[22px] py-[13px] text-sm font-semibold text-ink"
-            >
+            <Link href="/communities/new" className="q-btn q-btn-clay">
               Start your own
             </Link>
           </div>
         </div>
 
-        <div className="relative mx-auto h-[320px] w-full max-w-[420px]">
+        {/* overflow-hidden so the absolute-positioned card stack
+            never escapes the viewport on narrow phones (the cards
+            sit at fixed pixel offsets and would otherwise spill). */}
+        <div className="relative mx-auto h-[320px] w-full max-w-[420px] overflow-hidden">
           {HERO_STACK.map((c, i) => (
             <article
               key={c.slug}
-              className={`absolute w-[260px] rounded-[14px] border border-line bg-card px-[18px] py-4 shadow-[0_18px_40px_-22px_rgba(31,64,50,0.28)] ${STACK_POSITIONS[i]}`}
+              className={`absolute w-[260px] rounded-[14px] border border-line bg-card px-[18px] py-4 shadow-[0_18px_40px_-22px_rgba(31,64,50,0.28)] ${STACK_POSITIONS[i]} ${STACK_ANIMS[i] ?? ''}`}
             >
               <div className="mb-2.5 flex items-center gap-[11px]">
                 <div className="flex h-[34px] w-[34px] items-center justify-center rounded-[9px] bg-primary-soft text-[17px]">

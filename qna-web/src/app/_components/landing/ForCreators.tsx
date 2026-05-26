@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Check } from "lucide-react";
 
 const CHECKLIST = [
   {
@@ -36,10 +37,7 @@ export function ForCreators() {
             enough to launch a community. Schedule one question. Members
             answer, learn, talk. You see exactly who shows up.
           </p>
-          <Link
-            href="/communities/new"
-            className="inline-flex rounded-full bg-primary px-[22px] py-[13px] text-sm font-semibold text-paper"
-          >
+          <Link href="/communities/new" className="q-btn q-btn-clay">
             Start your community →
           </Link>
         </div>
@@ -47,14 +45,17 @@ export function ForCreators() {
         <ul className="grid gap-3.5">
           {CHECKLIST.map((item) => (
             <li key={item.head} className="flex items-start gap-3 text-sm">
+              {/* Soft-primary disc + Lucide Check kept the same
+                  shape as the design's CheckDot, now with a
+                  consistent icon family across the app. */}
               <span
                 aria-hidden
-                className="mt-0.5 flex h-[22px] w-[22px] flex-shrink-0 items-center justify-center rounded-full bg-primary-soft text-xs font-bold text-primary"
+                className="mt-0.5 flex h-[22px] w-[22px] flex-shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary"
               >
-                ✓
+                <Check size={13} strokeWidth={2.4} />
               </span>
               <span>
-                <strong>{item.head}</strong> - {item.tail}
+                <strong>{item.head}</strong> — {item.tail}
               </span>
             </li>
           ))}

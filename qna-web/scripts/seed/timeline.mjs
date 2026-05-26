@@ -23,7 +23,12 @@ export function computeQuestionTimeline({ now, index, cadence }) {
   const tomorrow = new Date(now);
   tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
   tomorrow.setUTCHours(9, 0, 0, 0);
-  return { kind: 'scheduled', scheduledFor: tomorrow, publishedAt: null, closesAt: null };
+  return {
+    kind: 'scheduled',
+    scheduledFor: tomorrow,
+    publishedAt: new Date(tomorrow.getTime()),
+    closesAt: new Date(tomorrow.getTime() + windowMs),
+  };
 }
 
 export function pickActivityTier(username) {

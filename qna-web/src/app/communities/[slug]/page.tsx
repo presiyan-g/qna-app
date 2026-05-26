@@ -78,7 +78,10 @@ export default async function CommunityQuestionsTab({
   return (
     <div className="flex flex-col gap-4">
       {savedMessage && <SavedBanner message={savedMessage} />}
-      <div className="grid gap-6 lg:grid-cols-[1fr_300px]">
+      {/* Two-col layout breaks earlier (md) per the design rule so
+          the sidebar surfaces — Today's broadcast, leaderboard —
+          fit alongside questions on common tablet widths. */}
+      <div className="grid gap-6 md:grid-cols-[1fr_280px] xl:grid-cols-[1fr_320px]">
         <div className="flex flex-col gap-4">
           <QuestionsTabBody
             slug={slug}

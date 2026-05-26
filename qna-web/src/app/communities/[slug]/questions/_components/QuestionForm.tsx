@@ -2,6 +2,7 @@
 
 import { useActionState, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
+import { Spinner } from '@/app/_components/Spinner';
 import {
   createQuestionDraftAction,
   createScheduledQuestionAction,
@@ -315,24 +316,27 @@ function CreateQuestionForm({
             type="submit"
             formAction={draftFormAction}
             disabled={pending}
-            className="cursor-pointer rounded-full border border-primary/25 bg-paper px-5 py-3 text-sm font-bold text-ink transition-colors hover:border-primary hover:bg-primary-soft hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 disabled:cursor-not-allowed disabled:opacity-60"
+            className="q-btn q-btn-ghost q-btn-md"
           >
+            {draftPending && <Spinner />}
             {draftPending ? 'Saving...' : 'Save draft'}
           </button>
           <button
             type="submit"
             formAction={scheduledFormAction}
             disabled={pending}
-            className="cursor-pointer rounded-full border border-primary bg-primary-soft px-5 py-3 text-sm font-bold text-primary transition hover:shadow-md hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 disabled:cursor-not-allowed disabled:opacity-60"
+            className="q-btn q-btn-lake q-btn-md"
           >
+            {scheduledPending && <Spinner />}
             {scheduledPending ? 'Scheduling...' : 'Schedule for later'}
           </button>
           <button
             type="submit"
             formAction={publishNowFormAction}
             disabled={pending}
-            className="cursor-pointer rounded-full bg-primary px-5 py-3 text-sm font-bold text-paper transition hover:brightness-110 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed disabled:opacity-60"
+            className="q-btn q-btn-primary q-btn-md"
           >
+            {publishNowPending && <Spinner />}
             {publishNowPending ? 'Publishing...' : 'Publish now'}
           </button>
         </div>
@@ -381,8 +385,9 @@ function EditQuestionForm({
           <button
             type="submit"
             disabled={pending}
-            className="cursor-pointer rounded-full bg-primary px-5 py-3 text-sm font-bold text-paper transition hover:brightness-110 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed disabled:opacity-60"
+            className="q-btn q-btn-primary q-btn-md"
           >
+            {pending && <Spinner />}
             {pending ? 'Saving...' : 'Save changes'}
           </button>
         </div>

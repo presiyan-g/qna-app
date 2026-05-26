@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { Spinner } from '@/app/_components/Spinner';
 import {
   submitAnswerAction,
   type AnswerFormState,
@@ -90,8 +91,9 @@ export function AnswerForm({
       <button
         type="submit"
         disabled={pending}
-        className="mt-5 w-full rounded-full bg-primary px-5 py-3 text-sm font-bold text-paper transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-65 sm:w-auto"
+        className="q-btn q-btn-primary mt-5 w-full sm:w-auto"
       >
+        {pending && <Spinner />}
         {pending ? 'Submitting...' : 'Submit answer'}
       </button>
     </form>
