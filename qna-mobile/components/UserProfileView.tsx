@@ -4,6 +4,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import {
+  BackLink,
   BodyText,
   BrandBadge,
   BrandButton,
@@ -35,7 +36,17 @@ import {
  * concerns (whether it's pushed or tabbed) are owned by the route file that
  * mounts it.
  */
-export function UserProfileView({ username }: { username: string }) {
+export function UserProfileView({
+  username,
+  backHref,
+  backLabel,
+}: {
+  username: string;
+  /** When provided, renders a "← {backLabel}" link at the top of the screen.
+   *  Used when the profile was pushed onto a Stack (e.g. /users/[username]). */
+  backHref?: Href;
+  backLabel?: string;
+}) {
   const router = useRouter();
   const { logout, user } = useAuth();
   const [confirmingLogout, setConfirmingLogout] = useState(false);
@@ -85,6 +96,9 @@ export function UserProfileView({ username }: { username: string }) {
   return (
     <Screen padded={false}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        {backHref ? (
+          <BackLink href={backHref}>{backLabel ?? 'Back'}</BackLink>
+        ) : null}
         {loading ? (
           <StatePanel title="Loading profile..." />
         ) : error || !profile ? (
@@ -142,7 +156,11 @@ export function UserProfileView({ username }: { username: string }) {
                   ))}
                 </View>
               ) : (
-                <StatePanel title="No active community memberships yet." />
+                <StatePanel
+                  variant="dashed"
+                  title="No active community memberships"
+                  titleAccent="yet."
+                />
               )}
             </View>
           </>
@@ -151,6 +169,7 @@ export function UserProfileView({ username }: { username: string }) {
       <ConfirmDialog
         cancelLabel="Stay signed in"
         confirmLabel="Logout"
+        destructive
         message="You can sign back in any time with your email and password."
         onCancel={() => setConfirmingLogout(false)}
         onConfirm={handleConfirmLogout}

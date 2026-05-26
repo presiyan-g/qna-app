@@ -8,6 +8,9 @@ export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
+        // No persistent header anywhere — each screen renders its own
+        // back link and title inside the content area.
+        headerShown: false,
         tabBarActiveTintColor: palette.primary,
         tabBarInactiveTintColor: palette.muted,
         tabBarStyle: {
@@ -26,27 +29,12 @@ export default function TabsLayout() {
           fontWeight: '700',
           marginTop: 2,
         },
-        headerStyle: {
-          backgroundColor: palette.paper,
-          borderBottomColor: palette.line,
-          borderBottomWidth: StyleSheet.hairlineWidth,
-        },
-        headerTintColor: palette.primary,
-        headerTitleStyle: {
-          color: palette.primary,
-          fontFamily: fonts.sans,
-          fontSize: 17,
-          fontWeight: '800',
-        },
-        headerShadowVisible: false,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          // Header shows brand name; tab label stays "Home".
-          title: 'Quorum',
-          tabBarLabel: 'Home',
+          title: 'Home',
           tabBarIcon: ({ color, focused, size }) => (
             <Ionicons
               name={focused ? 'home' : 'home-outline'}
@@ -56,16 +44,15 @@ export default function TabsLayout() {
           ),
         }}
       />
-      {/* Discover tab — its content is the Stack inside (tabs)/communities/.
-          The Stack hides its header on `index` so we don't double-up with the
-          tab header. */}
       <Tabs.Screen
         name="communities"
         options={{
           title: 'Discover',
-          // Hide the Tabs-level header on this tab; the Stack inside owns
-          // headers for the list (hidden) + detail screens.
-          headerShown: false,
+          // Reset the Discover inner stack to the communities list whenever
+          // the tab loses focus, so coming back always lands on the list
+          // (matches the user expectation that Discover never "remembers"
+          // a deep community/question route across tab switches).
+          popToTopOnBlur: true,
           tabBarIcon: ({ color, focused, size }) => (
             <Ionicons
               name={focused ? 'compass' : 'compass-outline'}
@@ -104,10 +91,7 @@ export default function TabsLayout() {
 
       {/* `users/[username]` lives in its own Stack at (tabs)/users/. Hide the
           directory from the tab bar — it's only reachable via navigation. */}
-      <Tabs.Screen
-        name="users"
-        options={{ href: null, headerShown: false }}
-      />
+      <Tabs.Screen name="users" options={{ href: null, popToTopOnBlur: true }} />
     </Tabs>
   );
 }

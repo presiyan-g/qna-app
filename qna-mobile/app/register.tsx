@@ -3,9 +3,11 @@ import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View } fr
 import { useLocalSearchParams } from 'expo-router';
 
 import {
+  AuthCard,
   AuthLink,
-  BodyText,
+  BackLink,
   BrandButton,
+  BrandLogo,
   BrandTextInput,
   Eyebrow,
   FieldError,
@@ -57,62 +59,74 @@ export default function RegisterScreen() {
   }
 
   return (
-    <Screen padded={false}>
+    <Screen padded={false} edges={['top', 'left', 'right', 'bottom']}>
       <KeyboardAvoidingView
         behavior={Platform.select({ ios: 'padding', default: undefined })}
         style={styles.keyboardView}
       >
         <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
-          <View style={styles.copy}>
-            <Eyebrow>Join Quorum</Eyebrow>
-            <Heading compact>Start with one question.</Heading>
-            <BodyText>Create your account to answer questions and join the discussion.</BodyText>
-          </View>
+          <View style={styles.shell}>
+            <View style={styles.brandRow}>
+              <BrandLogo />
+            </View>
+            <BackLink href="/">Back to home</BackLink>
 
-          <View style={brandStyles.form}>
-            <BrandTextInput
-              accessibilityLabel="Username"
-              autoCapitalize="none"
-              onChangeText={setUsername}
-              placeholder="Username"
-              textContentType="username"
-              value={username}
-            />
-            <FieldError>{fieldErrors.username}</FieldError>
-            <BrandTextInput
-              accessibilityLabel="Email"
-              inputMode="email"
-              keyboardType="email-address"
-              onChangeText={setEmail}
-              placeholder="Email"
-              textContentType="emailAddress"
-              value={email}
-            />
-            <FieldError>{fieldErrors.email}</FieldError>
-            <BrandTextInput
-              accessibilityLabel="Password"
-              onChangeText={setPassword}
-              placeholder="Password"
-              secureTextEntry
-              textContentType="newPassword"
-              value={password}
-            />
-            <FieldError>{fieldErrors.password}</FieldError>
-            <FormError>{formError}</FormError>
-            <BrandButton disabled={submitting} onPress={handleSubmit}>
-              {submitting ? 'Creating account...' : 'Create account'}
-            </BrandButton>
-          </View>
+            <AuthCard>
+              <View style={styles.copy}>
+                <Eyebrow>Join Quorum</Eyebrow>
+                <Heading compact accent="question.">
+                  Start with one
+                </Heading>
+              </View>
 
-          <View style={styles.footer}>
-            <Text style={styles.footerText}>Already have an account?</Text>
-            <AuthLink
-              href={
-                returnToPath ? { pathname: '/login', params: { returnTo: returnToPath } } : '/login'
-              }
-            >
-              Sign in
-            </AuthLink>
+              <View style={brandStyles.form}>
+                <BrandTextInput
+                  accessibilityLabel="Username"
+                  autoCapitalize="none"
+                  onChangeText={setUsername}
+                  placeholder="Username"
+                  textContentType="username"
+                  value={username}
+                />
+                <FieldError>{fieldErrors.username}</FieldError>
+                <BrandTextInput
+                  accessibilityLabel="Email"
+                  inputMode="email"
+                  keyboardType="email-address"
+                  onChangeText={setEmail}
+                  placeholder="Email"
+                  textContentType="emailAddress"
+                  value={email}
+                />
+                <FieldError>{fieldErrors.email}</FieldError>
+                <BrandTextInput
+                  accessibilityLabel="Password"
+                  onChangeText={setPassword}
+                  placeholder="Password"
+                  secureTextEntry
+                  textContentType="newPassword"
+                  value={password}
+                />
+                <FieldError>{fieldErrors.password}</FieldError>
+                <FormError>{formError}</FormError>
+                <BrandButton disabled={submitting} onPress={handleSubmit}>
+                  {submitting ? 'Creating account...' : 'Create account'}
+                </BrandButton>
+              </View>
+
+              <View style={styles.footer}>
+                <Text style={styles.footerText}>Already have an account?</Text>
+                <AuthLink
+                  href={
+                    returnToPath
+                      ? { pathname: '/login', params: { returnTo: returnToPath } }
+                      : '/login'
+                  }
+                >
+                  Sign in
+                </AuthLink>
+              </View>
+            </AuthCard>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -131,22 +145,31 @@ const styles = StyleSheet.create({
   content: {
     flexGrow: 1,
     justifyContent: 'center',
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 28,
+  },
+  shell: {
+    alignSelf: 'center',
+    gap: 12,
+    maxWidth: 440,
+    width: '100%',
+  },
+  brandRow: {
+    alignItems: 'center',
   },
   copy: {
-    gap: 10,
+    gap: 8,
   },
   footer: {
     alignItems: 'center',
     borderTopColor: palette.line,
-    borderTopWidth: 1,
+    borderTopWidth: StyleSheet.hairlineWidth,
     gap: 2,
-    marginTop: 28,
-    paddingTop: 20,
+    paddingTop: 18,
   },
   footerText: {
     color: palette.muted,
     fontFamily: fonts.sans,
-    fontSize: 14,
+    fontSize: 13,
   },
 });

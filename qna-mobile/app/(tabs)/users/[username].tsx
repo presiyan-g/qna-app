@@ -1,6 +1,6 @@
 import { useLocalSearchParams } from 'expo-router';
 
-import { Screen, StatePanel } from '@/components/Brand';
+import { BackLink, Screen, StatePanel } from '@/components/Brand';
 import { UserProfileView } from '@/components/UserProfileView';
 
 export default function UserProfileScreen() {
@@ -10,10 +10,11 @@ export default function UserProfileScreen() {
   if (!usernameValue) {
     return (
       <Screen>
+        <BackLink href="/">Back</BackLink>
         <StatePanel title="Profile not found." />
       </Screen>
     );
   }
 
-  return <UserProfileView username={usernameValue} />;
+  return <UserProfileView username={usernameValue} backHref="/" backLabel="Back" />;
 }

@@ -25,18 +25,49 @@ const pillBaseStyle = {
   paddingHorizontal: 18,
 };
 
+// Mirrors web's q-btn-* color semantics. Keep this list aligned with
+// the variants documented in qna-web/src/app/globals.css.
+//   primary  — main commit (Submit, Sign in, Post)
+//   clay     — warm secondary commit (Join, Create, Start)
+//   lake     — tertiary / informational (Edit, Post comment)
+//   ghost    — line-only low-emphasis (Cancel, Back)
+//   secondary— same as ghost on mobile (kept for back-compat)
+//   soft     — quiet primary-soft pill
+//   danger   — irreversible destructive (Delete)
+type BrandButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'ghost'
+  | 'clay'
+  | 'lake'
+  | 'soft'
+  | 'danger';
+
+type BrandButtonSize = 'md' | 'sm';
+
 type BrandButtonProps = {
   children: ReactNode;
   disabled?: boolean;
   href?: Href;
   onPress?: () => void;
-  variant?: 'primary' | 'secondary' | 'ghost';
+  variant?: BrandButtonVariant;
+  size?: BrandButtonSize;
+  style?: ViewStyle;
+};
+
+type PillProps = {
+  children: ReactNode;
+  tone?: 'primary' | 'soft' | 'clay' | 'lake' | 'warn' | 'neutral' | 'line';
   style?: ViewStyle;
 };
 
 type StatePanelProps = {
   children?: ReactNode;
   title: string;
+  /** Dashed border + centered text + optional italic accent — matches
+   *  web's EmptyState card. Use for "nothing here yet" panels. */
+  variant?: 'solid' | 'dashed';
+  titleAccent?: string;
 };
 
 type BrandBadgeProps = {
@@ -48,6 +79,9 @@ type BrandBadgeProps = {
 type ConfirmDialogProps = {
   cancelLabel?: string;
   confirmLabel?: string;
+  /** When true, the confirm action uses the danger variant — for
+   *  irreversible operations (Delete, Leave, Sign out). */
+  destructive?: boolean;
   message: string;
   onCancel: () => void;
   onConfirm: () => void;
@@ -65,7 +99,7 @@ type CommunityPreviewCardProps = {
 
 export function Screen({
   children,
-  edges = ['left', 'right', 'bottom'],
+  edges = ['top', 'left', 'right', 'bottom'],
   padded = true,
 }: {
   children: ReactNode;
@@ -90,10 +124,24 @@ export function Eyebrow({ children }: { children: ReactNode }) {
 export function Heading({
   children,
   compact = false,
+  accent,
 }: {
   children: ReactNode;
   compact?: boolean;
+  /** Optional italic-serif phrase rendered after the plain title,
+   *  mirroring web's "Welcome back." / "No communities yet." accent. */
+  accent?: string;
 }) {
+  if (accent) {
+    return (
+      <Text style={[styles.heading, compact ? styles.compactHeading : null]}>
+        {children}{' '}
+        <Text style={[styles.headingAccent, compact ? styles.compactHeadingAccent : null]}>
+          {accent}
+        </Text>
+      </Text>
+    );
+  }
   return <Text style={[styles.heading, compact ? styles.compactHeading : null]}>{children}</Text>;
 }
 
@@ -101,11 +149,27 @@ export function BodyText({ children }: { children: ReactNode }) {
   return <Text style={styles.bodyText}>{children}</Text>;
 }
 
-export function StatePanel({ children, title }: StatePanelProps) {
+export function StatePanel({
+  children,
+  title,
+  variant = 'solid',
+  titleAccent,
+}: StatePanelProps) {
+  const dashed = variant === 'dashed';
   return (
-    <View style={styles.statePanel}>
-      <Text style={styles.stateText}>{title}</Text>
-      {children}
+    <View style={[styles.statePanel, dashed ? styles.statePanelDashed : null]}>
+      <Text style={[styles.stateText, dashed ? styles.stateTextDashed : null]}>
+        {title}
+        {titleAccent ? (
+          <>
+            {' '}
+            <Text style={styles.stateTextAccent}>{titleAccent}</Text>
+          </>
+        ) : null}
+      </Text>
+      {children ? (
+        <View style={dashed ? styles.statePanelDashedActions : null}>{children}</View>
+      ) : null}
     </View>
   );
 }
@@ -114,12 +178,72 @@ export function SerifAccent({ children }: { children: ReactNode }) {
   return <Text style={styles.serifAccent}>{children}</Text>;
 }
 
+/**
+ * Renders text with inline `*word*` segments bolded. Bold is reserved for
+ * the markdown-style emphasis marker; the surrounding prose stays at its
+ * declared weight. Use for question prompts, choice labels, broadcast
+ * bodies — any content where authors might emphasize a key term.
+ *
+ * Pass `style` for the regular run and `boldStyle` for the emphasized run.
+ * Unmatched asterisks (odd count, no closing) are rendered literally.
+ */
+export function EmphasizedText({
+  children,
+  style,
+  boldStyle,
+  numberOfLines,
+}: {
+  children: string;
+  style?: StyleProp<TextStyle>;
+  boldStyle?: StyleProp<TextStyle>;
+  numberOfLines?: number;
+}) {
+  const parts = parseEmphasis(children);
+  return (
+    <Text style={style} numberOfLines={numberOfLines}>
+      {parts.map((part, index) =>
+        part.bold ? (
+          <Text key={index} style={[styles.emphasisBold, boldStyle]}>
+            {part.text}
+          </Text>
+        ) : (
+          part.text
+        ),
+      )}
+    </Text>
+  );
+}
+
+function parseEmphasis(input: string): { text: string; bold: boolean }[] {
+  const segments: { text: string; bold: boolean }[] = [];
+  // Match *non-greedy text* that doesn't span line breaks and has no leading
+  // or trailing whitespace inside the markers (matches common markdown).
+  const re = /\*([^*\s][^*\n]*?[^*\s]|[^*\s])\*/g;
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  while ((match = re.exec(input)) !== null) {
+    if (match.index > lastIndex) {
+      segments.push({ text: input.slice(lastIndex, match.index), bold: false });
+    }
+    segments.push({ text: match[1], bold: true });
+    lastIndex = re.lastIndex;
+  }
+  if (lastIndex < input.length) {
+    segments.push({ text: input.slice(lastIndex), bold: false });
+  }
+  if (segments.length === 0) {
+    segments.push({ text: input, bold: false });
+  }
+  return segments;
+}
+
 export function BrandButton({
   children,
   disabled = false,
   href,
   onPress,
   variant = 'primary',
+  size = 'md',
   style,
 }: BrandButtonProps) {
   const router = useRouter();
@@ -132,15 +256,84 @@ export function BrandButton({
       style={({ pressed }) => [
         styles.button,
         styles.pillBase,
+        size === 'sm' ? styles.pillSmall : null,
         styles[`${variant}Button`],
         pressed ? styles.pressed : null,
         disabled ? styles.disabled : null,
         style,
       ]}
     >
-      <Text style={[styles.buttonText, styles[`${variant}ButtonText`]]}>{children}</Text>
+      <Text
+        style={[
+          styles.buttonText,
+          size === 'sm' ? styles.buttonTextSmall : null,
+          styles[`${variant}ButtonText`],
+        ]}
+      >
+        {children}
+      </Text>
     </Pressable>
   );
+}
+
+/**
+ * Status pill — mirrors web's `q-pill` family. Used for "Joined",
+ * "Creator", live counts, and other small stateful indicators.
+ */
+export function Pill({ children, tone = 'soft', style }: PillProps) {
+  return (
+    <View style={[styles.pill, styles[`pill_${tone}`], style]}>
+      <Text style={[styles.pillText, styles[`pillText_${tone}`]]}>{children}</Text>
+    </View>
+  );
+}
+
+/**
+ * Tiny uppercase-tracked tag — mirrors web's `q-chip`. Used inside
+ * cards / list rows for state labels (DAILY, LIVE, CLOSED, etc.).
+ */
+export function Chip({ children, tone = 'line', style }: PillProps) {
+  return (
+    <View style={[styles.chip, styles[`chip_${tone}`], style]}>
+      <Text style={[styles.chipText, styles[`chipText_${tone}`]]}>{children}</Text>
+    </View>
+  );
+}
+
+/**
+ * Small "← Back to home" affordance used at the top of auth screens.
+ * Mirrors the web `q-link-back` styling — primary-colored, semibold,
+ * sits below the brand logo.
+ */
+export function BackLink({
+  children,
+  href,
+  onPress,
+}: {
+  children: ReactNode;
+  href?: Href;
+  onPress?: () => void;
+}) {
+  const router = useRouter();
+  return (
+    <Pressable
+      accessibilityRole={href ? 'link' : 'button'}
+      onPress={href ? () => router.push(href) : onPress}
+      style={({ pressed }) => [styles.backLink, pressed ? styles.pressed : null]}
+      hitSlop={6}
+    >
+      <Text style={styles.backLinkArrow}>←</Text>
+      <Text style={styles.backLinkText}>{children}</Text>
+    </Pressable>
+  );
+}
+
+/**
+ * Auth card wrapper — paper-bg card with rounded chrome and generous
+ * padding, mirroring web's AuthShell. Used by login + register.
+ */
+export function AuthCard({ children }: { children: ReactNode }) {
+  return <View style={styles.authCard}>{children}</View>;
 }
 
 export function AuthLink({ children, href }: { children: ReactNode; href: Href }) {
@@ -183,6 +376,7 @@ export function BrandTextInput({
 export function ConfirmDialog({
   cancelLabel = 'Cancel',
   confirmLabel = 'Confirm',
+  destructive = false,
   message,
   onCancel,
   onConfirm,
@@ -202,10 +396,14 @@ export function ConfirmDialog({
           <Text style={styles.dialogTitle}>{title}</Text>
           <Text style={styles.dialogMessage}>{message}</Text>
           <View style={styles.dialogActions}>
-            <BrandButton variant="secondary" style={styles.dialogButton} onPress={onCancel}>
+            <BrandButton variant="ghost" style={styles.dialogButton} onPress={onCancel}>
               {cancelLabel}
             </BrandButton>
-            <BrandButton style={styles.dialogButton} onPress={onConfirm}>
+            <BrandButton
+              variant={destructive ? 'danger' : 'primary'}
+              style={styles.dialogButton}
+              onPress={onConfirm}
+            >
               {confirmLabel}
             </BrandButton>
           </View>
@@ -326,9 +524,22 @@ const styles = StyleSheet.create({
     fontFamily: fonts.sans,
     fontSize: 36,
     fontWeight: '800',
+    letterSpacing: -0.4,
     lineHeight: 39,
   },
   compactHeading: {
+    fontSize: 30,
+    lineHeight: 34,
+  },
+  headingAccent: {
+    color: palette.primary,
+    fontFamily: fonts.serif,
+    fontSize: 36,
+    fontStyle: 'italic',
+    fontWeight: '400',
+    lineHeight: 39,
+  },
+  compactHeadingAccent: {
     fontSize: 30,
     lineHeight: 34,
   },
@@ -344,12 +555,19 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     fontWeight: '400',
   },
+  emphasisBold: {
+    fontWeight: '700',
+  },
   button: {
     alignItems: 'center',
     justifyContent: 'center',
   },
   pillBase: {
     ...pillBaseStyle,
+  },
+  pillSmall: {
+    minHeight: 38,
+    paddingHorizontal: 14,
   },
   primaryButton: {
     backgroundColor: palette.primary,
@@ -361,11 +579,28 @@ const styles = StyleSheet.create({
   },
   ghostButton: {
     backgroundColor: 'transparent',
+    borderColor: palette.line,
+    borderWidth: 1,
+  },
+  clayButton: {
+    backgroundColor: palette.actionClay,
+  },
+  lakeButton: {
+    backgroundColor: palette.actionLake,
+  },
+  softButton: {
+    backgroundColor: palette.primarySoft,
+  },
+  dangerButton: {
+    backgroundColor: palette.danger,
   },
   buttonText: {
     fontFamily: fonts.sans,
     fontSize: 14,
     fontWeight: '800',
+  },
+  buttonTextSmall: {
+    fontSize: 12,
   },
   primaryButtonText: {
     color: palette.paper,
@@ -375,6 +610,18 @@ const styles = StyleSheet.create({
   },
   ghostButtonText: {
     color: palette.ink,
+  },
+  clayButtonText: {
+    color: '#FFFFFF',
+  },
+  lakeButtonText: {
+    color: '#FFFFFF',
+  },
+  softButtonText: {
+    color: palette.primary,
+  },
+  dangerButtonText: {
+    color: '#FFFFFF',
   },
   badge: {
     backgroundColor: palette.card,
@@ -434,16 +681,41 @@ const styles = StyleSheet.create({
   statePanel: {
     backgroundColor: palette.card,
     borderColor: palette.line,
-    borderRadius: 12,
+    borderRadius: 14,
     borderWidth: 1,
     gap: 12,
     padding: 16,
+  },
+  statePanelDashed: {
+    alignItems: 'center',
+    borderStyle: 'dashed',
+    paddingHorizontal: 18,
+    paddingVertical: 28,
+  },
+  statePanelDashedActions: {
+    alignItems: 'center',
+    marginTop: 6,
   },
   stateText: {
     color: palette.muted,
     fontFamily: fonts.sans,
     fontSize: 14,
     lineHeight: 20,
+  },
+  stateTextDashed: {
+    color: palette.ink,
+    fontSize: 17,
+    fontWeight: '800',
+    letterSpacing: -0.2,
+    lineHeight: 23,
+    textAlign: 'center',
+  },
+  stateTextAccent: {
+    color: palette.primary,
+    fontFamily: fonts.serif,
+    fontSize: 17,
+    fontStyle: 'italic',
+    fontWeight: '400',
   },
   modalOverlay: {
     alignItems: 'center',
@@ -539,5 +811,94 @@ const styles = StyleSheet.create({
   },
   disabled: {
     opacity: 0.52,
+  },
+  pill: {
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    borderRadius: 999,
+    flexDirection: 'row',
+    gap: 6,
+    paddingHorizontal: 11,
+    paddingVertical: 4,
+  },
+  pill_primary: { backgroundColor: palette.primary },
+  pill_soft: { backgroundColor: palette.primarySoft },
+  pill_clay: { backgroundColor: palette.actionClaySoft },
+  pill_lake: { backgroundColor: palette.actionLakeSoft },
+  pill_warn: { backgroundColor: '#FEF3C7' },
+  pill_neutral: { backgroundColor: '#E7E5E4' },
+  pill_line: { backgroundColor: 'transparent', borderColor: palette.line, borderWidth: 1 },
+  pillText: {
+    fontFamily: fonts.sans,
+    fontSize: 11,
+    fontWeight: '800',
+  },
+  pillText_primary: { color: palette.paper },
+  pillText_soft: { color: palette.primary },
+  pillText_clay: { color: palette.actionClayHover },
+  pillText_lake: { color: palette.actionLakeHover },
+  pillText_warn: { color: '#92400E' },
+  pillText_neutral: { color: '#44403C' },
+  pillText_line: { color: palette.muted },
+  chip: {
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    borderRadius: 999,
+    flexDirection: 'row',
+    gap: 6,
+    paddingHorizontal: 9,
+    paddingVertical: 3,
+  },
+  chip_primary: { backgroundColor: palette.primarySoft },
+  chip_soft: { backgroundColor: palette.primarySoft },
+  chip_clay: { backgroundColor: palette.actionClaySoft },
+  chip_lake: { backgroundColor: palette.actionLakeSoft },
+  chip_warn: { backgroundColor: '#FEF3C7' },
+  chip_neutral: { backgroundColor: '#E7E5E4' },
+  chip_line: { backgroundColor: 'transparent', borderColor: palette.line, borderWidth: 1 },
+  chipText: {
+    fontFamily: fonts.sans,
+    fontSize: 9,
+    fontWeight: '800',
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+  },
+  chipText_primary: { color: palette.primary },
+  chipText_soft: { color: palette.primary },
+  chipText_clay: { color: palette.actionClayHover },
+  chipText_lake: { color: palette.actionLakeHover },
+  chipText_warn: { color: '#92400E' },
+  chipText_neutral: { color: '#44403C' },
+  chipText_line: { color: palette.muted },
+  backLink: {
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    flexDirection: 'row',
+    gap: 8,
+    minHeight: 44,
+    paddingVertical: 6,
+  },
+  backLinkArrow: {
+    color: palette.primary,
+    fontFamily: fonts.sans,
+    fontSize: 22,
+    fontWeight: '700',
+    lineHeight: 24,
+  },
+  backLinkText: {
+    color: palette.primary,
+    fontFamily: fonts.sans,
+    fontSize: 16,
+    fontWeight: '700',
+    lineHeight: 22,
+  },
+  authCard: {
+    backgroundColor: palette.card,
+    borderColor: palette.line,
+    borderRadius: 14,
+    borderWidth: 1,
+    gap: 22,
+    paddingHorizontal: 24,
+    paddingVertical: 28,
   },
 });

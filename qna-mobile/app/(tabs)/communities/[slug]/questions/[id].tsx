@@ -1,6 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native';
 import { Image } from 'expo-image';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   KeyboardAvoidingView,
@@ -15,9 +15,11 @@ import {
 } from 'react-native';
 
 import {
+  BackLink,
   BodyText,
   BrandButton,
   ConfirmDialog,
+  EmphasizedText,
   Eyebrow,
   FormError,
   Heading,
@@ -52,6 +54,7 @@ import { getKeyboardAvoidingBehavior } from '@/services/util/keyboard';
 import { formatRelativeTime } from '@/services/util/time';
 
 export default function QuestionDetailScreen() {
+  const router = useRouter();
   const { slug, id } = useLocalSearchParams<{ slug?: string; id?: string }>();
   const { loading: authLoading, token, user } = useAuth();
   const apiUrl = useRuntimeApiUrl();
@@ -175,9 +178,14 @@ export default function QuestionDetailScreen() {
   if (!authLoading && !token) {
     return (
       <Screen>
+        <BackLink href={{ pathname: '/communities/[slug]', params: { slug: slugValue ?? '' } }}>
+          Back to community
+        </BackLink>
         <View style={styles.gateContainer}>
           <Eyebrow>Sign in required</Eyebrow>
-          <Heading compact>Sign in to view this question.</Heading>
+          <Heading compact accent="question.">
+            Sign in to view this
+          </Heading>
           <BodyText>Create an account or sign in to answer today&apos;s challenge.</BodyText>
           <BrandButton
             href={{
@@ -192,7 +200,7 @@ export default function QuestionDetailScreen() {
               pathname: '/register',
               params: { returnTo: `/communities/${slugValue}/questions/${idValue}` },
             }}
-            variant="secondary"
+            variant="clay"
           >
             Create account
           </BrandButton>
@@ -212,11 +220,19 @@ export default function QuestionDetailScreen() {
   if (errorStatus === 403) {
     return (
       <Screen>
+        <BackLink href={{ pathname: '/communities/[slug]', params: { slug: slugValue ?? '' } }}>
+          Back to community
+        </BackLink>
         <View style={styles.gateContainer}>
           <Eyebrow>Members only</Eyebrow>
-          <Heading compact>Join the community to answer.</Heading>
+          <Heading compact accent="answer.">
+            Join the community to
+          </Heading>
           <BodyText>This question is open to community members. Join to take part.</BodyText>
-          <BrandButton href={{ pathname: '/communities/[slug]', params: { slug: slugValue ?? '' } }}>
+          <BrandButton
+            variant="clay"
+            href={{ pathname: '/communities/[slug]', params: { slug: slugValue ?? '' } }}
+          >
             Go to community
           </BrandButton>
         </View>
@@ -261,6 +277,16 @@ export default function QuestionDetailScreen() {
           ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
         >
+          <BackLink
+            onPress={() =>
+              router.dismissTo({
+                pathname: '/communities/[slug]',
+                params: { slug: slugValue ?? '' },
+              })
+            }
+          >
+            Back to community
+          </BackLink>
           <View style={styles.metaRow}>
             <View style={[styles.stateBadge, stateBadgeStyles[state].container]}>
               <Text style={[styles.stateBadgeText, stateBadgeStyles[state].text]}>
@@ -272,7 +298,7 @@ export default function QuestionDetailScreen() {
           </View>
 
           <View style={styles.promptCard}>
-            <Heading compact>{question.prompt}</Heading>
+            <EmphasizedText style={styles.promptText}>{question.prompt}</EmphasizedText>
             {promptImage ? (
               <Pressable
                 accessibilityHint="Opens the image full screen."
@@ -385,7 +411,7 @@ function ChoiceForm({
               {selected ? <View style={styles.choiceRadioDot} /> : null}
             </View>
             <View style={styles.choiceBody}>
-              <Text style={styles.choiceLabel}>{choice.label}</Text>
+              <EmphasizedText style={styles.choiceLabel}>{choice.label}</EmphasizedText>
               {choiceImage ? (
                 <Pressable
                   accessibilityHint="Opens the image full screen."
@@ -624,7 +650,9 @@ function CommentsSection({
     return (
       <View style={styles.commentsGate}>
         <Eyebrow>Discussion</Eyebrow>
-        <Heading compact>Sign in to join the conversation</Heading>
+        <Heading compact accent="conversation.">
+          Sign in to join the
+        </Heading>
         <BodyText>
           See what other members said and add your own thoughts.
         </BodyText>
@@ -644,13 +672,15 @@ function CommentsSection({
     return (
       <View style={styles.commentsGate}>
         <Eyebrow>Discussion</Eyebrow>
-        <Heading compact>Join this community to read the discussion</Heading>
+        <Heading compact accent="discussion.">
+          Join this community to read the
+        </Heading>
         <BodyText>
           Membership unlocks comments on every question in this community.
         </BodyText>
         <BrandButton
+          variant="clay"
           href={{ pathname: '/communities/[slug]', params: { slug } }}
-          variant="secondary"
         >
           Go to community
         </BrandButton>
@@ -662,7 +692,9 @@ function CommentsSection({
     return (
       <View style={styles.commentsGate}>
         <Eyebrow>Discussion</Eyebrow>
-        <Heading compact>Answer first to join the discussion</Heading>
+        <Heading compact accent="discussion.">
+          Answer first to join the
+        </Heading>
         <BodyText>
           Once you submit your answer, you can read and post comments here.
         </BodyText>
@@ -726,6 +758,7 @@ function CommentsSection({
       <ConfirmDialog
         cancelLabel="Cancel"
         confirmLabel={deleting ? 'Deleting...' : 'Delete'}
+        destructive
         message="This will remove your comment for everyone."
         onCancel={() => (deleting ? undefined : setPendingDelete(null))}
         onConfirm={handleConfirmDelete}
@@ -797,7 +830,7 @@ function CommentComposer({
             Cancel
           </BrandButton>
         ) : null}
-        <BrandButton disabled={disabled} onPress={handleSubmit}>
+        <BrandButton disabled={disabled} onPress={handleSubmit} variant="lake">
           {submitting ? 'Posting...' : submitLabel}
         </BrandButton>
       </View>
@@ -976,6 +1009,13 @@ const styles = StyleSheet.create({
     gap: 14,
     padding: 16,
   },
+  promptText: {
+    color: palette.ink,
+    fontFamily: fonts.sans,
+    fontSize: 18,
+    fontWeight: '400',
+    lineHeight: 26,
+  },
   promptImage: {
     aspectRatio: 16 / 9,
     backgroundColor: palette.paper,
@@ -1022,7 +1062,8 @@ const styles = StyleSheet.create({
     color: palette.ink,
     fontFamily: fonts.sans,
     fontSize: 15,
-    fontWeight: '700',
+    fontWeight: '400',
+    lineHeight: 21,
   },
   choiceImage: {
     aspectRatio: 16 / 9,

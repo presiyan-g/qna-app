@@ -3,7 +3,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
 import { FlatList, Pressable, RefreshControl, StyleSheet, Text, View } from 'react-native';
 
-import { BrandButton, Heading, Screen, StatePanel } from '@/components/Brand';
+import { BrandButton, EmphasizedText, Heading, Screen, StatePanel } from '@/components/Brand';
 import { fonts, palette } from '@/constants/theme';
 import { useAuth } from '@/services/auth/AuthContext';
 import { useRuntimeApiUrl } from '@/services/config';
@@ -121,7 +121,11 @@ export default function LiveQuestionsScreen() {
   if (!authLoading && !user) {
     return (
       <Screen>
-        <StatePanel title="Sign in to see your live questions.">
+        <StatePanel
+          variant="dashed"
+          title="Sign in to see your live"
+          titleAccent="questions."
+        >
           <BrandButton href={{ pathname: '/login', params: { returnTo: '/live-questions' } }}>
             Sign in
           </BrandButton>
@@ -139,7 +143,9 @@ export default function LiveQuestionsScreen() {
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
         ListHeaderComponent={
           <View style={styles.header}>
-            <Heading compact>Live questions</Heading>
+            <Heading compact accent="questions.">
+              Live
+            </Heading>
             <Text style={styles.headerCopy}>Open questions from your joined communities.</Text>
           </View>
         }
@@ -153,7 +159,15 @@ export default function LiveQuestionsScreen() {
               </BrandButton>
             </StatePanel>
           ) : (
-            <StatePanel title="All caught up. No live unanswered questions right now." />
+            <StatePanel
+              variant="dashed"
+              title="All caught"
+              titleAccent="up."
+            >
+              <Text style={styles.headerCopy}>
+                No live unanswered questions right now.
+              </Text>
+            </StatePanel>
           )
         }
         renderItem={({ item }) => (
@@ -202,7 +216,7 @@ function LiveQuestionCard({
         </View>
         <Text style={styles.points}>{formatPoints(item.question.points)}</Text>
       </View>
-      <Text style={styles.prompt}>{item.question.prompt}</Text>
+      <EmphasizedText style={styles.prompt}>{item.question.prompt}</EmphasizedText>
     </Pressable>
   );
 }
@@ -276,7 +290,7 @@ const styles = StyleSheet.create({
     color: palette.ink,
     fontFamily: fonts.sans,
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '400',
     lineHeight: 22,
   },
   pressed: {

@@ -40,13 +40,15 @@ export default function ProfileTab() {
     <Screen>
       <View style={styles.card}>
         <Eyebrow>Profile</Eyebrow>
-        <Heading compact>Sign in to track your communities</Heading>
+        <Heading compact accent="communities.">
+          Sign in to track your
+        </Heading>
         <BodyText>
           Create an account to join communities, answer daily questions, and
           climb the leaderboards.
         </BodyText>
         <View style={styles.actions}>
-          <BrandButton variant="primary" href="/register">
+          <BrandButton variant="clay" href="/register">
             Join Quorum
           </BrandButton>
           <BrandButton variant="secondary" href="/login">

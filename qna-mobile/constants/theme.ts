@@ -7,9 +7,22 @@ export const palette = {
   line: '#E9E2CE',
   primary: '#1F4032',
   primarySoft: '#F4F1E3',
+  primaryHover: '#193428',
   ink: '#232220',
   muted: '#6B6B66',
   accent: '#D6A12B',
+  accentHover: '#BE8C1F',
+  // Action color family — mirrors web's --color-action-* tokens.
+  // Clay is the warm secondary commit (Join / Create / Step away);
+  // lake is the cool tertiary / informational variant.
+  actionClay: '#C2543A',
+  actionClaySoft: '#F8E6DE',
+  actionClayHover: '#A9472F',
+  actionLake: '#3A6E8F',
+  actionLakeSoft: '#E3ECF2',
+  actionLakeHover: '#2F5C77',
+  danger: '#C2543A',
+  dangerHover: '#913B26',
 } as const;
 
 export const fonts = {

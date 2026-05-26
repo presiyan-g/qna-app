@@ -5,12 +5,15 @@ import { useFocusEffect } from '@react-navigation/native';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import {
+  BackLink,
   BodyText,
   BrandButton,
   ConfirmDialog,
+  EmphasizedText,
   Eyebrow,
   FormError,
   Heading,
+  Pill,
   Screen,
   StatePanel,
 } from '@/components/Brand';
@@ -146,6 +149,7 @@ export default function CommunityDetailScreen() {
   return (
     <Screen padded={false}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        <BackLink onPress={() => router.dismissTo('/communities')}>Back to communities</BackLink>
         {loading ? (
           <StatePanel title="Loading community..." />
         ) : error || !community ? (
@@ -179,41 +183,27 @@ export default function CommunityDetailScreen() {
               <View style={styles.membershipRow}>
                 {community.currentUserRole === 'member' ? (
                   <>
-                    <View style={styles.joinedPill}>
-                      <Text style={styles.joinedPillText}>✓ Joined</Text>
-                    </View>
-                    <Pressable
-                      accessibilityRole="button"
+                    <Pill tone="soft">✓ Joined</Pill>
+                    <BrandButton
+                      variant="ghost"
+                      size="sm"
                       disabled={leaving}
                       onPress={() => setConfirmingLeave(true)}
-                      style={({ pressed }) => [
-                        styles.leaveButton,
-                        pressed ? styles.pressed : null,
-                      ]}
                     >
-                      <Text style={styles.leaveButtonText}>
-                        {leaving ? 'Leaving...' : 'Leave'}
-                      </Text>
-                    </Pressable>
+                      {leaving ? 'Leaving...' : 'Leave'}
+                    </BrandButton>
                   </>
                 ) : community.currentUserRole === 'creator' ? (
-                  <View style={styles.joinedPill}>
-                    <Text style={styles.joinedPillText}>Creator</Text>
-                  </View>
+                  <Pill tone="soft">Creator</Pill>
                 ) : (
-                  <Pressable
-                    accessibilityRole="button"
+                  <BrandButton
+                    variant="clay"
+                    size="sm"
                     disabled={authLoading || joining}
                     onPress={handleJoin}
-                    style={({ pressed }) => [
-                      styles.joinButton,
-                      pressed ? styles.pressed : null,
-                    ]}
                   >
-                    <Text style={styles.joinButtonText}>
-                      {joining ? 'Joining...' : 'Join community'}
-                    </Text>
-                  </Pressable>
+                    {joining ? 'Joining...' : 'Join community'}
+                  </BrandButton>
                 )}
               </View>
               <BodyText>{community.description}</BodyText>
@@ -259,6 +249,7 @@ export default function CommunityDetailScreen() {
       <ConfirmDialog
         cancelLabel="Stay"
         confirmLabel="Leave"
+        destructive
         message="You can join again later, but this community will leave your active memberships."
         onCancel={() => setConfirmingLeave(false)}
         onConfirm={handleLeave}
@@ -353,7 +344,15 @@ function QuestionsTab({ community }: { community: Community }) {
     );
   }
   if (questions.length === 0) {
-    return <StatePanel title="No published questions yet. Check back when the creator schedules one." />;
+    return (
+      <StatePanel
+        variant="dashed"
+        title="No published questions"
+        titleAccent="yet."
+      >
+        <Text style={styles.panelBody}>Check back when the creator schedules one.</Text>
+      </StatePanel>
+    );
   }
 
   return (
@@ -401,9 +400,9 @@ function QuestionCard({
         {timeHint ? <Text style={styles.questionMetaText}>{timeHint}</Text> : null}
         <Text style={styles.questionPointsText}>{formatPoints(question.points)}</Text>
       </View>
-      <Text style={styles.questionPrompt} numberOfLines={3}>
+      <EmphasizedText style={styles.questionPrompt} numberOfLines={3}>
         {question.prompt}
-      </Text>
+      </EmphasizedText>
     </Pressable>
   );
 }
@@ -468,7 +467,7 @@ function BroadcastsTab({ community }: { community: Community }) {
   if (error) {
     if (error.code === 'unauthenticated') {
       return (
-        <StatePanel title="Sign in to see posts">
+        <StatePanel variant="dashed" title="Sign in to see" titleAccent="posts.">
           <Text style={styles.panelBody}>
             Broadcasts are creator updates shared with members of this community.
           </Text>
@@ -482,7 +481,7 @@ function BroadcastsTab({ community }: { community: Community }) {
     }
     if (error.code === 'forbidden') {
       return (
-        <StatePanel title="Join this community to see posts">
+        <StatePanel variant="dashed" title="Join this community to see" titleAccent="posts.">
           <Text style={styles.panelBody}>Membership unlocks broadcasts from the creator.</Text>
         </StatePanel>
       );
@@ -498,7 +497,7 @@ function BroadcastsTab({ community }: { community: Community }) {
 
   if (broadcasts.length === 0) {
     return (
-      <StatePanel title="No posts yet">
+      <StatePanel variant="dashed" title="No posts" titleAccent="yet.">
         <Text style={styles.panelBody}>Creators will share updates here.</Text>
       </StatePanel>
     );
@@ -629,7 +628,7 @@ function LeaderboardTab({ community }: { community: Community }) {
           </BrandButton>
         </StatePanel>
       ) : entries.length === 0 ? (
-        <StatePanel title="No scores yet">
+        <StatePanel variant="dashed" title="No scores" titleAccent="yet.">
           <Text style={styles.panelBody}>Be the first to answer today&apos;s question.</Text>
         </StatePanel>
       ) : (
@@ -796,43 +795,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 8,
   },
-  joinedPill: {
-    backgroundColor: palette.primarySoft,
-    borderRadius: 999,
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-  },
-  joinedPillText: {
-    color: palette.primary,
-    fontFamily: fonts.sans,
-    fontSize: 13,
-    fontWeight: '800',
-  },
-  leaveButton: {
-    borderColor: palette.line,
-    borderRadius: 999,
-    borderWidth: 1,
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-  },
-  leaveButtonText: {
-    color: palette.ink,
-    fontFamily: fonts.sans,
-    fontSize: 13,
-    fontWeight: '700',
-  },
-  joinButton: {
-    backgroundColor: palette.primary,
-    borderRadius: 999,
-    paddingHorizontal: 18,
-    paddingVertical: 9,
-  },
-  joinButtonText: {
-    color: palette.paper,
-    fontFamily: fonts.sans,
-    fontSize: 13,
-    fontWeight: '800',
-  },
   metaGrid: {
     gap: 8,
   },
@@ -951,7 +913,7 @@ const styles = StyleSheet.create({
     color: palette.ink,
     fontFamily: fonts.sans,
     fontSize: 15,
-    fontWeight: '700',
+    fontWeight: '400',
     lineHeight: 21,
   },
   broadcastList: {

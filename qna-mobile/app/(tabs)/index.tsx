@@ -36,7 +36,8 @@ export default function HomeScreen() {
   const communitiesClient = useMemo(() => createCommunitiesClient({ apiUrl }), [apiUrl]);
   const sections = useMemo(() => buildHomeCommunitySections(communities), [communities]);
   const isEngaged = sections.myCommunities.length > 0;
-  const heroHeading = isEngaged ? 'Welcome back.' : 'Today starts with a community.';
+  const heroHeading = isEngaged ? 'Welcome' : 'Today starts with a';
+  const heroAccent = isEngaged ? 'back.' : 'community.';
   const heroBody = isEngaged
     ? "Tap a community to answer today's question."
     : 'Choose a room, answer the daily question, and unlock the conversation.';
@@ -101,7 +102,9 @@ export default function HomeScreen() {
         </Pressable>
 
         <View style={styles.hero}>
-          <Heading compact>{heroHeading}</Heading>
+          <Heading compact accent={heroAccent}>
+            {heroHeading}
+          </Heading>
           <BodyText>{heroBody}</BodyText>
         </View>
 

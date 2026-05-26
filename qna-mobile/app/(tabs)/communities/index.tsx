@@ -74,7 +74,9 @@ export default function CommunitiesScreen() {
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
         ListHeaderComponent={
           <View style={styles.copy}>
-            <Heading compact>Pick your daily room.</Heading>
+            <Heading compact accent="room.">
+              Pick your daily
+            </Heading>
             <BodyText>
               Browse active communities, open a detail page, and join when you are ready.
             </BodyText>
