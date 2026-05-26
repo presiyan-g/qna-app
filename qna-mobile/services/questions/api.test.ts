@@ -78,6 +78,52 @@ describe('createQuestionsClient', () => {
     assert.equal(seenHeaders.Authorization, undefined);
   });
 
+  it('loads live questions with a single authenticated request', async () => {
+    const client = createQuestionsClient({
+      apiUrl: 'http://localhost:3000/api',
+      fetch: async (url, init) => {
+        assert.equal(String(url), 'http://localhost:3000/api/questions/live?limit=12');
+        assert.equal(init?.method, 'GET');
+        assert.equal(init?.headers?.['Authorization' as keyof HeadersInit], 'Bearer jwt');
+        return Response.json({
+          items: [
+            {
+              community: {
+                id: 'community_1',
+                slug: 'ai-builders',
+                name: 'AI Builders',
+                description: 'Build with AI',
+                emoji: 'AI',
+                coverImageUrl: null,
+                cadence: 'daily',
+                status: 'active',
+                creatorUserId: 'user_1',
+                category: null,
+                isFeatured: true,
+                featuredRank: 1,
+                directoryRank: 1,
+                memberCount: 10,
+                liveQuestionCount: 1,
+                unansweredQuestionCount: 1,
+                newBroadcastCount: 0,
+                currentUserRole: 'member',
+                createdAt: '2026-05-20T09:00:00.000Z',
+                updatedAt: '2026-05-20T09:00:00.000Z',
+              },
+              question: summary,
+            },
+          ],
+          pagination: { limit: 12 },
+        });
+      },
+    });
+
+    const result = await client.listLive({ limit: 12, token: 'jwt' });
+
+    assert.equal(result.items[0].community.slug, 'ai-builders');
+    assert.equal(result.items[0].question.id, summary.id);
+  });
+
   it('loads a question detail with bearer auth', async () => {
     const client = createQuestionsClient({
       apiUrl: 'http://localhost:3000/api',

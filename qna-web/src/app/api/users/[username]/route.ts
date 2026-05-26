@@ -39,5 +39,10 @@ function toPublicProfileResource(profile: PublicUserProfile) {
       ...community,
       joinedAt: community.joinedAt.toISOString(),
     })),
+    // Streak is already a plain JSON-friendly shape (ISO date strings +
+    // numeric levels) — see services/profiles/summary.ts. We pass it
+    // through so the mobile profile can render the same 30-day activity
+    // ribbon that the web profile does.
+    streak: profile.streak,
   };
 }

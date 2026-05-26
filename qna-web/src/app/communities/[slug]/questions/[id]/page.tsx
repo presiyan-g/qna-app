@@ -3,7 +3,6 @@ import { Check } from 'lucide-react';
 import { notFound, redirect } from 'next/navigation';
 import {
   AnswerPermissionError,
-  type AnswerChoiceResource,
   type QuestionDetail,
   getQuestionDetail,
 } from '@/services/answers';
@@ -410,35 +409,6 @@ function SolutionPanel({
         {question.explanation ?? 'The explanation unlocks after you answer.'}
       </p>
     </section>
-  );
-}
-
-function AnswerSummary({
-  title,
-  choice,
-}: {
-  title: string;
-  choice: AnswerChoiceResource;
-}) {
-  return (
-    <div className="rounded-lg border border-line bg-paper p-4">
-      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
-        {title}
-      </p>
-      <div className="mt-2 flex items-start gap-3">
-        {choice.imageUrl && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={choice.imageUrl}
-            alt=""
-            className="h-14 w-14 shrink-0 rounded-md border border-line object-cover"
-          />
-        )}
-        <p className="text-sm leading-6 text-ink">
-          <span className="font-bold">{choice.position}.</span> {choice.label}
-        </p>
-      </div>
-    </div>
   );
 }
 

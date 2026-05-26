@@ -5,9 +5,11 @@ import {
   count,
   desc,
   eq,
+  gt,
   inArray,
   isNotNull,
   isNull,
+  lte,
 } from 'drizzle-orm';
 import { db } from '@/db/client';
 import { answers } from '@/db/schema/answers';
@@ -25,6 +27,7 @@ import {
 import { findUserStatusById } from '@/services/auth';
 import {
   getCommunityBySlug,
+  listMyCommunities,
   type CommunityWithMembership,
 } from '@/services/communities';
 import { computeQuestionClosesAt, type CommunityCadence } from './closing';
@@ -74,6 +77,11 @@ const MAX_LIMIT = 50;
 export type ListCommunityQuestionsResult = {
   items: ScheduledCommunityQuestion[];
   totalCount: number;
+};
+
+export type LiveQuestionItem = {
+  community: CommunityWithMembership;
+  question: ScheduledCommunityQuestion;
 };
 
 export async function listCommunityQuestions({
@@ -165,6 +173,78 @@ export async function listCommunityQuestionsForCommunity({
   });
 
   return { items, totalCount };
+}
+
+export async function listLiveQuestionsForUser({
+  userId,
+  limit = DEFAULT_LIMIT,
+}: {
+  userId: string;
+  limit?: number;
+}): Promise<LiveQuestionItem[]> {
+  const safeLimit = Math.min(Math.max(limit, 1), MAX_LIMIT);
+  const communities = await listMyCommunities({
+    userId,
+    limit: MAX_LIMIT,
+    offset: 0,
+  });
+  const communityIds = communities
+    .filter((community) => community.unansweredQuestionCount > 0)
+    .map((community) => community.id);
+  if (communityIds.length === 0) return [];
+
+  const rows = await db
+    .select()
+    .from(questions)
+    .leftJoin(
+      answers,
+      and(eq(answers.questionId, questions.id), eq(answers.userId, userId)),
+    )
+    .where(
+      and(
+        inArray(questions.communityId, communityIds),
+        isNull(questions.deletedAt),
+        isNotNull(questions.publishedAt),
+        isNotNull(questions.scheduledFor),
+        isNotNull(questions.closesAt),
+        lte(questions.publishedAt, new Date()),
+        gt(questions.closesAt, new Date()),
+        isNull(answers.id),
+      ),
+    )
+    .orderBy(asc(questions.closesAt), desc(questions.scheduledFor))
+    .limit(safeLimit);
+
+  const liveRows = rows
+    .map((row) => row.questions)
+    .filter(
+      (question): question is Question & { scheduledFor: Date; closesAt: Date } =>
+        question.closesAt !== null &&
+        question.scheduledFor !== null,
+    );
+  if (liveRows.length === 0) return [];
+
+  const questionsWithChoices = await withChoices(liveRows, false);
+  const communitiesById = new Map(
+    communities.map((community) => [community.id, community]),
+  );
+
+  const items: LiveQuestionItem[] = [];
+  for (const [index, question] of questionsWithChoices.entries()) {
+    const community = communitiesById.get(question.communityId);
+    if (!community) continue;
+    items.push({
+      community,
+      question: {
+        ...question,
+        scheduledFor: liveRows[index].scheduledFor,
+        closesAt: liveRows[index].closesAt,
+        viewerAnswer: null,
+        revealedCorrectChoiceId: null,
+      },
+    });
+  }
+  return items;
 }
 
 export async function createQuestion({
@@ -438,23 +518,11 @@ async function withChoices(
     choicesByQuestion.set(choice.questionId, existing);
   }
 
-  const countRows = await db
-    .select({
-      questionId: questionChoices.questionId,
-      value: count(),
-    })
-    .from(questionChoices)
-    .where(inArray(questionChoices.questionId, ids))
-    .groupBy(questionChoices.questionId);
-  const counts = new Map(
-    countRows.map((row) => [row.questionId, Number(row.value)]),
-  );
-
   return rows.map((row) => ({
     ...row,
     explanation: canSeeCorrectAnswers ? row.explanation : null,
     choices: choicesByQuestion.get(row.id) ?? [],
-    choiceCount: counts.get(row.id) ?? 0,
+    choiceCount: choicesByQuestion.get(row.id)?.length ?? 0,
   }));
 }
 

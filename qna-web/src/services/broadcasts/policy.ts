@@ -3,8 +3,9 @@ import type { CommunityRole } from '@/services/communities';
 
 export function canCreateBroadcastPost(
   communityRole: CommunityRole | null,
-  _platformRole: PlatformRole = 'member',
+  platformRole: PlatformRole = 'member',
 ): boolean {
+  void platformRole;
   return communityRole === 'creator';
 }
 
@@ -12,13 +13,14 @@ export function canEditBroadcastPost({
   authorUserId,
   userId,
   communityRole,
-  platformRole: _platformRole = 'member',
+  platformRole = 'member',
 }: {
   authorUserId: string;
   userId: string;
   communityRole: CommunityRole | null;
   platformRole?: PlatformRole;
 }): boolean {
+  void platformRole;
   return communityRole === 'creator' && authorUserId === userId;
 }
 

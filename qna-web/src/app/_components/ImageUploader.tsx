@@ -97,6 +97,7 @@ export function ImageUploader({
 
       {url ? (
         <div className="flex items-start gap-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={url}
             alt=""

@@ -301,6 +301,68 @@ export function Chip({ children, tone = 'line', style }: PillProps) {
 }
 
 /**
+ * 30-day activity grid mirroring web's `.q-streak`. Each cell colors by
+ * `level` (0-3), matching the same sage-green progression. Sizes itself
+ * within its container — pass a row count via `columns` if you want
+ * tighter wrapping; the default of 15 columns matches web's default
+ * @screen rule. Cells stay square via aspectRatio.
+ */
+export function StreakRibbon({
+  days,
+  columns = 15,
+}: {
+  days: { dateISO: string; level: 0 | 1 | 2 | 3; communityCount: number }[];
+  columns?: number;
+}) {
+  return (
+    <View style={styles.streakGrid}>
+      {days.map((day) => {
+        const cellWidth = `${100 / columns}%` as `${number}%`;
+        return (
+          <View
+            key={day.dateISO}
+            accessibilityLabel={`${day.dateISO}: ${describeStreakDay(day.communityCount)}`}
+            style={[styles.streakCellWrapper, { width: cellWidth }]}
+          >
+            <View
+              style={[
+                styles.streakCell,
+                day.level === 1 ? styles.streakCellL1 : null,
+                day.level === 2 ? styles.streakCellL2 : null,
+                day.level === 3 ? styles.streakCellL3 : null,
+              ]}
+            />
+          </View>
+        );
+      })}
+    </View>
+  );
+}
+
+function describeStreakDay(count: number): string {
+  if (count <= 0) return 'no answer';
+  if (count === 1) return '1 community';
+  return `${count} communities`;
+}
+
+/**
+ * Streak legend "Less · □ □ □ □ · More" — used below the StreakRibbon
+ * to communicate the color scale. Mirrors web's inline legend strip.
+ */
+export function StreakLegend() {
+  return (
+    <View style={styles.streakLegend}>
+      <Text style={styles.streakLegendText}>Less</Text>
+      <View style={[styles.streakLegendSwatch, styles.streakLegendSwatchL0]} />
+      <View style={[styles.streakLegendSwatch, styles.streakLegendSwatchL1]} />
+      <View style={[styles.streakLegendSwatch, styles.streakLegendSwatchL2]} />
+      <View style={[styles.streakLegendSwatch, styles.streakLegendSwatchL3]} />
+      <Text style={styles.streakLegendText}>More</Text>
+    </View>
+  );
+}
+
+/**
  * Small "← Back to home" affordance used at the top of auth screens.
  * Mirrors the web `q-link-back` styling — primary-colored, semibold,
  * sits below the brand logo.
@@ -901,4 +963,42 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 28,
   },
+  streakGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginHorizontal: -2,
+  },
+  streakCellWrapper: {
+    aspectRatio: 1,
+    padding: 2,
+  },
+  streakCell: {
+    backgroundColor: palette.line,
+    borderRadius: 3,
+    flex: 1,
+  },
+  streakCellL1: { backgroundColor: '#C5D6CB' },
+  streakCellL2: { backgroundColor: '#7FA48E' },
+  streakCellL3: { backgroundColor: palette.primary },
+  streakLegend: {
+    alignItems: 'center',
+    alignSelf: 'flex-end',
+    flexDirection: 'row',
+    gap: 6,
+    marginTop: 10,
+  },
+  streakLegendText: {
+    color: palette.muted,
+    fontFamily: fonts.sans,
+    fontSize: 11,
+  },
+  streakLegendSwatch: {
+    borderRadius: 2,
+    height: 10,
+    width: 10,
+  },
+  streakLegendSwatchL0: { backgroundColor: palette.line },
+  streakLegendSwatchL1: { backgroundColor: '#C5D6CB' },
+  streakLegendSwatchL2: { backgroundColor: '#7FA48E' },
+  streakLegendSwatchL3: { backgroundColor: palette.primary },
 });

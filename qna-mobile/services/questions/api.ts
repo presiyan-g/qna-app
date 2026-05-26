@@ -1,4 +1,4 @@
-import type { CommunityRole } from '../communities/api';
+import type { Community, CommunityRole } from '../communities/api';
 
 export type QuestionChoice = {
   id: string;
@@ -86,6 +86,18 @@ export type ListQuestionsResult = {
   };
 };
 
+export type LiveQuestionItem = {
+  community: Community;
+  question: QuestionSummary;
+};
+
+export type ListLiveQuestionsResult = {
+  items: LiveQuestionItem[];
+  pagination: {
+    limit: number;
+  };
+};
+
 type QuestionsClientOptions = {
   apiUrl?: string;
   fetch?: typeof fetch;
@@ -124,6 +136,14 @@ export function createQuestionsClient(options: QuestionsClientOptions = {}) {
       return requestJson<ListQuestionsResult>(
         fetchImpl,
         `${apiUrl}/communities/${encodeURIComponent(slug)}/questions?${params.toString()}`,
+        { method: 'GET', headers: authHeaders(token) },
+      );
+    },
+    listLive({ limit = 20, token = null }: Omit<ListOptions, 'offset'> = {}) {
+      const params = new URLSearchParams({ limit: String(limit) });
+      return requestJson<ListLiveQuestionsResult>(
+        fetchImpl,
+        `${apiUrl}/questions/live?${params.toString()}`,
         { method: 'GET', headers: authHeaders(token) },
       );
     },

@@ -203,7 +203,7 @@ const endpoints: Endpoint[] = [
     path: "/api/users/[username]",
     auth: "Public",
     summary: "Fetch a public user profile for mobile profile screens.",
-    returns: "200 { user, stats, communities }",
+    returns: "200 { user, stats, communities, streak }",
     errors: ["404 user not found"],
   },
   {

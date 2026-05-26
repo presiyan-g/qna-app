@@ -18,10 +18,14 @@ export default function TabsLayout() {
           borderTopColor: palette.line,
           borderTopWidth: StyleSheet.hairlineWidth,
           // Heights tuned for label visibility across platforms.
-          // iOS gets extra bottom inset for the home indicator.
-          height: Platform.OS === 'ios' ? 88 : 72,
+          // iOS gets extra bottom inset for the home indicator. The web
+          // export gets a comfortable inset too because it's commonly
+          // viewed inside Chrome DevTools at iPhone-sized viewports
+          // where the labels would otherwise crowd the bottom edge.
+          height: Platform.OS === 'ios' ? 88 : Platform.OS === 'web' ? 80 : 72,
           paddingTop: 8,
-          paddingBottom: Platform.OS === 'ios' ? 28 : 12,
+          paddingBottom:
+            Platform.OS === 'ios' ? 28 : Platform.OS === 'web' ? 18 : 12,
         },
         tabBarLabelStyle: {
           fontFamily: fonts.sans,

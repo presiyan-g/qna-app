@@ -31,7 +31,7 @@ export async function seedAnswers(db, ctx) {
   const allRows = [];
   let totalSkipped = 0;
 
-  for (const [slug, community] of communitiesBySlug.entries()) {
+  for (const [slug] of communitiesBySlug.entries()) {
     const fixture = questionsByCommunitySlug.get(slug);
     if (!fixture) continue;
     const members = (membershipsByCommunitySlug.get(slug) ?? []).slice();

@@ -1,13 +1,8 @@
 import { SignJWT, jwtVerify } from 'jose';
 
-const SECRET = process.env.JWT_SECRET;
-if (!SECRET) {
-  throw new Error('JWT_SECRET is not set');
-}
-const SECRET_BYTES = new TextEncoder().encode(SECRET);
-
 const ALG = 'HS256';
 const EXPIRES_IN = '30d';
+let secretBytes: Uint8Array | null = null;
 
 export type SessionPayload = {
   sub: string;
@@ -20,13 +15,13 @@ export async function signSessionToken(payload: SessionPayload): Promise<string>
     .setSubject(payload.sub)
     .setIssuedAt()
     .setExpirationTime(EXPIRES_IN)
-    .sign(SECRET_BYTES);
+    .sign(getSecretBytes());
 }
 
 export async function verifySessionToken(
   token: string,
 ): Promise<SessionPayload> {
-  const { payload } = await jwtVerify(token, SECRET_BYTES, {
+  const { payload } = await jwtVerify(token, getSecretBytes(), {
     algorithms: [ALG],
   });
   if (typeof payload.sub !== 'string') {
@@ -37,4 +32,14 @@ export async function verifySessionToken(
     throw new Error('Invalid session: bad role claim');
   }
   return { sub: payload.sub, role };
+}
+
+function getSecretBytes(): Uint8Array {
+  if (secretBytes) return secretBytes;
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    throw new Error('JWT_SECRET is not set');
+  }
+  secretBytes = new TextEncoder().encode(secret);
+  return secretBytes;
 }

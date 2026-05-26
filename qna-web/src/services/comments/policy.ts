@@ -21,12 +21,13 @@ export function canListQuestionComments({
 export function canPostQuestionComment({
   communityRole,
   hasAnswered,
-  platformRole: _platformRole = 'member',
+  platformRole = 'member',
 }: {
   communityRole: CommunityRole | null;
   hasAnswered: boolean;
   platformRole?: PlatformRole;
 }): boolean {
+  void platformRole;
   if (!communityRole) return false;
   if (communityRole === 'creator') return true;
   return hasAnswered;

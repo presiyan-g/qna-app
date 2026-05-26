@@ -1,3 +1,13 @@
+export type StreakLevel = 0 | 1 | 2 | 3;
+
+export type StreakRibbon = {
+  /** Oldest day first, most recent last. Length matches the window the
+   *  API computed (currently 30). */
+  days: Array<{ dateISO: string; level: StreakLevel; communityCount: number }>;
+  currentStreak: number;
+  longestStreak: number;
+};
+
 export type PublicUserProfile = {
   user: {
     id: string;
@@ -15,6 +25,7 @@ export type PublicUserProfile = {
     role: 'member' | 'creator';
     joinedAt: string;
   }>;
+  streak: StreakRibbon;
 };
 
 type UsersClientOptions = {

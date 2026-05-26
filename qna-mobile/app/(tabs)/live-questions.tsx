@@ -8,22 +8,13 @@ import { fonts, palette } from '@/constants/theme';
 import { useAuth } from '@/services/auth/AuthContext';
 import { useRuntimeApiUrl } from '@/services/config';
 import {
-  CommunitiesApiError,
-  createCommunitiesClient,
-} from '@/services/communities/api';
-import {
-  buildLiveQuestionItems,
-  type LiveQuestionItem,
-} from '@/services/home/shell';
-import {
   QuestionsApiError,
-  type QuestionSummary,
   createQuestionsClient,
+  type LiveQuestionItem,
 } from '@/services/questions/api';
 import { formatPoints } from '@/services/questions/format';
 import { formatRelativeTime } from '@/services/util/time';
 
-const COMMUNITY_PAGE_SIZE = 24;
 const QUESTION_PAGE_SIZE = 20;
 
 export default function LiveQuestionsScreen() {
@@ -34,7 +25,6 @@ export default function LiveQuestionsScreen() {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const apiUrl = useRuntimeApiUrl();
-  const communitiesClient = useMemo(() => createCommunitiesClient({ apiUrl }), [apiUrl]);
   const questionsClient = useMemo(() => createQuestionsClient({ apiUrl }), [apiUrl]);
 
   const loadLiveQuestions = useCallback(
@@ -57,39 +47,15 @@ export default function LiveQuestionsScreen() {
       if (showSpinner) setLoading(true);
       setError(null);
       try {
-        const communitiesResult = await communitiesClient.list({
-          limit: COMMUNITY_PAGE_SIZE,
-          offset: 0,
+        const result = await questionsClient.listLive({
+          limit: QUESTION_PAGE_SIZE,
           token,
         });
-        const joinedCommunities = communitiesResult.items.filter(
-          (community) =>
-            Boolean(community.currentUserRole) &&
-            (community.unansweredQuestionCount ?? community.liveQuestionCount ?? 0) > 0,
-        );
-        const questionPages = await Promise.all(
-          joinedCommunities.map(async (community) => {
-            const result = await questionsClient.list(community.slug, {
-              limit: QUESTION_PAGE_SIZE,
-              offset: 0,
-              token,
-            });
-            return [community.slug, result.items] as const;
-          }),
-        );
         if (!isActive()) return;
-
-        const questionsByCommunitySlug: Record<string, QuestionSummary[]> =
-          Object.fromEntries(questionPages);
-        setItems(
-          buildLiveQuestionItems({
-            communities: communitiesResult.items,
-            questionsByCommunitySlug,
-          }),
-        );
+        setItems(result.items);
       } catch (err) {
         if (!isActive()) return;
-        if (err instanceof CommunitiesApiError || err instanceof QuestionsApiError) {
+        if (err instanceof QuestionsApiError) {
           setError(err.message);
         } else {
           setError('Unable to load live questions.');
@@ -98,7 +64,7 @@ export default function LiveQuestionsScreen() {
         if (isActive()) setLoading(false);
       }
     },
-    [authLoading, communitiesClient, questionsClient, token, user],
+    [authLoading, questionsClient, token, user],
   );
 
   const handleRefresh = useCallback(async () => {
