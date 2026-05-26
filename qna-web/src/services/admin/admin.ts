@@ -93,17 +93,26 @@ export async function listAdminAuditLogs({
 }) {
   await requireAdminActor(actorUserId);
   const safeLimit = clampLimit(limit);
+  const safeOffset = Math.max(offset, 0);
 
-  return db
-    .select({
-      log: adminAuditLogs,
-      actorUsername: users.username,
-    })
-    .from(adminAuditLogs)
-    .innerJoin(users, eq(adminAuditLogs.actorUserId, users.id))
-    .orderBy(desc(adminAuditLogs.createdAt))
-    .limit(safeLimit)
-    .offset(Math.max(offset, 0));
+  const [rows, countRows] = await Promise.all([
+    db
+      .select({
+        log: adminAuditLogs,
+        actorUsername: users.username,
+      })
+      .from(adminAuditLogs)
+      .innerJoin(users, eq(adminAuditLogs.actorUserId, users.id))
+      .orderBy(desc(adminAuditLogs.createdAt))
+      .limit(safeLimit)
+      .offset(safeOffset),
+    db.select({ value: count() }).from(adminAuditLogs),
+  ]);
+
+  return {
+    items: rows,
+    totalCount: Number(countRows[0]?.value ?? 0),
+  };
 }
 
 export async function searchAdminUsers({
@@ -138,23 +147,32 @@ export async function searchAdminUsers({
         ? conditions[0]
         : and(...conditions);
 
-  const rows = await db
-    .select({
-      user: users,
-      membershipCount: count(communityMembers.id),
-    })
-    .from(users)
-    .leftJoin(communityMembers, eq(users.id, communityMembers.userId))
-    .where(where)
-    .groupBy(users.id)
-    .orderBy(desc(users.createdAt))
-    .limit(clampLimit(limit))
-    .offset(Math.max(offset, 0));
+  const safeLimit = clampLimit(limit);
+  const safeOffset = Math.max(offset, 0);
 
-  return rows.map((row) => ({
-    ...row.user,
-    membershipCount: Number(row.membershipCount),
-  }));
+  const [rows, countRows] = await Promise.all([
+    db
+      .select({
+        user: users,
+        membershipCount: count(communityMembers.id),
+      })
+      .from(users)
+      .leftJoin(communityMembers, eq(users.id, communityMembers.userId))
+      .where(where)
+      .groupBy(users.id)
+      .orderBy(desc(users.createdAt))
+      .limit(safeLimit)
+      .offset(safeOffset),
+    db.select({ value: count() }).from(users).where(where),
+  ]);
+
+  return {
+    items: rows.map((row) => ({
+      ...row.user,
+      membershipCount: Number(row.membershipCount),
+    })),
+    totalCount: Number(countRows[0]?.value ?? 0),
+  };
 }
 
 export async function getAdminUserDetail({
@@ -308,26 +326,38 @@ export async function searchAdminCommunities({
       : undefined,
   );
 
-  const rows = await db
-    .select({
-      community: communities,
-      creatorUsername: users.username,
-      memberCount: count(communityMembers.id).mapWith(Number),
-    })
-    .from(communities)
-    .innerJoin(users, eq(communities.creatorUserId, users.id))
-    .leftJoin(communityMembers, eq(communities.id, communityMembers.communityId))
-    .where(where)
-    .groupBy(communities.id, users.username)
-    .orderBy(asc(communities.directoryRank), desc(communities.createdAt))
-    .limit(clampLimit(limit))
-    .offset(Math.max(offset, 0));
+  const safeLimit = clampLimit(limit);
+  const safeOffset = Math.max(offset, 0);
 
-  return rows.map((row) => ({
-    ...row.community,
-    creatorUsername: row.creatorUsername,
-    memberCount: Number(row.memberCount),
-  }));
+  const [rows, countRows] = await Promise.all([
+    db
+      .select({
+        community: communities,
+        creatorUsername: users.username,
+        memberCount: count(communityMembers.id).mapWith(Number),
+      })
+      .from(communities)
+      .innerJoin(users, eq(communities.creatorUserId, users.id))
+      .leftJoin(
+        communityMembers,
+        eq(communities.id, communityMembers.communityId),
+      )
+      .where(where)
+      .groupBy(communities.id, users.username)
+      .orderBy(asc(communities.directoryRank), desc(communities.createdAt))
+      .limit(safeLimit)
+      .offset(safeOffset),
+    db.select({ value: count() }).from(communities).where(where),
+  ]);
+
+  return {
+    items: rows.map((row) => ({
+      ...row.community,
+      creatorUsername: row.creatorUsername,
+      memberCount: Number(row.memberCount),
+    })),
+    totalCount: Number(countRows[0]?.value ?? 0),
+  };
 }
 
 export async function updateCommunityPlacement({

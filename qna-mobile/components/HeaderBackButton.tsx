@@ -1,5 +1,5 @@
 import { HeaderBackButton as NavHeaderBackButton } from '@react-navigation/elements';
-import { useRouter } from 'expo-router';
+import { type Href, useRouter } from 'expo-router';
 
 import { palette } from '@/constants/theme';
 
@@ -11,7 +11,10 @@ export function HeaderBackButton() {
       router.back();
       return;
     }
-    router.replace('/');
+    // Cast: Expo Router's typed routes don't expose `'/'` as a literal once
+    // the home screen lives inside a group folder (e.g. `(tabs)/`), even
+    // though `'/'` still resolves there at runtime.
+    router.replace('/' as Href);
   }
 
   return (

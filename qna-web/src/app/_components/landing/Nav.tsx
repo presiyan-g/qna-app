@@ -4,6 +4,7 @@ import {
   findUserById,
   getSession,
 } from '@/services/auth';
+import { listQuestionNotifications } from '@/services/notifications';
 import { MobileMenu } from './MobileMenu';
 import { UserMenu } from './UserMenu';
 
@@ -26,8 +27,12 @@ export async function Nav() {
       : APP_NAV_LINKS
     : LANDING_NAV_LINKS;
 
+  const notifications = user
+    ? await listQuestionNotifications(user.id)
+    : { items: [], unreadCount: 0 };
+
   return (
-    <header className="relative border-b border-line bg-paper">
+    <header className="relative border-b border-line bg-paper md:sticky md:top-0 md:z-50">
       <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-5 md:px-12">
         <Link
           href={user ? AUTHENTICATED_HOME_PATH : '/'}
@@ -53,7 +58,10 @@ export async function Nav() {
               >
                 Create
               </Link>
-              <UserMenu username={user.username} />
+              <UserMenu
+                username={user.username}
+                notifications={notifications}
+              />
             </>
           ) : (
             <>
@@ -73,7 +81,11 @@ export async function Nav() {
           )}
         </div>
 
-        <MobileMenu links={links} username={user?.username ?? null} />
+        <MobileMenu
+          links={links}
+          username={user?.username ?? null}
+          notifications={notifications}
+        />
       </div>
     </header>
   );
