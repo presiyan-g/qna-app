@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useTransition } from 'react';
+import { Spinner } from '@/app/_components/Spinner';
 import { archiveCommunityAction } from '@/app/actions/communities';
 
 export function ArchiveCommunityButton({
@@ -33,7 +34,7 @@ export function ArchiveCommunityButton({
         type="button"
         onClick={openDialog}
         disabled={pending}
-        className="rounded-full border border-red-300 px-5 py-2.5 text-sm font-semibold text-red-700 transition hover:border-red-500 hover:bg-red-50 disabled:opacity-60"
+        className="q-btn q-btn-clay q-btn-md"
       >
         {pending ? 'Archiving...' : 'Archive community'}
       </button>
@@ -63,7 +64,7 @@ export function ArchiveCommunityButton({
               type="button"
               onClick={closeDialog}
               disabled={pending}
-              className="rounded-full border border-line bg-paper px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-primary hover:text-primary disabled:opacity-60"
+              className="q-btn q-btn-ghost q-btn-md"
             >
               Cancel
             </button>
@@ -71,8 +72,9 @@ export function ArchiveCommunityButton({
               type="button"
               onClick={onConfirm}
               disabled={pending}
-              className="rounded-full bg-red-600 px-5 py-2.5 text-sm font-semibold text-paper transition hover:bg-red-700 disabled:opacity-60"
+              className="q-btn q-btn-danger q-btn-md"
             >
+              {pending && <Spinner />}
               {pending ? 'Archiving...' : 'Archive community'}
             </button>
           </div>

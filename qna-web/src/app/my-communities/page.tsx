@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { EmptyState } from '@/app/_components/EmptyState';
 import { Footer } from '@/app/_components/landing/Footer';
 import { Nav } from '@/app/_components/landing/Nav';
 import { getSession } from '@/services/auth';
@@ -34,7 +35,7 @@ export default async function MyCommunitiesPage() {
             </div>
             <Link
               href="/communities"
-              className="inline-flex items-center justify-center whitespace-nowrap rounded-lg border border-line bg-card px-4 py-2.5 text-sm font-semibold text-ink hover:border-primary hover:text-primary"
+              className="q-btn q-btn-ghost q-btn-md whitespace-nowrap"
             >
               Discover more
             </Link>
@@ -51,26 +52,21 @@ export default async function MyCommunitiesPage() {
               ))}
             </div>
           ) : (
-            <div className="rounded-lg border border-line bg-card p-8 text-center">
-              <h2 className="text-xl font-bold">No communities yet</h2>
-              <p className="mt-2 text-sm text-muted">
-                Join one from the discover page, or start your own.
-              </p>
-              <div className="mt-5 flex items-center justify-center gap-3">
-                <Link
-                  href="/communities"
-                  className="rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink hover:border-primary hover:text-primary"
-                >
-                  Browse communities
-                </Link>
-                <Link
-                  href="/communities/new"
-                  className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-paper"
-                >
-                  Create community
-                </Link>
-              </div>
-            </div>
+            <EmptyState
+              title="No communities"
+              titleAccent="yet."
+              description="Join one from the discover page, or start your own."
+              action={
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                  <Link href="/communities" className="q-btn q-btn-ghost q-btn-md">
+                    Browse communities
+                  </Link>
+                  <Link href="/communities/new" className="q-btn q-btn-primary q-btn-md">
+                    Create community
+                  </Link>
+                </div>
+              }
+            />
           )}
         </div>
       </section>

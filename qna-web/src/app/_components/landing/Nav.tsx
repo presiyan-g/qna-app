@@ -54,7 +54,7 @@ export async function Nav() {
             <>
               <Link
                 href="/communities/new"
-                className="rounded-full bg-primary px-4 py-2.5 font-semibold text-paper"
+                className="q-btn q-btn-primary q-btn-md"
               >
                 Create
               </Link>
@@ -67,14 +67,11 @@ export async function Nav() {
             <>
               <Link
                 href="/login"
-                className="rounded-full px-4 py-2.5 font-semibold text-ink"
+                className="rounded-full px-4 py-2.5 font-semibold text-ink transition-colors duration-150 ease-out hover:text-primary"
               >
                 Sign in
               </Link>
-              <Link
-                href="/register"
-                className="rounded-full bg-primary px-4 py-2.5 font-semibold text-paper"
-              >
+              <Link href="/register" className="q-btn q-btn-primary q-btn-md">
                 Join free
               </Link>
             </>

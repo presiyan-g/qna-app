@@ -1,6 +1,7 @@
 'use client';
 
 import { useActionState, useState } from 'react';
+import { Spinner } from '@/app/_components/Spinner';
 import {
   createCommunityAction,
   updateCommunityAction,
@@ -168,11 +169,8 @@ export function CommunityForm(props: Props) {
         </div>
       </div>
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="rounded-full bg-primary px-[22px] py-[13px] text-sm font-semibold text-paper disabled:opacity-60"
-      >
+      <button type="submit" disabled={pending} className="q-btn q-btn-primary">
+        {pending && <Spinner />}
         {submitLabel}
       </button>
     </form>

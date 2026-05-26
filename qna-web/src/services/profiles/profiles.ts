@@ -1,13 +1,17 @@
 import 'server-only';
-import { and, eq, sum } from 'drizzle-orm';
+import { and, eq, gte, sum } from 'drizzle-orm';
 import { db } from '@/db/client';
 import { answers } from '@/db/schema/answers';
 import { communities, communityMembers } from '@/db/schema/communities';
+import { questions } from '@/db/schema/questions';
 import { users } from '@/db/schema/users';
 import {
   buildPublicUserProfile,
+  buildStreakRibbon,
   type PublicUserProfile,
 } from './summary';
+
+const STREAK_WINDOW_DAYS = 30;
 
 export async function getPublicUserProfileByUsername(
   username: string,
@@ -27,7 +31,13 @@ export async function getPublicUserProfileByUsername(
 
   if (!user) return null;
 
-  const [memberships, pointsRow] = await Promise.all([
+  // Pull the streak window oldest-day cutoff. We over-fetch by a day to
+  // tolerate clock skew between the app server and the DB.
+  const now = new Date();
+  const cutoff = new Date(now);
+  cutoff.setUTCDate(cutoff.getUTCDate() - (STREAK_WINDOW_DAYS + 1));
+
+  const [memberships, pointsRow, streakRows] = await Promise.all([
     db
       .select({
         id: communities.id,
@@ -51,11 +61,28 @@ export async function getPublicUserProfileByUsername(
       .from(answers)
       .where(eq(answers.userId, user.id))
       .limit(1),
+    db
+      .select({
+        answeredAt: answers.answeredAt,
+        communityId: questions.communityId,
+      })
+      .from(answers)
+      .innerJoin(questions, eq(answers.questionId, questions.id))
+      .where(
+        and(eq(answers.userId, user.id), gte(answers.answeredAt, cutoff)),
+      ),
   ]);
+
+  const streak = buildStreakRibbon({
+    events: streakRows,
+    now,
+    windowDays: STREAK_WINDOW_DAYS,
+  });
 
   return buildPublicUserProfile({
     user,
     memberships,
     totalPoints: pointsRow[0]?.points ?? 0,
+    streak,
   });
 }

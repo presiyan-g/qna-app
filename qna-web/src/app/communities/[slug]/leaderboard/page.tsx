@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
+import { EmptyState } from '@/app/_components/EmptyState';
 import { getSession } from '@/services/auth';
 import { getCommunityBySlug } from '@/services/communities';
 import {
@@ -49,22 +50,19 @@ export default async function CommunityLeaderboardPage({
         <WindowLinks slug={leaderboard.community.slug} current={window} />
       </div>
 
-      <section className="mt-8 rounded-lg border border-line bg-card">
+      <section className="mt-8">
         {leaderboard.entries.length > 0 ? (
-          <div className="divide-y divide-line">
+          <div className="divide-y divide-line rounded-lg border border-line bg-card">
             {leaderboard.entries.map((entry) => (
               <LeaderboardRow key={entry.userId} entry={entry} />
             ))}
           </div>
         ) : (
-          <div className="p-6">
-            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
-              No scores yet
-            </p>
-            <h2 className="mt-2 text-2xl font-bold">
-              This window has no point-awarding answers.
-            </h2>
-          </div>
+          <EmptyState
+            title="No scores"
+            titleAccent="yet."
+            description="This window has no point-awarding answers. Try a different time range or come back after the next question closes."
+          />
         )}
       </section>
     </>

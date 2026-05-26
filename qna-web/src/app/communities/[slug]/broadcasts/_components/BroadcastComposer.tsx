@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
+import { Spinner } from '@/app/_components/Spinner';
 import {
   createBroadcastAction,
   updateBroadcastAction,
@@ -86,19 +87,12 @@ export function BroadcastComposer({
       </div>
 
       <div className="flex items-center gap-3">
-        <button
-          type="submit"
-          disabled={pending}
-          className="rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-paper transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-65"
-        >
+        <button type="submit" disabled={pending} className="q-btn q-btn-primary q-btn-md">
+          {pending && <Spinner />}
           {pending ? 'Saving...' : postId ? 'Save changes' : 'Post broadcast'}
         </button>
         {postId && onSaved && (
-          <button
-            type="button"
-            onClick={onSaved}
-            className="rounded-full border border-line px-5 py-2.5 text-sm font-bold text-ink hover:border-primary hover:text-primary"
-          >
+          <button type="button" onClick={onSaved} className="q-btn q-btn-ghost q-btn-md">
             Cancel
           </button>
         )}

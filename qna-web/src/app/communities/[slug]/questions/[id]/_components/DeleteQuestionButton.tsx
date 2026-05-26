@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState, useTransition } from 'react';
+import { Spinner } from '@/app/_components/Spinner';
 import { deleteQuestionAction } from '@/app/actions/questions';
 
 export function DeleteQuestionButton({
@@ -50,7 +51,7 @@ export function DeleteQuestionButton({
         type="button"
         onClick={openDialog}
         disabled={pending}
-        className="cursor-pointer rounded-full border border-red-200 px-4 py-2 text-sm font-semibold text-red-700 transition-colors hover:border-red-300 hover:bg-red-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/30 disabled:cursor-not-allowed disabled:opacity-60"
+        className="q-btn q-btn-clay q-btn-sm"
       >
         {pending ? 'Deleting...' : 'Delete'}
       </button>
@@ -85,7 +86,7 @@ export function DeleteQuestionButton({
               type="button"
               onClick={closeDialog}
               disabled={pending}
-              className="cursor-pointer rounded-full border border-line bg-paper px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-60"
+              className="q-btn q-btn-ghost q-btn-md"
             >
               Cancel
             </button>
@@ -93,8 +94,9 @@ export function DeleteQuestionButton({
               type="button"
               onClick={onConfirm}
               disabled={pending}
-              className="cursor-pointer rounded-full bg-red-600 px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/40 disabled:cursor-not-allowed disabled:opacity-60"
+              className="q-btn q-btn-danger q-btn-md"
             >
+              {pending && <Spinner />}
               {pending ? 'Deleting...' : 'Delete question'}
             </button>
           </div>

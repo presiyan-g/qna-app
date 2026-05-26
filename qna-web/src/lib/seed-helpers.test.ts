@@ -29,9 +29,9 @@ test('index 18 is currently open', () => {
 test('index 19 is scheduled for tomorrow', () => {
   const t = computeQuestionTimeline({ now: NOW, index: 19, cadence: 'daily' });
   assert.equal(t.kind, 'scheduled');
-  assert.equal(t.publishedAt, null);
-  assert.equal(t.closesAt, null);
   assert.ok(t.scheduledFor! > NOW);
+  assert.equal(t.publishedAt!.toISOString(), t.scheduledFor.toISOString());
+  assert.equal(t.closesAt!.getTime(), t.scheduledFor.getTime() + 24 * 60 * 60 * 1000);
 });
 
 test('weekly cadence stretches answer window to 7 days', () => {

@@ -24,6 +24,15 @@ describe('getQuestionLifecycleState', () => {
     assert.equal(
       getQuestionLifecycleState(
         row({
+          scheduledFor: '2026-05-21T12:00:00.000Z',
+        }),
+        now,
+      ),
+      'scheduled',
+    );
+    assert.equal(
+      getQuestionLifecycleState(
+        row({
           scheduledFor: '2026-05-20T10:00:00.000Z',
           publishedAt: '2026-05-20T10:00:00.000Z',
           closesAt: '2026-05-21T10:00:00.000Z',

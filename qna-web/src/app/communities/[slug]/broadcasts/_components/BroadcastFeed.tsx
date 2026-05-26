@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
+import { EmptyState } from '@/app/_components/EmptyState';
 import { deleteBroadcastAction } from '@/app/actions/broadcasts';
 import { tokenizeBroadcastText } from '@/services/broadcasts/text';
 import { BroadcastComposer } from './BroadcastComposer';
@@ -34,16 +35,16 @@ export function BroadcastFeed({
   showOpenLink?: boolean;
 }) {
   if (posts.length === 0) {
+    // Many callers still pass "No broadcasts yet" as emptyTitle.
+    // Strip the trailing " yet" so EmptyState's serif italic accent
+    // can render it without duplicating the word.
+    const trimmedTitle = emptyTitle.replace(/\s*yet\.?$/i, '');
     return (
-      <section className="rounded-lg border border-dashed border-line bg-card p-6">
-        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
-          Broadcasts
-        </p>
-        <h2 className="mt-2 text-2xl font-bold">{emptyTitle}</h2>
-        <p className="mt-2 text-sm leading-6 text-muted">
-          Creator announcements and resources will appear here.
-        </p>
-      </section>
+      <EmptyState
+        title={trimmedTitle}
+        titleAccent="yet."
+        description="Creator announcements and resources will appear here."
+      />
     );
   }
 
@@ -76,33 +77,35 @@ function BroadcastCard({
   const [editing, setEditing] = useState(false);
 
   return (
-    <article className="rounded-lg border border-line bg-card p-5">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-        <div>
+    <article className="rounded-[14px] border border-line bg-card p-5 transition-[border-color,box-shadow] duration-200 ease-out hover:border-primary/40 hover:shadow-[0_18px_40px_-22px_rgba(31,64,50,0.18)]">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Author surfaces as a lake-tinted chip — auxiliary
+              identity, distinct from the primary action color. */}
           <Link
             href={`/users/${post.author.username}`}
-            className="text-sm font-bold text-ink hover:text-primary hover:underline"
+            className="text-[13px] font-bold text-action-lake transition-colors duration-150 ease-out hover:text-action-lake-hover hover:underline"
           >
-            {post.author.username}
+            @{post.author.username}
           </Link>
-          <p className="mt-1 text-[12px] text-muted">
-            {formatTimestamp(post.publishedAt)}
-          </p>
+          <span className="text-[11px] font-bold uppercase tracking-[0.10em] text-muted">
+            · {formatTimestamp(post.publishedAt)}
+          </span>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           {showOpenLink && (
             <Link
               href={`/communities/${slug}/broadcasts/${post.id}`}
-              className="text-sm font-bold text-primary hover:underline"
+              className="text-sm font-bold text-action-lake transition-colors duration-150 ease-out hover:text-action-lake-hover hover:underline"
             >
-              Open
+              Open broadcast →
             </Link>
           )}
           {post.canEdit && (
             <button
               type="button"
               onClick={() => setEditing((value) => !value)}
-              className="text-sm font-bold text-primary hover:underline"
+              className="text-sm font-bold text-action-lake transition-colors duration-150 ease-out hover:text-action-lake-hover hover:underline"
             >
               {editing ? 'Cancel edit' : 'Edit'}
             </button>
@@ -190,7 +193,8 @@ function DeleteBroadcastButton({
             }
           })
         }
-        className="text-sm font-bold text-red-700 hover:underline disabled:cursor-not-allowed disabled:opacity-65"
+        style={{ color: 'var(--color-action-clay)' }}
+        className="text-sm font-bold transition-colors duration-150 ease-out hover:underline disabled:cursor-not-allowed disabled:opacity-65"
       >
         {pending ? 'Deleting...' : 'Delete'}
       </button>

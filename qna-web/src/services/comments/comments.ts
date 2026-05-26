@@ -1,5 +1,5 @@
 import 'server-only';
-import { and, desc, eq, inArray, isNotNull, isNull, lt, or } from 'drizzle-orm';
+import { and, desc, eq, inArray, isNull, lt, or } from 'drizzle-orm';
 import { db } from '@/db/client';
 import { answers } from '@/db/schema/answers';
 import { comments } from '@/db/schema/comments';
@@ -13,6 +13,10 @@ import {
 } from '@/services/admin';
 import { findUserStatusById } from '@/services/auth';
 import { getCommunityBySlug, type CommunityRole } from '@/services/communities';
+import {
+  computeQuestionClosesAt,
+  type CommunityCadence,
+} from '@/services/questions';
 import {
   decodeCommentCursor,
   encodeCommentCursor,
@@ -323,12 +327,14 @@ async function loadCommentQuestionContext({
         eq(questions.id, questionId),
         eq(questions.communityId, community.id),
         isNull(questions.deletedAt),
-        isNotNull(questions.closesAt),
       ),
     )
     .limit(1);
   if (!question) throw new CommentNotFoundError();
-  const commentableQuestion = toCommentableQuestion(question);
+  const commentableQuestion = toCommentableQuestion(
+    question,
+    community.cadence as CommunityCadence,
+  );
 
   const [answer] = await db
     .select({ id: answers.id })
@@ -348,11 +354,21 @@ async function loadCommentQuestionContext({
 
 function toCommentableQuestion(
   question: typeof questions.$inferSelect,
+  cadence: CommunityCadence,
 ): CommentableQuestion {
-  if (!question.closesAt || question.deletedAt) {
+  if (!question.scheduledFor || question.deletedAt) {
     throw new CommentNotFoundError();
   }
-  return question as CommentableQuestion;
+  return {
+    ...question,
+    closesAt:
+      question.closesAt ??
+      computeQuestionClosesAt({
+        cadence,
+        scheduledFor: question.scheduledFor,
+        requestedClosesAt: null,
+      }),
+  };
 }
 
 async function validateParentCommentId(

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { Bell } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { markNotificationsSeenAction } from '@/app/actions/notifications';
 import type { QuestionNotification } from '@/services/notifications';
@@ -75,7 +76,7 @@ export function NotificationsBellMenu({
         onClick={toggleOpen}
         className="relative flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-primary/25 bg-paper text-ink transition-colors hover:border-primary hover:bg-primary-soft hover:text-primary"
       >
-        <BellIcon />
+        <Bell size={18} strokeWidth={1.8} aria-hidden />
         {localUnread > 0 ? (
           <span
             aria-hidden
@@ -149,7 +150,7 @@ function NotificationRow({
       <Link
         href={`/communities/${item.communitySlug}/questions/${item.questionId}`}
         onClick={onClick}
-        className={`flex items-start gap-3 px-4 py-3 transition-colors hover:bg-primary-soft ${
+        className={`flex items-start gap-3 px-4 py-3 transition-colors duration-150 ease-out hover:bg-primary-soft ${
           item.isUnread ? 'bg-primary-soft/40' : ''
         }`}
       >
@@ -191,29 +192,3 @@ function NotificationRow({
   );
 }
 
-function BellIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden
-      className="text-current"
-    >
-      <path
-        d="M6 8a6 6 0 1112 0c0 4 1.5 5 2.25 6H3.75C4.5 13 6 12 6 8z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M9.5 17a2.5 2.5 0 005 0"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}

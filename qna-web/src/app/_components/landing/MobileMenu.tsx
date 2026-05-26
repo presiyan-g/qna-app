@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { ChevronRight, Menu, X } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { logoutAction } from '@/app/actions/auth';
 import { markNotificationsSeenAction } from '@/app/actions/notifications';
@@ -48,23 +49,9 @@ export function MobileMenu({
       >
         <span className="sr-only">Toggle menu</span>
         {open ? (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
-            <path
-              d="M6 6l12 12M18 6L6 18"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-            />
-          </svg>
+          <X size={18} strokeWidth={1.8} aria-hidden />
         ) : (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
-            <path
-              d="M4 7h16M4 12h16M4 17h16"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-            />
-          </svg>
+          <Menu size={18} strokeWidth={1.8} aria-hidden />
         )}
         {hasUnread && !open ? (
           <span
@@ -117,22 +104,12 @@ export function MobileMenu({
                       View profile
                     </p>
                   </div>
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
+                  <ChevronRight
+                    size={14}
+                    strokeWidth={1.8}
                     aria-hidden
                     className="text-muted"
-                  >
-                    <path
-                      d="M9 6l6 6-6 6"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  />
                 </Link>
 
                 {/* Account actions */}
@@ -163,7 +140,7 @@ export function MobileMenu({
                   <Link
                     href="/communities/new"
                     onClick={close}
-                    className="block rounded-full bg-primary px-4 py-2.5 text-center text-sm font-semibold text-paper transition hover:brightness-110"
+                    className="q-btn q-btn-primary q-btn-md w-full"
                   >
                     + Create community
                   </Link>
@@ -174,14 +151,14 @@ export function MobileMenu({
                 <Link
                   href="/login"
                   onClick={close}
-                  className="rounded-full border border-line px-4 py-2.5 text-center text-sm font-semibold text-ink transition-colors hover:border-primary hover:text-primary"
+                  className="q-btn q-btn-ghost q-btn-md w-full"
                 >
                   Sign in
                 </Link>
                 <Link
                   href="/register"
                   onClick={close}
-                  className="rounded-full bg-primary px-4 py-2.5 text-center text-sm font-semibold text-paper transition hover:brightness-110"
+                  className="q-btn q-btn-primary q-btn-md w-full"
                 >
                   Join free
                 </Link>

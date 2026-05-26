@@ -1,3 +1,4 @@
+import { EmptyState } from "../EmptyState";
 import { CommunityCard } from "./CommunityCard";
 import { listFeaturedCommunities } from "@/services/communities";
 
@@ -24,12 +25,11 @@ export async function FeaturedCommunities() {
             ))}
           </div>
         ) : (
-          <div className="rounded-lg border border-line bg-card p-8 text-center">
-            <h3 className="text-xl font-bold">No communities yet</h3>
-            <p className="mt-2 text-sm text-muted">
-              Create the first recurring challenge community.
-            </p>
-          </div>
+          <EmptyState
+            title="No communities"
+            titleAccent="yet."
+            description="Be the first to start a recurring challenge community."
+          />
         )}
       </div>
     </section>

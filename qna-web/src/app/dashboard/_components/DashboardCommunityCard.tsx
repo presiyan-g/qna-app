@@ -56,7 +56,7 @@ export function DashboardCommunityCard({
       <div className="mt-5 flex flex-wrap gap-3">
         <Link
           href={`/communities/${community.slug}`}
-          className="rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-paper"
+          className="q-btn q-btn-lake q-btn-md"
         >
           Manage
         </Link>

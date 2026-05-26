@@ -35,16 +35,22 @@ export async function CommentThread({
 
   if (!canRead) {
     return (
-      <section className="rounded-lg border border-dashed border-line bg-card p-5">
+      <section className="rounded-[14px] border border-line bg-card p-5">
         <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
           Discussion
         </p>
         <h2 className="mt-2 text-2xl font-bold">
-          Answer to unlock the discussion
+          Locked until you answer
         </h2>
-        <p className="mt-2 text-sm leading-6 text-muted">
-          The comment thread opens after you submit an answer.
-        </p>
+        {/* Dashed-border callout matches the design's locked-state
+            pattern: the surface itself reads as "wait, this opens
+            once you act" rather than a permanent empty state. */}
+        <div className="mt-4 rounded-[10px] border border-dashed border-line bg-paper px-5 py-6 text-center">
+          <p className="text-sm leading-relaxed text-muted">
+            Comments open the moment you submit your answer.{' '}
+            <span className="serif-italic">No spoilers, no lurkers.</span>
+          </p>
+        </div>
       </section>
     );
   }
@@ -93,9 +99,19 @@ export async function CommentThread({
     <section className="rounded-lg border border-line bg-card p-5">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
-            Discussion
-          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
+              Discussion
+            </p>
+            {/* The "Unlocked" pill is a calm signal that the user
+                earned access by submitting an answer — distinct from
+                a permission/eligibility nudge. */}
+            {canPost && (
+              <span className="q-pill q-pill-soft" aria-label="Unlocked">
+                Unlocked
+              </span>
+            )}
+          </div>
           <h2 className="mt-2 text-2xl font-bold">Question thread</h2>
         </div>
         {!canPost && !isAdmin && (
@@ -127,7 +143,7 @@ export async function CommentThread({
         <div className="mt-6 flex justify-center">
           <Link
             href={`/communities/${slug}/questions/${question.id}?cursor=${encodeURIComponent(page.pagination.nextCursor)}`}
-            className="inline-flex rounded-full border border-line px-5 py-2.5 text-sm font-bold text-ink hover:border-primary hover:text-primary"
+            className="q-btn q-btn-ghost q-btn-md"
           >
             Older comments
           </Link>

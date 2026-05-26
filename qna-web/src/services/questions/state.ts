@@ -20,7 +20,10 @@ export function getQuestionLifecycleState(
   if (!question.scheduledFor && !question.publishedAt && !question.closesAt) {
     return 'draft';
   }
-  if (question.publishedAt && question.publishedAt.getTime() > now.getTime()) {
+  if (
+    (question.publishedAt && question.publishedAt.getTime() > now.getTime()) ||
+    (question.scheduledFor && question.scheduledFor.getTime() > now.getTime())
+  ) {
     return 'scheduled';
   }
   if (question.closesAt && question.closesAt.getTime() <= now.getTime()) {

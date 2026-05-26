@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useActionState, useEffect, useRef, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
+import { Spinner } from '@/app/_components/Spinner';
 import {
   deleteCommentAction,
   postCommentAction,
@@ -81,8 +82,9 @@ export function CommentForm({
         <button
           type="submit"
           disabled={pending}
-          className="rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-paper transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-65"
+          className="q-btn q-btn-lake q-btn-md"
         >
+          {pending && <Spinner />}
           {pending ? 'Posting...' : parentCommentId ? 'Post reply' : 'Post comment'}
         </button>
       </div>
@@ -103,9 +105,11 @@ export function CommentList({
 }) {
   if (comments.length === 0) {
     return (
-      <p className="mt-6 rounded-lg border border-line bg-paper p-4 text-sm leading-6 text-muted">
-        No comments yet.
-      </p>
+      <div className="mt-6 rounded-[10px] border border-dashed border-line bg-paper px-5 py-6 text-center">
+        <p className="text-sm leading-relaxed text-muted">
+          No comments yet. <span className="serif-italic">Be the first.</span>
+        </p>
+      </div>
     );
   }
 
@@ -150,18 +154,23 @@ function CommentItem({
       }
     >
       <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-        <div>
+        <div className="flex flex-wrap items-center gap-2">
           {isDeleted || !comment.author ? (
-            <p className="text-sm font-bold text-ink">[deleted]</p>
+            <span className="text-sm font-bold text-muted">[deleted]</span>
           ) : (
+            // Lake-tinted author chip — auxiliary link, distinct
+            // from the primary "real commit" feel of buttons but
+            // still reads as a clickable identity.
             <Link
               href={`/users/${comment.author.username}`}
-              className="text-sm font-bold text-ink hover:text-primary hover:underline"
+              className="text-[13px] font-bold text-action-lake transition-colors duration-150 ease-out hover:text-action-lake-hover hover:underline"
             >
-              {comment.author.username}
+              @{comment.author.username}
             </Link>
           )}
-          <p className="text-[12px] text-muted">{formatTimestamp(comment.createdAt)}</p>
+          <span className="text-[11px] font-bold uppercase tracking-[0.10em] text-muted">
+            · {formatTimestamp(comment.createdAt)}
+          </span>
         </div>
         {comment.canDelete && (
           <DeleteCommentButton

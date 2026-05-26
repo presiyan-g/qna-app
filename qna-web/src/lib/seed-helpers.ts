@@ -5,7 +5,7 @@ export type Cadence = 'daily' | 'weekly' | 'custom';
 export type QuestionTimeline =
   | { kind: 'closed'; scheduledFor: Date; publishedAt: Date; closesAt: Date }
   | { kind: 'open'; scheduledFor: Date; publishedAt: Date; closesAt: Date }
-  | { kind: 'scheduled'; scheduledFor: Date; publishedAt: null; closesAt: null };
+  | { kind: 'scheduled'; scheduledFor: Date; publishedAt: Date; closesAt: Date };
 
 export function computeQuestionTimeline(args: {
   now: Date;
@@ -35,7 +35,12 @@ export function computeQuestionTimeline(args: {
   const tomorrow = new Date(now);
   tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
   tomorrow.setUTCHours(9, 0, 0, 0);
-  return { kind: 'scheduled', scheduledFor: tomorrow, publishedAt: null, closesAt: null };
+  return {
+    kind: 'scheduled',
+    scheduledFor: tomorrow,
+    publishedAt: new Date(tomorrow.getTime()),
+    closesAt: new Date(tomorrow.getTime() + windowMs),
+  };
 }
 
 const TIER_THRESHOLDS = [0.20, 0.50, 0.80]; // < 0.20 = tier0, < 0.50 = tier1, < 0.80 = tier2, else tier3

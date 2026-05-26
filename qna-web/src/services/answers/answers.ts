@@ -1,5 +1,5 @@
 import 'server-only';
-import { and, asc, eq, isNotNull, isNull } from 'drizzle-orm';
+import { and, asc, count, eq, isNotNull, isNull } from 'drizzle-orm';
 import { db } from '@/db/client';
 import { answers, type Answer } from '@/db/schema/answers';
 import { questionChoices, questions } from '@/db/schema/questions';
@@ -10,7 +10,11 @@ import {
 } from '@/services/admin';
 import { findUserStatusById } from '@/services/auth';
 import { getCommunityBySlug, type CommunityRole } from '@/services/communities';
-import { QuestionNotFoundError } from '@/services/questions';
+import {
+  computeQuestionClosesAt,
+  QuestionNotFoundError,
+  type CommunityCadence,
+} from '@/services/questions';
 import {
   AnswerPermissionError,
   AnswerUnavailableError,
@@ -24,6 +28,26 @@ export type AnswerChoiceResource = {
   imageUrl: string | null;
   position: number;
   isCorrect: boolean | null;
+  /**
+   * How many members picked this choice. Only populated once the
+   * viewer is allowed to see the solution (after they've answered, the
+   * question has closed, or they moderate the community). Null
+   * otherwise so we don't leak distribution before submission.
+   */
+  voteCount: number | null;
+  /**
+   * Share of the total answers this choice received, rounded to the
+   * nearest whole percent. Null when voteCount is null. 0 if there
+   * are zero answers (defensive — should not happen if a viewer is
+   * seeing distribution as a result of their own answer).
+   */
+  votePct: number | null;
+};
+
+export type QuestionVoteDistribution = {
+  totalAnswers: number;
+  /** Map from choiceId → answer count. */
+  countsByChoiceId: Map<string, number>;
 };
 
 export type AnswerResultResource = {
@@ -71,6 +95,33 @@ type QuestionContext = {
   existingAnswer: Answer | null;
 };
 
+/**
+ * Count how many answers have been submitted for each choice on this
+ * question. Used to render the post-answer vote distribution bars.
+ * Cheap: one indexed GROUP BY on (question_id, selected_choice_id).
+ */
+async function getChoiceVoteCounts(
+  questionId: string,
+): Promise<QuestionVoteDistribution> {
+  const rows = await db
+    .select({
+      choiceId: answers.selectedChoiceId,
+      count: count(),
+    })
+    .from(answers)
+    .where(eq(answers.questionId, questionId))
+    .groupBy(answers.selectedChoiceId);
+
+  const countsByChoiceId = new Map<string, number>();
+  let totalAnswers = 0;
+  for (const row of rows) {
+    const n = Number(row.count);
+    countsByChoiceId.set(row.choiceId, n);
+    totalAnswers += n;
+  }
+  return { totalAnswers, countsByChoiceId };
+}
+
 type AnswerableQuestion = typeof questions.$inferSelect & {
   scheduledFor: Date;
   closesAt: Date;
@@ -93,7 +144,8 @@ export async function getQuestionDetail({
     loadQuestionContext({ slug, questionId, userId, platformRole }),
     findUserStatusById(userId),
   ]);
-  return toQuestionDetail(context, now, status === 'suspended');
+  const detail = toQuestionDetail(context, now, status === 'suspended');
+  return withVoteDistribution(detail);
 }
 
 export async function submitQuestionAnswer({
@@ -153,7 +205,33 @@ export async function submitQuestionAnswer({
     .returning();
 
   const answer = created ?? (await getExistingAnswer(context.question.id, userId));
-  return toQuestionDetail({ ...context, existingAnswer: answer }, now, false);
+  const detail = toQuestionDetail({ ...context, existingAnswer: answer }, now, false);
+  return withVoteDistribution(detail);
+}
+
+/**
+ * Decorate choices with voteCount / votePct, but only when the viewer
+ * is entitled to see the solution. We intentionally compute this AFTER
+ * toQuestionDetail so the gate (`canSeeSolution`) is authoritative —
+ * never leak the distribution to a member who hasn't submitted yet.
+ */
+async function withVoteDistribution(
+  detail: QuestionDetail,
+): Promise<QuestionDetail> {
+  if (!detail.canSeeSolution) return detail;
+  const { totalAnswers, countsByChoiceId } = await getChoiceVoteCounts(
+    detail.id,
+  );
+  // Defensive: if nobody has answered yet (e.g. a moderator viewing
+  // before submissions), surface zeros / 0% so the UI can still render
+  // the empty distribution instead of falling back to the null branch.
+  const choices = detail.choices.map((choice) => {
+    const voteCount = countsByChoiceId.get(choice.id) ?? 0;
+    const votePct =
+      totalAnswers > 0 ? Math.round((voteCount / totalAnswers) * 100) : 0;
+    return { ...choice, voteCount, votePct };
+  });
+  return { ...detail, choices };
 }
 
 async function loadQuestionContext({
@@ -182,12 +260,14 @@ async function loadQuestionContext({
         eq(questions.communityId, community.id),
         isNull(questions.deletedAt),
         isNotNull(questions.scheduledFor),
-        isNotNull(questions.closesAt),
       ),
     )
     .limit(1);
   if (!question) throw new QuestionNotFoundError();
-  const answerableQuestion = toAnswerableQuestion(question);
+  const answerableQuestion = toAnswerableQuestion(
+    question,
+    community.cadence as CommunityCadence,
+  );
 
   const [choices, existingAnswer] = await Promise.all([
     db
@@ -209,11 +289,22 @@ async function loadQuestionContext({
 
 function toAnswerableQuestion(
   question: typeof questions.$inferSelect,
+  cadence: CommunityCadence,
 ): AnswerableQuestion {
-  if (!question.scheduledFor || !question.closesAt || question.deletedAt) {
+  if (!question.scheduledFor || question.deletedAt) {
     throw new QuestionNotFoundError();
   }
-  return question as AnswerableQuestion;
+  return {
+    ...question,
+    scheduledFor: question.scheduledFor,
+    closesAt:
+      question.closesAt ??
+      computeQuestionClosesAt({
+        cadence,
+        scheduledFor: question.scheduledFor,
+        requestedClosesAt: null,
+      }),
+  };
 }
 
 async function getExistingAnswer(
@@ -313,5 +404,10 @@ function toChoiceResource(
     imageUrl: choice.imageUrl,
     position: choice.position,
     isCorrect: canSeeSolution ? choice.isCorrect : null,
+    // Vote distribution is filled in by withVoteDistribution() after
+    // toQuestionDetail. Leaving these null here is the correct default
+    // for any code path that bypasses the decorator.
+    voteCount: null,
+    votePct: null,
   };
 }

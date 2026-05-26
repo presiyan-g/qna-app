@@ -1,5 +1,6 @@
 'use client';
 
+import { Upload } from 'lucide-react';
 import { useId, useRef, useState } from 'react';
 import {
   requestImageUploadAction,
@@ -125,13 +126,9 @@ export function ImageUploader({
           />
           <label
             htmlFor={inputId}
-            className={`inline-flex cursor-pointer items-center gap-2 rounded-full border border-line bg-paper px-4 py-2 text-[13px] font-semibold text-ink transition hover:border-primary hover:text-primary ${
-              busy ? 'pointer-events-none opacity-60' : ''
-            }`}
+            className={`q-btn q-btn-ghost q-btn-sm ${busy ? 'pointer-events-none opacity-60' : ''}`}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
-              <path d="M12 16V4m0 0l-4 4m4-4l4 4M4 20h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            <Upload size={14} strokeWidth={1.8} aria-hidden />
             Choose image
           </label>
         </div>

@@ -70,15 +70,22 @@ export function CommunityTabs({
       <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-1 sm:border-b sm:border-line">
       {tabs.map((tab) => {
         const active = tab.isActive(pathname, slug);
+        // The Edit tab is moderator-only and not a content view —
+        // tint it lake so it reads as an auxiliary action rather than
+        // sitting in the row of primary content tabs.
+        const isEditTab = tab.key === 'edit';
+        const baseClass = active
+          ? isEditTab
+            ? 'border-action-lake bg-action-lake text-paper sm:border-b-2 sm:bg-transparent sm:text-action-lake'
+            : 'border-primary bg-primary text-paper sm:border-b-2 sm:bg-transparent sm:text-primary'
+          : isEditTab
+            ? 'border-line bg-card text-action-lake hover:border-action-lake/40 hover:text-action-lake-hover sm:border-b-2 sm:border-transparent'
+            : 'border-line bg-card text-muted hover:border-primary/40 hover:text-ink sm:border-b-2 sm:border-transparent';
         return (
           <Link
             key={tab.key}
             href={tab.href(slug)}
-            className={`flex min-h-11 items-center justify-center gap-2 rounded-lg border px-3 py-2 text-center text-sm font-semibold transition-colors sm:min-h-0 sm:shrink-0 sm:justify-start sm:rounded-none sm:border-x-0 sm:border-t-0 sm:bg-transparent sm:px-4 sm:py-3 sm:text-left ${
-              active
-                ? 'border-primary bg-primary text-paper sm:border-b-2 sm:text-primary'
-                : 'border-line bg-card text-muted hover:border-primary/40 hover:text-ink sm:border-b-2 sm:border-transparent'
-            }`}
+            className={`flex min-h-11 items-center justify-center gap-2 rounded-lg border px-3 py-2 text-center text-sm font-semibold transition-colors sm:min-h-0 sm:shrink-0 sm:justify-start sm:rounded-none sm:border-x-0 sm:border-t-0 sm:bg-transparent sm:px-4 sm:py-3 sm:text-left ${baseClass}`}
           >
             {tab.label}
             {typeof tab.count === 'number' && (

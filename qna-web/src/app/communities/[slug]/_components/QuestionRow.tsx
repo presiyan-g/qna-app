@@ -41,12 +41,19 @@ export function QuestionRow({
 }
 
 function StateBadge({ state }: { state: string }) {
-  const styles: Record<string, string> = {
-    live: 'bg-primary text-paper',
-    scheduled: 'bg-amber-100 text-amber-900',
-    draft: 'bg-stone-200 text-stone-700',
-    closed: 'bg-primary-soft text-primary',
-    deleted: 'bg-stone-200 text-stone-500',
+  // Map each lifecycle state to a pill variant. Semantics:
+  //   live      → primary  (the open, committing state)
+  //   scheduled → warn     (waiting / not-yet — same family as a
+  //                         time-sensitive heads-up)
+  //   draft     → neutral  (work-in-progress, no urgency)
+  //   closed    → soft     (settled / archival)
+  //   deleted   → neutral
+  const variant: Record<string, string> = {
+    live: 'q-pill-primary',
+    scheduled: 'q-pill-warn',
+    draft: 'q-pill-neutral',
+    closed: 'q-pill-soft',
+    deleted: 'q-pill-neutral',
   };
   const labels: Record<string, string> = {
     live: '● Live',
@@ -57,9 +64,7 @@ function StateBadge({ state }: { state: string }) {
   };
   return (
     <span
-      className={`shrink-0 rounded-full px-3 py-1 text-[11px] font-bold ${
-        styles[state] ?? 'bg-stone-200 text-stone-700'
-      }`}
+      className={`q-pill ${variant[state] ?? 'q-pill-neutral'} shrink-0`}
     >
       {labels[state] ?? state}
     </span>

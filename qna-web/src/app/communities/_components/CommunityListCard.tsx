@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Crown } from 'lucide-react';
 import type { CommunityWithMembership } from '@/services/communities';
 import {
   joinCommunityAction,
@@ -64,7 +65,7 @@ export function CommunityListCard({
                 </p>
               </div>
             </div>
-            <span className="relative z-10 rounded-full bg-primary-soft px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+            <span className="q-chip q-chip-primary relative z-10">
               {formatLabel(community.cadence)}
             </span>
           </header>
@@ -111,51 +112,38 @@ export function CommunityListCard({
 
         <footer className="relative z-10 mt-5 flex items-center gap-2">
           {community.currentUserRole === 'creator' ? (
-            <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted">
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-hidden
-              >
-                <path
-                  d="M3 8l4 3 5-7 5 7 4-3-2 11H5L3 8z"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinejoin="round"
-                />
-              </svg>
+            <span
+              className="inline-flex items-center gap-1.5 text-sm font-semibold"
+              style={{ color: 'var(--color-action-clay-hover)' }}
+            >
+              <Crown size={14} strokeWidth={1.8} aria-hidden />
               Your community
             </span>
           ) : community.currentUserRole === 'member' ? (
             <>
-              <span className="rounded-full bg-primary-soft px-4 py-2 text-sm font-semibold text-primary">
+              <span
+                className="q-pill q-pill-soft"
+                style={{ padding: '8px 18px', fontSize: 13 }}
+                aria-label="You have joined this community"
+              >
                 Joined
               </span>
               <form action={leaveAction}>
-                <button
-                  type="submit"
-                  className="rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink hover:border-primary hover:text-primary"
-                >
+                {/* Leave is ghost — quiet, reversible. */}
+                <button type="submit" className="q-btn q-btn-ghost q-btn-md">
                   Leave
                 </button>
               </form>
             </>
           ) : signedIn ? (
             <form action={joinAction}>
-              <button
-                type="submit"
-                className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-paper transition-colors hover:brightness-95"
-              >
+              {/* Join is clay — secondary positive commit. */}
+              <button type="submit" className="q-btn q-btn-clay q-btn-md">
                 Join
               </button>
             </form>
           ) : (
-            <Link
-              href="/login"
-              className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-paper transition-colors hover:brightness-95"
-            >
+            <Link href="/login" className="q-btn q-btn-clay q-btn-md">
               Sign in to join
             </Link>
           )}
