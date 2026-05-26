@@ -34,17 +34,12 @@ type Props = {
  *   patchy support for animation across browsers.
  * - Body scroll is locked while open so the modal feels modal —
  *   restored on close even if the user navigates away.
- * - We track `mounted` so we only call createPortal on the client
- *   (document is undefined during SSR).
+ * - The portal is only created after the dialog is opened, which only happens
+ *   in the browser.
  */
 export function ShareCardModal({ community, prompt, choice }: Props) {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -64,7 +59,7 @@ export function ShareCardModal({ community, prompt, choice }: Props) {
   }, [open]);
 
   const overlay =
-    open && mounted ? (
+    open ? (
       <div
         className="q-modal-backdrop"
         onClick={() => setOpen(false)}
