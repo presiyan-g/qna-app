@@ -6,6 +6,7 @@ import {
 } from '@/services/auth';
 import { listQuestionNotifications } from '@/services/notifications';
 import { MobileMenu } from './MobileMenu';
+import { NotificationsBellMenu } from './NotificationsBellMenu';
 import { UserMenu } from './UserMenu';
 
 const LANDING_NAV_LINKS = [
@@ -78,11 +79,15 @@ export async function Nav() {
           )}
         </div>
 
-        <MobileMenu
-          links={links}
-          username={user?.username ?? null}
-          notifications={notifications}
-        />
+        <div className="flex items-center gap-2 md:hidden">
+          {user ? (
+            <NotificationsBellMenu
+              items={notifications.items}
+              unreadCount={notifications.unreadCount}
+            />
+          ) : null}
+          <MobileMenu links={links} username={user?.username ?? null} />
+        </div>
       </div>
     </header>
   );

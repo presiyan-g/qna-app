@@ -90,7 +90,7 @@ export function NotificationsBellMenu({
       {open ? (
         <div
           role="menu"
-          className="absolute right-0 top-full z-20 mt-2 w-[360px] overflow-hidden rounded-xl border border-line bg-paper shadow-[0_18px_40px_-22px_rgba(31,64,50,0.28)]"
+          className="fixed inset-x-4 top-[72px] z-20 overflow-hidden rounded-xl border border-line bg-paper shadow-[0_18px_40px_-22px_rgba(31,64,50,0.28)] md:absolute md:inset-x-auto md:right-0 md:top-full md:mt-2 md:w-[360px]"
         >
           <header className="border-b border-line px-4 py-3">
             <p className="text-sm font-semibold text-ink">Notifications</p>
