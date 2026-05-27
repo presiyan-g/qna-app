@@ -12,6 +12,7 @@ import {
   type CommunityWithMembership,
 } from '@/services/communities';
 import { QuestionNotFoundError } from '@/services/questions';
+import { parseInlineEmphasis } from '@/lib/inline-emphasis';
 import { AnswerForm } from './_components/AnswerForm';
 import { CommentThread } from './_components/CommentThread';
 import { DeleteQuestionButton } from './_components/DeleteQuestionButton';
@@ -86,8 +87,8 @@ export default async function QuestionDetailPage({
                 long-form prompts: 20px mobile → 28px desktop, with
                 leading-snug (1.375) for comfortable multi-line flow.
                 text-balance evens out line breaks. */}
-            <h1 className="mt-3 text-[20px] font-bold leading-snug tracking-[-0.01em] text-balance sm:text-[22px] md:text-[24px] lg:text-[28px]">
-              {question.prompt}
+            <h1 className="mt-3 text-[20px] font-normal leading-snug text-balance sm:text-[22px] md:text-[24px] lg:text-[28px]">
+              <InlineEmphasisText text={question.prompt} />
             </h1>
           </div>
           <div className="shrink-0 text-sm text-muted sm:text-right">
@@ -164,6 +165,18 @@ export default async function QuestionDetailPage({
 function firstParam(value: string | string[] | undefined): string | undefined {
   if (Array.isArray(value)) return value[0];
   return value;
+}
+
+function InlineEmphasisText({ text }: { text: string }) {
+  return parseInlineEmphasis(text).map((segment, index) =>
+    segment.emphasized ? (
+      <strong key={index} className="font-bold">
+        {segment.text}
+      </strong>
+    ) : (
+      <span key={index}>{segment.text}</span>
+    ),
+  );
 }
 
 function PermissionScreen({

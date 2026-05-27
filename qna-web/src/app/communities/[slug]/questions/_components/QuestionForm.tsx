@@ -156,7 +156,7 @@ function CreateQuestionForm({
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             aria-invalid={state.fieldErrors?.prompt ? 'true' : undefined}
-            className="resize-none rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className="resize-none rounded-lg border border-line bg-card px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             placeholder="What should members answer?"
           />
         </FieldError>
@@ -175,7 +175,7 @@ function CreateQuestionForm({
             value={explanation}
             onChange={(e) => setExplanation(e.target.value)}
             aria-invalid={state.fieldErrors?.explanation ? 'true' : undefined}
-            className="resize-none rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className="resize-none rounded-lg border border-line bg-card px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             placeholder="Why is the correct answer correct?"
           />
         </FieldError>
@@ -207,7 +207,7 @@ function CreateQuestionForm({
             type="datetime-local"
             defaultValue=""
             aria-invalid={state.fieldErrors?.scheduledFor ? 'true' : undefined}
-            className="rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className="rounded-lg border border-line bg-card px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
           />
         </FieldError>
 
@@ -233,7 +233,7 @@ function CreateQuestionForm({
             type="datetime-local"
             defaultValue=""
             aria-invalid={state.fieldErrors?.closesAt ? 'true' : undefined}
-            className="rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className="rounded-lg border border-line bg-card px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
           />
         </FieldError>
 
@@ -448,7 +448,7 @@ const QuestionFields = function QuestionFields({
           rows={4}
           defaultValue={prompt}
           aria-invalid={state.fieldErrors?.prompt ? 'true' : undefined}
-          className="resize-none rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+          className="resize-none rounded-lg border border-line bg-card px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
           placeholder="What should members answer?"
         />
       </FieldError>
@@ -466,7 +466,7 @@ const QuestionFields = function QuestionFields({
           rows={4}
           defaultValue={explanation}
           aria-invalid={state.fieldErrors?.explanation ? 'true' : undefined}
-          className="resize-none rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+          className="resize-none rounded-lg border border-line bg-card px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
           placeholder="Why is the correct answer correct?"
         />
       </FieldError>
@@ -498,7 +498,7 @@ const QuestionFields = function QuestionFields({
           type="datetime-local"
           defaultValue={toDatetimeLocalValue(scheduledFor)}
           aria-invalid={state.fieldErrors?.scheduledFor ? 'true' : undefined}
-          className="rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+          className="rounded-lg border border-line bg-card px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
         />
       </FieldError>
 
@@ -524,7 +524,7 @@ const QuestionFields = function QuestionFields({
           type="datetime-local"
           defaultValue={toDatetimeLocalValue(closesAt)}
           aria-invalid={state.fieldErrors?.closesAt ? 'true' : undefined}
-          className="rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+          className="rounded-lg border border-line bg-card px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
         />
       </FieldError>
 

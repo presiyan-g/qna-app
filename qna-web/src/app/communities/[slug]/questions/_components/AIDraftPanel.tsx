@@ -110,7 +110,7 @@ export function AIDraftPanel({
               if (error) setError(null);
             }}
             placeholder="What should this question be about? (optional)"
-            className="mt-1 w-full resize-none rounded-lg border border-line bg-paper px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className="mt-1 w-full resize-none rounded-lg border border-line bg-card px-3.5 py-2.5 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
           />
           <label className="mt-2 flex items-center gap-2 text-[12px] text-muted">
             <input
