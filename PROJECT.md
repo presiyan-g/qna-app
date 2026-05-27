@@ -2,13 +2,25 @@
 
 ---
 
+## 0. Status (2026-05-26)
+
+The product is branded **Quorum** and v1 has shipped.
+
+- Web app live: <https://qna-app-quorum-web.vercel.app>
+- Mobile web export live: <https://qna-app-quorum-mobile.vercel.app>
+- GitHub: <https://github.com/presiyan-g/qna-app>
+
+Everything under "Must-have for v1" in section 4 is implemented. The "Nice-to-have for v1" items that landed are called out inline. v2 items remain out of scope. Anything later than v1 is tracked here as a forward-looking note, not a current commitment.
+
+---
+
 ## 1. Product summary
 
-We are building a platform for **scheduled Q&A communities**.
+Quorum is a platform for **scheduled Q&A communities**.
 
 A community creator can create a niche community, schedule recurring questions, let members answer, show instant grading with explanations, unlock discussion after answering, and maintain leaderboards.
 
-The seed community for launch is **Daily AI Builders** — a community about Claude Code, Codex, MCP, vibe coding, AI agents, and full-stack AI development. The platform should still support any niche community from day one.
+The seed community for launch is **Daily AI Builders** — a community about Claude Code, Codex, MCP, vibe coding, AI agents, and full-stack AI development. The platform still supports any niche community from day one (seed ships with ~20 example communities spanning chess, CSS, markets, biotech, law, product design, security, data visualization, and more).
 
 ---
 
@@ -72,41 +84,56 @@ A user can be a normal platform member globally, but a creator inside one commun
 
 ## 4. MVP feature scope
 
-### Must-have for v1
+### Must-have for v1 — all shipped
 
-- Register / login / logout
-- Public landing page
-- Browse communities
-- Create community
-- Join community
-- Community home page
-- Scheduled multiple-choice questions
-- Image support for questions and choices
-- Answer submission
-- Instant grading
-- Explanation after answer
-- Comments unlocked after answer
-- Public leaderboard
-- Creator dashboard
-- Basic broadcast posts
-- Platform admin panel
-- Mobile app for answering questions, viewing communities, leaderboard, and profile
+- [x] Register / login / logout
+- [x] Public landing page
+- [x] Browse communities (paginated directory)
+- [x] Create community
+- [x] Join / leave community
+- [x] Community home page (multi-tab: questions, broadcasts, leaderboard, about)
+- [x] Scheduled multiple-choice questions
+- [x] Image support for questions and choices (uploaded to Cloudflare R2)
+- [x] Answer submission
+- [x] Instant grading
+- [x] Explanation after answer
+- [x] Comments unlocked after answer (cursor-paginated, one level of replies, soft delete)
+- [x] Public leaderboard (7-day, 30-day, all-time windows)
+- [x] Creator dashboard (cross-community hub + per-community management)
+- [x] Basic broadcast posts (cursor-paginated feed)
+- [x] Platform admin panel (users, communities, audit log)
+- [x] Mobile app for answering questions, viewing communities, leaderboard, and profile
 
-Creator dashboard v1:
+Creator dashboard v1 — shipped:
 
 - `/dashboard` is the cross-community creator hub.
 - `/dashboard/communities/[slug]` is the per-community question management route.
 - Creators can save draft questions, schedule drafts, edit unpublished questions, and soft-delete unpublished questions.
 - Published questions are view-only in the dashboard.
-- Member management, community settings, analytics, dashboard broadcast management, mobile dashboard UI, and platform admin are separate slices.
+- Member management, community settings, analytics, dashboard broadcast management, mobile dashboard UI, and platform admin are separate slices (most landed in the v1 timeframe — see "Beyond the original v1 list" below).
 
 ### Nice-to-have for v1
 
-- AI question draft generation
-- Anonymous leaderboard mode
-- Streak display
-- Question difficulty tags
-- Basic question stats
+- [x] AI question draft generation (creator-only, via OpenRouter — see section 5)
+- [x] Streak display (per-community streak ribbon on profile, 30-day heatmap)
+- [x] Cover image upload for communities and question images (via Cloudflare R2)
+- [ ] Anonymous leaderboard mode — not shipped
+- [ ] Question difficulty tags — used in AI seed generation but not stored on the question row
+- [ ] Basic question stats — vote distribution per choice is shown after answering; aggregate dashboards are deferred
+
+### Beyond the original v1 list (also shipped)
+
+These weren't in the original v1 must-have list but landed during the v1 cycle:
+
+- Community archiving (soft-archive flag, creator-only).
+- Community cover images and emojis, plus a featured/directory ranking signal used by the landing page and the browse route.
+- Community categories (seeded taxonomy) and category filtering in the directory.
+- Vote distribution per choice, shown after a member submits.
+- Notifications surface (bell menu) and per-user "last seen" markers for broadcasts and notifications.
+- Admin audit logs (`admin_audit_logs` table) for every admin action.
+- AI usage tracking and per-user quota (`ai_usage` table).
+- Cursor pagination on comments and broadcasts; offset pagination on the rest of the list endpoints.
+- Public REST mirror of the web data model for the Expo client (`/api/auth`, `/api/communities`, `/api/users/[username]`, etc.).
 
 ### Out of scope for v1
 
@@ -184,21 +211,27 @@ Profile v1:
 
 ## 7. Database model
 
-Core tables:
+Tables actually in `qna-web/src/db/schema/` as of v1 (11 tables, 16 Drizzle migrations):
 
-- `users`
-- `communities`
-- `community_members`
-- `questions`
-- `question_choices`
-- `answers`
-- `comments`
-- `broadcast_posts`
-- `scores`
-- `media_files`
-- `ai_question_drafts`
+- `users` — id, email, username, password_hash, role (`member` | `admin`), status (`active` | `suspended`), timestamps.
+- `communities` — id, creator_user_id, category_id, slug, name, description, emoji, cover_image_url, cadence (`daily` | `weekly` | `custom`), status (`active` | `archived`), is_featured, featured_rank, directory_rank, timestamps.
+- `community_categories` — id, slug, name, description, timestamps.
+- `community_members` — id, community_id, user_id, role (`member` | `creator`), joined_at, last_seen_broadcasts_at, timestamps.
+- `questions` — id, community_id, creator_user_id, prompt, explanation, image_url, scheduled_for, published_at, closes_at, deleted_at (soft delete), time_zone, points, timestamps.
+- `question_choices` — id, question_id, label, image_url, is_correct, position, timestamps.
+- `answers` — id, question_id, user_id, selected_choice_id, is_correct, is_late, points_awarded, answered_at, timestamps.
+- `comments` — id, question_id, author_user_id, parent_comment_id (one level of nesting), body, deleted_at (soft delete), timestamps.
+- `broadcast_posts` — id, community_id, author_user_id, body, image_url, published_at, deleted_at (soft delete), timestamps.
+- `admin_audit_logs` — id, actor_user_id, action, target_user_id, target_community_id, reason, created_at.
+- `ai_usage` — id, user_id, model, web_search, input_tokens, output_tokens, success, error_code, created_at.
 
-The schema should support users, roles, communities, scheduled questions, answers, scoring, comments, broadcasts, images, and AI-generated drafts.
+Indexes cover slug lookups, member uniqueness, the scheduling window, the (community, published_at desc) feed, the (question, created_at) comment thread, and the audit/usage trails.
+
+Notes vs. the original v1 list:
+
+- The originally proposed `scores` table was dropped — leaderboards derive directly from `answers.points_awarded`, which keeps a single source of truth.
+- The originally proposed `media_files` table was dropped — image URLs live on the rows that need them (`communities.cover_image_url`, `questions.image_url`, `question_choices.image_url`, `broadcast_posts.image_url`). R2 holds the bytes.
+- `ai_question_drafts` was not materialized as a table — drafts return inline from the OpenRouter call and are committed by the creator into the normal `questions` / `question_choices` rows.
 
 ---
 
