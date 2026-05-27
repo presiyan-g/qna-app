@@ -219,17 +219,14 @@ export default function CommunityDetailScreen() {
             </View>
 
             <View style={styles.tabsWrapper}>
-              <ScrollView
-                horizontal
-                contentContainerStyle={styles.tabs}
-                showsHorizontalScrollIndicator={false}
-              >
+              <View style={styles.tabs}>
                 {TABS.map((tab) => {
                   const active = activeTab === tab.value;
                   return (
                     <Pressable
                       key={tab.value}
                       accessibilityRole="button"
+                      accessibilityState={{ selected: active }}
                       onPress={() => setActiveTab(tab.value)}
                       style={[styles.tabButton, active ? styles.activeTabButton : null]}
                     >
@@ -239,7 +236,7 @@ export default function CommunityDetailScreen() {
                     </Pressable>
                   );
                 })}
-              </ScrollView>
+              </View>
             </View>
 
             <TabPanel activeTab={activeTab} community={community} />
@@ -820,32 +817,36 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   tabsWrapper: {
-    borderBottomColor: palette.line,
-    borderBottomWidth: 1,
+    backgroundColor: palette.card,
+    borderColor: palette.line,
+    borderRadius: 999,
+    borderWidth: 1,
+    padding: 4,
   },
   tabs: {
     flexDirection: 'row',
-    gap: 4,
-    paddingRight: 20,
+    gap: 3,
   },
   tabButton: {
-    borderBottomColor: 'transparent',
-    borderBottomWidth: 2,
-    marginBottom: -1,
-    paddingHorizontal: 14,
-    paddingVertical: 11,
+    alignItems: 'center',
+    borderRadius: 999,
+    flex: 1,
+    justifyContent: 'center',
+    minHeight: 44,
+    paddingHorizontal: 4,
   },
   activeTabButton: {
-    borderBottomColor: palette.primary,
+    backgroundColor: palette.primary,
   },
   tabText: {
     color: palette.muted,
     fontFamily: fonts.sans,
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: '700',
+    textAlign: 'center',
   },
   activeTabText: {
-    color: palette.primary,
+    color: palette.paper,
     fontWeight: '800',
   },
   panel: {
